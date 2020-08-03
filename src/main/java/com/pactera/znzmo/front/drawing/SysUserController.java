@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.pactera.znzmo.homepage;
+package com.pactera.znzmo.front.drawing;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -22,6 +22,7 @@ import com.pactera.znzmo.vo.HttpResult;
 @RestController
 @RequestMapping("user")
 public class SysUserController {
+	
 	@Autowired
 	private SysUserService sysUserService;
 
