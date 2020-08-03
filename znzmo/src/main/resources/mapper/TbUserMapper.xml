@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pactera.znzmo.mapper.TbUserMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.pactera.znzmo.entity.TbUser">
+        <id column="id" property="id" />
+        <result column="user_name" property="userName" />
+        <result column="real_name" property="realName" />
+        <result column="password" property="password" />
+        <result column="logourl" property="logourl" />
+        <result column="sex" property="sex" />
+        <result column="birthday" property="birthday" />
+        <result column="mobile" property="mobile" />
+        <result column="home_phone" property="homePhone" />
+        <result column="email" property="email" />
+        <result column="qq_id" property="qqId" />
+        <result column="wechat_id" property="wechatId" />
+        <result column="alipay_id" property="alipayId" />
+        <result column="creat_id" property="creatId" />
+        <result column="creat_date" property="creatDate" />
+        <result column="update_id" property="updateId" />
+        <result column="update_date" property="updateDate" />
+        <result column="last_login_time" property="lastLoginTime" />
+        <result column="last_login_ip" property="lastLoginIp" />
+        <result column="is_valid" property="isValid" />
+    </resultMap>
+
+</mapper>
