@@ -1,4 +1,4 @@
-package com.pactera.znzmo.util;
+package com.pactera.znzmo.mybatis;
 
 import com.baomidou.mybatisplus.core.exceptions.MybatisPlusException;
 import com.baomidou.mybatisplus.core.toolkit.StringPool;
