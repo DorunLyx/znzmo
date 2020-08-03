@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pactera.znzmo.banner.dao.TbBannerMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.pactera.znzmo.banner.TbBanner">
+        <id column="id" property="id" />
+        <result column="status" property="status" />
+        <result column="sort" property="sort" />
+        <result column="type" property="type" />
+        <result column="start_time" property="startTime" />
+        <result column="end_time" property="endTime" />
+        <result column="attachment_id" property="attachmentId" />
+        <result column="is_valid" property="isValid" />
+        <result column="create_id" property="createId" />
+        <result column="create_account" property="createAccount" />
+        <result column="create_name" property="createName" />
+        <result column="create_time" property="createTime" />
+        <result column="update_id" property="updateId" />
+        <result column="update_account" property="updateAccount" />
+        <result column="update_name" property="updateName" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+</mapper>

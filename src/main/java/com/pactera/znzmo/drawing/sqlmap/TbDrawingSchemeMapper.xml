@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.pactera.znzmo.drawing.dao.TbDrawingSchemeMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="com.pactera.znzmo.drawing.TbDrawingScheme">
+        <id column="id" property="id" />
+        <result column="main_graph" property="mainGraph" />
+        <result column="code" property="code" />
+        <result column="class_name" property="className" />
+        <result column="style_name" property="styleName" />
+        <result column="class_id" property="classId" />
+        <result column="name" property="name" />
+        <result column="label" property="label" />
+        <result column="style_id" property="styleId" />
+        <result column="design_time" property="designTime" />
+        <result column="location" property="location" />
+        <result column="famous_collection" property="famousCollection" />
+        <result column="intentionl_price" property="intentionlPrice" />
+        <result column="version" property="version" />
+        <result column="status" property="status" />
+        <result column="visits_num" property="visitsNum" />
+        <result column="download_num" property="downloadNum" />
+        <result column="is_valid" property="isValid" />
+        <result column="create_id" property="createId" />
+        <result column="create_account" property="createAccount" />
+        <result column="create_name" property="createName" />
+        <result column="create_time" property="createTime" />
+        <result column="update_id" property="updateId" />
+        <result column="update_account" property="updateAccount" />
+        <result column="update_name" property="updateName" />
+        <result column="update_time" property="updateTime" />
+    </resultMap>
+
+</mapper>
