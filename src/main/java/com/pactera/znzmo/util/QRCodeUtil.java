@@ -1,0 +1,42 @@
+package com.pactera.znzmo.util;
+
+import com.google.zxing.BarcodeFormat;
+import com.google.zxing.EncodeHintType;
+import com.google.zxing.MultiFormatWriter;
+import com.google.zxing.WriterException;
+import com.google.zxing.common.BitMatrix;
+
+import java.util.HashMap;
+import java.util.Map;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
+/**
+ * 生成二维码图片流
+ *
+ * @author zhu
+ *
+ */
+public class QRCodeUtil {
+	
+	private static final Logger logger = LoggerFactory.getLogger(QRCodeUtil.class);
+
+    public static BitMatrix generateQRCodeStream(String content) {
+        //设置图片的文字编码以及内边框
+        Map<EncodeHintType, Object> hints = new HashMap<>();
+        //编码
+        hints.put(EncodeHintType.CHARACTER_SET, "UTF-8");
+        //边框距
+        hints.put(EncodeHintType.MARGIN, 0);
+        BitMatrix bitMatrix;
+        try {
+            //参数分别为：编码内容、编码类型、图片宽度、图片高度，设置参数
+            bitMatrix = new MultiFormatWriter().encode(content, BarcodeFormat.QR_CODE, 300, 300,hints);
+        }catch(WriterException e) {
+        	logger.error(e.getMessage(),e);
+            return null;
+        }
+        return bitMatrix;
+    }
+}
