@@ -95,19 +95,19 @@ public class DownloadController {
     public JsonResult checkDowloadFile(HttpServletRequest request, HttpServletResponse response,String filePath) throws Exception {
     	filePath = URLDecoder.decode(filePath,"UTF-8");
         if (filePath == null || filePath.isEmpty()) {
-            return JsonResult.errorResult("文件不存在!");
+            return JsonResult.fail("1001", "文件不存在!");
         }
         if (filePath.lastIndexOf("/") == -1) {
-            return JsonResult.errorResult("文件路径格式错误!");
+            return JsonResult.fail("1002", "文件路径格式错误!");
         }
         String realPath = FileUtils.getRealPath(request);
         String fileDirPath = realPath +"/"+ filePath;
         File f = new File(fileDirPath);
         if (!f.exists()) {
-            return JsonResult.errorResult("文件已被删除!");
+            return JsonResult.fail("1003", "文件已被删除!");
         }
         
-        return JsonResult.successResult();
+        return JsonResult.ok();
     }
     
     /**
@@ -125,17 +125,17 @@ public class DownloadController {
     		@ApiParam(name="downloadExcelParam", value="下载参数", required=false)@RequestBody DownloadExcelParam downloadExcelParam) {
 		try {
 			if("1".equals(downloadExcelParam.getType())) {
-		    	return JsonResult.successResult(getUrl(5));
+		    	return JsonResult.ok(getUrl(5));
 			}else if ("2".equals(downloadExcelParam.getType())) {
-				return JsonResult.successResult(getUrl(6));
+				return JsonResult.ok(getUrl(6));
 			}else if ("3".equals(downloadExcelParam.getType())) {
-				return JsonResult.successResult(getUrl(7));
+				return JsonResult.ok(getUrl(7));
 			}else {
-				return JsonResult.successResult(getUrl(8));
+				return JsonResult.ok(getUrl(8));
 			}
 		} catch (Exception e) {
 			logger.error(e.getMessage(),e);
-			return JsonResult.errorResult(JsonResultEnum.fail.getValue());
+			return JsonResult.fail(String.valueOf(JsonResultEnum.fail.getKey()), JsonResultEnum.fail.getValue());
 		}
     }
     

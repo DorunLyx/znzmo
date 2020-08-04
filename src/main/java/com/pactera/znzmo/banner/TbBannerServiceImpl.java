@@ -1,9 +1,13 @@
 package com.pactera.znzmo.banner;
 
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.pactera.znzmo.banner.dao.TbBannerMapper;
+import com.pactera.znzmo.vo.HomePageListVO;
+import com.pactera.znzmo.vo.HomePageQueryParam;
 
 /**
  * <p>
@@ -15,5 +19,12 @@ import com.pactera.znzmo.banner.dao.TbBannerMapper;
  */
 @Service
 public class TbBannerServiceImpl extends ServiceImpl<TbBannerMapper, TbBanner> implements TbBannerService {
+
+	@Override
+	@Transactional(readOnly=true)
+	public IPage<HomePageListVO> selectHomePages(HomePageQueryParam homePageQueryParam) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }
