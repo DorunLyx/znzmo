@@ -1,5 +1,7 @@
 package com.pactera.znzmo.sysuser.dao;
 
+import java.util.List;
+
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.pactera.znzmo.sysuser.TbAuth;
 
@@ -12,5 +14,10 @@ import com.pactera.znzmo.sysuser.TbAuth;
  * @since 2020-08-03
  */
 public interface TbAuthMapper extends BaseMapper<TbAuth> {
-
+	/**
+	 * 查询全部权限
+	 * 
+	 * @return
+	 */
+	List<TbAuth> selectAll();
 }

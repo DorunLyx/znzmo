@@ -1,5 +1,7 @@
 package com.pactera.znzmo.sysuser;
 
+import java.util.List;
+
 import com.baomidou.mybatisplus.extension.service.IService;
 
 /**
@@ -11,5 +13,18 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2020-08-03
  */
 public interface TbAuthService extends IService<TbAuth> {
+	/**
+	 * 根据用户ID查找权限
+	 * 
+	 * @param userId
+	 * @return
+	 */
+	TbAuth findByAuthId(Long authId);
 
+	/**
+	 * 查找所有权限
+	 * 
+	 * @return
+	 */
+	List<TbAuth> findAll();
 }
