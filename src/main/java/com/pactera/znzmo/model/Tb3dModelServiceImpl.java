@@ -2,9 +2,12 @@ package com.pactera.znzmo.model;
 
 import org.springframework.stereotype.Service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.github.pagehelper.util.StringUtil;
+import com.pactera.znzmo.enums.IsValidEnum;
 import com.pactera.znzmo.model.dao.Tb3dModelMapper;
 import com.pactera.znzmo.vo.ModelQueryParam;
 
@@ -21,8 +24,13 @@ public class Tb3dModelServiceImpl extends ServiceImpl<Tb3dModelMapper, Tb3dModel
 
 	@Override
 	public IPage<Tb3dModel> select3DModelPages(Page<Tb3dModel> page, ModelQueryParam modelQueryParam) {
-		// TODO Auto-generated method stub
-		return null;
+		QueryWrapper<Tb3dModel> assetQueryWrapper = new QueryWrapper<>();
+		assetQueryWrapper.eq(Tb3dModel.IS_VALID, IsValidEnum.YES.getKey());
+		if(StringUtil.isNotEmpty(modelQueryParam.getKeyword())) {
+			assetQueryWrapper.like(Tb3dModel.TITLE, modelQueryParam.getKeyword());
+		}
+		assetQueryWrapper.orderByDesc(Tb3dModel.UPDATE_TIME);
+		return baseMapper.selectPage(page,assetQueryWrapper);
 	}
 
 }

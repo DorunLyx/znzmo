@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.pactera.znzmo.mapper.TbDictionaryDataMapper">
+<mapper namespace="com.pactera.znzmo.common.dao.TbDictionaryDataMapper">
 
     <!-- 通用查询映射结果 -->
-    <resultMap id="BaseResultMap" type="com.pactera.znzmo.entity.TbDictionaryData">
+    <resultMap id="BaseResultMap" type="com.pactera.znzmo.common.TbDictionaryData">
         <id column="id" property="id" />
         <result column="code" property="code" />
         <result column="name" property="name" />

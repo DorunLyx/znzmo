@@ -44,7 +44,7 @@ public class ModelApi {
 
 	/**
 	 * @Title: get3DModelList 
-	 * @Description: TODO(这里用一句话描述这个方法的作用)
+	 * @Description: 3D模型查询
 	 * @param homePageQueryParam
 	 * @return JsonResult<IPage<HomePageListVO>>
 	 * @author liyongxu
@@ -60,11 +60,11 @@ public class ModelApi {
         IPage<ModelListVO> modeListPage =  new Page<ModelListVO>(modelQueryParam.getPageNo(), modelQueryParam.getPageSize());
 		try {
 			IPage<Tb3dModel> iPage = tb3dModelService.select3DModelPages(page, modelQueryParam);
-			  for (Tb3dModel tb3dModel : iPage.getRecords()) {
-				  ModelListVO modelListVO = new ModelListVO();
-	    			modelListVO.setAssetId(tb3dModel.getId().toString());
-	    			modelList.add(modelListVO);
-	    		}
+			for (Tb3dModel tb3dModel : iPage.getRecords()) {
+				ModelListVO modelListVO = new ModelListVO();
+				modelListVO.setAssetId(tb3dModel.getId().toString());
+				modelList.add(modelListVO);
+    		}
 			modeListPage.setRecords(modelList);
 			modeListPage.setCurrent(iPage.getCurrent());
 			modeListPage.setPages(iPage.getPages());
