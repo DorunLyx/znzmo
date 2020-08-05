@@ -45,8 +45,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
             .antMatchers("/swagger**/**").permitAll()
             .antMatchers("/webjars/**").permitAll()
             .antMatchers("/v2/**").permitAll()
-            //api地址
-            .antMatchers("/api/**").permitAll()
             // 其他所有请求需要身份认证
             .anyRequest().authenticated();
         // 退出登录处理器
