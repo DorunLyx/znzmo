@@ -16,27 +16,32 @@ import com.pactera.znzmo.util.Constants;
 import com.pactera.znzmo.util.FileUtils;
 import com.pactera.znzmo.util.MediaTypes;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 /**
  * @ClassName：UploadController
- * @Description：TODO(上传文件Controller) 
+ * @Description：上传文件API 
  * @author liyongxu 
- * @date 2018年10月25日 下午4:21:25 
+ * @date 2020年8月5日 上午10:12:30 
  * @version 1.0.0 
  */
+@Api(tags = "上传文件API", value = "上传文件API")
 @Controller
-@RequestMapping(value = "/upload")
+@RequestMapping(value = "/api/upload")
 public class UploadController {
 	
-   /**
+	/**
 	 * @Title: uploadrequestfile 
-	 * @Description: TODO(上传文件)
+	 * @Description: 上传文件
 	 * @param file
 	 * @param request
 	 * @param response
 	 * @throws Exception void
 	 * @author liyongxu
-	 * @date 2018年10月25日 下午4:21:45 
+	 * @date 2020年8月5日 上午10:12:47 
 	*/
+	@ApiOperation(value = "公共上传文件", httpMethod = "POST", notes = "公共上传文件")
 	@RequestMapping(value = "/file", method = RequestMethod.POST)
 	public void uploadrequestfile(@RequestParam MultipartFile file,HttpServletRequest request, HttpServletResponse response) throws Exception {
 	   response.setContentType(MediaTypes.TEXT_HTML_UTF_8);

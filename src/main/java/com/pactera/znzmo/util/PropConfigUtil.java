@@ -1,12 +1,4 @@
-/**
- * 项目名：华远OA
- * 包名：com.guanyu.common.utils
- * 文件名：PropertiesUtils.java
- * 版本信息：1.0.0
- * 日期：2019年10月8日-下午6:13:41
- * Copyright (c) 2019 Pactera 版权所有
- */
- package com.pactera.znzmo.util;
+package com.pactera.znzmo.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -39,7 +31,7 @@ public class PropConfigUtil {
        InputStream in = null;
        try {
            // 要加载的属性文件
-           in = PropConfigUtil.class.getResourceAsStream("/application.properties");
+           in = PropConfigUtil.class.getResourceAsStream("/application.yml");
            props.load(in);
        } catch (FileNotFoundException e) {
            logger.error("jdbc.properties文件未找到");

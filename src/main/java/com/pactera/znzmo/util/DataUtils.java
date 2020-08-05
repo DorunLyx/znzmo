@@ -1,12 +1,3 @@
-/**
- * 项目名：basewebapp
- * 包名：com.pactera.common.utils
- * 文件名：ValidateUtil.java
- * 版本信息：1.0.0
- * 日期：2016年11月21日-下午12:31:19
- * Copyright (c) 2016Pactera-版权所有
- */
-
 package com.pactera.znzmo.util;
 
 

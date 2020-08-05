@@ -1,12 +1,4 @@
-/**
- * 项目名：泰禾佣金
- * 包名：com.guanyu.common.utils
- * 文件名：IPUtils.java
- * 版本信息：1.0.0
- * 日期：2019年10月8日-下午4:06:51
- * Copyright (c) 2019 Pactera 版权所有
- */
- package com.pactera.znzmo.util;
+package com.pactera.znzmo.util;
 
 
 import org.apache.commons.lang3.StringUtils;

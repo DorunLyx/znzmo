@@ -1,12 +1,4 @@
-/**
- * 项目名：泰禾佣金
- * 包名：com.tahoecn.common.utils
- * 文件名：ExportUtil.java
- * 版本信息：1.0.0
- * 日期：2019年3月6日-上午10:59:57
- * Copyright (c) 2019 Pactera 版权所有
- */
- package com.pactera.znzmo.util;
+package com.pactera.znzmo.util;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;

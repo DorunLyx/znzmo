@@ -1,12 +1,4 @@
-/**
- * 项目名：华远OA
- * 包名：com.tahoecn.project.common.utils
- * 文件名：MD5Utils.java
- * 版本信息：1.0.0
- * 日期：2019年9月11日-上午11:12:35
- * Copyright (c) 2019 Pactera 版权所有
- */
- package com.pactera.znzmo.util;
+package com.pactera.znzmo.util;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

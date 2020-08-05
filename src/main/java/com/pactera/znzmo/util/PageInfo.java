@@ -1,12 +1,3 @@
-/**
- * 项目名：泰禾资产
- * 包名：com.guanyu.vo.common
- * 文件名：PageInfo.java
- * 版本信息：1.0.0
- * 日期：2019年1月4日-下午12:54:07
- * Copyright (c) 2019 Pactera 版权所有
- */
-
 package com.pactera.znzmo.util;
 
 
