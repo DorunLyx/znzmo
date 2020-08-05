@@ -114,6 +114,11 @@ public class TbSuModel implements Serializable {
      * 下载次数
      */
     private Integer downloadNum;
+    
+    /**
+     * 备注
+     */
+    private String remarks;
 
     /**
      * 是否有效(0.无效,1.有效)
@@ -196,6 +201,8 @@ public class TbSuModel implements Serializable {
     public static final String VISITS_NUM = "visits_num";
 
     public static final String DOWNLOAD_NUM = "download_num";
+    
+    public static final String REMARKS = "remarks";
 
     public static final String IS_VALID = "is_valid";
 

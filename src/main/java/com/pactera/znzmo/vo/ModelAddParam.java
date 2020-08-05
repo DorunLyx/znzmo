@@ -1,30 +1,40 @@
 package com.pactera.znzmo.vo;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
- * @ClassName：ModelListVO
- * @Description：3d模型列表
+ * @ClassName：ModelAddParam
+ * @Description：3d模型新增参数
  * @author liyongxu 
  * @date 2020年8月4日 上午11:21:33 
  * @version 1.0.0 
  */
 @Data
-@ApiModel(value="3d模型列表VO",description="3d模型列表VO")
-public class ModelListVO {
+@ApiModel(value="3d模型新增参数",description="3d模型新增参数")
+public class ModelAddParam {
 
-	@ApiModelProperty(value="3d模板Id", name="modelId")
-	private Long modelId;
-
-	@ApiModelProperty(value="主图地址", name="modelId")
+	@ApiModelProperty(value="上传模型ids", name="uploadModelIds")
+	private List<String> uploadModelIds;
+	
+	@ApiModelProperty(value="主图地址id", name="mainGraphId")
     private String mainGraph;
 
-	@ApiModelProperty(value="编号", name="code")
-    private String code;
+	@ApiModelProperty(value="角度图ids", name="angleGraphIds")
+    private List<String> angleGraphIds;
+	
+	@ApiModelProperty(value="标题", name="title")
+	private String title;
+	
+	@ApiModelProperty(value="设计风格id", name="styleId")
+	private Long styleId;
+	
+	@ApiModelProperty(value="风格", name="styleName")
+	private String styleName;
 
 	@ApiModelProperty(value="一级分类id", name="primaryclassId")
     private Long primaryClassId;
@@ -38,15 +48,6 @@ public class ModelListVO {
 	@ApiModelProperty(value="二级分类名称", name="secondaryClassName")
 	private String secondaryClassName;
 
-	@ApiModelProperty(value="设计风格id", name="styleId")
-    private Long styleId;
-
-	@ApiModelProperty(value="风格", name="styleName")
-    private String styleName;
-
-	@ApiModelProperty(value="标题", name="title")
-    private String title;
-
 	@ApiModelProperty(value="模型类型", name="modelType")
     private Integer modelType;
 
@@ -59,13 +60,7 @@ public class ModelListVO {
 	@ApiModelProperty(value="灯光效果", name="lightingEffects")
     private String lightingEffects;
 
-	@ApiModelProperty(value="状态", name="status")
-    private Integer status;
-
-	@ApiModelProperty(value="浏览次数", name="visitsNum")
-    private Integer visitsNum;
-
-	@ApiModelProperty(value="下载次数", name="downloadNum")
-    private Integer downloadNum;
+	@ApiModelProperty(value="备注", name="remarks")
+    private String remarks;
 	
 }

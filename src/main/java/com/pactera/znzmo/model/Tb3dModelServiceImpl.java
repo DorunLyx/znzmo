@@ -29,6 +29,15 @@ public class Tb3dModelServiceImpl extends ServiceImpl<Tb3dModelMapper, Tb3dModel
 		if(StringUtil.isNotEmpty(modelQueryParam.getKeyword())) {
 			assetQueryWrapper.like(Tb3dModel.TITLE, modelQueryParam.getKeyword());
 		}
+		if(StringUtil.isNotEmpty(modelQueryParam.getStyleId().toString())) {
+			assetQueryWrapper.eq(Tb3dModel.STYLE_ID, modelQueryParam.getStyleId());
+		}
+		if(StringUtil.isNotEmpty(modelQueryParam.getPrimaryClassId().toString())) {
+			assetQueryWrapper.eq(Tb3dModel.PRIMARY_CLASS_ID, modelQueryParam.getPrimaryClassId());
+		}
+		if(StringUtil.isNotEmpty(modelQueryParam.getSecondaryClassId().toString())) {
+			assetQueryWrapper.eq(Tb3dModel.SECONDARY_CLASS_ID, modelQueryParam.getSecondaryClassId());
+		}
 		assetQueryWrapper.orderByDesc(Tb3dModel.UPDATE_TIME);
 		return baseMapper.selectPage(page,assetQueryWrapper);
 	}

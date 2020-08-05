@@ -5,14 +5,14 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
- * @ClassName：HomePageQueryParam
- * @Description：首页查询VO
+ * @ClassName：ModelQueryParam
+ * @Description：3d模型查询VO
  * @author liyongxu 
  * @date 2020年8月4日 上午11:23:48 
  * @version 1.0.0 
  */
 @Data
-@ApiModel(value="资产查询Vo",description="资产查询Vo")
+@ApiModel(value="3d模型查询Vo",description="3d模型查询Vo")
 public class ModelQueryParam {
 
 	@ApiModelProperty(value="当前页码", name="pageNo")

@@ -111,6 +111,11 @@ public class TbDatabase implements Serializable {
     private Integer downloadNum;
 
     /**
+     * 备注
+     */
+    private String remarks;
+    
+    /**
      * 是否有效(0.无效,1.有效)
      */
     private Integer isValid;
@@ -189,6 +194,8 @@ public class TbDatabase implements Serializable {
     public static final String VISITS_NUM = "visits_num";
 
     public static final String DOWNLOAD_NUM = "download_num";
+    
+    public static final String REMARKS = "remarks";
 
     public static final String IS_VALID = "is_valid";
 

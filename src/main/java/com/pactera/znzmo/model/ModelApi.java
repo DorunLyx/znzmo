@@ -54,7 +54,7 @@ public class ModelApi {
 	@ApiOperation(value = "3D模型查询", httpMethod = "POST", notes = "3D模型查询")
     @RequestMapping(value = "/get3DModelList", method = {RequestMethod.POST})
     public JsonResult<IPage<ModelListVO>> get3DModelList(
-    		@ApiParam(name="assetListParam", value="资产列表筛选参数", required=false)@RequestBody ModelQueryParam modelQueryParam) {
+    		@ApiParam(name="modelQueryParam", value="3d模型列表筛选参数", required=false)@RequestBody ModelQueryParam modelQueryParam) {
 		List<ModelListVO> modelList = new ArrayList<ModelListVO>();
 		Page<Tb3dModel> page = new Page<Tb3dModel>(modelQueryParam.getPageNo(), modelQueryParam.getPageSize());
         IPage<ModelListVO> modeListPage =  new Page<ModelListVO>(modelQueryParam.getPageNo(), modelQueryParam.getPageSize());
@@ -88,9 +88,28 @@ public class ModelApi {
 			modeListPage.setTotal(iPage.getTotal());			
 			return JsonResult.ok(modeListPage);
 		} catch (Exception e) {
-		        logger.error(e.getMessage(),e);
-				return JsonResult.fail(String.valueOf(JsonResultEnum.fail.getKey()), JsonResultEnum.fail.getValue());
+			logger.error(e.getMessage(),e);
+			return JsonResult.fail(String.valueOf(JsonResultEnum.fail.getKey()), JsonResultEnum.fail.getValue());
 		}
     }
 
+	/**
+	 * @Title: add3DModel 
+	 * @Description: 3D模型新增
+	 * @param modelQueryParam
+	 * @return JsonResult
+	 * @author liyongxu
+	 * @date 2020年8月5日 下午3:18:15 
+	*/
+	@ApiOperation(value = "3D模型新增", httpMethod = "POST", notes = "3D模型新增")
+    @RequestMapping(value = "/add3DModel", method = {RequestMethod.POST})
+	public JsonResult add3DModel(
+			@ApiParam(name="assetListParam", value="资产列表筛选参数", required=false)@RequestBody ModelQueryParam modelQueryParam) {
+		try {
+			return JsonResult.ok();
+		} catch (Exception e) {
+			logger.error(e.getMessage(),e);
+			return JsonResult.fail(String.valueOf(JsonResultEnum.fail.getKey()), JsonResultEnum.fail.getValue());
+		}
+	}
 }

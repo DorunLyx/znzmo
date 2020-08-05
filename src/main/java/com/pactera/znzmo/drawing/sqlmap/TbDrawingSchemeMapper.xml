@@ -23,6 +23,7 @@
         <result column="status" property="status" />
         <result column="visits_num" property="visitsNum" />
         <result column="download_num" property="downloadNum" />
+        <result column="remarks" property="remarks" />
         <result column="is_valid" property="isValid" />
         <result column="create_id" property="createId" />
         <result column="create_account" property="createAccount" />
