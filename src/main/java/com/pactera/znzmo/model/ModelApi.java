@@ -14,12 +14,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.pactera.znzmo.enums.IsValidEnum;
 import com.pactera.znzmo.enums.JsonResultEnum;
+import com.pactera.znzmo.enums.StatusEnum;
 import com.pactera.znzmo.util.JsonResult;
+import com.pactera.znzmo.vo.ModelAddParam;
+import com.pactera.znzmo.vo.ModelDetailsVO;
 import com.pactera.znzmo.vo.ModelListVO;
+import com.pactera.znzmo.vo.ModelQueryDetailsParam;
 import com.pactera.znzmo.vo.ModelQueryParam;
+import com.pactera.znzmo.vo.ModelUpdateParam;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -44,14 +51,14 @@ public class ModelApi {
 
 	/**
 	 * @Title: get3DModelList 
-	 * @Description: 3D模型查询
+	 * @Description: 3D模型列表查询
 	 * @param homePageQueryParam
 	 * @return JsonResult<IPage<HomePageListVO>>
 	 * @author liyongxu
 	 * @date 2020年8月4日 上午11:35:35 
 	*/
 	@SuppressWarnings("unchecked")
-	@ApiOperation(value = "3D模型查询", httpMethod = "POST", notes = "3D模型查询")
+	@ApiOperation(value = "3D模型列表查询", httpMethod = "POST", notes = "3D模型列表查询")
     @RequestMapping(value = "/get3DModelList", method = {RequestMethod.POST})
     public JsonResult<IPage<ModelListVO>> get3DModelList(
     		@ApiParam(name="modelQueryParam", value="3d模型列表筛选参数", required=false)@RequestBody ModelQueryParam modelQueryParam) {
@@ -65,11 +72,8 @@ public class ModelApi {
 				modelListVO.setModelId(tb3dModel.getId());
 				modelListVO.setMainGraph(tb3dModel.getMainGraph());
 				modelListVO.setCode(tb3dModel.getCode());
-				modelListVO.setPrimaryClassId(tb3dModel.getPrimaryClassId());
 				modelListVO.setPrimaryClassName(tb3dModel.getPrimaryClassName());
-				modelListVO.setSecondaryClassId(tb3dModel.getSecondaryClassId());
 				modelListVO.setSecondaryClassName(tb3dModel.getSecondaryClassName());
-				modelListVO.setStyleId(tb3dModel.getStyleId());
 				modelListVO.setStyleName(tb3dModel.getStyleName());
 				modelListVO.setTitle(tb3dModel.getTitle());
 				modelListVO.setModelType(tb3dModel.getModelType());
@@ -101,15 +105,104 @@ public class ModelApi {
 	 * @author liyongxu
 	 * @date 2020年8月5日 下午3:18:15 
 	*/
+	@SuppressWarnings("rawtypes")
 	@ApiOperation(value = "3D模型新增", httpMethod = "POST", notes = "3D模型新增")
     @RequestMapping(value = "/add3DModel", method = {RequestMethod.POST})
 	public JsonResult add3DModel(
-			@ApiParam(name="assetListParam", value="资产列表筛选参数", required=false)@RequestBody ModelQueryParam modelQueryParam) {
+			@ApiParam(name="modelAddParam", value="3d模型新增参数", required=false)@RequestBody ModelAddParam modelAddParam) {
 		try {
+			tb3dModelService.add3DModel(modelAddParam);
 			return JsonResult.ok();
 		} catch (Exception e) {
 			logger.error(e.getMessage(),e);
 			return JsonResult.fail(String.valueOf(JsonResultEnum.fail.getKey()), JsonResultEnum.fail.getValue());
 		}
 	}
+	
+	/**
+	 * @Title: get3DModelInfo 
+	 * @Description: 3D模型详情
+	 * @param modelQueryDetailsParam
+	 * @return JsonResult<ModelDetailsVO>
+	 * @author liyongxu
+	 * @date 2020年8月5日 下午4:09:54 
+	*/
+	@SuppressWarnings("unchecked")
+	@ApiOperation(value = "3D模型详情", httpMethod = "POST", notes = "3D模型详情")
+    @RequestMapping(value = "/get3DModelInfo", method = {RequestMethod.POST})
+    public JsonResult<ModelDetailsVO> get3DModelInfo(
+    		@ApiParam(name="modelQueryDetailsParam", value="3d模型详情参数", required=false)@RequestBody ModelQueryDetailsParam modelQueryDetailsParam) {
+		try {
+			QueryWrapper<Tb3dModel> queryWrapper = new QueryWrapper<>();
+			queryWrapper.eq(Tb3dModel.IS_VALID, IsValidEnum.YES.getKey())
+	        	.eq(Tb3dModel.ID, modelQueryDetailsParam.getModelId());
+	        Tb3dModel tb3dModel = tb3dModelService.getOne(queryWrapper);
+	        ModelDetailsVO modelDetailsVO = new ModelDetailsVO();
+			modelDetailsVO.setModelId(tb3dModel.getId());
+			modelDetailsVO.setMainGraph(tb3dModel.getMainGraph());
+			modelDetailsVO.setCode(tb3dModel.getCode());
+			modelDetailsVO.setPrimaryClassId(tb3dModel.getPrimaryClassId());
+			modelDetailsVO.setPrimaryClassName(tb3dModel.getPrimaryClassName());
+			modelDetailsVO.setSecondaryClassId(tb3dModel.getSecondaryClassId());
+			modelDetailsVO.setSecondaryClassName(tb3dModel.getSecondaryClassName());
+			modelDetailsVO.setStyleId(tb3dModel.getStyleId());
+			modelDetailsVO.setStyleName(tb3dModel.getStyleName());
+			modelDetailsVO.setTitle(tb3dModel.getTitle());
+			modelDetailsVO.setModelType(tb3dModel.getModelType());
+			modelDetailsVO.setModelPrice(tb3dModel.getModelPrice());
+			modelDetailsVO.setTextureMapping(tb3dModel.getTextureMapping());
+			modelDetailsVO.setLightingEffects(tb3dModel.getLightingEffects());
+			return JsonResult.ok(modelDetailsVO);
+		} catch (Exception e) {
+			logger.error(e.getMessage(),e);
+			return JsonResult.fail(String.valueOf(JsonResultEnum.fail.getKey()), JsonResultEnum.fail.getValue());
+		}
+    }
+	
+	/**
+	 * @Title: updte3DModel 
+	 * @Description: 3D模型编辑
+	 * @param modelUpdateParam
+	 * @return JsonResult
+	 * @author liyongxu
+	 * @date 2020年8月5日 下午3:54:44 
+	*/
+	@SuppressWarnings("rawtypes")
+	@ApiOperation(value = "3D模型编辑", httpMethod = "POST", notes = "3D模型编辑")
+	@RequestMapping(value = "/updte3DModel", method = {RequestMethod.POST})
+	public JsonResult updte3DModel(
+			@ApiParam(name="modelUpdateParam", value="3d模型编辑参数", required=false)@RequestBody ModelUpdateParam modelUpdateParam) {
+		try {
+			tb3dModelService.updte3DModel(modelUpdateParam);
+			return JsonResult.ok();
+		} catch (Exception e) {
+			logger.error(e.getMessage(),e);
+			return JsonResult.fail(String.valueOf(JsonResultEnum.fail.getKey()), JsonResultEnum.fail.getValue());
+		}
+	}
+	
+	/**
+	 * @Title: update3DModelStatus 
+	 * @Description: 变更状态-3d模型
+	 * @param modelQueryDetailsParam
+	 * @return JsonResult<ModelDetailsVO>
+	 * @author liyongxu
+	 * @date 2020年8月5日 下午4:12:18 
+	*/
+	@SuppressWarnings("rawtypes")
+	@ApiOperation(value = "变更状态-3d模型", httpMethod = "POST", notes = "变更状态-3d模型")
+    @RequestMapping(value = "/update3DModelStatus", method = {RequestMethod.POST})
+    public JsonResult update3DModelStatus(
+    		@ApiParam(name="modelQueryDetailsParam", value="3d模型详情参数", required=false)@RequestBody ModelQueryDetailsParam modelQueryDetailsParam) {
+		try {
+			Tb3dModel tb3dModel = tb3dModelService.getById(modelQueryDetailsParam.getModelId());
+			tb3dModel.setStatus(StatusEnum.FORBIDDEN.getKey());
+			tb3dModelService.updateById(tb3dModel);
+			return JsonResult.ok();
+		} catch (Exception e) {
+			logger.error(e.getMessage(),e);
+			return JsonResult.fail(String.valueOf(JsonResultEnum.fail.getKey()), JsonResultEnum.fail.getValue());
+		}
+    }
+	
 }

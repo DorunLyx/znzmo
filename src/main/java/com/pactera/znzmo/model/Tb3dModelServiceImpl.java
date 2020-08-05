@@ -1,5 +1,7 @@
 package com.pactera.znzmo.model;
 
+import java.time.LocalDateTime;
+
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -8,8 +10,12 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.util.StringUtil;
 import com.pactera.znzmo.enums.IsValidEnum;
+import com.pactera.znzmo.enums.StatusEnum;
 import com.pactera.znzmo.model.dao.Tb3dModelMapper;
+import com.pactera.znzmo.util.NumGenerationUtil;
+import com.pactera.znzmo.vo.ModelAddParam;
 import com.pactera.znzmo.vo.ModelQueryParam;
+import com.pactera.znzmo.vo.ModelUpdateParam;
 
 /**
  * <p>
@@ -40,6 +46,61 @@ public class Tb3dModelServiceImpl extends ServiceImpl<Tb3dModelMapper, Tb3dModel
 		}
 		assetQueryWrapper.orderByDesc(Tb3dModel.UPDATE_TIME);
 		return baseMapper.selectPage(page,assetQueryWrapper);
+	}
+
+	@Override
+	public void add3DModel(ModelAddParam modelAddParam) {
+		Tb3dModel tb3dModel = new Tb3dModel();
+		tb3dModel.setMainGraph(modelAddParam.getMainGraph());
+		tb3dModel.setCode(NumGenerationUtil.getrandom());
+		tb3dModel.setPrimaryClassId(modelAddParam.getPrimaryClassId());
+		tb3dModel.setPrimaryClassName(modelAddParam.getPrimaryClassName());
+		tb3dModel.setSecondaryClassId(modelAddParam.getSecondaryClassId());
+		tb3dModel.setSecondaryClassName(modelAddParam.getSecondaryClassName());
+		tb3dModel.setStyleId(modelAddParam.getStyleId());
+		tb3dModel.setStyleName(modelAddParam.getStyleName());
+		tb3dModel.setTitle(modelAddParam.getTitle());
+		tb3dModel.setModelType(modelAddParam.getModelType());
+		tb3dModel.setModelPrice(modelAddParam.getModelPrice());
+		tb3dModel.setTextureMapping(modelAddParam.getTextureMapping());
+		tb3dModel.setLightingEffects(modelAddParam.getLightingEffects());
+		tb3dModel.setRemarks(modelAddParam.getRemarks());
+		tb3dModel.setIsValid(IsValidEnum.YES.getKey());
+		tb3dModel.setStatus(StatusEnum.START_USE.getKey());
+//		tb3dModel.setCreateId(user.getUserId());
+//		tb3dModel.setCreateName(user.getUserName());
+		tb3dModel.setCreateTime(LocalDateTime.now());
+//		tb3dModel.setUpdateId(user.getUserId());
+//		tb3dModel.setUpdateName(user.getUserName());
+		tb3dModel.setUpdateTime(LocalDateTime.now());
+		baseMapper.insert(tb3dModel);
+	}
+
+	@Override
+	public void updte3DModel(ModelUpdateParam modelUpdateParam) {
+		Tb3dModel tb3dModel = new Tb3dModel();
+		tb3dModel.setId(modelUpdateParam.getModelId());
+		tb3dModel.setMainGraph(modelUpdateParam.getMainGraph());
+		tb3dModel.setPrimaryClassId(modelUpdateParam.getPrimaryClassId());
+		tb3dModel.setPrimaryClassName(modelUpdateParam.getPrimaryClassName());
+		tb3dModel.setSecondaryClassId(modelUpdateParam.getSecondaryClassId());
+		tb3dModel.setSecondaryClassName(modelUpdateParam.getSecondaryClassName());
+		tb3dModel.setStyleId(modelUpdateParam.getStyleId());
+		tb3dModel.setStyleName(modelUpdateParam.getStyleName());
+		tb3dModel.setTitle(modelUpdateParam.getTitle());
+		tb3dModel.setModelType(modelUpdateParam.getModelType());
+		tb3dModel.setModelPrice(modelUpdateParam.getModelPrice());
+		tb3dModel.setTextureMapping(modelUpdateParam.getTextureMapping());
+		tb3dModel.setLightingEffects(modelUpdateParam.getLightingEffects());
+		tb3dModel.setRemarks(modelUpdateParam.getRemarks());
+		tb3dModel.setIsValid(IsValidEnum.YES.getKey());
+//		tb3dModel.setCreateId(user.getUserId());
+//		tb3dModel.setCreateName(user.getUserName());
+		tb3dModel.setCreateTime(LocalDateTime.now());
+//		tb3dModel.setUpdateId(user.getUserId());
+//		tb3dModel.setUpdateName(user.getUserName());
+		tb3dModel.setUpdateTime(LocalDateTime.now());
+		baseMapper.updateById(tb3dModel);
 	}
 
 }

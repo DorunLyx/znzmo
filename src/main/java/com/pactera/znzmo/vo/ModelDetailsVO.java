@@ -14,8 +14,8 @@ import lombok.Data;
  * @version 1.0.0 
  */
 @Data
-@ApiModel(value="3d模型列表VO",description="3d模型列表VO")
-public class ModelListVO {
+@ApiModel(value="3d模型详情VO",description="3d模型详情VO")
+public class ModelDetailsVO {
 
 	@ApiModelProperty(value="3d模板Id", name="modelId")
 	private Long modelId;
@@ -26,11 +26,20 @@ public class ModelListVO {
 	@ApiModelProperty(value="编号", name="code")
     private String code;
 
+	@ApiModelProperty(value="一级分类id", name="primaryclassId")
+    private Long primaryClassId;
+
 	@ApiModelProperty(value="一级分类名称", name="primaryClassName")
     private String primaryClassName;
 	
+	@ApiModelProperty(value="二级分类id", name="secondaryClassId")
+	private Long secondaryClassId;
+	
 	@ApiModelProperty(value="二级分类名称", name="secondaryClassName")
 	private String secondaryClassName;
+
+	@ApiModelProperty(value="设计风格id", name="styleId")
+    private Long styleId;
 
 	@ApiModelProperty(value="风格", name="styleName")
     private String styleName;
@@ -49,14 +58,5 @@ public class ModelListVO {
 
 	@ApiModelProperty(value="灯光效果", name="lightingEffects")
     private String lightingEffects;
-
-	@ApiModelProperty(value="状态", name="status")
-    private Integer status;
-
-	@ApiModelProperty(value="浏览次数", name="visitsNum")
-    private Integer visitsNum;
-
-	@ApiModelProperty(value="下载次数", name="downloadNum")
-    private Integer downloadNum;
 	
 }

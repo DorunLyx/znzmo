@@ -42,7 +42,7 @@ import org.apache.commons.lang3.RandomStringUtils;
 	 * @throws
 	 */
 	public static String getrandom(){
-		String randomNumeric = RandomStringUtils.randomNumeric(5);
+		String randomNumeric = RandomStringUtils.randomNumeric(10);
 		return randomNumeric;
 	 }
 

@@ -6,13 +6,13 @@ import lombok.Data;
 
 /**
  * @ClassName：ModelQueryParam
- * @Description：3d模型查询VO
+ * @Description：3d模型查询参数
  * @author liyongxu 
  * @date 2020年8月4日 上午11:23:48 
  * @version 1.0.0 
  */
 @Data
-@ApiModel(value="3d模型查询Vo",description="3d模型查询Vo")
+@ApiModel(value="3d模型查询参数",description="3d模型查询参数")
 public class ModelQueryParam {
 
 	@ApiModelProperty(value="当前页码", name="pageNo")
