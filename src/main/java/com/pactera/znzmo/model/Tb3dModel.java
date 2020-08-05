@@ -15,7 +15,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author liyongxu
- * @since 2020-08-03
+ * @since 2020-08-05
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -43,12 +43,22 @@ public class Tb3dModel implements Serializable {
     /**
      * 分类id
      */
-    private Long classId;
+    private Long primaryClassId;
 
     /**
      * 分类名称
      */
-    private String className;
+    private String primaryClassName;
+
+    /**
+     * 分类id
+     */
+    private Long secondaryClassId;
+
+    /**
+     * 分类名称
+     */
+    private String secondaryClassName;
 
     /**
      * 设计风格id
@@ -152,9 +162,13 @@ public class Tb3dModel implements Serializable {
 
     public static final String CODE = "code";
 
-    public static final String CLASS_ID = "class_id";
+    public static final String PRIMARY_CLASS_ID = "primary_class_id";
 
-    public static final String CLASS_NAME = "class_name";
+    public static final String PRIMARY_CLASS_NAME = "primary_class_name";
+
+    public static final String SECONDARY_CLASS_ID = "secondary_class_id";
+
+    public static final String SECONDARY_CLASS_NAME = "secondary_class_name";
 
     public static final String STYLE_ID = "style_id";
 

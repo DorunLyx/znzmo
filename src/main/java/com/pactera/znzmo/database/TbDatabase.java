@@ -1,12 +1,10 @@
 package com.pactera.znzmo.database;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
-
 import com.baomidou.mybatisplus.annotation.IdType;
+import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.annotation.TableId;
-
+import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -17,7 +15,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author liyongxu
- * @since 2020-08-03
+ * @since 2020-08-05
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -43,24 +41,34 @@ public class TbDatabase implements Serializable {
     private String code;
 
     /**
-     * 分类名称
+     * 分类id
      */
-    private String className;
+    private Long primaryClassId;
 
     /**
-     * 风格
+     * 分类名称
      */
-    private String styleName;
+    private String primaryClassName;
 
     /**
      * 分类id
      */
-    private Long classId;
+    private Long secondaryClassId;
+
+    /**
+     * 分类名称
+     */
+    private String secondaryClassName;
 
     /**
      * 设计风格id
      */
     private Long styleId;
+
+    /**
+     * 风格
+     */
+    private String styleName;
 
     /**
      * 标题
@@ -154,13 +162,17 @@ public class TbDatabase implements Serializable {
 
     public static final String CODE = "code";
 
-    public static final String CLASS_NAME = "class_name";
+    public static final String PRIMARY_CLASS_ID = "primary_class_id";
 
-    public static final String STYLE_NAME = "style_name";
+    public static final String PRIMARY_CLASS_NAME = "primary_class_name";
 
-    public static final String CLASS_ID = "class_id";
+    public static final String SECONDARY_CLASS_ID = "secondary_class_id";
+
+    public static final String SECONDARY_CLASS_NAME = "secondary_class_name";
 
     public static final String STYLE_ID = "style_id";
+
+    public static final String STYLE_NAME = "style_name";
 
     public static final String TITLE = "title";
 

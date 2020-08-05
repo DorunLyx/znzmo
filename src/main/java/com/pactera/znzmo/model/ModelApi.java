@@ -65,10 +65,10 @@ public class ModelApi {
 				modelListVO.setModelId(tb3dModel.getId());
 				modelListVO.setMainGraph(tb3dModel.getMainGraph());
 				modelListVO.setCode(tb3dModel.getCode());
-				modelListVO.setPrimaryClassId(tb3dModel.getClassId());
-				modelListVO.setPrimaryClassName(tb3dModel.getClassName());
-				modelListVO.setSecondaryClassId(tb3dModel.getClassId());
-				modelListVO.setSecondaryClassName(tb3dModel.getClassName());
+				modelListVO.setPrimaryClassId(tb3dModel.getPrimaryClassId());
+				modelListVO.setPrimaryClassName(tb3dModel.getPrimaryClassName());
+				modelListVO.setSecondaryClassId(tb3dModel.getSecondaryClassId());
+				modelListVO.setSecondaryClassName(tb3dModel.getSecondaryClassName());
 				modelListVO.setStyleId(tb3dModel.getStyleId());
 				modelListVO.setStyleName(tb3dModel.getStyleName());
 				modelListVO.setTitle(tb3dModel.getTitle());

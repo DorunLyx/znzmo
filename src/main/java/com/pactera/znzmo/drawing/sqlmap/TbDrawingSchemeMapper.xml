@@ -7,12 +7,14 @@
         <id column="id" property="id" />
         <result column="main_graph" property="mainGraph" />
         <result column="code" property="code" />
-        <result column="class_name" property="className" />
-        <result column="style_name" property="styleName" />
-        <result column="class_id" property="classId" />
-        <result column="name" property="name" />
-        <result column="label" property="label" />
+        <result column="primary_class_id" property="primaryClassId" />
+        <result column="primary_class_name" property="primaryClassName" />
+        <result column="secondary_class_id" property="secondaryClassId" />
+        <result column="secondary_class_name" property="secondaryClassName" />
         <result column="style_id" property="styleId" />
+        <result column="style_name" property="styleName" />
+        <result column="name" property="name" />
+        <result column="tag" property="tag" />
         <result column="design_time" property="designTime" />
         <result column="location" property="location" />
         <result column="famous_collection" property="famousCollection" />

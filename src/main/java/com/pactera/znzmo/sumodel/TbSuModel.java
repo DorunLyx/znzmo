@@ -1,12 +1,10 @@
 package com.pactera.znzmo.sumodel;
 
-import java.io.Serializable;
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
-
 import com.baomidou.mybatisplus.annotation.IdType;
+import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.annotation.TableId;
-
+import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -17,7 +15,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author liyongxu
- * @since 2020-08-03
+ * @since 2020-08-05
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -43,9 +41,29 @@ public class TbSuModel implements Serializable {
     private String code;
 
     /**
+     * 分类id
+     */
+    private Long primaryClassId;
+
+    /**
      * 分类名称
      */
-    private String className;
+    private String primaryClassName;
+
+    /**
+     * 分类id
+     */
+    private Long secondaryClassId;
+
+    /**
+     * 分类名称
+     */
+    private String secondaryClassName;
+
+    /**
+     * 设计风格id
+     */
+    private Long styleId;
 
     /**
      * 风格
@@ -56,16 +74,6 @@ public class TbSuModel implements Serializable {
      * 渲染器
      */
     private String renderer;
-
-    /**
-     * 分类id
-     */
-    private Long classId;
-
-    /**
-     * 设计风格id
-     */
-    private Long styleId;
 
     /**
      * 标题
@@ -159,15 +167,19 @@ public class TbSuModel implements Serializable {
 
     public static final String CODE = "code";
 
-    public static final String CLASS_NAME = "class_name";
+    public static final String PRIMARY_CLASS_ID = "primary_class_id";
+
+    public static final String PRIMARY_CLASS_NAME = "primary_class_name";
+
+    public static final String SECONDARY_CLASS_ID = "secondary_class_id";
+
+    public static final String SECONDARY_CLASS_NAME = "secondary_class_name";
+
+    public static final String STYLE_ID = "style_id";
 
     public static final String STYLE_NAME = "style_name";
 
     public static final String RENDERER = "renderer";
-
-    public static final String CLASS_ID = "class_id";
-
-    public static final String STYLE_ID = "style_id";
 
     public static final String TITLE = "title";
 
