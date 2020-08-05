@@ -62,7 +62,23 @@ public class ModelApi {
 			IPage<Tb3dModel> iPage = tb3dModelService.select3DModelPages(page, modelQueryParam);
 			for (Tb3dModel tb3dModel : iPage.getRecords()) {
 				ModelListVO modelListVO = new ModelListVO();
-				modelListVO.setAssetId(tb3dModel.getId().toString());
+				modelListVO.setModelId(tb3dModel.getId());
+				modelListVO.setMainGraph(tb3dModel.getMainGraph());
+				modelListVO.setCode(tb3dModel.getCode());
+				modelListVO.setPrimaryClassId(tb3dModel.getClassId());
+				modelListVO.setPrimaryClassName(tb3dModel.getClassName());
+				modelListVO.setSecondaryClassId(tb3dModel.getClassId());
+				modelListVO.setSecondaryClassName(tb3dModel.getClassName());
+				modelListVO.setStyleId(tb3dModel.getStyleId());
+				modelListVO.setStyleName(tb3dModel.getStyleName());
+				modelListVO.setTitle(tb3dModel.getTitle());
+				modelListVO.setModelType(tb3dModel.getModelType());
+				modelListVO.setModelPrice(tb3dModel.getModelPrice());
+				modelListVO.setTextureMapping(tb3dModel.getTextureMapping());
+				modelListVO.setLightingEffects(tb3dModel.getLightingEffects());
+				modelListVO.setStatus(tb3dModel.getStatus());
+				modelListVO.setVisitsNum(tb3dModel.getVisitsNum());
+				modelListVO.setDownloadNum(tb3dModel.getDownloadNum());
 				modelList.add(modelListVO);
     		}
 			modeListPage.setRecords(modelList);

@@ -5,10 +5,33 @@ server:
     max-threads: 1000
     min-spare-threads: 30
   port: 8080
-    #context-path: /springboot
+  servlet:
+    context-path: /znzmo
 
+# Mybatis
+mybatis-plus:
+  #MyBatis相关自定义配置
+  configLocation: org.apache.ibatis.logging.nologging.NoLoggingImpl
+  #实体类所做包
+  type-aliases-package: com.pactera.znzmo.*
+  #mapper.xml所在位置
+  mapperLocations: classpath:sqlmap/*.xml
+  
 # DataSource
 spring:
+# 运行环境 dev:开发环境|test:测试环境|prod:生产环境
+  profiles:
+    active: dev
+  # jackson
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+  servlet:
+    multipart:
+      max-file-size: 100MB
+      max-request-size: 100MB
+      enabled: true
+
   datasource:
     name: druidDataSource
     type: com.alibaba.druid.pool.DruidDataSource
