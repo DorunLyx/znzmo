@@ -158,7 +158,7 @@ public class ModelController extends BaseController{
 		        	for (TbAttachment tbAttachment : attachmentList) {
 						UploadInfo uploadInfo = new UploadInfo();
 						uploadInfo.setType(tbAttachment.getReType());
-						uploadInfo.setKey(tbAttachment.getAttachmentName());
+						uploadInfo.setFileName(tbAttachment.getAttachmentName());
 						uploadInfo.setUrl(tbAttachment.getAttachmentPath());
 					}
 		        }

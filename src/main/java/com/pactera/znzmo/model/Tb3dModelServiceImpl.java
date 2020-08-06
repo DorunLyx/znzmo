@@ -86,7 +86,7 @@ public class Tb3dModelServiceImpl extends ServiceImpl<Tb3dModelMapper, Tb3dModel
         for (UploadInfo keyAndUrl : modelAddParam.getUploadImg()) {
             TbAttachment tbAttachment = new TbAttachment();
             tbAttachment.setRelationId(tb3dModel.getId());
-            tbAttachment.setAttachmentName(keyAndUrl.getKey());
+            tbAttachment.setAttachmentName(keyAndUrl.getFileName());
             tbAttachment.setAttachmentPath(keyAndUrl.getUrl());
             tbAttachment.setReType(IsValidEnum.YES.getValue());
             tbAttachment.setIsValid(IsValidEnum.YES.getKey());
@@ -132,7 +132,7 @@ public class Tb3dModelServiceImpl extends ServiceImpl<Tb3dModelMapper, Tb3dModel
         for (UploadInfo keyAndUrl : modelUpdateParam.getUploadImg()) {
             TbAttachment tbAttachment = new TbAttachment();
             tbAttachment.setRelationId(tb3dModel.getId());
-            tbAttachment.setAttachmentName(keyAndUrl.getKey());
+            tbAttachment.setAttachmentName(keyAndUrl.getFileName());
             tbAttachment.setAttachmentPath(keyAndUrl.getUrl());
             tbAttachment.setReType(IsValidEnum.YES.getValue());
             tbAttachment.setIsValid(IsValidEnum.YES.getKey());
