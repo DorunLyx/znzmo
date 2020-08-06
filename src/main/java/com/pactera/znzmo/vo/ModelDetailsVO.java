@@ -1,6 +1,7 @@
 package com.pactera.znzmo.vo;
 
 import java.math.BigDecimal;
+import java.util.List;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -59,4 +60,6 @@ public class ModelDetailsVO {
 	@ApiModelProperty(value="灯光效果", name="lightingEffects")
     private String lightingEffects;
 	
+    @ApiModelProperty(value="上传文件", name="uploadImg")
+    private List<UploadInfo> uploadImg;
 }

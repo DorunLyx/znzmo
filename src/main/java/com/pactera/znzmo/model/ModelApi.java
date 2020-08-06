@@ -14,9 +14,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.pactera.znzmo.common.TbAttachment;
+import com.pactera.znzmo.common.TbAttachmentService;
 import com.pactera.znzmo.enums.IsValidEnum;
 import com.pactera.znzmo.enums.JsonResultEnum;
 import com.pactera.znzmo.enums.StatusEnum;
+import com.pactera.znzmo.util.DataUtils;
 import com.pactera.znzmo.util.JsonResult;
 import com.pactera.znzmo.vo.ModelAddParam;
 import com.pactera.znzmo.vo.ModelDetailsVO;
@@ -24,6 +27,7 @@ import com.pactera.znzmo.vo.ModelListVO;
 import com.pactera.znzmo.vo.ModelQueryDetailsParam;
 import com.pactera.znzmo.vo.ModelQueryParam;
 import com.pactera.znzmo.vo.ModelUpdateParam;
+import com.pactera.znzmo.vo.UploadInfo;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -43,6 +47,9 @@ public class ModelApi {
 	
 	@Autowired
 	private Tb3dModelService tb3dModelService;
+	
+	@Autowired
+	private TbAttachmentService tbAttachmentService;
 	
 	public static final Logger logger = LoggerFactory.getLogger(ModelApi.class);
 
@@ -132,13 +139,25 @@ public class ModelApi {
     public JsonResult<ModelDetailsVO> get3DModelInfo(
     		@ApiParam(name="modelQueryDetailsParam", value="3d模型详情参数", required=false)@RequestBody ModelQueryDetailsParam modelQueryDetailsParam) {
 		try {
-			QueryWrapper<Tb3dModel> queryWrapper = new QueryWrapper<>();
-			queryWrapper.eq(Tb3dModel.IS_VALID, IsValidEnum.YES.getKey())
+			QueryWrapper<Tb3dModel> modelQueryWrapper = new QueryWrapper<>();
+			modelQueryWrapper.eq(Tb3dModel.IS_VALID, IsValidEnum.YES.getKey())
 	        	.eq(Tb3dModel.ID, modelQueryDetailsParam.getModelId());
-	        Tb3dModel tb3dModel = tb3dModelService.getOne(queryWrapper);
+	        Tb3dModel tb3dModel = tb3dModelService.getOne(modelQueryWrapper);
 	        ModelDetailsVO modelDetailsVO = new ModelDetailsVO();
 			modelDetailsVO.setModelId(tb3dModel.getId());
 			modelDetailsVO.setMainGraph(tb3dModel.getMainGraph());
+			QueryWrapper<TbAttachment> attachmentQueryWrapper = new QueryWrapper<>();
+			attachmentQueryWrapper.eq(TbAttachment.IS_VALID, IsValidEnum.YES.getKey())
+	        	.eq(TbAttachment.RELATION_ID, modelQueryDetailsParam.getModelId());
+	        List<TbAttachment> attachmentList = tbAttachmentService.list(attachmentQueryWrapper);
+	        if(DataUtils.isNotEmpty(attachmentList)) {
+	        	for (TbAttachment tbAttachment : attachmentList) {
+					UploadInfo uploadInfo = new UploadInfo();
+					uploadInfo.setType(tbAttachment.getReType());
+					uploadInfo.setKey(tbAttachment.getAttachmentName());
+					uploadInfo.setUrl(tbAttachment.getAttachmentPath());
+				}
+	        }
 			modelDetailsVO.setCode(tb3dModel.getCode());
 			modelDetailsVO.setPrimaryClassId(tb3dModel.getPrimaryClassId());
 			modelDetailsVO.setPrimaryClassName(tb3dModel.getPrimaryClassName());

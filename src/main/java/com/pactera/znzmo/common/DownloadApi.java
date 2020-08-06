@@ -50,7 +50,7 @@ public class DownloadApi {
 	@Autowired
 	private TbAttachmentService tbAttachmentService;
 	
-	@Autowired
+	@Autowired(required = false)
 	private AliyunOssClient aliyunOssClient;
 	
 	@SuppressWarnings("unchecked")

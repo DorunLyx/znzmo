@@ -2,6 +2,7 @@ package com.pactera.znzmo.model;
 
 import java.time.LocalDateTime;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -9,6 +10,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.util.StringUtil;
+import com.pactera.znzmo.common.TbAttachment;
+import com.pactera.znzmo.common.dao.TbAttachmentMapper;
 import com.pactera.znzmo.enums.IsValidEnum;
 import com.pactera.znzmo.enums.StatusEnum;
 import com.pactera.znzmo.model.dao.Tb3dModelMapper;
@@ -16,6 +19,7 @@ import com.pactera.znzmo.util.NumGenerationUtil;
 import com.pactera.znzmo.vo.ModelAddParam;
 import com.pactera.znzmo.vo.ModelQueryParam;
 import com.pactera.znzmo.vo.ModelUpdateParam;
+import com.pactera.znzmo.vo.UploadInfo;
 
 /**
  * <p>
@@ -28,6 +32,9 @@ import com.pactera.znzmo.vo.ModelUpdateParam;
 @Service
 public class Tb3dModelServiceImpl extends ServiceImpl<Tb3dModelMapper, Tb3dModel> implements Tb3dModelService {
 
+	@Autowired
+	private TbAttachmentMapper tbAttachmentMapper;
+	
 	@Override
 	public IPage<Tb3dModel> select3DModelPages(Page<Tb3dModel> page, ModelQueryParam modelQueryParam) {
 		QueryWrapper<Tb3dModel> queryWrapper = new QueryWrapper<>();
@@ -74,6 +81,21 @@ public class Tb3dModelServiceImpl extends ServiceImpl<Tb3dModelMapper, Tb3dModel
 //		tb3dModel.setUpdateName(user.getUserName());
 		tb3dModel.setUpdateTime(LocalDateTime.now());
 		baseMapper.insert(tb3dModel);
+		
+		//新增上传文件
+        for (UploadInfo keyAndUrl : modelAddParam.getUploadImg()) {
+            TbAttachment tbAttachment = new TbAttachment();
+            tbAttachment.setRelationId(tb3dModel.getId());
+            tbAttachment.setAttachmentName(keyAndUrl.getKey());
+            tbAttachment.setAttachmentPath(keyAndUrl.getUrl());
+            tbAttachment.setReType(IsValidEnum.YES.getValue());
+            tbAttachment.setIsValid(IsValidEnum.YES.getKey());
+//            tbAttachment.setCreateId(user.getUserId());
+//            tbAttachment.setCreateName(user.getUserName());
+            tbAttachment.setCreateTime(LocalDateTime.now());
+            tbAttachment.setUpdateTime(LocalDateTime.now());
+            tbAttachmentMapper.insert(tbAttachment);
+        }
 	}
 
 	@Override
@@ -101,6 +123,25 @@ public class Tb3dModelServiceImpl extends ServiceImpl<Tb3dModelMapper, Tb3dModel
 //		tb3dModel.setUpdateName(user.getUserName());
 		tb3dModel.setUpdateTime(LocalDateTime.now());
 		baseMapper.updateById(tb3dModel);
+		
+		QueryWrapper<TbAttachment> queryWrapper = new QueryWrapper<>();
+		queryWrapper.eq(TbAttachment.RELATION_ID, modelUpdateParam.getModelId());
+		tbAttachmentMapper.delete(queryWrapper);
+		
+		//新增上传文件
+        for (UploadInfo keyAndUrl : modelUpdateParam.getUploadImg()) {
+            TbAttachment tbAttachment = new TbAttachment();
+            tbAttachment.setRelationId(tb3dModel.getId());
+            tbAttachment.setAttachmentName(keyAndUrl.getKey());
+            tbAttachment.setAttachmentPath(keyAndUrl.getUrl());
+            tbAttachment.setReType(IsValidEnum.YES.getValue());
+            tbAttachment.setIsValid(IsValidEnum.YES.getKey());
+//            tbAttachment.setCreateId(user.getUserId());
+//            tbAttachment.setCreateName(user.getUserName());
+            tbAttachment.setCreateTime(LocalDateTime.now());
+            tbAttachment.setUpdateTime(LocalDateTime.now());
+            tbAttachmentMapper.insert(tbAttachment);
+        }
 	}
 
 }

@@ -56,4 +56,12 @@ spring:
       pool-prepared-statements: true
       max-open-prepared-statements: 50
       max-pool-prepared-statement-per-connection-size: 20
-    
+      
+
+oss:
+  endpoint: oss-cn-shenzhen.aliyuncs.com
+  accessKeyId: LTAInoyqirMmu6UK
+  accessKeySecret: lIGhJF8gtTqNCp3wMQmjaTI6YeqKR
+  baseUrl: https://guanyuoss.oss-cn-qingdao.aliyuncs.com/
+  bucketname: znzmooss
+env: test

@@ -32,7 +32,7 @@ public class TbAttachment implements Serializable {
     /**
      * 关联外键id
      */
-    private String relationId;
+    private Long relationId;
     
     /**
      * 关联业务类型
