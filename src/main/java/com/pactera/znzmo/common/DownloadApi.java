@@ -13,11 +13,16 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.pactera.znzmo.aliyun.oss.AliyunOssClient;
+import com.pactera.znzmo.aliyun.oss.KeyAndUrl;
 import com.pactera.znzmo.enums.IsValidEnum;
 import com.pactera.znzmo.enums.JsonResultEnum;
+import com.pactera.znzmo.util.Constants;
 import com.pactera.znzmo.util.FileUtils;
 import com.pactera.znzmo.util.JsonResult;
 import com.pactera.znzmo.util.StringUtils;
@@ -38,12 +43,34 @@ import io.swagger.annotations.ApiParam;
 @Api(tags = "下载文件API", value = "下载文件API")
 @RestController
 @RequestMapping(value = "/api/download")
-public class DownloadController {
+public class DownloadApi {
 	
-	private static final Logger logger = LoggerFactory.getLogger(DownloadController.class);
+	private static final Logger logger = LoggerFactory.getLogger(DownloadApi.class);
 	
 	@Autowired
 	private TbAttachmentService tbAttachmentService;
+	
+	@Autowired
+	private AliyunOssClient aliyunOssClient;
+	
+	@SuppressWarnings("unchecked")
+	@ApiOperation(value = "上传方法", httpMethod = "POST", notes = "上传方法")
+    @RequestMapping(value = "/putUpload", method = {RequestMethod.POST})
+    public JsonResult<KeyAndUrl> putUpload(@ApiParam(name="file", value="上传参数")@RequestParam MultipartFile file) {
+        try {
+            String source = Constants.UPLOAD_ROOT_ASSET;
+			File photeFile = FileUtils.getFile(file);
+			if(!FileUtils.isFileExceedSize(photeFile, 10)){
+				KeyAndUrl keyAndUrl = aliyunOssClient.upload(photeFile, source,photeFile.getName());
+				return JsonResult.ok(keyAndUrl);
+			}else{
+				return JsonResult.fail(String.valueOf(JsonResultEnum.fail.getKey()), "超过10M限制，不允许上传~");
+			}
+		} catch (Exception e) {
+			logger.error(e.getMessage(),e);
+			return JsonResult.fail(String.valueOf(JsonResultEnum.fail.getKey()), JsonResultEnum.fail.getValue());
+		}
+    }
 	
 	/**
 	 * @Title: downloadExcel 

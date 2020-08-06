@@ -29,10 +29,10 @@ import io.swagger.annotations.ApiOperation;
 @Api(tags = "上传文件API", value = "上传文件API")
 @Controller
 @RequestMapping(value = "/api/upload")
-public class UploadController {
+public class UploadApi {
 	
 	/**
-	 * @Title: uploadrequestfile 
+	 * @Title: uploadRequestfile 
 	 * @Description: 上传文件
 	 * @param file
 	 * @param request
@@ -43,7 +43,7 @@ public class UploadController {
 	*/
 	@ApiOperation(value = "公共上传文件", httpMethod = "POST", notes = "公共上传文件")
 	@RequestMapping(value = "/file", method = RequestMethod.POST)
-	public void uploadrequestfile(@RequestParam MultipartFile file,HttpServletRequest request, HttpServletResponse response) throws Exception {
+	public void uploadRequestfile(@RequestParam MultipartFile file,HttpServletRequest request, HttpServletResponse response) throws Exception {
 	   response.setContentType(MediaTypes.TEXT_HTML_UTF_8);
 	   
 	   Map<String, Object> resultData = FileUtils.uploadFile(request, file,Constants.UPLOAD_ROOT);

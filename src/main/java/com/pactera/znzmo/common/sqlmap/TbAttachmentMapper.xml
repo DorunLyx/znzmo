@@ -6,6 +6,7 @@
     <resultMap id="BaseResultMap" type="com.pactera.znzmo.common.TbAttachment">
         <id column="id" property="id" />
         <result column="relation_id" property="relationId" />
+        <result column="re_type" property="reType" />
         <result column="attachment_name" property="attachmentName" />
         <result column="physical_path" property="physicalPath" />
         <result column="attachment_path" property="attachmentPath" />

@@ -1,6 +1,3 @@
-/**
- * 
- */
 package com.pactera.znzmo.model;
 
 import java.util.ArrayList;
@@ -83,6 +80,8 @@ public class ModelApi {
 				modelListVO.setStatus(tb3dModel.getStatus());
 				modelListVO.setVisitsNum(tb3dModel.getVisitsNum());
 				modelListVO.setDownloadNum(tb3dModel.getDownloadNum());
+				modelListVO.setUploadUser(tb3dModel.getCreateName());
+				modelListVO.setUploadTime(tb3dModel.getCreateTime());
 				modelList.add(modelListVO);
     		}
 			modeListPage.setRecords(modelList);

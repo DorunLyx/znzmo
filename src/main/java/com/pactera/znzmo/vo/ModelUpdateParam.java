@@ -20,15 +20,13 @@ public class ModelUpdateParam {
 	
 	@ApiModelProperty(value="3d模型id", name="modelId")
 	private Long modelId;
-
-	@ApiModelProperty(value="上传模型ids", name="uploadModelIds")
-	private List<String> uploadModelIds;
 	
 	@ApiModelProperty(value="主图地址id", name="mainGraphId")
     private String mainGraph;
 
-	@ApiModelProperty(value="角度图ids", name="angleGraphIds")
-    private List<String> angleGraphIds;
+	@ApiModelProperty(value="上传文件", name="uploadImg")
+    private List<UploadInfo> uploadImg;
+		
 	
 	@ApiModelProperty(value="标题", name="title")
 	private String title;

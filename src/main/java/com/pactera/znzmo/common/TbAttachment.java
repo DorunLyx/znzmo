@@ -33,6 +33,11 @@ public class TbAttachment implements Serializable {
      * 关联外键id
      */
     private String relationId;
+    
+    /**
+     * 关联业务类型
+     */
+    private String reType;
 
     /**
      * 附件名称
@@ -118,6 +123,8 @@ public class TbAttachment implements Serializable {
     public static final String ID = "id";
 
     public static final String RELATION_ID = "relation_id";
+    
+    public static final String RE_TYPE = "re_type";
 
     public static final String ATTACHMENT_NAME = "attachment_name";
 

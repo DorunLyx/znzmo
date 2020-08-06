@@ -1,6 +1,7 @@
 package com.pactera.znzmo.vo;
 
 import java.math.BigDecimal;
+import java.time.LocalDateTime;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -58,5 +59,12 @@ public class ModelListVO {
 
 	@ApiModelProperty(value="下载次数", name="downloadNum")
     private Integer downloadNum;
+	
+	@ApiModelProperty(value="上传用户", name="uploadUser")
+	private String uploadUser;
+	
+	@ApiModelProperty(value="上传时间", name="uploadTime")
+	private LocalDateTime uploadTime;
+	
 	
 }
