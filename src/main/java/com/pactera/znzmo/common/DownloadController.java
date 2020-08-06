@@ -8,17 +8,11 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 
-import com.pactera.znzmo.aliyun.oss.AliyunOssClient;
-import com.pactera.znzmo.aliyun.oss.KeyAndUrl;
-import com.pactera.znzmo.util.Constants;
 import com.pactera.znzmo.util.FileUtils;
 import com.pactera.znzmo.util.StringUtils;
 import com.pactera.znzmo.util.UIHelper;
@@ -27,7 +21,6 @@ import com.pactera.znzmo.web.JsonResp;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import io.swagger.annotations.ApiParam;
 
 /**
  * @ClassName：DownloadController
@@ -42,39 +35,6 @@ import io.swagger.annotations.ApiParam;
 public class DownloadController extends BaseController{
 	
 	private static final Logger logger = LoggerFactory.getLogger(DownloadController.class);
-	
-	@Autowired(required = false)
-	private AliyunOssClient aliyunOssClient;
-	
-	/**
-	 * @Title: putUpload 
-	 * @Description: TODO(这里用一句话描述这个方法的作用)
-	 * @param file
-	 * @return JsonResp
-	 * @author liyongxu
-	 * @date 2020年8月6日 下午3:53:45 
-	*/
-	@ApiOperation(value = "上传方法", httpMethod = "POST", notes = "上传方法")
-    @RequestMapping(value = "/putUpload", method = {RequestMethod.POST})
-    public JsonResp putUpload(@ApiParam(name="file", value="上传参数")@RequestParam MultipartFile file) {
-        Supplier<KeyAndUrl> businessHandler = () ->{
-        	try {
-        		String source = Constants.UPLOAD_ROOT_ASSET;
-        		File photeFile = FileUtils.getFile(file);
-        		if(!FileUtils.isFileExceedSize(photeFile, 10)){
-        			KeyAndUrl keyAndUrl = aliyunOssClient.upload(photeFile, source,photeFile.getName());
-        			return keyAndUrl;
-        		}else{
-            		JsonResp jsonResp = new JsonResp();
-            		jsonResp.setError("超过10M限制，不允许上传~");
-        		}
-        	} catch (Exception e) {
-        		throwException(e);
-        	}
-        	return null;
-        };
-        return handleRequest(businessHandler);
-    }
 	
 	/**
 	 * @Title: downloadExcel 
@@ -97,11 +57,11 @@ public class DownloadController extends BaseController{
             return;
         }
         response.setCharacterEncoding("utf-8");
-        String filePath = "tools/" + fileName;
+        String filePath = "files/" + fileName;
         if (filePath.lastIndexOf("/") == -1) {
             return;
         }
-        String webRoot = UIHelper.getWebRealPath(request);//FileUtils.getRealPath(request);
+        String webRoot = UIHelper.getWebRealPath(request);
 //        //本地
 //        String downloadPath = webRoot + filePath.replaceAll("/", "\\\\");
         //服务器
@@ -146,5 +106,4 @@ public class DownloadController extends BaseController{
     	};
         return handleRequest(businessHandler);
     }
-    
 }

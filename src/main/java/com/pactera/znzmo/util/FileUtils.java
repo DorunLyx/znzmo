@@ -13,8 +13,6 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -64,7 +62,6 @@ public class FileUtils {
               //获取文件后缀
               String fileSuffix = fileName.substring(fileName.lastIndexOf("."), fileName.length());
 
-              SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
               // 获取当前当前配置保存物理路径
               if (StringUtils.isEmpty(uploadSubPath)) {
                   uploadSubPath = "/default";
@@ -73,7 +70,9 @@ public class FileUtils {
 
               //创建相对路径
               String serverRealPath =  FileUtils.getRealPath(request);
-              String dirRelativePath = uploadSubPath + "/"  + sdf.format(new Date());
+//              SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+//              String dirRelativePath = uploadSubPath + "/"  + sdf.format(new Date());
+              String dirRelativePath = uploadSubPath;
               String dirRealPath = serverRealPath + dirRelativePath;
               //创建文件夹
               File uploadDir = new File(dirRealPath);
