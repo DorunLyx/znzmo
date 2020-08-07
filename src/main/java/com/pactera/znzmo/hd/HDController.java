@@ -113,7 +113,7 @@ public class HDController extends BaseController{
 	@ApiOperation(value = "HD贴图新增", httpMethod = "POST", notes = "HD贴图新增")
     @RequestMapping(value = "/addHdMapping", method = {RequestMethod.POST})
 	public JsonResp addHdMapping(
-			@ApiParam(name="hdMappingAddParam", value="Su模型新增参数", required=false)@RequestBody HDMappingAddParam hdMappingAddParam) {
+			@ApiParam(name="hdMappingAddParam", value="HD贴图新增参数", required=false)@RequestBody HDMappingAddParam hdMappingAddParam) {
 		Supplier<String> businessHandler = () ->{
 			try {
 				tbHdMappingService.addHdMapping(hdMappingAddParam);

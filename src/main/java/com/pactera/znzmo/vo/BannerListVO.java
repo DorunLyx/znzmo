@@ -15,7 +15,7 @@ import lombok.Data;
  */
 @Data
 @ApiModel(value="首页数据VO",description="首页数据VO")
-public class HomePageListVO {
+public class BannerListVO {
 	
 	@ApiModelProperty(value="轮播Id", name="bannerId")
 	private Long bannerId;

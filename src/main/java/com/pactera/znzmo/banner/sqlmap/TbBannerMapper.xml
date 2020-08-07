@@ -5,12 +5,14 @@
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.pactera.znzmo.banner.TbBanner">
         <id column="id" property="id" />
+        <result column="title" property="title" />
         <result column="status" property="status" />
         <result column="sort" property="sort" />
         <result column="type" property="type" />
         <result column="start_time" property="startTime" />
         <result column="end_time" property="endTime" />
         <result column="attachment_id" property="attachmentId" />
+        <result column="jump_link" property="jumpLink" />
         <result column="is_valid" property="isValid" />
         <result column="create_id" property="createId" />
         <result column="create_account" property="createAccount" />

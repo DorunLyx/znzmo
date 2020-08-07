@@ -28,6 +28,11 @@ public class TbBanner implements Serializable {
      */
     @TableId(value = "id", type = IdType.AUTO)
     private Long id;
+    
+    /**
+     * 标题
+     */
+    private String title;
 
     /**
      * 状态
@@ -58,6 +63,11 @@ public class TbBanner implements Serializable {
      * 图片
      */
     private Long attachmentId;
+    
+    /**
+     * 跳转链接
+     */
+    private String jumpLink;
 
     /**
      * 是否有效(0.无效,1.有效)
@@ -107,6 +117,8 @@ public class TbBanner implements Serializable {
 
     public static final String ID = "id";
 
+    public static final String TITLE = "title";
+
     public static final String STATUS = "status";
 
     public static final String SORT = "sort";
@@ -118,6 +130,8 @@ public class TbBanner implements Serializable {
     public static final String END_TIME = "end_time";
 
     public static final String ATTACHMENT_ID = "attachment_id";
+    
+    public static final String JUMP_LINK = "jump_link";
 
     public static final String IS_VALID = "is_valid";
 

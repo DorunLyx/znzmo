@@ -127,9 +127,6 @@ public class TbDrawingSchemeServiceImpl extends ServiceImpl<TbDrawingSchemeMappe
 		tbDrawing.setRemarks(drawingUpdateParam.getRemarks());
 		tbDrawing.setIsValid(IsValidEnum.YES.getKey());
 		tbDrawing.setStatus(StatusEnum.START_USE.getKey());
-//		tbDrawing.setCreateId(user.getUserId());
-//		tbDrawing.setCreateName(user.getUserName());
-		tbDrawing.setCreateTime(LocalDateTime.now());
 //		tbDrawing.setUpdateId(user.getUserId());
 //		tbDrawing.setUpdateName(user.getUserName());
 		tbDrawing.setUpdateTime(LocalDateTime.now());

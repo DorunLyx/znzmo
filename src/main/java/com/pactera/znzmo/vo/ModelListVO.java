@@ -66,5 +66,4 @@ public class ModelListVO {
 	@ApiModelProperty(value="上传时间", name="uploadTime")
 	private LocalDateTime uploadTime;
 	
-	
 }

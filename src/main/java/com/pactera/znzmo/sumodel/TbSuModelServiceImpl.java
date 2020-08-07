@@ -119,9 +119,6 @@ public class TbSuModelServiceImpl extends ServiceImpl<TbSuModelMapper, TbSuModel
 		tbSuModel.setTextureMapping(suModelUpdateParam.getTextureMapping());
 		tbSuModel.setRemarks(suModelUpdateParam.getRemarks());
 		tbSuModel.setIsValid(IsValidEnum.YES.getKey());
-//		tbSuModel.setCreateId(user.getUserId());
-//		tbSuModel.setCreateName(user.getUserName());
-		tbSuModel.setCreateTime(LocalDateTime.now());
 //		tbSuModel.setUpdateId(user.getUserId());
 //		tbSuModel.setUpdateName(user.getUserName());
 		tbSuModel.setUpdateTime(LocalDateTime.now());

@@ -96,7 +96,6 @@ public class TbHdMappingServiceImpl extends ServiceImpl<TbHdMappingMapper, TbHdM
             tbAttachment.setUpdateTime(LocalDateTime.now());
             tbAttachmentMapper.insert(tbAttachment);
         }
-		
 	}
 
 	@Override
@@ -114,9 +113,6 @@ public class TbHdMappingServiceImpl extends ServiceImpl<TbHdMappingMapper, TbHdM
 		tbHdMapping.setMappingPrice(hDMappingUpdateParam.getPrice());
 		tbHdMapping.setRemarks(hDMappingUpdateParam.getRemarks());
 		tbHdMapping.setIsValid(IsValidEnum.YES.getKey());
-//		tbHdMapping.setCreateId(user.getUserId());
-//		tbHdMapping.setCreateName(user.getUserName());
-		tbHdMapping.setCreateTime(LocalDateTime.now());
 //		tbHdMapping.setUpdateId(user.getUserId());
 //		tbHdMapping.setUpdateName(user.getUserName());
 		tbHdMapping.setUpdateTime(LocalDateTime.now());

@@ -117,9 +117,6 @@ public class Tb3dModelServiceImpl extends ServiceImpl<Tb3dModelMapper, Tb3dModel
 		tb3dModel.setLightingEffects(modelUpdateParam.getLightingEffects());
 		tb3dModel.setRemarks(modelUpdateParam.getRemarks());
 		tb3dModel.setIsValid(IsValidEnum.YES.getKey());
-//		tb3dModel.setCreateId(user.getUserId());
-//		tb3dModel.setCreateName(user.getUserName());
-		tb3dModel.setCreateTime(LocalDateTime.now());
 //		tb3dModel.setUpdateId(user.getUserId());
 //		tb3dModel.setUpdateName(user.getUserName());
 		tb3dModel.setUpdateTime(LocalDateTime.now());
