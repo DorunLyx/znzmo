@@ -18,6 +18,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.pactera.znzmo.common.TbAttachment;
 import com.pactera.znzmo.common.TbAttachmentService;
 import com.pactera.znzmo.enums.IsValidEnum;
+import com.pactera.znzmo.enums.JsonResultEnum;
 import com.pactera.znzmo.enums.StatusEnum;
 import com.pactera.znzmo.util.DataUtils;
 import com.pactera.znzmo.vo.ModelAddParam;
@@ -118,13 +119,14 @@ public class ModelController extends BaseController{
     @RequestMapping(value = "/add3DModel", method = {RequestMethod.POST})
 	public JsonResp add3DModel(
 			@ApiParam(name="modelAddParam", value="3d模型新增参数", required=false)@RequestBody ModelAddParam modelAddParam) {
-		Supplier businessHandler = () ->{
+		Supplier<String> businessHandler = () ->{
 			try {
 				tb3dModelService.add3DModel(modelAddParam);
+				return JsonResultEnum.ok.getValue();
 			} catch (Exception e) {
 				throwException(e);
 			}
-			return null;
+			return JsonResultEnum.fail.getValue();
 		};
 		return handleRequest(businessHandler);
 	}
@@ -159,6 +161,8 @@ public class ModelController extends BaseController{
 						UploadInfo uploadInfo = new UploadInfo();
 						uploadInfo.setType(tbAttachment.getReType());
 						uploadInfo.setFileName(tbAttachment.getAttachmentName());
+						uploadInfo.setFile(tbAttachment.getAttachmentPath());
+						uploadInfo.setRealName(tbAttachment.getAliasName());
 						uploadInfo.setUrl(tbAttachment.getAttachmentPath());
 					}
 		        }
@@ -195,13 +199,14 @@ public class ModelController extends BaseController{
 	@RequestMapping(value = "/updte3DModel", method = {RequestMethod.POST})
 	public JsonResp updte3DModel(
 			@ApiParam(name="modelUpdateParam", value="3d模型编辑参数", required=false)@RequestBody ModelUpdateParam modelUpdateParam) {
-		Supplier businessHandler = () ->{
+		Supplier<String> businessHandler = () ->{
 			try {
 				tb3dModelService.updte3DModel(modelUpdateParam);
+				return JsonResultEnum.ok.getValue();
 			} catch (Exception e) {
 				throwException(e);
 			}
-			return null;
+			return JsonResultEnum.fail.getValue();
 		};
 		return handleRequest(businessHandler);
 	}
@@ -214,21 +219,21 @@ public class ModelController extends BaseController{
 	 * @author liyongxu
 	 * @date 2020年8月5日 下午4:12:18 
 	*/
-	@SuppressWarnings("rawtypes")
 	@ApiOperation(value = "变更状态-3d模型", httpMethod = "POST", notes = "变更状态-3d模型")
     @RequestMapping(value = "/update3DModelStatus", method = {RequestMethod.POST})
     public JsonResp update3DModelStatus(
     		@ApiParam(name="modelQueryDetailsParam", value="3d模型详情参数", required=false)@RequestBody ModelQueryDetailsParam modelQueryDetailsParam) {
-		Supplier businessHandler = () ->{
+		Supplier<String> businessHandler = () ->{
 			try {
 				Tb3dModel tb3dModel = tb3dModelService.getById(modelQueryDetailsParam.getModelId());
 				tb3dModel.setStatus(StatusEnum.FORBIDDEN.getKey());
 				tb3dModelService.updateById(tb3dModel);
+				return JsonResultEnum.ok.getValue();
 			} catch (Exception e) {
 				throwException(e);
 				logger.error(e.getMessage(),e);
 			}
-			return null;
+			return JsonResultEnum.fail.getValue();
 		};
 		return handleRequest(businessHandler);
     }

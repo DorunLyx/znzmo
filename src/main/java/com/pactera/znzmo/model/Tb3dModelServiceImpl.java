@@ -87,7 +87,9 @@ public class Tb3dModelServiceImpl extends ServiceImpl<Tb3dModelMapper, Tb3dModel
             TbAttachment tbAttachment = new TbAttachment();
             tbAttachment.setRelationId(tb3dModel.getId());
             tbAttachment.setAttachmentName(keyAndUrl.getFileName());
-            tbAttachment.setAttachmentPath(keyAndUrl.getUrl());
+            tbAttachment.setAttachmentPath(keyAndUrl.getFile());
+            tbAttachment.setPhysicalPath(keyAndUrl.getFile());
+            tbAttachment.setAliasName(keyAndUrl.getRealName());
             tbAttachment.setReType(IsValidEnum.YES.getValue());
             tbAttachment.setIsValid(IsValidEnum.YES.getKey());
 //            tbAttachment.setCreateId(user.getUserId());
@@ -100,8 +102,7 @@ public class Tb3dModelServiceImpl extends ServiceImpl<Tb3dModelMapper, Tb3dModel
 
 	@Override
 	public void updte3DModel(ModelUpdateParam modelUpdateParam) {
-		Tb3dModel tb3dModel = new Tb3dModel();
-		tb3dModel.setId(modelUpdateParam.getModelId());
+		Tb3dModel tb3dModel = baseMapper.selectById(modelUpdateParam.getModelId());
 		tb3dModel.setMainGraph(modelUpdateParam.getMainGraph());
 		tb3dModel.setPrimaryClassId(modelUpdateParam.getPrimaryClassId());
 		tb3dModel.setPrimaryClassName(modelUpdateParam.getPrimaryClassName());
@@ -133,7 +134,9 @@ public class Tb3dModelServiceImpl extends ServiceImpl<Tb3dModelMapper, Tb3dModel
             TbAttachment tbAttachment = new TbAttachment();
             tbAttachment.setRelationId(tb3dModel.getId());
             tbAttachment.setAttachmentName(keyAndUrl.getFileName());
-            tbAttachment.setAttachmentPath(keyAndUrl.getUrl());
+            tbAttachment.setAttachmentPath(keyAndUrl.getFile());
+            tbAttachment.setPhysicalPath(keyAndUrl.getFile());
+            tbAttachment.setAliasName(keyAndUrl.getRealName());
             tbAttachment.setReType(IsValidEnum.YES.getValue());
             tbAttachment.setIsValid(IsValidEnum.YES.getKey());
 //            tbAttachment.setCreateId(user.getUserId());

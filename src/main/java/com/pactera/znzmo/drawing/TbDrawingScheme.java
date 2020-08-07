@@ -15,7 +15,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author liyongxu
- * @since 2020-08-05
+ * @since 2020-08-07
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -76,6 +76,26 @@ public class TbDrawingScheme implements Serializable {
     private String name;
 
     /**
+     * 标题
+     */
+    private String title;
+
+    /**
+     * 模型类型
+     */
+    private Integer modelType;
+
+    /**
+     * 模型价格
+     */
+    private BigDecimal modelPrice;
+
+    /**
+     * 材质贴图
+     */
+    private Integer textureMapping;
+
+    /**
      * 标签
      */
     private String tag;
@@ -121,10 +141,20 @@ public class TbDrawingScheme implements Serializable {
     private Integer downloadNum;
 
     /**
+     * 简介
+     */
+    private String synopsis;
+
+    /**
+     * 正文
+     */
+    private String text;
+
+    /**
      * 备注
      */
     private String remarks;
-    
+
     /**
      * 是否有效(0.无效,1.有效)
      */
@@ -191,6 +221,14 @@ public class TbDrawingScheme implements Serializable {
 
     public static final String NAME = "name";
 
+    public static final String TITLE = "title";
+
+    public static final String MODEL_TYPE = "model_type";
+
+    public static final String MODEL_PRICE = "model_price";
+
+    public static final String TEXTURE_MAPPING = "texture_mapping";
+
     public static final String TAG = "tag";
 
     public static final String DESIGN_TIME = "design_time";
@@ -209,8 +247,12 @@ public class TbDrawingScheme implements Serializable {
 
     public static final String DOWNLOAD_NUM = "download_num";
 
+    public static final String SYNOPSIS = "synopsis";
+
+    public static final String TEXT = "text";
+
     public static final String REMARKS = "remarks";
-    
+
     public static final String IS_VALID = "is_valid";
 
     public static final String CREATE_ID = "create_id";

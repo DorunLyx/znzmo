@@ -11,6 +11,8 @@
         <result column="primary_class_name" property="primaryClassName" />
         <result column="secondary_class_id" property="secondaryClassId" />
         <result column="secondary_class_name" property="secondaryClassName" />
+        <result column="three_class_id" property="threeClassId" />
+        <result column="three_class_name" property="threeClassName" />
         <result column="style_id" property="styleId" />
         <result column="style_name" property="styleName" />
         <result column="renderer" property="renderer" />

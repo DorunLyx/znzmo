@@ -59,6 +59,16 @@ public class TbSuModel implements Serializable {
      * 分类名称
      */
     private String secondaryClassName;
+    
+    /**
+     * 分类id
+     */
+    private Long threeClassId;
+    
+    /**
+     * 分类名称
+     */
+    private String threeClassName;
 
     /**
      * 设计风格id
@@ -179,6 +189,10 @@ public class TbSuModel implements Serializable {
     public static final String SECONDARY_CLASS_ID = "secondary_class_id";
 
     public static final String SECONDARY_CLASS_NAME = "secondary_class_name";
+    
+    public static final String THREE_CLASS_ID = "three_class_id";
+    
+    public static final String THREE_CLASS_NAME = "three_class_name";
 
     public static final String STYLE_ID = "style_id";
 

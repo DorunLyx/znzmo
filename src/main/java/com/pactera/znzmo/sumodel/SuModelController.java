@@ -16,13 +16,14 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.pactera.znzmo.enums.IsValidEnum;
+import com.pactera.znzmo.enums.JsonResultEnum;
 import com.pactera.znzmo.enums.StatusEnum;
-import com.pactera.znzmo.vo.ModelAddParam;
 import com.pactera.znzmo.vo.ModelDetailsVO;
 import com.pactera.znzmo.vo.ModelListVO;
 import com.pactera.znzmo.vo.ModelQueryDetailsParam;
 import com.pactera.znzmo.vo.ModelQueryParam;
-import com.pactera.znzmo.vo.ModelUpdateParam;
+import com.pactera.znzmo.vo.SuModelAddParam;
+import com.pactera.znzmo.vo.SuModelUpdateParam;
 import com.pactera.znzmo.web.BaseController;
 import com.pactera.znzmo.web.JsonResp;
 
@@ -39,7 +40,7 @@ import io.swagger.annotations.ApiParam;
  */
 @Api(tags = "su模型API", value = "su模型API")
 @RestController
-@RequestMapping(value = "/api/sumodel")
+@RequestMapping(value = "/sumodel")
 public class SuModelController extends BaseController{
 	
 	@Autowired
@@ -107,14 +108,15 @@ public class SuModelController extends BaseController{
 	@ApiOperation(value = "su模型新增", httpMethod = "POST", notes = "su模型新增")
     @RequestMapping(value = "/addSuModel", method = {RequestMethod.POST})
 	public JsonResp addSuModel(
-			@ApiParam(name="modelAddParam", value="Su模型新增参数", required=false)@RequestBody ModelAddParam modelAddParam) {
-		Supplier businessHandler = () ->{
+			@ApiParam(name="suModelAddParam", value="Su模型新增参数", required=false)@RequestBody SuModelAddParam suModelAddParam) {
+		Supplier<String> businessHandler = () ->{
 			try {
-				tbSuModelService.addSuModel(modelAddParam);
+				tbSuModelService.addSuModel(suModelAddParam);
+				return JsonResultEnum.ok.getValue();
 			} catch (Exception e) {
 				throwException(e);
 			}
-			return null;
+			return JsonResultEnum.fail.getValue();
 		};
 		return handleRequest(businessHandler);
 	}
@@ -163,7 +165,7 @@ public class SuModelController extends BaseController{
 	/**
 	 * @Title: updtesuModel 
 	 * @Description: su模型编辑
-	 * @param modelUpdateParam
+	 * @param suModelUpdateParam
 	 * @return JsonResult
 	 * @author liyongxu
 	 * @date 2020年8月5日 下午3:54:44 
@@ -171,14 +173,15 @@ public class SuModelController extends BaseController{
 	@ApiOperation(value = "su模型编辑", httpMethod = "POST", notes = "su模型编辑")
 	@RequestMapping(value = "/updteSuModel", method = {RequestMethod.POST})
 	public JsonResp updteSuModel(
-			@ApiParam(name="modelUpdateParam", value="Su模型编辑参数", required=false)@RequestBody ModelUpdateParam modelUpdateParam) {
-		Supplier businessHandler = () ->{
+			@ApiParam(name="suModelUpdateParam", value="Su模型编辑参数", required=false)@RequestBody SuModelUpdateParam suModelUpdateParam) {
+		Supplier<String> businessHandler = () ->{
 			try {
-				tbSuModelService.updteSuModel(modelUpdateParam);
+				tbSuModelService.updteSuModel(suModelUpdateParam);
+				return JsonResultEnum.ok.getValue();
 			} catch (Exception e) {
 				throwException(e);
 			}
-			return null;
+			return JsonResultEnum.fail.getValue();
 		};
 		return handleRequest(businessHandler);
 	}
@@ -195,15 +198,16 @@ public class SuModelController extends BaseController{
     @RequestMapping(value = "/updateSuModelStatus", method = {RequestMethod.POST})
     public JsonResp updateSuModelStatus(
     		@ApiParam(name="modelQueryDetailsParam", value="Su模型详情参数", required=false)@RequestBody ModelQueryDetailsParam modelQueryDetailsParam) {
-		Supplier businessHandler = () ->{
+		Supplier<String> businessHandler = () ->{
 			try {
 				TbSuModel tbSuModel = tbSuModelService.getById(modelQueryDetailsParam.getModelId());
 				tbSuModel.setStatus(StatusEnum.FORBIDDEN.getKey());
 				tbSuModelService.updateById(tbSuModel);
+				return JsonResultEnum.ok.getValue();
 			} catch (Exception e) {
 				throwException(e);
 			}
-			return null;
+			return JsonResultEnum.fail.getValue();
 		};
 		return handleRequest(businessHandler);
 	}
