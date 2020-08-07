@@ -15,15 +15,18 @@ import org.springframework.web.bind.annotation.RestController;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.pactera.znzmo.common.TbAttachment;
+import com.pactera.znzmo.common.TbAttachmentService;
 import com.pactera.znzmo.enums.IsValidEnum;
 import com.pactera.znzmo.enums.JsonResultEnum;
-import com.pactera.znzmo.enums.StatusEnum;
+import com.pactera.znzmo.util.DataUtils;
 import com.pactera.znzmo.vo.DrawingAddParam;
+import com.pactera.znzmo.vo.DrawingDetailsVO;
 import com.pactera.znzmo.vo.DrawingUpdateParam;
-import com.pactera.znzmo.vo.ModelDetailsVO;
 import com.pactera.znzmo.vo.ModelListVO;
 import com.pactera.znzmo.vo.ModelQueryDetailsParam;
 import com.pactera.znzmo.vo.ModelQueryParam;
+import com.pactera.znzmo.vo.UploadInfo;
 import com.pactera.znzmo.web.BaseController;
 import com.pactera.znzmo.web.JsonResp;
 
@@ -46,11 +49,14 @@ public class DrawingController extends BaseController{
 	@Autowired
 	private TbDrawingSchemeService tbDrawingSchemeService;
 	
+	@Autowired
+	private TbAttachmentService tbAttachmentService;
+	
 	public static final Logger logger = LoggerFactory.getLogger(DrawingController.class);
 
 	/**
 	 * @Title: getDrawingList 
-	 * @Description: TODO(这里用一句话描述这个方法的作用)
+	 * @Description: 图纸列表查询
 	 * @param modelQueryParam
 	 * @return JsonResp
 	 * @author liyongxu
@@ -75,8 +81,8 @@ public class DrawingController extends BaseController{
 					modelListVO.setSecondaryClassName(tbDrawing.getSecondaryClassName());
 					modelListVO.setStyleName(tbDrawing.getStyleName());
 					modelListVO.setTitle(tbDrawing.getTitle());
-					modelListVO.setModelType(tbDrawing.getModelType());
-					modelListVO.setModelPrice(tbDrawing.getModelPrice());
+					modelListVO.setType(tbDrawing.getModelType());
+					modelListVO.setPrice(tbDrawing.getModelPrice());
 					modelListVO.setTextureMapping(tbDrawing.getTextureMapping());
 					modelListVO.setStatus(tbDrawing.getStatus());
 					modelListVO.setVisitsNum(tbDrawing.getVisitsNum());
@@ -121,31 +127,59 @@ public class DrawingController extends BaseController{
 		return handleRequest(businessHandler);
 	}
 	
+	/**
+	 * @Title: getDrawingInfo 
+	 * @Description: 图纸方案详情
+	 * @param modelQueryDetailsParam
+	 * @return JsonResp
+	 * @author liyongxu
+	 * @date 2020年8月7日 下午2:53:28 
+	*/
 	@ApiOperation(value = "图纸方案详情", httpMethod = "POST", notes = "图纸方案详情")
     @RequestMapping(value = "/getDrawingInfo", method = {RequestMethod.POST})
     public JsonResp getDrawingInfo(
     		@ApiParam(name="modelQueryDetailsParam", value="图纸方案详情参数", required=false)@RequestBody ModelQueryDetailsParam modelQueryDetailsParam) {
-		Supplier<ModelDetailsVO> businessHandler = () ->{
+		Supplier<DrawingDetailsVO> businessHandler = () ->{
 			try {
 				QueryWrapper<TbDrawingScheme> queryWrapper = new QueryWrapper<>();
 				queryWrapper.eq(TbDrawingScheme.IS_VALID, IsValidEnum.YES.getKey())
 		        	.eq(TbDrawingScheme.ID, modelQueryDetailsParam.getModelId());
 				TbDrawingScheme tbDrawing = tbDrawingSchemeService.getOne(queryWrapper);
-		        ModelDetailsVO modelDetailsVO = new ModelDetailsVO();
-				modelDetailsVO.setModelId(tbDrawing.getId());
-				modelDetailsVO.setMainGraph(tbDrawing.getMainGraph());
-				modelDetailsVO.setCode(tbDrawing.getCode());
-				modelDetailsVO.setPrimaryClassId(tbDrawing.getPrimaryClassId());
-				modelDetailsVO.setPrimaryClassName(tbDrawing.getPrimaryClassName());
-				modelDetailsVO.setSecondaryClassId(tbDrawing.getSecondaryClassId());
-				modelDetailsVO.setSecondaryClassName(tbDrawing.getSecondaryClassName());
-				modelDetailsVO.setStyleId(tbDrawing.getStyleId());
-				modelDetailsVO.setStyleName(tbDrawing.getStyleName());
-				modelDetailsVO.setTitle(tbDrawing.getTitle());
-				modelDetailsVO.setModelType(tbDrawing.getModelType());
-				modelDetailsVO.setModelPrice(tbDrawing.getModelPrice());
-				modelDetailsVO.setTextureMapping(tbDrawing.getTextureMapping());
-				return modelDetailsVO;
+		        DrawingDetailsVO drawingDetailsVO = new DrawingDetailsVO();
+				drawingDetailsVO.setDrawingId(tbDrawing.getId());
+				drawingDetailsVO.setMainGraph(tbDrawing.getMainGraph());
+				drawingDetailsVO.setPrimaryClassId(tbDrawing.getPrimaryClassId());
+				drawingDetailsVO.setPrimaryClassName(tbDrawing.getPrimaryClassName());
+				drawingDetailsVO.setSecondaryClassId(tbDrawing.getSecondaryClassId());
+				drawingDetailsVO.setSecondaryClassName(tbDrawing.getSecondaryClassName());
+				drawingDetailsVO.setStyleId(tbDrawing.getStyleId());
+				drawingDetailsVO.setStyleName(tbDrawing.getStyleName());
+				drawingDetailsVO.setTitle(tbDrawing.getTitle());
+				drawingDetailsVO.setType(tbDrawing.getModelType());
+				drawingDetailsVO.setPrice(tbDrawing.getModelPrice());
+				drawingDetailsVO.setVersion(tbDrawing.getVersion());
+				drawingDetailsVO.setDesignTime(tbDrawing.getDesignTime());
+				drawingDetailsVO.setSynopsis(tbDrawing.getSynopsis());
+				drawingDetailsVO.setText(tbDrawing.getText());
+				drawingDetailsVO.setRemarks(tbDrawing.getRemarks());
+				List<UploadInfo> uploadInfos = new ArrayList<>();
+				QueryWrapper<TbAttachment> attachmentQueryWrapper = new QueryWrapper<>();
+				attachmentQueryWrapper.eq(TbAttachment.IS_VALID, IsValidEnum.YES.getKey())
+		        	.eq(TbAttachment.RELATION_ID, modelQueryDetailsParam.getModelId());
+		        List<TbAttachment> attachmentList = tbAttachmentService.list(attachmentQueryWrapper);
+		        if(DataUtils.isNotEmpty(attachmentList)) {
+		        	for (TbAttachment tbAttachment : attachmentList) {
+						UploadInfo uploadInfo = new UploadInfo();
+						uploadInfo.setType(tbAttachment.getReType());
+						uploadInfo.setFileName(tbAttachment.getAttachmentName());
+						uploadInfo.setFile(tbAttachment.getAttachmentPath());
+						uploadInfo.setRealName(tbAttachment.getAliasName());
+						uploadInfo.setUrl(tbAttachment.getAttachmentPath());
+						uploadInfos.add(uploadInfo);
+					}
+		        }
+		        drawingDetailsVO.setUploadImg(uploadInfos);
+				return drawingDetailsVO;
 			} catch (Exception e) {
 				throwException(e);
 			}
@@ -156,7 +190,7 @@ public class DrawingController extends BaseController{
 	
 	/**
 	 * @Title: updteDrawing 
-	 * @Description: TODO(这里用一句话描述这个方法的作用)
+	 * @Description: 图纸方案编辑
 	 * @param drawingUpdateParam
 	 * @return JsonResp
 	 * @author liyongxu
@@ -178,6 +212,14 @@ public class DrawingController extends BaseController{
 		return handleRequest(businessHandler);
 	}
 	
+	/**
+	 * @Title: updateDrawingStatus 
+	 * @Description: 变更状态-图纸方案
+	 * @param modelQueryDetailsParam
+	 * @return JsonResp
+	 * @author liyongxu
+	 * @date 2020年8月7日 下午2:53:12 
+	*/
 	@ApiOperation(value = "变更状态-图纸方案", httpMethod = "POST", notes = "变更状态-图纸方案")
     @RequestMapping(value = "/updateDrawingStatus", method = {RequestMethod.POST})
     public JsonResp updateDrawingStatus(
@@ -185,7 +227,7 @@ public class DrawingController extends BaseController{
 		Supplier<String> businessHandler = () ->{
 			try {
 				TbDrawingScheme tbDrawing = tbDrawingSchemeService.getById(modelQueryDetailsParam.getModelId());
-				tbDrawing.setStatus(StatusEnum.FORBIDDEN.getKey());
+				tbDrawing.setStatus(modelQueryDetailsParam.getStatus());
 				tbDrawingSchemeService.updateById(tbDrawing);
 				return JsonResultEnum.ok.getValue();
 			} catch (Exception e) {

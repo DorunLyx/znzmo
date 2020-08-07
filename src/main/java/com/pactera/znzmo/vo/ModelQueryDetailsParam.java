@@ -17,4 +17,7 @@ public class ModelQueryDetailsParam {
 
 	@ApiModelProperty(value="模型id", name="modelId")
     private Long modelId;
+	
+	@ApiModelProperty(value="状态", name="status")
+	private Integer status;
 }

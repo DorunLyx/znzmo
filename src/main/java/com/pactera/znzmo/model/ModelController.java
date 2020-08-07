@@ -19,7 +19,6 @@ import com.pactera.znzmo.common.TbAttachment;
 import com.pactera.znzmo.common.TbAttachmentService;
 import com.pactera.znzmo.enums.IsValidEnum;
 import com.pactera.znzmo.enums.JsonResultEnum;
-import com.pactera.znzmo.enums.StatusEnum;
 import com.pactera.znzmo.util.DataUtils;
 import com.pactera.znzmo.vo.ModelAddParam;
 import com.pactera.znzmo.vo.ModelDetailsVO;
@@ -82,8 +81,8 @@ public class ModelController extends BaseController{
 					modelListVO.setSecondaryClassName(tb3dModel.getSecondaryClassName());
 					modelListVO.setStyleName(tb3dModel.getStyleName());
 					modelListVO.setTitle(tb3dModel.getTitle());
-					modelListVO.setModelType(tb3dModel.getModelType());
-					modelListVO.setModelPrice(tb3dModel.getModelPrice());
+					modelListVO.setType(tb3dModel.getModelType());
+					modelListVO.setPrice(tb3dModel.getModelPrice());
 					modelListVO.setTextureMapping(tb3dModel.getTextureMapping());
 					modelListVO.setLightingEffects(tb3dModel.getLightingEffects());
 					modelListVO.setStatus(tb3dModel.getStatus());
@@ -152,6 +151,7 @@ public class ModelController extends BaseController{
 		        ModelDetailsVO modelDetailsVO = new ModelDetailsVO();
 				modelDetailsVO.setModelId(tb3dModel.getId());
 				modelDetailsVO.setMainGraph(tb3dModel.getMainGraph());
+				List<UploadInfo> uploadInfos = new ArrayList<>();
 				QueryWrapper<TbAttachment> attachmentQueryWrapper = new QueryWrapper<>();
 				attachmentQueryWrapper.eq(TbAttachment.IS_VALID, IsValidEnum.YES.getKey())
 		        	.eq(TbAttachment.RELATION_ID, modelQueryDetailsParam.getModelId());
@@ -164,9 +164,10 @@ public class ModelController extends BaseController{
 						uploadInfo.setFile(tbAttachment.getAttachmentPath());
 						uploadInfo.setRealName(tbAttachment.getAliasName());
 						uploadInfo.setUrl(tbAttachment.getAttachmentPath());
+						uploadInfos.add(uploadInfo);
 					}
 		        }
-				modelDetailsVO.setCode(tb3dModel.getCode());
+		        modelDetailsVO.setUploadImg(uploadInfos);
 				modelDetailsVO.setPrimaryClassId(tb3dModel.getPrimaryClassId());
 				modelDetailsVO.setPrimaryClassName(tb3dModel.getPrimaryClassName());
 				modelDetailsVO.setSecondaryClassId(tb3dModel.getSecondaryClassId());
@@ -174,10 +175,11 @@ public class ModelController extends BaseController{
 				modelDetailsVO.setStyleId(tb3dModel.getStyleId());
 				modelDetailsVO.setStyleName(tb3dModel.getStyleName());
 				modelDetailsVO.setTitle(tb3dModel.getTitle());
-				modelDetailsVO.setModelType(tb3dModel.getModelType());
-				modelDetailsVO.setModelPrice(tb3dModel.getModelPrice());
+				modelDetailsVO.setType(tb3dModel.getModelType());
+				modelDetailsVO.setPrice(tb3dModel.getModelPrice());
 				modelDetailsVO.setTextureMapping(tb3dModel.getTextureMapping());
 				modelDetailsVO.setLightingEffects(tb3dModel.getLightingEffects());
+				modelDetailsVO.setRemarks(tb3dModel.getRemarks());
 				return modelDetailsVO;
 			} catch (Exception e) {
 				throwException(e);
@@ -226,7 +228,7 @@ public class ModelController extends BaseController{
 		Supplier<String> businessHandler = () ->{
 			try {
 				Tb3dModel tb3dModel = tb3dModelService.getById(modelQueryDetailsParam.getModelId());
-				tb3dModel.setStatus(StatusEnum.FORBIDDEN.getKey());
+				tb3dModel.setStatus(modelQueryDetailsParam.getStatus());
 				tb3dModelService.updateById(tb3dModel);
 				return JsonResultEnum.ok.getValue();
 			} catch (Exception e) {

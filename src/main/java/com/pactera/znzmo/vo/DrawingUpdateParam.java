@@ -52,8 +52,8 @@ public class DrawingUpdateParam {
 	@ApiModelProperty(value="二级分类名称", name="secondaryClassName")
 	private String secondaryClassName;
 
-	@ApiModelProperty(value="资料类型", name="dataType")
-    private Integer dataType;
+	@ApiModelProperty(value="资料类型", name="type")
+    private Integer type;
 
 	@ApiModelProperty(value="价格", name="price")
     private BigDecimal price;

@@ -8,18 +8,18 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
- * @ClassName：ModelListVO
- * @Description：3d模型列表
+ * @ClassName：HDMappingDetailsVO
+ * @Description：HD贴图详情
  * @author liyongxu 
  * @date 2020年8月4日 上午11:21:33 
  * @version 1.0.0 
  */
 @Data
-@ApiModel(value="3d模型详情VO",description="3d模型详情VO")
-public class ModelDetailsVO {
+@ApiModel(value="HD贴图详情VO",description="HD贴图详情VO")
+public class HDMappingDetailsVO {
 
-	@ApiModelProperty(value="3d模板Id", name="modelId")
-	private Long modelId;
+	@ApiModelProperty(value="hdId", name="hdId")
+	private Long hdId;
 
 	@ApiModelProperty(value="主图地址", name="mainGraph")
     private String mainGraph;
@@ -45,17 +45,11 @@ public class ModelDetailsVO {
 	@ApiModelProperty(value="标题", name="title")
     private String title;
 
-	@ApiModelProperty(value="模型类型", name="type")
+	@ApiModelProperty(value="贴图类型", name="type")
     private Integer type;
 
-	@ApiModelProperty(value="模型价格", name="price")
+	@ApiModelProperty(value="价格", name="price")
     private BigDecimal price;
-
-	@ApiModelProperty(value="材质贴图", name="textureMapping")
-    private Integer textureMapping;
-
-	@ApiModelProperty(value="灯光效果", name="lightingEffects")
-    private String lightingEffects;
 
 	@ApiModelProperty(value="备注", name="remarks")
     private String remarks;

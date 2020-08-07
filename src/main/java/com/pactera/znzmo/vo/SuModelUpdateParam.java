@@ -54,11 +54,11 @@ public class SuModelUpdateParam {
 	@ApiModelProperty(value="三级分类名称", name="threeClassName")
 	private String threeClassName;
 	
-	@ApiModelProperty(value="模型类型", name="modelType")
-    private Integer modelType;
+	@ApiModelProperty(value="模型类型", name="type")
+    private Integer type;
 
-	@ApiModelProperty(value="模型价格", name="modelPrice")
-    private BigDecimal modelPrice;
+	@ApiModelProperty(value="模型价格", name="price")
+    private BigDecimal price;
 
 	@ApiModelProperty(value="材质贴图", name="textureMapping")
     private Integer textureMapping;

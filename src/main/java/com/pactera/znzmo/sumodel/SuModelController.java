@@ -15,15 +15,18 @@ import org.springframework.web.bind.annotation.RestController;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.pactera.znzmo.common.TbAttachment;
+import com.pactera.znzmo.common.TbAttachmentService;
 import com.pactera.znzmo.enums.IsValidEnum;
 import com.pactera.znzmo.enums.JsonResultEnum;
-import com.pactera.znzmo.enums.StatusEnum;
-import com.pactera.znzmo.vo.ModelDetailsVO;
+import com.pactera.znzmo.util.DataUtils;
 import com.pactera.znzmo.vo.ModelListVO;
 import com.pactera.znzmo.vo.ModelQueryDetailsParam;
 import com.pactera.znzmo.vo.ModelQueryParam;
 import com.pactera.znzmo.vo.SuModelAddParam;
+import com.pactera.znzmo.vo.SuModelDetailsVO;
 import com.pactera.znzmo.vo.SuModelUpdateParam;
+import com.pactera.znzmo.vo.UploadInfo;
 import com.pactera.znzmo.web.BaseController;
 import com.pactera.znzmo.web.JsonResp;
 
@@ -45,6 +48,9 @@ public class SuModelController extends BaseController{
 	
 	@Autowired
 	private TbSuModelService tbSuModelService;
+	
+	@Autowired
+	private TbAttachmentService tbAttachmentService;
 	
 	public static final Logger logger = LoggerFactory.getLogger(SuModelController.class);
 
@@ -75,8 +81,8 @@ public class SuModelController extends BaseController{
 					modelListVO.setSecondaryClassName(tbSuModel.getSecondaryClassName());
 					modelListVO.setStyleName(tbSuModel.getStyleName());
 					modelListVO.setTitle(tbSuModel.getTitle());
-					modelListVO.setModelType(tbSuModel.getModelType());
-					modelListVO.setModelPrice(tbSuModel.getModelPrice());
+					modelListVO.setType(tbSuModel.getModelType());
+					modelListVO.setPrice(tbSuModel.getModelPrice());
 					modelListVO.setTextureMapping(tbSuModel.getTextureMapping());
 					modelListVO.setStatus(tbSuModel.getStatus());
 					modelListVO.setVisitsNum(tbSuModel.getVisitsNum());
@@ -133,27 +139,47 @@ public class SuModelController extends BaseController{
     @RequestMapping(value = "/getSuModelInfo", method = {RequestMethod.POST})
     public JsonResp getSuModelInfo(
     		@ApiParam(name="modelQueryDetailsParam", value="Su模型详情参数", required=false)@RequestBody ModelQueryDetailsParam modelQueryDetailsParam) {
-		Supplier<ModelDetailsVO> businessHandler = () ->{
+		Supplier<SuModelDetailsVO> businessHandler = () ->{
 			try {
 				QueryWrapper<TbSuModel> queryWrapper = new QueryWrapper<>();
 				queryWrapper.eq(TbSuModel.IS_VALID, IsValidEnum.YES.getKey())
 		        	.eq(TbSuModel.ID, modelQueryDetailsParam.getModelId());
 		        TbSuModel tbSuModel = tbSuModelService.getOne(queryWrapper);
-		        ModelDetailsVO modelDetailsVO = new ModelDetailsVO();
-				modelDetailsVO.setModelId(tbSuModel.getId());
-				modelDetailsVO.setMainGraph(tbSuModel.getMainGraph());
-				modelDetailsVO.setCode(tbSuModel.getCode());
-				modelDetailsVO.setPrimaryClassId(tbSuModel.getPrimaryClassId());
-				modelDetailsVO.setPrimaryClassName(tbSuModel.getPrimaryClassName());
-				modelDetailsVO.setSecondaryClassId(tbSuModel.getSecondaryClassId());
-				modelDetailsVO.setSecondaryClassName(tbSuModel.getSecondaryClassName());
-				modelDetailsVO.setStyleId(tbSuModel.getStyleId());
-				modelDetailsVO.setStyleName(tbSuModel.getStyleName());
-				modelDetailsVO.setTitle(tbSuModel.getTitle());
-				modelDetailsVO.setModelType(tbSuModel.getModelType());
-				modelDetailsVO.setModelPrice(tbSuModel.getModelPrice());
-				modelDetailsVO.setTextureMapping(tbSuModel.getTextureMapping());
-				return modelDetailsVO;
+		        SuModelDetailsVO suModelDetailsVO = new SuModelDetailsVO();
+				suModelDetailsVO.setModelId(tbSuModel.getId());
+				suModelDetailsVO.setMainGraph(tbSuModel.getMainGraph());
+				suModelDetailsVO.setPrimaryClassId(tbSuModel.getPrimaryClassId());
+				suModelDetailsVO.setPrimaryClassName(tbSuModel.getPrimaryClassName());
+				suModelDetailsVO.setSecondaryClassId(tbSuModel.getSecondaryClassId());
+				suModelDetailsVO.setSecondaryClassName(tbSuModel.getSecondaryClassName());
+				suModelDetailsVO.setThreeClassId(tbSuModel.getThreeClassId());
+				suModelDetailsVO.setThreeClassName(tbSuModel.getThreeClassName());
+				suModelDetailsVO.setStyleId(tbSuModel.getStyleId());
+				suModelDetailsVO.setStyleName(tbSuModel.getStyleName());
+				suModelDetailsVO.setTitle(tbSuModel.getTitle());
+				suModelDetailsVO.setType(tbSuModel.getModelType());
+				suModelDetailsVO.setPrice(tbSuModel.getModelPrice());
+				suModelDetailsVO.setTextureMapping(tbSuModel.getTextureMapping());
+				suModelDetailsVO.setVersion(tbSuModel.getVersion());
+				suModelDetailsVO.setRemarks(tbSuModel.getRemarks());
+				List<UploadInfo> uploadInfos = new ArrayList<>();
+				QueryWrapper<TbAttachment> attachmentQueryWrapper = new QueryWrapper<>();
+				attachmentQueryWrapper.eq(TbAttachment.IS_VALID, IsValidEnum.YES.getKey())
+		        	.eq(TbAttachment.RELATION_ID, modelQueryDetailsParam.getModelId());
+		        List<TbAttachment> attachmentList = tbAttachmentService.list(attachmentQueryWrapper);
+		        if(DataUtils.isNotEmpty(attachmentList)) {
+		        	for (TbAttachment tbAttachment : attachmentList) {
+						UploadInfo uploadInfo = new UploadInfo();
+						uploadInfo.setType(tbAttachment.getReType());
+						uploadInfo.setFileName(tbAttachment.getAttachmentName());
+						uploadInfo.setFile(tbAttachment.getAttachmentPath());
+						uploadInfo.setRealName(tbAttachment.getAliasName());
+						uploadInfo.setUrl(tbAttachment.getAttachmentPath());
+						uploadInfos.add(uploadInfo);
+					}
+		        }
+		        suModelDetailsVO.setUploadImg(uploadInfos);
+				return suModelDetailsVO;
 			} catch (Exception e) {
 				throwException(e);
 			}
@@ -201,7 +227,7 @@ public class SuModelController extends BaseController{
 		Supplier<String> businessHandler = () ->{
 			try {
 				TbSuModel tbSuModel = tbSuModelService.getById(modelQueryDetailsParam.getModelId());
-				tbSuModel.setStatus(StatusEnum.FORBIDDEN.getKey());
+				tbSuModel.setStatus(modelQueryDetailsParam.getStatus());
 				tbSuModelService.updateById(tbSuModel);
 				return JsonResultEnum.ok.getValue();
 			} catch (Exception e) {

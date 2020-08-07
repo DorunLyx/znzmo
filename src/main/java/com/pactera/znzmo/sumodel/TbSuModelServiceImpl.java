@@ -69,8 +69,8 @@ public class TbSuModelServiceImpl extends ServiceImpl<TbSuModelMapper, TbSuModel
 		tbSuModel.setStyleId(suModelAddParam.getStyleId());
 		tbSuModel.setStyleName(suModelAddParam.getStyleName());
 		tbSuModel.setTitle(suModelAddParam.getTitle());
-		tbSuModel.setModelType(suModelAddParam.getModelType());
-		tbSuModel.setModelPrice(suModelAddParam.getModelPrice());
+		tbSuModel.setModelType(suModelAddParam.getType());
+		tbSuModel.setModelPrice(suModelAddParam.getPrice());
 		tbSuModel.setTextureMapping(suModelAddParam.getTextureMapping());
 		tbSuModel.setRemarks(suModelAddParam.getRemarks());
 		tbSuModel.setIsValid(IsValidEnum.YES.getKey());
@@ -114,8 +114,8 @@ public class TbSuModelServiceImpl extends ServiceImpl<TbSuModelMapper, TbSuModel
 		tbSuModel.setStyleId(suModelUpdateParam.getStyleId());
 		tbSuModel.setStyleName(suModelUpdateParam.getStyleName());
 		tbSuModel.setTitle(suModelUpdateParam.getTitle());
-		tbSuModel.setModelType(suModelUpdateParam.getModelType());
-		tbSuModel.setModelPrice(suModelUpdateParam.getModelPrice());
+		tbSuModel.setModelType(suModelUpdateParam.getType());
+		tbSuModel.setModelPrice(suModelUpdateParam.getPrice());
 		tbSuModel.setTextureMapping(suModelUpdateParam.getTextureMapping());
 		tbSuModel.setRemarks(suModelUpdateParam.getRemarks());
 		tbSuModel.setIsValid(IsValidEnum.YES.getKey());

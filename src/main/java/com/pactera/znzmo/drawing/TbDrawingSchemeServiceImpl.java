@@ -68,7 +68,7 @@ public class TbDrawingSchemeServiceImpl extends ServiceImpl<TbDrawingSchemeMappe
 		tbDrawing.setStyleName(drawingAddParam.getStyleName());
 		tbDrawing.setTitle(drawingAddParam.getTitle());
 		tbDrawing.setTag(drawingAddParam.getTag());
-		tbDrawing.setModelType(drawingAddParam.getDataType());
+		tbDrawing.setModelType(drawingAddParam.getType());
 		tbDrawing.setModelPrice(drawingAddParam.getPrice());
 		tbDrawing.setVersion(drawingAddParam.getVersion());
 		tbDrawing.setDesignTime(drawingAddParam.getDesignTime());
@@ -117,7 +117,7 @@ public class TbDrawingSchemeServiceImpl extends ServiceImpl<TbDrawingSchemeMappe
 		tbDrawing.setStyleName(drawingUpdateParam.getStyleName());
 		tbDrawing.setTitle(drawingUpdateParam.getTitle());
 		tbDrawing.setTag(drawingUpdateParam.getTag());
-		tbDrawing.setModelType(drawingUpdateParam.getDataType());
+		tbDrawing.setModelType(drawingUpdateParam.getType());
 		tbDrawing.setModelPrice(drawingUpdateParam.getPrice());
 		tbDrawing.setVersion(drawingUpdateParam.getVersion());
 		tbDrawing.setDesignTime(drawingUpdateParam.getDesignTime());
