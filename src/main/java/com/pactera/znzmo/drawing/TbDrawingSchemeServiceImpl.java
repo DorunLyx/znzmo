@@ -13,8 +13,12 @@ import com.github.pagehelper.util.StringUtil;
 import com.pactera.znzmo.common.TbAttachment;
 import com.pactera.znzmo.common.dao.TbAttachmentMapper;
 import com.pactera.znzmo.drawing.dao.TbDrawingSchemeMapper;
+import com.pactera.znzmo.enums.ApproveStatusEnum;
 import com.pactera.znzmo.enums.IsValidEnum;
+import com.pactera.znzmo.enums.ReTypeEnum;
 import com.pactera.znzmo.enums.StatusEnum;
+import com.pactera.znzmo.examineverify.TbExamineVerify;
+import com.pactera.znzmo.examineverify.dao.TbExamineVerifyMapper;
 import com.pactera.znzmo.util.NumGenerationUtil;
 import com.pactera.znzmo.vo.DrawingAddParam;
 import com.pactera.znzmo.vo.DrawingUpdateParam;
@@ -34,6 +38,9 @@ public class TbDrawingSchemeServiceImpl extends ServiceImpl<TbDrawingSchemeMappe
 
 	@Autowired
 	private TbAttachmentMapper tbAttachmentMapper;
+	
+	@Autowired
+	private TbExamineVerifyMapper tbExamineVerifyMapper;
 	
 	@Override
 	public IPage<TbDrawingScheme> selectDrawingPages(Page<TbDrawingScheme> page, ModelQueryParam modelQueryParam) {
@@ -77,7 +84,7 @@ public class TbDrawingSchemeServiceImpl extends ServiceImpl<TbDrawingSchemeMappe
 		tbDrawing.setText(drawingAddParam.getText());
 		tbDrawing.setRemarks(drawingAddParam.getRemarks());
 		tbDrawing.setIsValid(IsValidEnum.YES.getKey());
-		tbDrawing.setStatus(StatusEnum.START_USE.getKey());
+		tbDrawing.setStatus(ApproveStatusEnum.WAITAPPROVAL.getKey());
 //		tbDrawing.setCreateId(user.getUserId());
 //		tbDrawing.setCreateName(user.getUserName());
 		tbDrawing.setCreateTime(LocalDateTime.now());
@@ -102,6 +109,21 @@ public class TbDrawingSchemeServiceImpl extends ServiceImpl<TbDrawingSchemeMappe
             tbAttachment.setUpdateTime(LocalDateTime.now());
             tbAttachmentMapper.insert(tbAttachment);
         }
+        
+        TbExamineVerify tbExamineVerify = new TbExamineVerify();
+        tbExamineVerify.setUserId(1L);
+        tbExamineVerify.setUserName("admin");
+        tbExamineVerify.setReId(tbDrawing.getId());
+        tbExamineVerify.setReType(ReTypeEnum.MODEL.getKey());
+        tbExamineVerify.setStatus(ApproveStatusEnum.WAITAPPROVAL.getKey());
+        tbExamineVerify.setIsValid(IsValidEnum.YES.getKey());
+//		tbExamineVerify.setCreateId(user.getUserId());
+//		tbExamineVerify.setCreateName(user.getUserName());
+        tbExamineVerify.setCreateTime(LocalDateTime.now());
+//		tbExamineVerify.setUpdateId(user.getUserId());
+//		tbExamineVerify.setUpdateName(user.getUserName());
+        tbExamineVerify.setUpdateTime(LocalDateTime.now());
+        tbExamineVerifyMapper.insert(tbExamineVerify);
 	}
 
 	@Override

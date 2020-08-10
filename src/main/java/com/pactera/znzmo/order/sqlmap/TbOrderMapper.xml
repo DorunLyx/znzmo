@@ -9,6 +9,7 @@
         <result column="title" property="title" />
         <result column="price" property="price" />
         <result column="type" property="type" />
+        <result column="re_id" property="reId" />
         <result column="user_name" property="userName" />
         <result column="user_id" property="userId" />
         <result column="order_time" property="orderTime" />

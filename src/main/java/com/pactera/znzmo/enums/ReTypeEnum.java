@@ -1,17 +1,21 @@
 package com.pactera.znzmo.enums;
 
 /**
- * 状态枚举
+ * 业务类型枚举
  */
-public enum ApproveStatusEnum {
-    WAITAPPROVAL(0,"待审核"),
-    REJECTED(1,"已驳回"),
-    APPROVAL_PASS(2,"审核通过");
+public enum ReTypeEnum {
+	MODEL(0,"3dModel"),
+	SUMODEL(1,"suModel"),
+    IMPORT(2,"drawing"),
+    HD(3,"hd"),
+	DATABASE(4,"dataBase");
+
+
     private Integer key;
 
     private String value;
 
-    ApproveStatusEnum(Integer key, String value) {
+    ReTypeEnum(Integer key, String value) {
         this.key = key;
         this.value = value;
     }

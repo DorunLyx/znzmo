@@ -12,8 +12,11 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.util.StringUtil;
 import com.pactera.znzmo.common.TbAttachment;
 import com.pactera.znzmo.common.dao.TbAttachmentMapper;
+import com.pactera.znzmo.enums.ApproveStatusEnum;
 import com.pactera.znzmo.enums.IsValidEnum;
-import com.pactera.znzmo.enums.StatusEnum;
+import com.pactera.znzmo.enums.ReTypeEnum;
+import com.pactera.znzmo.examineverify.TbExamineVerify;
+import com.pactera.znzmo.examineverify.dao.TbExamineVerifyMapper;
 import com.pactera.znzmo.hd.dao.TbHdMappingMapper;
 import com.pactera.znzmo.util.NumGenerationUtil;
 import com.pactera.znzmo.vo.HDMappingAddParam;
@@ -34,6 +37,9 @@ public class TbHdMappingServiceImpl extends ServiceImpl<TbHdMappingMapper, TbHdM
 	
 	@Autowired
 	private TbAttachmentMapper tbAttachmentMapper;
+	
+	@Autowired
+	private TbExamineVerifyMapper tbExamineVerifyMapper;
 	
 	@Override
 	public IPage<TbHdMapping> selectHdMappingPages(Page<TbHdMapping> page, ModelQueryParam modelQueryParam) {
@@ -71,7 +77,7 @@ public class TbHdMappingServiceImpl extends ServiceImpl<TbHdMappingMapper, TbHdM
 		tbHdMapping.setMappingPrice(hdMappingAddParam.getPrice());
 		tbHdMapping.setRemarks(hdMappingAddParam.getRemarks());
 		tbHdMapping.setIsValid(IsValidEnum.YES.getKey());
-		tbHdMapping.setStatus(StatusEnum.START_USE.getKey());
+		tbHdMapping.setStatus(ApproveStatusEnum.WAITAPPROVAL.getKey());
 //		tbHdMapping.setCreateId(user.getUserId());
 //		tbHdMapping.setCreateName(user.getUserName());
 		tbHdMapping.setCreateTime(LocalDateTime.now());
@@ -96,6 +102,21 @@ public class TbHdMappingServiceImpl extends ServiceImpl<TbHdMappingMapper, TbHdM
             tbAttachment.setUpdateTime(LocalDateTime.now());
             tbAttachmentMapper.insert(tbAttachment);
         }
+        
+        TbExamineVerify tbExamineVerify = new TbExamineVerify();
+        tbExamineVerify.setUserId(1L);
+        tbExamineVerify.setUserName("admin");
+        tbExamineVerify.setReId(tbHdMapping.getId());
+        tbExamineVerify.setReType(ReTypeEnum.MODEL.getKey());
+        tbExamineVerify.setStatus(ApproveStatusEnum.WAITAPPROVAL.getKey());
+        tbExamineVerify.setIsValid(IsValidEnum.YES.getKey());
+//		tbExamineVerify.setCreateId(user.getUserId());
+//		tbExamineVerify.setCreateName(user.getUserName());
+        tbExamineVerify.setCreateTime(LocalDateTime.now());
+//		tbExamineVerify.setUpdateId(user.getUserId());
+//		tbExamineVerify.setUpdateName(user.getUserName());
+        tbExamineVerify.setUpdateTime(LocalDateTime.now());
+        tbExamineVerifyMapper.insert(tbExamineVerify);
 	}
 
 	@Override

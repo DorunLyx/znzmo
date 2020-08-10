@@ -137,7 +137,7 @@ public class HDController extends BaseController{
 	@ApiOperation(value = "HD贴图详情", httpMethod = "POST", notes = "HD贴图详情")
     @RequestMapping(value = "/getHdMappingInfo", method = {RequestMethod.POST})
     public JsonResp getHdMappingInfo(
-    		@ApiParam(name="modelQueryDetailsParam", value="图纸方案详情参数", required=false)@RequestBody ModelQueryDetailsParam modelQueryDetailsParam) {
+    		@ApiParam(name="modelQueryDetailsParam", value="HD贴图详情参数", required=false)@RequestBody ModelQueryDetailsParam modelQueryDetailsParam) {
 		Supplier<HDMappingDetailsVO> businessHandler = () ->{
 			try {
 				QueryWrapper<TbHdMapping> queryWrapper = new QueryWrapper<>();

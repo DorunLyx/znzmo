@@ -69,7 +69,7 @@ public class BannerController extends BaseController{
     		@ApiParam(name="bannerQueryParam", value="首页列表筛选参数", required=false)@RequestBody BannerQueryParam bannerQueryParam) {
 		Supplier<IPage<BannerListVO>> businessHandler = () ->{
 			try {
-				List<BannerListVO> modelList = new ArrayList<BannerListVO>();
+				List<BannerListVO> bannerList = new ArrayList<BannerListVO>();
 				Page<TbBanner> page = new Page<TbBanner>(bannerQueryParam.getPageNo(), bannerQueryParam.getPageSize());
 				IPage<BannerListVO> modeListPage =  new Page<BannerListVO>(bannerQueryParam.getPageNo(), bannerQueryParam.getPageSize());
 				IPage<TbBanner> iPage = tbBannerService.selectBannerPages(page, bannerQueryParam);
@@ -83,9 +83,9 @@ public class BannerController extends BaseController{
 					bannerListVO.setEndTime(tbBanner.getEndTime());
 			        TbAttachment attachmentList = tbAttachmentService.getById(tbBanner.getAttachmentId());
 					bannerListVO.setMainGraph(attachmentList.getAttachmentPath());
-					modelList.add(bannerListVO);
+					bannerList.add(bannerListVO);
 	    		}
-				modeListPage.setRecords(modelList);
+				modeListPage.setRecords(bannerList);
 				modeListPage.setCurrent(iPage.getCurrent());
 				modeListPage.setPages(iPage.getPages());
 				modeListPage.setSize(iPage.getSize());
@@ -194,7 +194,7 @@ public class BannerController extends BaseController{
 	@ApiOperation(value = "变更状态-轮播", httpMethod = "POST", notes = "变更状态-轮播")
     @RequestMapping(value = "/updateBannerStatus", method = {RequestMethod.POST})
     public JsonResp updateBannerStatus(
-    		@ApiParam(name="modelQueryDetailsParam", value="HD贴图详情参数", required=false)@RequestBody ModelQueryDetailsParam modelQueryDetailsParam) {
+    		@ApiParam(name="modelQueryDetailsParam", value="轮播详情参数", required=false)@RequestBody ModelQueryDetailsParam modelQueryDetailsParam) {
 		Supplier<String> businessHandler = () ->{
 			try {
 				TbBanner tbBanner = tbBannerService.getById(modelQueryDetailsParam.getModelId());

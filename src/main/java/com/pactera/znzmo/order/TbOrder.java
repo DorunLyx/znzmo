@@ -51,6 +51,11 @@ public class TbOrder implements Serializable {
     private Integer type;
 
     /**
+     * 业务id
+     */
+    private Long reId;
+    
+    /**
      * 用户名称
      */
     private String userName;
@@ -120,6 +125,8 @@ public class TbOrder implements Serializable {
     public static final String PRICE = "price";
 
     public static final String TYPE = "type";
+    
+    public static final String RE_ID = "re_id";
 
     public static final String USER_NAME = "user_name";
 
