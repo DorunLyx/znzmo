@@ -1,9 +1,18 @@
 package com.pactera.znzmo.log;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.github.pagehelper.util.StringUtil;
+import com.pactera.znzmo.banner.TbBanner;
+import com.pactera.znzmo.common.dao.TbAttachmentMapper;
+import com.pactera.znzmo.enums.IsValidEnum;
 import com.pactera.znzmo.log.dao.TbLogMapper;
+import com.pactera.znzmo.vo.LogQueryParam;
 
 /**
  * <p>
@@ -15,5 +24,21 @@ import com.pactera.znzmo.log.dao.TbLogMapper;
  */
 @Service
 public class TbLogServiceImpl extends ServiceImpl<TbLogMapper, TbLog> implements TbLogService {
+	@Autowired
+	private TbLogMapper tbLogMapper;
 
+	@Override
+	public IPage<TbLog> selectTbLogPages(Page<TbLog> page, LogQueryParam logQueryParam) {
+		QueryWrapper<TbLog> queryWrapper = new QueryWrapper<>();
+
+		if(StringUtil.isNotEmpty(logQueryParam.getTitle().toString())) {
+			queryWrapper.like(TbLog.TITLE, logQueryParam.getTitle());
+		}
+		if(StringUtil.isNotEmpty(logQueryParam.getStartTime().toString())) {
+			queryWrapper.eq(TbLog.CREATE_TIME, logQueryParam.getStartTime());
+		}
+		queryWrapper.orderByDesc(TbLog.UPDATE_TIME);
+		return baseMapper.selectPage(page,queryWrapper);
+	}
+	
 }
