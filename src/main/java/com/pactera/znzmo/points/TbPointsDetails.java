@@ -59,6 +59,11 @@ public class TbPointsDetails implements Serializable {
      * 总积分
      */
     private BigDecimal totalPoints;
+    
+    /**
+     * 积分类型
+     */
+    private Integer type;
 
     /**
      * 积分兑换套餐
@@ -130,6 +135,8 @@ public class TbPointsDetails implements Serializable {
 
     public static final String TOTAL_POINTS = "total_points";
 
+    public static final String TYPE = "type";
+    
     public static final String EXCHANGE_PACKAGE = "exchange_package";
 
     public static final String EXCHANGE_TIME = "exchange_time";

@@ -11,6 +11,7 @@
         <result column="consume_points" property="consumePoints" />
         <result column="current_points" property="currentPoints" />
         <result column="total_points" property="totalPoints" />
+        <result column="type" property="type" />
         <result column="exchange_package" property="exchangePackage" />
         <result column="exchange_time" property="exchangeTime" />
         <result column="is_valid" property="isValid" />

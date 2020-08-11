@@ -46,7 +46,7 @@ public class OrderController extends BaseController{
 	public static final Logger logger = LoggerFactory.getLogger(OrderController.class);
 
 	/**
-	 * @Title: getOrderList 
+	 * @Title: getOrderList
 	 * @Description: 订单列表查询
 	 * @param orderQueryParam
 	 * @return JsonResp
