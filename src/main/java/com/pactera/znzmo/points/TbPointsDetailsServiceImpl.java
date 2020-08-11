@@ -28,7 +28,7 @@ public class TbPointsDetailsServiceImpl extends ServiceImpl<TbPointsDetailsMappe
 		QueryWrapper<TbPointsDetails> queryWrapper = new QueryWrapper<>();
 		queryWrapper.eq(TbPointsDetails.IS_VALID, IsValidEnum.YES.getKey());
 		if(StringUtil.isNotEmpty(pointsQueryParam.getUserName())) {
-			queryWrapper.like(TbPointsDetails.UPDATE_NAME, pointsQueryParam.getUserName());
+			queryWrapper.like(TbPointsDetails.USER_NAME, pointsQueryParam.getUserName());
 		}
 		if(StringUtil.isNotEmpty(pointsQueryParam.getStartTime().toString())) {
 			queryWrapper.ge(TbPointsDetails.EXCHANGE_TIME, pointsQueryParam.getStartTime());
