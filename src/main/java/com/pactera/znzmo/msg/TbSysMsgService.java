@@ -1,6 +1,10 @@
 package com.pactera.znzmo.msg;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.pactera.znzmo.vo.MsgAddParam;
+import com.pactera.znzmo.vo.MsgQueryParam;
 
 /**
  * <p>
@@ -11,5 +15,12 @@ import com.baomidou.mybatisplus.extension.service.IService;
  * @since 2020-08-03
  */
 public interface TbSysMsgService extends IService<TbSysMsg> {
+	/**
+	 * @param msgAddParam
+	 */
+	void addSysMsg(MsgAddParam msgAddParam);
+	
+	IPage<TbSysMsg> selectSysMsgPages(Page<TbSysMsg> page, MsgQueryParam msgQueryParam);
 
+	void updateSysMsg(MsgAddParam msgAddParam);
 }

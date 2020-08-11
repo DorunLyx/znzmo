@@ -17,9 +17,6 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
-import com.pactera.znzmo.banner.TbBanner;
-import com.pactera.znzmo.common.TbAttachment;
-import com.pactera.znzmo.vo.BannerListVO;
 import com.pactera.znzmo.vo.LogListVO;
 import com.pactera.znzmo.vo.LogQueryParam;
 import com.pactera.znzmo.web.BaseController;

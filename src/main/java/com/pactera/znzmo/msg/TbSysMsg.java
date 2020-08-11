@@ -118,4 +118,6 @@ public class TbSysMsg implements Serializable {
 
     public static final String UPDATE_TIME = "update_time";
 
+	
+
 }
