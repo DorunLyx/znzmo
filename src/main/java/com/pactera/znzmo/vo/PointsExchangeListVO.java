@@ -28,7 +28,7 @@ public class PointsExchangeListVO {
 	private Long userId;
 	
 	@ApiModelProperty(value="积分兑换套餐", name="exchangePackage")
-    private String exchangePackage;
+    private Integer exchangePackage;
 	
 	@ApiModelProperty(value="兑换时间", name="exchangeTime")
 	private LocalDateTime exchangeTime;
@@ -38,5 +38,8 @@ public class PointsExchangeListVO {
 	
 	@ApiModelProperty(value="当前积分", name="currentPoints")
 	private BigDecimal currentPoints;
+	
+	@ApiModelProperty(value="总积分", name="totalPoints")
+	private BigDecimal totalPoints;
 	
 }

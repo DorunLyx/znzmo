@@ -63,12 +63,16 @@ public class PointsController extends BaseController{
 				Page<TbPointsDetails> page = new Page<TbPointsDetails>(pointsQueryParam.getPageNo(), pointsQueryParam.getPageSize());
 		        IPage<PointsExchangeListVO> pointsExchangeListPage =  new Page<PointsExchangeListVO>(pointsQueryParam.getPageNo(), pointsQueryParam.getPageSize());
 		        IPage<TbPointsDetails> iPage = tbPointsDetailsService.selectPointsExchangePages(page, pointsQueryParam);
-				for (TbPointsDetails tbOrder : iPage.getRecords()) {
-					PointsExchangeListVO orderListVO = new PointsExchangeListVO();
-					orderListVO.setPointsExchangeId(tbOrder.getId());
-					orderListVO.setUserId(tbOrder.getUserId());
-					orderListVO.setUserName(tbOrder.getUserName());
-					pointsExchangeList.add(orderListVO);
+				for (TbPointsDetails tbPointsDetails : iPage.getRecords()) {
+					PointsExchangeListVO pointsExchangeListVO = new PointsExchangeListVO();
+					pointsExchangeListVO.setPointsExchangeId(tbPointsDetails.getId());
+					pointsExchangeListVO.setUserId(tbPointsDetails.getUserId());
+					pointsExchangeListVO.setUserName(tbPointsDetails.getUserName());
+					pointsExchangeListVO.setExchangePackage(tbPointsDetails.getExchangePackage());
+					pointsExchangeListVO.setExchangeTime(tbPointsDetails.getExchangeTime());
+					pointsExchangeListVO.setConsumePoints(tbPointsDetails.getConsumePoints());
+					pointsExchangeListVO.setCurrentPoints(tbPointsDetails.getCurrentPoints());
+					pointsExchangeList.add(pointsExchangeListVO);
 	    		}
 				pointsExchangeListPage.setRecords(pointsExchangeList);
 				pointsExchangeListPage.setCurrent(iPage.getCurrent());
@@ -102,12 +106,15 @@ public class PointsController extends BaseController{
 				Page<TbPoints> page = new Page<TbPoints>(pointsQueryParam.getPageNo(), pointsQueryParam.getPageSize());
 		        IPage<PointsExchangeListVO> pointsExchangeListPage =  new Page<PointsExchangeListVO>(pointsQueryParam.getPageNo(), pointsQueryParam.getPageSize());
 		        IPage<TbPoints> iPage = tbPointsService.selectPointsManagePages(page, pointsQueryParam);
-				for (TbPoints tbOrder : iPage.getRecords()) {
-					PointsExchangeListVO orderListVO = new PointsExchangeListVO();
-					orderListVO.setPointsExchangeId(tbOrder.getId());
-					orderListVO.setUserId(tbOrder.getUserId());
-					orderListVO.setUserName(tbOrder.getUserName());
-					pointsExchangeList.add(orderListVO);
+				for (TbPoints tbPoints : iPage.getRecords()) {
+					PointsExchangeListVO pointsExchangeListVO = new PointsExchangeListVO();
+					pointsExchangeListVO.setPointsExchangeId(tbPoints.getId());
+					pointsExchangeListVO.setUserId(tbPoints.getUserId());
+					pointsExchangeListVO.setUserName(tbPoints.getUserName());
+					pointsExchangeListVO.setConsumePoints(tbPoints.getConsumePoints());
+					pointsExchangeListVO.setTotalPoints(tbPoints.getTotalPoints());
+					pointsExchangeListVO.setCurrentPoints(tbPoints.getCurrentPoints());
+					pointsExchangeList.add(pointsExchangeListVO);
 	    		}
 				pointsExchangeListPage.setRecords(pointsExchangeList);
 				pointsExchangeListPage.setCurrent(iPage.getCurrent());
