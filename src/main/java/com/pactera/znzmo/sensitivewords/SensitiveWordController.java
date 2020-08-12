@@ -41,7 +41,7 @@ public class SensitiveWordController extends BaseController {
 			@ApiParam(name = "MsgAddParam", value = "系统消息新增参数", required = false) @RequestBody MsgAddParam msgAddParam) {
 		Supplier<String> businessHandler = () -> {
 			try {
-//				msgService.addSysMsg(msgAddParam);
+				msgService.addSysMsg(msgAddParam);
 				return JsonResultEnum.ok.getValue();
 			} catch (Exception e) {
 				throwException(e);

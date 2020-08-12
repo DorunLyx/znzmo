@@ -19,7 +19,9 @@ import com.pactera.znzmo.common.TbAttachment;
 import com.pactera.znzmo.common.TbAttachmentService;
 import com.pactera.znzmo.enums.IsValidEnum;
 import com.pactera.znzmo.enums.JsonResultEnum;
+import com.pactera.znzmo.enums.ReTypeEnum;
 import com.pactera.znzmo.util.DataUtils;
+import com.pactera.znzmo.vo.HomePageSimplifyData;
 import com.pactera.znzmo.vo.ModelAddParam;
 import com.pactera.znzmo.vo.ModelDetailsVO;
 import com.pactera.znzmo.vo.ModelListVO;
@@ -54,6 +56,48 @@ public class ModelController extends BaseController{
 	
 	public static final Logger logger = LoggerFactory.getLogger(ModelController.class);
 
+	/**
+	 * @Title: get3DModelPage 
+	 * @Description: 3D模型前台页面查询
+	 * @param modelQueryParam
+	 * @return JsonResp
+	 * @author liyongxu
+	 * @date 2020年8月12日 下午4:57:43 
+	*/
+	@ApiOperation(value = "3D模型前台页面查询", httpMethod = "POST", notes = "3D模型前台页面查询")
+    @RequestMapping(value = "/get3DModelPage", method = {RequestMethod.POST})
+    public JsonResp get3DModelPage(
+    		@ApiParam(name="modelQueryParam", value="3d模型列表筛选参数", required=false)@RequestBody ModelQueryParam modelQueryParam) {
+		Supplier<IPage<HomePageSimplifyData>> businessHandler = () -> {
+			try {
+				List<HomePageSimplifyData> homePageModelDataList = new ArrayList<HomePageSimplifyData>();
+				Page<Tb3dModel> page = new Page<Tb3dModel>(modelQueryParam.getPageNo(), modelQueryParam.getPageSize());
+		        IPage<HomePageSimplifyData> modeListPage =  new Page<HomePageSimplifyData>(modelQueryParam.getPageNo(), modelQueryParam.getPageSize());
+		        IPage<Tb3dModel> iPage = tb3dModelService.select3DModelPages(page, modelQueryParam);
+				for (Tb3dModel tb3dModel : iPage.getRecords()) {
+					HomePageSimplifyData homePageSimplifyData = new HomePageSimplifyData();
+					homePageSimplifyData.setReId(tb3dModel.getId());
+					homePageSimplifyData.setReType(ReTypeEnum.MODEL.getKey());
+					homePageSimplifyData.setMainGraph(tb3dModel.getMainGraph());
+					homePageSimplifyData.setTitle(tb3dModel.getTitle());
+					homePageSimplifyData.setPrice(tb3dModel.getModelPrice());
+					homePageSimplifyData.setModelType(tb3dModel.getModelType());
+					homePageModelDataList.add(homePageSimplifyData);
+				}
+				modeListPage.setRecords(homePageModelDataList);
+				modeListPage.setCurrent(iPage.getCurrent());
+				modeListPage.setPages(iPage.getPages());
+				modeListPage.setSize(iPage.getSize());
+				modeListPage.setTotal(iPage.getTotal());
+		        return modeListPage;
+			} catch (Exception e) {
+				throwException(e);
+			}
+			return null;
+		};
+		return handleRequest(businessHandler);
+    }
+	
 	/**
 	 * @Title: get3DModelList 
 	 * @Description: 3D模型列表查询
