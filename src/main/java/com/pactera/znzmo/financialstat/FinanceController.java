@@ -21,13 +21,13 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
 /**
- * @ClassName：ProfitController
- * @Description：收益管理API 
+ * @ClassName：FinanceController
+ * @Description：财务管理API
  * @author liyongxu 
- * @date 2020年8月11日 下午3:21:56 
+ * @date 2020年8月12日 上午9:44:57 
  * @version 1.0.0 
  */
-@Api(tags = "收益管理API", value = "收益管理API")
+@Api(tags = "财务管理API", value = "财务管理API")
 @RestController
 @RequestMapping(value = "/finance")
 public class FinanceController extends BaseController{
@@ -37,7 +37,15 @@ public class FinanceController extends BaseController{
 	
 	public static final Logger logger = LoggerFactory.getLogger(FinanceController.class);
 
-	@ApiOperation(value = "收益统计列表查询", httpMethod = "POST", notes = "收益统计列表查询")
+	/**
+	 * @Title: getFinanceManageList 
+	 * @Description: 财务统计查询
+	 * @param profitQueryParam
+	 * @return JsonResp
+	 * @author liyongxu
+	 * @date 2020年8月12日 上午9:45:34 
+	*/
+	@ApiOperation(value = "财务统计查询", httpMethod = "POST", notes = "财务统计查询")
     @RequestMapping(value = "/getFinanceManageList", method = {RequestMethod.POST})
     public JsonResp getFinanceManageList(
     		@ApiParam(name="profitQueryParam", value="收益统计列表筛选参数", required=false)@RequestBody ProfitQueryParam profitQueryParam) {

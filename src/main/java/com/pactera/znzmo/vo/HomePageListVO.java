@@ -1,6 +1,6 @@
 package com.pactera.znzmo.vo;
 
-import java.time.LocalDateTime;
+import java.util.List;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -17,25 +17,22 @@ import lombok.Data;
 @ApiModel(value="首页数据VO",description="首页数据VO")
 public class HomePageListVO {
 	
-	@ApiModelProperty(value="轮播Id", name="bannerId")
-	private Long bannerId;
-
-	@ApiModelProperty(value="状态", name="status")
-    private Integer status;
+	@ApiModelProperty(value="首页轮播展示数据", name="homePageBannerData")
+	private List<HomePageBannerData> homePageBannerData;
 	
-	@ApiModelProperty(value="排序", name="sort")
-	private String sort;
+	@ApiModelProperty(value="首页展示数据", name="homePageSimplifyData")
+	private List<HomePageSimplifyData> homePageSimplifyData;
 	
-	@ApiModelProperty(value="类型", name="type")
-	private Integer type;
+	@ApiModelProperty(value="首页3d模型数据", name="homePageModelData")
+	private List<HomePageSimplifyData> homePageModelData;
 	
-	@ApiModelProperty(value="开始时间", name="startTime")
-	private LocalDateTime startTime;
+	@ApiModelProperty(value="首页Su模型展示", name="homePageSuModelData")
+	private List<HomePageSimplifyData> homePageSuModelData;
 	
-	@ApiModelProperty(value="结束时间", name="endTime")
-	private LocalDateTime endTime;
+	@ApiModelProperty(value="首页高清贴图展示", name="homePageHDData")
+	private List<HomePageSimplifyData> homePageHDData;
 	
-	@ApiModelProperty(value="图片", name="mainGraph")
-    private String mainGraph;
-
+	@ApiModelProperty(value="首页图纸方案展示", name="homePageDrawingData")
+	private List<HomePageSimplifyData> homePageDrawingData;
+	
 }
