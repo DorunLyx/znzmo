@@ -1,7 +1,10 @@
 package com.pactera.znzmo.sensitivewords;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
 import com.pactera.znzmo.vo.sensitivewords.SensiWordAddParam;
+import com.pactera.znzmo.vo.sensitivewords.SensiWordQueryParam;
 
 /**
  * <p>
@@ -14,5 +17,7 @@ import com.pactera.znzmo.vo.sensitivewords.SensiWordAddParam;
 public interface TbSensitiveWordsService extends IService<TbSensitiveWords> {
 
 	void addSensitiveWord(SensiWordAddParam sensiWordAddParam);
+
+	IPage<TbSensitiveWords> selectSensiWordPages(Page<TbSensitiveWords> page, SensiWordQueryParam sensiWordQueryParam);
 
 }
