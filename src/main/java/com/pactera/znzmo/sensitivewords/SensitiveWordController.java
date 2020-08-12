@@ -14,7 +14,6 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pactera.znzmo.enums.JsonResultEnum;
-import com.pactera.znzmo.vo.MsgAddParam;
 import com.pactera.znzmo.vo.sensitivewords.SensiWordAddParam;
 import com.pactera.znzmo.web.BaseController;
 import com.pactera.znzmo.web.JsonResp;
