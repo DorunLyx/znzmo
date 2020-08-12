@@ -14,7 +14,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.pactera.znzmo.enums.JsonResultEnum;
-import com.pactera.znzmo.vo.MsgAddParam;
+import com.pactera.znzmo.vo.sensitivewords.SensiWordAddParam;
 import com.pactera.znzmo.web.BaseController;
 import com.pactera.znzmo.web.JsonResp;
 
@@ -38,10 +38,10 @@ public class SensitiveWordController extends BaseController {
 	@ApiOperation(value = "新增敏感词", httpMethod = "POST", notes = "敏感词新增")
 	@RequestMapping(value = "/addSensitiveWord", method = { RequestMethod.POST })
 	public JsonResp addSensitiveWord(
-			@ApiParam(name = "MsgAddParam", value = "系统消息新增参数", required = false) @RequestBody MsgAddParam msgAddParam) {
+			@ApiParam(name = "SensiWordAddParam", value = "敏感词新增参数", required = false) @RequestBody SensiWordAddParam sensiWordAddParam) {
 		Supplier<String> businessHandler = () -> {
 			try {
-				msgService.addSysMsg(msgAddParam);
+				sensitiveWordService.addSensitiveWord(sensiWordAddParam);
 				return JsonResultEnum.ok.getValue();
 			} catch (Exception e) {
 				throwException(e);
