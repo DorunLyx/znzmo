@@ -14,8 +14,8 @@
         <result column="style_id" property="styleId" />
         <result column="style_name" property="styleName" />
         <result column="title" property="title" />
-        <result column="mapping_type" property="mappingType" />
-        <result column="mapping_price" property="mappingPrice" />
+        <result column="type" property="type" />
+        <result column="price" property="price" />
         <result column="brand_mapping" property="brandMapping" />
         <result column="mapping_name" property="mappingName" />
         <result column="status" property="status" />

@@ -143,8 +143,8 @@ public class BannerController extends BaseController{
 			homePageSimplifyData.setReType(ReTypeEnum.SUMODEL.getKey());
 			homePageSimplifyData.setMainGraph(tbDrawingScheme.getMainGraph());
 			homePageSimplifyData.setTitle(tbDrawingScheme.getTitle());
-			homePageSimplifyData.setPrice(tbDrawingScheme.getModelPrice());
-			homePageSimplifyData.setModelType(tbDrawingScheme.getModelType());
+			homePageSimplifyData.setPrice(tbDrawingScheme.getPrice());
+			homePageSimplifyData.setType(tbDrawingScheme.getType());
 			homePageDrawingDataList.add(homePageSimplifyData);
 		}
 		return homePageDrawingDataList;
@@ -193,8 +193,8 @@ public class BannerController extends BaseController{
 			homePageSimplifyData.setReType(ReTypeEnum.SUMODEL.getKey());
 			homePageSimplifyData.setMainGraph(tbSuModel.getMainGraph());
 			homePageSimplifyData.setTitle(tbSuModel.getTitle());
-			homePageSimplifyData.setPrice(tbSuModel.getModelPrice());
-			homePageSimplifyData.setModelType(tbSuModel.getModelType());
+			homePageSimplifyData.setPrice(tbSuModel.getPrice());
+			homePageSimplifyData.setType(tbSuModel.getType());
 			homePageSuModelDataList.add(homePageSimplifyData);
 		}
 		return homePageSuModelDataList;
@@ -219,8 +219,8 @@ public class BannerController extends BaseController{
 			homePageSimplifyData.setReType(ReTypeEnum.MODEL.getKey());
 			homePageSimplifyData.setMainGraph(tb3dModel.getMainGraph());
 			homePageSimplifyData.setTitle(tb3dModel.getTitle());
-			homePageSimplifyData.setPrice(tb3dModel.getModelPrice());
-			homePageSimplifyData.setModelType(tb3dModel.getModelType());
+			homePageSimplifyData.setPrice(tb3dModel.getPrice());
+			homePageSimplifyData.setType(tb3dModel.getType());
 			homePageModelDataList.add(homePageSimplifyData);
 		}
 		return homePageModelDataList;

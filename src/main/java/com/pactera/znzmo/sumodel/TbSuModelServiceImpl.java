@@ -75,8 +75,8 @@ public class TbSuModelServiceImpl extends ServiceImpl<TbSuModelMapper, TbSuModel
 		tbSuModel.setStyleId(suModelAddParam.getStyleId());
 		tbSuModel.setStyleName(suModelAddParam.getStyleName());
 		tbSuModel.setTitle(suModelAddParam.getTitle());
-		tbSuModel.setModelType(suModelAddParam.getType());
-		tbSuModel.setModelPrice(suModelAddParam.getPrice());
+		tbSuModel.setType(suModelAddParam.getType());
+		tbSuModel.setPrice(suModelAddParam.getPrice());
 		tbSuModel.setTextureMapping(suModelAddParam.getTextureMapping());
 		tbSuModel.setRemarks(suModelAddParam.getRemarks());
 		tbSuModel.setIsValid(IsValidEnum.YES.getKey());
@@ -135,11 +135,10 @@ public class TbSuModelServiceImpl extends ServiceImpl<TbSuModelMapper, TbSuModel
 		tbSuModel.setStyleId(suModelUpdateParam.getStyleId());
 		tbSuModel.setStyleName(suModelUpdateParam.getStyleName());
 		tbSuModel.setTitle(suModelUpdateParam.getTitle());
-		tbSuModel.setModelType(suModelUpdateParam.getType());
-		tbSuModel.setModelPrice(suModelUpdateParam.getPrice());
+		tbSuModel.setType(suModelUpdateParam.getType());
+		tbSuModel.setPrice(suModelUpdateParam.getPrice());
 		tbSuModel.setTextureMapping(suModelUpdateParam.getTextureMapping());
 		tbSuModel.setRemarks(suModelUpdateParam.getRemarks());
-		tbSuModel.setIsValid(IsValidEnum.YES.getKey());
 //		tbSuModel.setUpdateId(user.getUserId());
 //		tbSuModel.setUpdateName(user.getUserName());
 		tbSuModel.setUpdateTime(LocalDateTime.now());

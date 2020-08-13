@@ -15,8 +15,8 @@
         <result column="style_name" property="styleName" />
         <result column="name" property="name" />
         <result column="title" property="title" />
-        <result column="model_type" property="modelType" />
-        <result column="model_price" property="modelPrice" />
+        <result column="type" property="type" />
+        <result column="price" property="price" />
         <result column="texture_mapping" property="textureMapping" />
         <result column="tag" property="tag" />
         <result column="design_time" property="designTime" />

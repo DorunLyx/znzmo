@@ -73,8 +73,8 @@ public class TbHdMappingServiceImpl extends ServiceImpl<TbHdMappingMapper, TbHdM
 		tbHdMapping.setStyleId(hdMappingAddParam.getStyleId());
 		tbHdMapping.setStyleName(hdMappingAddParam.getStyleName());
 		tbHdMapping.setTitle(hdMappingAddParam.getTitle());
-		tbHdMapping.setMappingType(hdMappingAddParam.getType());
-		tbHdMapping.setMappingPrice(hdMappingAddParam.getPrice());
+		tbHdMapping.setType(hdMappingAddParam.getType());
+		tbHdMapping.setPrice(hdMappingAddParam.getPrice());
 		tbHdMapping.setRemarks(hdMappingAddParam.getRemarks());
 		tbHdMapping.setIsValid(IsValidEnum.YES.getKey());
 		tbHdMapping.setStatus(ApproveStatusEnum.WAITAPPROVAL.getKey());
@@ -130,10 +130,9 @@ public class TbHdMappingServiceImpl extends ServiceImpl<TbHdMappingMapper, TbHdM
 		tbHdMapping.setStyleId(hDMappingUpdateParam.getStyleId());
 		tbHdMapping.setStyleName(hDMappingUpdateParam.getStyleName());
 		tbHdMapping.setTitle(hDMappingUpdateParam.getTitle());
-		tbHdMapping.setMappingType(hDMappingUpdateParam.getType());
-		tbHdMapping.setMappingPrice(hDMappingUpdateParam.getPrice());
+		tbHdMapping.setType(hDMappingUpdateParam.getType());
+		tbHdMapping.setPrice(hDMappingUpdateParam.getPrice());
 		tbHdMapping.setRemarks(hDMappingUpdateParam.getRemarks());
-		tbHdMapping.setIsValid(IsValidEnum.YES.getKey());
 //		tbHdMapping.setUpdateId(user.getUserId());
 //		tbHdMapping.setUpdateName(user.getUserName());
 		tbHdMapping.setUpdateTime(LocalDateTime.now());

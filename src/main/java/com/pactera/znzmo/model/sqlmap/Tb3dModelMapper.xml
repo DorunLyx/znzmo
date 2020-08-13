@@ -14,8 +14,8 @@
         <result column="style_id" property="styleId" />
         <result column="style_name" property="styleName" />
         <result column="title" property="title" />
-        <result column="model_type" property="modelType" />
-        <result column="model_price" property="modelPrice" />
+        <result column="type" property="type" />
+        <result column="price" property="price" />
         <result column="texture_mapping" property="textureMapping" />
         <result column="lighting_effects" property="lightingEffects" />
         <result column="status" property="status" />

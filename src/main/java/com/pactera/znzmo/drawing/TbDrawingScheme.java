@@ -83,12 +83,12 @@ public class TbDrawingScheme implements Serializable {
     /**
      * 模型类型
      */
-    private Integer modelType;
+    private Integer type;
 
     /**
      * 模型价格
      */
-    private BigDecimal modelPrice;
+    private BigDecimal price;
 
     /**
      * 材质贴图
@@ -223,9 +223,9 @@ public class TbDrawingScheme implements Serializable {
 
     public static final String TITLE = "title";
 
-    public static final String MODEL_TYPE = "model_type";
+    public static final String TYPE = "type";
 
-    public static final String MODEL_PRICE = "model_price";
+    public static final String PRICE = "price";
 
     public static final String TEXTURE_MAPPING = "texture_mapping";
 

@@ -14,7 +14,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author liyongxu
- * @since 2020-08-03
+ * @since 2020-08-13
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -35,6 +35,11 @@ public class TbClass implements Serializable {
     private String name;
 
     /**
+     * 父级id
+     */
+    private Long pId;
+
+    /**
      * 父级名称
      */
     private String pName;
@@ -43,6 +48,11 @@ public class TbClass implements Serializable {
      * 级别
      */
     private String level;
+
+    /**
+     * 排序
+     */
+    private Integer sort;
 
     /**
      * 创建时间
@@ -59,9 +69,13 @@ public class TbClass implements Serializable {
 
     public static final String NAME = "name";
 
+    public static final String P_ID = "p_id";
+
     public static final String P_NAME = "p_name";
 
     public static final String LEVEL = "level";
+
+    public static final String SORT = "sort";
 
     public static final String CREATE_TIME = "create_time";
 

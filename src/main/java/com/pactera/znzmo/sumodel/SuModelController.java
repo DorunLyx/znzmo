@@ -81,8 +81,8 @@ public class SuModelController extends BaseController{
 					modelListVO.setSecondaryClassName(tbSuModel.getSecondaryClassName());
 					modelListVO.setStyleName(tbSuModel.getStyleName());
 					modelListVO.setTitle(tbSuModel.getTitle());
-					modelListVO.setType(tbSuModel.getModelType());
-					modelListVO.setPrice(tbSuModel.getModelPrice());
+					modelListVO.setType(tbSuModel.getType());
+					modelListVO.setPrice(tbSuModel.getPrice());
 					modelListVO.setTextureMapping(tbSuModel.getTextureMapping());
 					modelListVO.setStatus(tbSuModel.getStatus());
 					modelListVO.setVisitsNum(tbSuModel.getVisitsNum());
@@ -157,8 +157,8 @@ public class SuModelController extends BaseController{
 				suModelDetailsVO.setStyleId(tbSuModel.getStyleId());
 				suModelDetailsVO.setStyleName(tbSuModel.getStyleName());
 				suModelDetailsVO.setTitle(tbSuModel.getTitle());
-				suModelDetailsVO.setType(tbSuModel.getModelType());
-				suModelDetailsVO.setPrice(tbSuModel.getModelPrice());
+				suModelDetailsVO.setType(tbSuModel.getType());
+				suModelDetailsVO.setPrice(tbSuModel.getPrice());
 				suModelDetailsVO.setTextureMapping(tbSuModel.getTextureMapping());
 				suModelDetailsVO.setVersion(tbSuModel.getVersion());
 				suModelDetailsVO.setRemarks(tbSuModel.getRemarks());

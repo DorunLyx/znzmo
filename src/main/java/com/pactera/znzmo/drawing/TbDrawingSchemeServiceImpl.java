@@ -75,8 +75,8 @@ public class TbDrawingSchemeServiceImpl extends ServiceImpl<TbDrawingSchemeMappe
 		tbDrawing.setStyleName(drawingAddParam.getStyleName());
 		tbDrawing.setTitle(drawingAddParam.getTitle());
 		tbDrawing.setTag(drawingAddParam.getTag());
-		tbDrawing.setModelType(drawingAddParam.getType());
-		tbDrawing.setModelPrice(drawingAddParam.getPrice());
+		tbDrawing.setType(drawingAddParam.getType());
+		tbDrawing.setPrice(drawingAddParam.getPrice());
 		tbDrawing.setVersion(drawingAddParam.getVersion());
 		tbDrawing.setDesignTime(drawingAddParam.getDesignTime());
 		tbDrawing.setLocation(drawingAddParam.getLocation());
@@ -130,7 +130,6 @@ public class TbDrawingSchemeServiceImpl extends ServiceImpl<TbDrawingSchemeMappe
 	public void updteDrawing(DrawingUpdateParam drawingUpdateParam) {
 		TbDrawingScheme tbDrawing = baseMapper.selectById(drawingUpdateParam.getDrawingId());
 		tbDrawing.setMainGraph(drawingUpdateParam.getMainGraph());
-		tbDrawing.setCode(NumGenerationUtil.getrandom());
 		tbDrawing.setPrimaryClassId(drawingUpdateParam.getPrimaryClassId());
 		tbDrawing.setPrimaryClassName(drawingUpdateParam.getPrimaryClassName());
 		tbDrawing.setSecondaryClassId(drawingUpdateParam.getSecondaryClassId());
@@ -139,15 +138,14 @@ public class TbDrawingSchemeServiceImpl extends ServiceImpl<TbDrawingSchemeMappe
 		tbDrawing.setStyleName(drawingUpdateParam.getStyleName());
 		tbDrawing.setTitle(drawingUpdateParam.getTitle());
 		tbDrawing.setTag(drawingUpdateParam.getTag());
-		tbDrawing.setModelType(drawingUpdateParam.getType());
-		tbDrawing.setModelPrice(drawingUpdateParam.getPrice());
+		tbDrawing.setType(drawingUpdateParam.getType());
+		tbDrawing.setPrice(drawingUpdateParam.getPrice());
 		tbDrawing.setVersion(drawingUpdateParam.getVersion());
 		tbDrawing.setDesignTime(drawingUpdateParam.getDesignTime());
 		tbDrawing.setLocation(drawingUpdateParam.getLocation());
 		tbDrawing.setSynopsis(drawingUpdateParam.getSynopsis());
 		tbDrawing.setText(drawingUpdateParam.getText());
 		tbDrawing.setRemarks(drawingUpdateParam.getRemarks());
-		tbDrawing.setIsValid(IsValidEnum.YES.getKey());
 		tbDrawing.setStatus(StatusEnum.START_USE.getKey());
 //		tbDrawing.setUpdateId(user.getUserId());
 //		tbDrawing.setUpdateName(user.getUserName());

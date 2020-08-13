@@ -73,8 +73,8 @@ public class Tb3dModelServiceImpl extends ServiceImpl<Tb3dModelMapper, Tb3dModel
 		tb3dModel.setStyleId(modelAddParam.getStyleId());
 		tb3dModel.setStyleName(modelAddParam.getStyleName());
 		tb3dModel.setTitle(modelAddParam.getTitle());
-		tb3dModel.setModelType(modelAddParam.getType());
-		tb3dModel.setModelPrice(modelAddParam.getPrice());
+		tb3dModel.setType(modelAddParam.getType());
+		tb3dModel.setPrice(modelAddParam.getPrice());
 		tb3dModel.setTextureMapping(modelAddParam.getTextureMapping());
 		tb3dModel.setLightingEffects(modelAddParam.getLightingEffects());
 		tb3dModel.setRemarks(modelAddParam.getRemarks());
@@ -132,12 +132,11 @@ public class Tb3dModelServiceImpl extends ServiceImpl<Tb3dModelMapper, Tb3dModel
 		tb3dModel.setStyleId(modelUpdateParam.getStyleId());
 		tb3dModel.setStyleName(modelUpdateParam.getStyleName());
 		tb3dModel.setTitle(modelUpdateParam.getTitle());
-		tb3dModel.setModelType(modelUpdateParam.getType());
-		tb3dModel.setModelPrice(modelUpdateParam.getPrice());
+		tb3dModel.setType(modelUpdateParam.getType());
+		tb3dModel.setPrice(modelUpdateParam.getPrice());
 		tb3dModel.setTextureMapping(modelUpdateParam.getTextureMapping());
 		tb3dModel.setLightingEffects(modelUpdateParam.getLightingEffects());
 		tb3dModel.setRemarks(modelUpdateParam.getRemarks());
-		tb3dModel.setIsValid(IsValidEnum.YES.getKey());
 //		tb3dModel.setUpdateId(user.getUserId());
 //		tb3dModel.setUpdateName(user.getUserName());
 		tb3dModel.setUpdateTime(LocalDateTime.now());

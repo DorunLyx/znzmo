@@ -32,7 +32,7 @@ public class HomePageSimplifyData {
 	@ApiModelProperty(value="金币", name="price")
 	private BigDecimal price;
 	
-	@ApiModelProperty(value="模板类型", name="modelType")
-	private Integer modelType;
+	@ApiModelProperty(value="模板类型", name="type")
+	private Integer type;
 	
 }

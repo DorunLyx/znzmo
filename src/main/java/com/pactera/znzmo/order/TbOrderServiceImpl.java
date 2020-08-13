@@ -81,23 +81,23 @@ public class TbOrderServiceImpl extends ServiceImpl<TbOrderMapper, TbOrder> impl
 		if(orderAddParam.getType() == 0) {
 			Tb3dModel tb3dModel = tb3dModelMapper.selectById(orderAddParam.getReId());
 			tbOrder.setTitle(tb3dModel.getTitle());
-			tbOrder.setPrice(tb3dModel.getModelPrice());
+			tbOrder.setPrice(tb3dModel.getPrice());
 		}else if (orderAddParam.getType() == 1) {
 			TbSuModel tbSuModel = tbSuModelMapper.selectById(orderAddParam.getReId());
 			tbOrder.setTitle(tbSuModel.getTitle());
-			tbOrder.setPrice(tbSuModel.getModelPrice());
+			tbOrder.setPrice(tbSuModel.getPrice());
 		}else if (orderAddParam.getType() == 2) {
 			TbDrawingScheme tbDrawing = tbDrawingSchemeMapper.selectById(orderAddParam.getReId());
 			tbOrder.setTitle(tbDrawing.getTitle());
-			tbOrder.setPrice(tbDrawing.getModelPrice());
+			tbOrder.setPrice(tbDrawing.getPrice());
 		}else if (orderAddParam.getType() == 3) {
 			TbHdMapping tbHdMapping = tbHdMappingMapper.selectById(orderAddParam.getReId());
 			tbOrder.setTitle(tbHdMapping.getTitle());
-			tbOrder.setPrice(tbHdMapping.getMappingPrice());
+			tbOrder.setPrice(tbHdMapping.getPrice());
 		}else if (orderAddParam.getType() == 4) {
 			TbDatabase tbDatabase = tbDatabaseMapper.selectById(orderAddParam.getReId());
 			tbOrder.setTitle(tbDatabase.getTitle());
-			tbOrder.setPrice(tbDatabase.getMappingPrice());
+			tbOrder.setPrice(tbDatabase.getPrice());
 		}
 		tbOrder.setType(orderAddParam.getType());
 		tbOrder.setUserId(orderAddParam.getUserId());

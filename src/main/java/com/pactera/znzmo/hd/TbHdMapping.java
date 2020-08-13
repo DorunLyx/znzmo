@@ -78,12 +78,12 @@ public class TbHdMapping implements Serializable {
     /**
      * 贴图类型
      */
-    private Integer mappingType;
+    private Integer type;
 
     /**
      * 贴图价格
      */
-    private BigDecimal mappingPrice;
+    private BigDecimal price;
 
     /**
      * 是否品牌贴图
@@ -181,9 +181,9 @@ public class TbHdMapping implements Serializable {
 
     public static final String TITLE = "title";
 
-    public static final String MAPPING_TYPE = "mapping_type";
+    public static final String TYPE = "type";
 
-    public static final String MAPPING_PRICE = "mapping_price";
+    public static final String PRICE = "price";
 
     public static final String BRAND_MAPPING = "brand_mapping";
 

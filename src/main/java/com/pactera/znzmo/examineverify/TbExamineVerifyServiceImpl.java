@@ -114,8 +114,8 @@ public class TbExamineVerifyServiceImpl extends ServiceImpl<TbExamineVerifyMappe
 			examineListVO.setClassName(tb3dModel.getSecondaryClassName());
 			examineListVO.setStyleName(tb3dModel.getStyleName());
 			examineListVO.setTitle(tb3dModel.getTitle());
-			examineListVO.setType(tb3dModel.getModelType());
-			examineListVO.setPrice(tb3dModel.getModelPrice());
+			examineListVO.setType(tb3dModel.getType());
+			examineListVO.setPrice(tb3dModel.getPrice());
 			examineListVO.setStatus(tb3dModel.getStatus());
 			examineListVO.setUploadUser(tb3dModel.getCreateName());
 			examineListVO.setUploadTime(tb3dModel.getCreateTime());
@@ -127,8 +127,8 @@ public class TbExamineVerifyServiceImpl extends ServiceImpl<TbExamineVerifyMappe
 			examineListVO.setClassName(tbSuModel.getSecondaryClassName());
 			examineListVO.setStyleName(tbSuModel.getStyleName());
 			examineListVO.setTitle(tbSuModel.getTitle());
-			examineListVO.setType(tbSuModel.getModelType());
-			examineListVO.setPrice(tbSuModel.getModelPrice());
+			examineListVO.setType(tbSuModel.getType());
+			examineListVO.setPrice(tbSuModel.getPrice());
 			examineListVO.setStatus(tbSuModel.getStatus());
 			examineListVO.setUploadUser(tbSuModel.getCreateName());
 			examineListVO.setUploadTime(tbSuModel.getCreateTime());
@@ -140,8 +140,8 @@ public class TbExamineVerifyServiceImpl extends ServiceImpl<TbExamineVerifyMappe
 			examineListVO.setClassName(tbDrawing.getSecondaryClassName());
 			examineListVO.setStyleName(tbDrawing.getStyleName());
 			examineListVO.setTitle(tbDrawing.getTitle());
-			examineListVO.setType(tbDrawing.getModelType());
-			examineListVO.setPrice(tbDrawing.getModelPrice());
+			examineListVO.setType(tbDrawing.getType());
+			examineListVO.setPrice(tbDrawing.getPrice());
 			examineListVO.setStatus(tbDrawing.getStatus());
 			examineListVO.setUploadUser(tbDrawing.getCreateName());
 			examineListVO.setUploadTime(tbDrawing.getCreateTime());
@@ -153,8 +153,8 @@ public class TbExamineVerifyServiceImpl extends ServiceImpl<TbExamineVerifyMappe
 			examineListVO.setClassName(tbHdMapping.getSecondaryClassName());
 			examineListVO.setStyleName(tbHdMapping.getStyleName());
 			examineListVO.setTitle(tbHdMapping.getTitle());
-			examineListVO.setType(tbHdMapping.getMappingType());
-			examineListVO.setPrice(tbHdMapping.getMappingPrice());
+			examineListVO.setType(tbHdMapping.getType());
+			examineListVO.setPrice(tbHdMapping.getPrice());
 			examineListVO.setStatus(tbHdMapping.getStatus());
 			examineListVO.setUploadUser(tbHdMapping.getCreateName());
 			examineListVO.setUploadTime(tbHdMapping.getCreateTime());
@@ -166,8 +166,8 @@ public class TbExamineVerifyServiceImpl extends ServiceImpl<TbExamineVerifyMappe
 			examineListVO.setClassName(tbDatabase.getSecondaryClassName());
 			examineListVO.setStyleName(tbDatabase.getStyleName());
 			examineListVO.setTitle(tbDatabase.getTitle());
-			examineListVO.setType(tbDatabase.getMappingType());
-			examineListVO.setPrice(tbDatabase.getMappingPrice());
+			examineListVO.setType(tbDatabase.getType());
+			examineListVO.setPrice(tbDatabase.getPrice());
 			examineListVO.setStatus(tbDatabase.getStatus());
 			examineListVO.setUploadUser(tbDatabase.getCreateName());
 			examineListVO.setUploadTime(tbDatabase.getCreateTime());

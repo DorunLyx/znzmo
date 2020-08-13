@@ -1,4 +1,4 @@
-package com.pactera.znzmo.drawing;
+package com.pactera.znzmo.database;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,9 +20,9 @@ import com.pactera.znzmo.common.TbAttachmentService;
 import com.pactera.znzmo.enums.IsValidEnum;
 import com.pactera.znzmo.enums.JsonResultEnum;
 import com.pactera.znzmo.util.DataUtils;
-import com.pactera.znzmo.vo.DrawingAddParam;
+import com.pactera.znzmo.vo.DatabaseAddParam;
+import com.pactera.znzmo.vo.DatabaseUpdateParam;
 import com.pactera.znzmo.vo.DrawingDetailsVO;
-import com.pactera.znzmo.vo.DrawingUpdateParam;
 import com.pactera.znzmo.vo.ModelListVO;
 import com.pactera.znzmo.vo.ModelQueryDetailsParam;
 import com.pactera.znzmo.vo.ModelQueryParam;
@@ -35,44 +35,44 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 
 /**
- * @ClassName：DrawingController
- * @Description：图纸Api
+ * @ClassName：DatabaseController
+ * @Description：资料库API
  * @author liyongxu 
- * @date 2020年8月7日 上午11:35:16 
+ * @date 2020年8月13日 上午11:30:26 
  * @version 1.0.0 
  */
-@Api(tags = "图纸API", value = "图纸API")
+@Api(tags = "资料库API", value = "资料库API")
 @RestController
-@RequestMapping(value = "/drawing")
-public class DrawingController extends BaseController{
+@RequestMapping(value = "/database")
+public class DatabaseController extends BaseController{
 	
 	@Autowired
-	private TbDrawingSchemeService tbDrawingSchemeService;
+	private TbDatabaseService tbDatabaseService;
 	
 	@Autowired
 	private TbAttachmentService tbAttachmentService;
 	
-	public static final Logger logger = LoggerFactory.getLogger(DrawingController.class);
+	public static final Logger logger = LoggerFactory.getLogger(DatabaseController.class);
 
 	/**
-	 * @Title: getDrawingList 
-	 * @Description: 图纸列表查询
+	 * @Title: getDatabaseList 
+	 * @Description: 资料库管理列表查询
 	 * @param modelQueryParam
 	 * @return JsonResp
 	 * @author liyongxu
-	 * @date 2020年8月7日 上午11:36:20 
+	 * @date 2020年8月13日 上午11:48:28 
 	*/
-	@ApiOperation(value = "图纸列表查询", httpMethod = "POST", notes = "图纸模型列表查询")
-    @RequestMapping(value = "/getDrawingList", method = {RequestMethod.POST})
-    public JsonResp getDrawingList(
-    		@ApiParam(name="modelQueryParam", value="图纸列表筛选参数", required=false)@RequestBody ModelQueryParam modelQueryParam) {
+	@ApiOperation(value = "资料库管理列表查询", httpMethod = "POST", notes = "资料库管理列表查询")
+    @RequestMapping(value = "/getDatabaseList", method = {RequestMethod.POST})
+    public JsonResp getDatabaseList(
+    		@ApiParam(name="modelQueryParam", value="资料库列表筛选参数", required=false)@RequestBody ModelQueryParam modelQueryParam) {
 		Supplier<IPage<ModelListVO>> businessHandler = () ->{
 			try {
 				List<ModelListVO> modelList = new ArrayList<ModelListVO>();
-				Page<TbDrawingScheme> page = new Page<TbDrawingScheme>(modelQueryParam.getPageNo(), modelQueryParam.getPageSize());
+				Page<TbDatabase> page = new Page<TbDatabase>(modelQueryParam.getPageNo(), modelQueryParam.getPageSize());
 				IPage<ModelListVO> modeListPage =  new Page<ModelListVO>(modelQueryParam.getPageNo(), modelQueryParam.getPageSize());
-				IPage<TbDrawingScheme> iPage = tbDrawingSchemeService.selectDrawingPages(page, modelQueryParam);
-				for (TbDrawingScheme tbDrawing : iPage.getRecords()) {
+				IPage<TbDatabase> iPage = tbDatabaseService.selectDatabasePages(page, modelQueryParam);
+				for (TbDatabase tbDrawing : iPage.getRecords()) {
 					ModelListVO modelListVO = new ModelListVO();
 					modelListVO.setModelId(tbDrawing.getId());
 					modelListVO.setMainGraph(tbDrawing.getMainGraph());
@@ -83,7 +83,6 @@ public class DrawingController extends BaseController{
 					modelListVO.setTitle(tbDrawing.getTitle());
 					modelListVO.setType(tbDrawing.getType());
 					modelListVO.setPrice(tbDrawing.getPrice());
-					modelListVO.setTextureMapping(tbDrawing.getTextureMapping());
 					modelListVO.setStatus(tbDrawing.getStatus());
 					modelListVO.setVisitsNum(tbDrawing.getVisitsNum());
 					modelListVO.setDownloadNum(tbDrawing.getDownloadNum());
@@ -104,20 +103,20 @@ public class DrawingController extends BaseController{
     }
 
 	/**
-	 * @Title: addDrawing 
-	 * @Description: 图纸方案新增
-	 * @param drawingAddParam
+	 * @Title: addDatabase 
+	 * @Description: 资料库新增
+	 * @param databaseAddParam
 	 * @return JsonResp
 	 * @author liyongxu
-	 * @date 2020年8月7日 上午11:54:16 
+	 * @date 2020年8月13日 下午2:13:30 
 	*/
-	@ApiOperation(value = "图纸方案新增", httpMethod = "POST", notes = "图纸方案新增")
-    @RequestMapping(value = "/addDrawing", method = {RequestMethod.POST})
-	public JsonResp addDrawing(
-			@ApiParam(name="drawingAddParam", value="图纸新增参数", required=false)@RequestBody DrawingAddParam drawingAddParam) {
+	@ApiOperation(value = "资料库新增", httpMethod = "POST", notes = "资料库新增")
+    @RequestMapping(value = "/addDatabase", method = {RequestMethod.POST})
+	public JsonResp addDatabase(
+			@ApiParam(name="databaseAddParam", value="资料库新增参数", required=false)@RequestBody DatabaseAddParam databaseAddParam) {
 		Supplier<String> businessHandler = () ->{
 			try {
-				tbDrawingSchemeService.addDrawing(drawingAddParam);
+				tbDatabaseService.addDatabase(databaseAddParam);
 				return JsonResultEnum.ok.getValue();
 			} catch (Exception e) {
 				throwException(e);
@@ -128,40 +127,36 @@ public class DrawingController extends BaseController{
 	}
 	
 	/**
-	 * @Title: getDrawingInfo 
-	 * @Description: 图纸方案详情
+	 * @Title: getDatabaseInfo 
+	 * @Description: 资料库详情
 	 * @param modelQueryDetailsParam
 	 * @return JsonResp
 	 * @author liyongxu
-	 * @date 2020年8月7日 下午2:53:28 
+	 * @date 2020年8月13日 下午2:13:37 
 	*/
-	@ApiOperation(value = "图纸方案详情", httpMethod = "POST", notes = "图纸方案详情")
-    @RequestMapping(value = "/getDrawingInfo", method = {RequestMethod.POST})
-    public JsonResp getDrawingInfo(
-    		@ApiParam(name="modelQueryDetailsParam", value="图纸方案详情参数", required=false)@RequestBody ModelQueryDetailsParam modelQueryDetailsParam) {
+	@ApiOperation(value = "资料库详情", httpMethod = "POST", notes = "资料库详情")
+    @RequestMapping(value = "/getDatabaseInfo", method = {RequestMethod.POST})
+    public JsonResp getDatabaseInfo(
+    		@ApiParam(name="modelQueryDetailsParam", value="资料库详情参数", required=false)@RequestBody ModelQueryDetailsParam modelQueryDetailsParam) {
 		Supplier<DrawingDetailsVO> businessHandler = () ->{
 			try {
-				QueryWrapper<TbDrawingScheme> queryWrapper = new QueryWrapper<>();
-				queryWrapper.eq(TbDrawingScheme.IS_VALID, IsValidEnum.YES.getKey())
-		        	.eq(TbDrawingScheme.ID, modelQueryDetailsParam.getModelId());
-				TbDrawingScheme tbDrawing = tbDrawingSchemeService.getOne(queryWrapper);
+				QueryWrapper<TbDatabase> queryWrapper = new QueryWrapper<>();
+				queryWrapper.eq(TbDatabase.IS_VALID, IsValidEnum.YES.getKey())
+		        	.eq(TbDatabase.ID, modelQueryDetailsParam.getModelId());
+				TbDatabase tbDatabase = tbDatabaseService.getOne(queryWrapper);
 		        DrawingDetailsVO drawingDetailsVO = new DrawingDetailsVO();
-				drawingDetailsVO.setDrawingId(tbDrawing.getId());
-				drawingDetailsVO.setMainGraph(tbDrawing.getMainGraph());
-				drawingDetailsVO.setPrimaryClassId(tbDrawing.getPrimaryClassId());
-				drawingDetailsVO.setPrimaryClassName(tbDrawing.getPrimaryClassName());
-				drawingDetailsVO.setSecondaryClassId(tbDrawing.getSecondaryClassId());
-				drawingDetailsVO.setSecondaryClassName(tbDrawing.getSecondaryClassName());
-				drawingDetailsVO.setStyleId(tbDrawing.getStyleId());
-				drawingDetailsVO.setStyleName(tbDrawing.getStyleName());
-				drawingDetailsVO.setTitle(tbDrawing.getTitle());
-				drawingDetailsVO.setType(tbDrawing.getType());
-				drawingDetailsVO.setPrice(tbDrawing.getPrice());
-				drawingDetailsVO.setVersion(tbDrawing.getVersion());
-				drawingDetailsVO.setDesignTime(tbDrawing.getDesignTime());
-				drawingDetailsVO.setSynopsis(tbDrawing.getSynopsis());
-				drawingDetailsVO.setText(tbDrawing.getText());
-				drawingDetailsVO.setRemarks(tbDrawing.getRemarks());
+				drawingDetailsVO.setDrawingId(tbDatabase.getId());
+				drawingDetailsVO.setMainGraph(tbDatabase.getMainGraph());
+				drawingDetailsVO.setPrimaryClassId(tbDatabase.getPrimaryClassId());
+				drawingDetailsVO.setPrimaryClassName(tbDatabase.getPrimaryClassName());
+				drawingDetailsVO.setSecondaryClassId(tbDatabase.getSecondaryClassId());
+				drawingDetailsVO.setSecondaryClassName(tbDatabase.getSecondaryClassName());
+				drawingDetailsVO.setStyleId(tbDatabase.getStyleId());
+				drawingDetailsVO.setStyleName(tbDatabase.getStyleName());
+				drawingDetailsVO.setTitle(tbDatabase.getTitle());
+				drawingDetailsVO.setType(tbDatabase.getType());
+				drawingDetailsVO.setPrice(tbDatabase.getPrice());
+				drawingDetailsVO.setRemarks(tbDatabase.getRemarks());
 				List<UploadInfo> uploadInfos = new ArrayList<>();
 				QueryWrapper<TbAttachment> attachmentQueryWrapper = new QueryWrapper<>();
 				attachmentQueryWrapper.eq(TbAttachment.IS_VALID, IsValidEnum.YES.getKey())
@@ -189,20 +184,20 @@ public class DrawingController extends BaseController{
     }
 	
 	/**
-	 * @Title: updteDrawing 
-	 * @Description: 图纸方案编辑
-	 * @param drawingUpdateParam
+	 * @Title: updteDatabase 
+	 * @Description: 资料库编辑
+	 * @param databaseUpdateParam
 	 * @return JsonResp
 	 * @author liyongxu
-	 * @date 2020年8月7日 上午11:55:44 
+	 * @date 2020年8月13日 下午2:13:46 
 	*/
-	@ApiOperation(value = "图纸方案编辑", httpMethod = "POST", notes = "图纸方案编辑")
-	@RequestMapping(value = "/updteDrawing", method = {RequestMethod.POST})
-	public JsonResp updteDrawing(
-			@ApiParam(name="drawingUpdateParam", value="图纸方案编辑参数", required=false)@RequestBody DrawingUpdateParam drawingUpdateParam) {
+	@ApiOperation(value = "资料库编辑", httpMethod = "POST", notes = "资料库编辑")
+	@RequestMapping(value = "/updteDatabase", method = {RequestMethod.POST})
+	public JsonResp updteDatabase(
+			@ApiParam(name="databaseUpdateParam", value="资料库编辑参数", required=false)@RequestBody DatabaseUpdateParam databaseUpdateParam) {
 		Supplier<String> businessHandler = () ->{
 			try {
-				tbDrawingSchemeService.updteDrawing(drawingUpdateParam);
+				tbDatabaseService.updteDatabase(databaseUpdateParam);
 				return JsonResultEnum.ok.getValue();
 			} catch (Exception e) {
 				throwException(e);
@@ -214,21 +209,21 @@ public class DrawingController extends BaseController{
 	
 	/**
 	 * @Title: updateDrawingStatus 
-	 * @Description: 变更状态-图纸方案
+	 * @Description: 变更状态-资料库
 	 * @param modelQueryDetailsParam
 	 * @return JsonResp
 	 * @author liyongxu
-	 * @date 2020年8月7日 下午2:53:12 
+	 * @date 2020年8月13日 下午2:18:47 
 	*/
-	@ApiOperation(value = "变更状态-图纸方案", httpMethod = "POST", notes = "变更状态-图纸方案")
+	@ApiOperation(value = "变更状态-资料库", httpMethod = "POST", notes = "变更状态-资料库")
     @RequestMapping(value = "/updateDrawingStatus", method = {RequestMethod.POST})
     public JsonResp updateDrawingStatus(
-    		@ApiParam(name="modelQueryDetailsParam", value="图纸方案详情参数", required=false)@RequestBody ModelQueryDetailsParam modelQueryDetailsParam) {
+    		@ApiParam(name="modelQueryDetailsParam", value="资料库详情参数", required=false)@RequestBody ModelQueryDetailsParam modelQueryDetailsParam) {
 		Supplier<String> businessHandler = () ->{
 			try {
-				TbDrawingScheme tbDrawing = tbDrawingSchemeService.getById(modelQueryDetailsParam.getModelId());
-				tbDrawing.setStatus(modelQueryDetailsParam.getStatus());
-				tbDrawingSchemeService.updateById(tbDrawing);
+				TbDatabase tbDatabase = tbDatabaseService.getById(modelQueryDetailsParam.getModelId());
+				tbDatabase.setStatus(modelQueryDetailsParam.getStatus());
+				tbDatabaseService.updateById(tbDatabase);
 				return JsonResultEnum.ok.getValue();
 			} catch (Exception e) {
 				throwException(e);

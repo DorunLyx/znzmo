@@ -81,8 +81,8 @@ public class HDController extends BaseController{
 					modelListVO.setSecondaryClassName(tbHdMapping.getSecondaryClassName());
 					modelListVO.setStyleName(tbHdMapping.getStyleName());
 					modelListVO.setTitle(tbHdMapping.getTitle());
-					modelListVO.setType(tbHdMapping.getMappingType());
-					modelListVO.setPrice(tbHdMapping.getMappingPrice());
+					modelListVO.setType(tbHdMapping.getType());
+					modelListVO.setPrice(tbHdMapping.getPrice());
 					modelListVO.setStatus(tbHdMapping.getStatus());
 					modelListVO.setVisitsNum(tbHdMapping.getVisitsNum());
 					modelListVO.setDownloadNum(tbHdMapping.getDownloadNum());
@@ -154,8 +154,8 @@ public class HDController extends BaseController{
 				hdMappingDetailsVO.setStyleId(tbHdMapping.getStyleId());
 				hdMappingDetailsVO.setStyleName(tbHdMapping.getStyleName());
 				hdMappingDetailsVO.setTitle(tbHdMapping.getTitle());
-				hdMappingDetailsVO.setType(tbHdMapping.getMappingType());
-				hdMappingDetailsVO.setPrice(tbHdMapping.getMappingPrice());
+				hdMappingDetailsVO.setType(tbHdMapping.getType());
+				hdMappingDetailsVO.setPrice(tbHdMapping.getPrice());
 				hdMappingDetailsVO.setRemarks(tbHdMapping.getRemarks());
 				List<UploadInfo> uploadInfos = new ArrayList<>();
 				QueryWrapper<TbAttachment> attachmentQueryWrapper = new QueryWrapper<>();

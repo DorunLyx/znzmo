@@ -80,8 +80,8 @@ public class ModelController extends BaseController{
 					homePageSimplifyData.setReType(ReTypeEnum.MODEL.getKey());
 					homePageSimplifyData.setMainGraph(tb3dModel.getMainGraph());
 					homePageSimplifyData.setTitle(tb3dModel.getTitle());
-					homePageSimplifyData.setPrice(tb3dModel.getModelPrice());
-					homePageSimplifyData.setModelType(tb3dModel.getModelType());
+					homePageSimplifyData.setPrice(tb3dModel.getPrice());
+					homePageSimplifyData.setType(tb3dModel.getType());
 					homePageModelDataList.add(homePageSimplifyData);
 				}
 				modeListPage.setRecords(homePageModelDataList);
@@ -125,8 +125,8 @@ public class ModelController extends BaseController{
 					modelListVO.setSecondaryClassName(tb3dModel.getSecondaryClassName());
 					modelListVO.setStyleName(tb3dModel.getStyleName());
 					modelListVO.setTitle(tb3dModel.getTitle());
-					modelListVO.setType(tb3dModel.getModelType());
-					modelListVO.setPrice(tb3dModel.getModelPrice());
+					modelListVO.setType(tb3dModel.getType());
+					modelListVO.setPrice(tb3dModel.getPrice());
 					modelListVO.setTextureMapping(tb3dModel.getTextureMapping());
 					modelListVO.setLightingEffects(tb3dModel.getLightingEffects());
 					modelListVO.setStatus(tb3dModel.getStatus());
@@ -219,8 +219,8 @@ public class ModelController extends BaseController{
 				modelDetailsVO.setStyleId(tb3dModel.getStyleId());
 				modelDetailsVO.setStyleName(tb3dModel.getStyleName());
 				modelDetailsVO.setTitle(tb3dModel.getTitle());
-				modelDetailsVO.setType(tb3dModel.getModelType());
-				modelDetailsVO.setPrice(tb3dModel.getModelPrice());
+				modelDetailsVO.setType(tb3dModel.getType());
+				modelDetailsVO.setPrice(tb3dModel.getPrice());
 				modelDetailsVO.setTextureMapping(tb3dModel.getTextureMapping());
 				modelDetailsVO.setLightingEffects(tb3dModel.getLightingEffects());
 				modelDetailsVO.setRemarks(tb3dModel.getRemarks());
