@@ -3,8 +3,6 @@
  */
 package com.pactera.znzmo.vo.sensitivewords;
 
-import com.pactera.znzmo.vo.MsgQueryParam;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

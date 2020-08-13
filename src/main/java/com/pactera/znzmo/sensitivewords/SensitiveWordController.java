@@ -15,13 +15,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.pactera.znzmo.enums.IsValidEnum;
 import com.pactera.znzmo.enums.JsonResultEnum;
-import com.pactera.znzmo.msg.TbSysMsg;
-import com.pactera.znzmo.vo.MsgListVO;
-import com.pactera.znzmo.vo.MsgQueryParam;
 import com.pactera.znzmo.vo.sensitivewords.SensiWordAddParam;
+import com.pactera.znzmo.vo.sensitivewords.SensiWordQueryDetailsParam;
 import com.pactera.znzmo.vo.sensitivewords.SensiWordQueryParam;
 import com.pactera.znzmo.vo.sensitivewords.seniWordListVO;
 import com.pactera.znzmo.web.BaseController;
@@ -35,6 +35,10 @@ import io.swagger.annotations.ApiParam;
  * @author heliang
  *
  */
+/**
+ * @author Administrator
+ *
+ */
 @Api(tags = "敏感词API", value = "敏感词API")
 @RestController
 @RequestMapping(value = "/SensitiveWord")
@@ -43,7 +47,7 @@ public class SensitiveWordController extends BaseController {
 
 	@Autowired
 	TbSensitiveWordsService sensitiveWordService;
-	
+
 	@ApiOperation(value = "新增敏感词", httpMethod = "POST", notes = "敏感词新增")
 	@RequestMapping(value = "/addSensitiveWord", method = { RequestMethod.POST })
 	public JsonResp addSensitiveWord(
@@ -59,7 +63,11 @@ public class SensitiveWordController extends BaseController {
 		};
 		return handleRequest(businessHandler);
 	}
-	
+
+	/**
+	 * @param sensiWordQueryParam
+	 * @return
+	 */
 	@ApiOperation(value = "敏感词列表查询", httpMethod = "POST", notes = "敏感词列表查询")
 	@RequestMapping(value = "/getSensiWordList", method = { RequestMethod.POST })
 	public JsonResp getSensiWordList(
@@ -67,7 +75,8 @@ public class SensitiveWordController extends BaseController {
 		Supplier<IPage<seniWordListVO>> businessHandler = () -> {
 			try {
 				List<seniWordListVO> modelList = new ArrayList<seniWordListVO>();
-				Page<TbSensitiveWords> page = new Page<TbSensitiveWords>(sensiWordQueryParam.getPageNo(), sensiWordQueryParam.getPageSize());
+				Page<TbSensitiveWords> page = new Page<TbSensitiveWords>(sensiWordQueryParam.getPageNo(),
+						sensiWordQueryParam.getPageSize());
 				IPage<seniWordListVO> modeListPage = new Page<seniWordListVO>(sensiWordQueryParam.getPageNo(),
 						sensiWordQueryParam.getPageSize());
 				IPage<TbSensitiveWords> iPage = sensitiveWordService.selectSensiWordPages(page, sensiWordQueryParam);
@@ -93,5 +102,24 @@ public class SensitiveWordController extends BaseController {
 		};
 		return handleRequest(businessHandler);
 
+	}
+
+	@ApiOperation(value = "敏感词详情", httpMethod = "POST", notes = "敏感词详情")
+	@RequestMapping(value = "/getSensiWordInfo", method = { RequestMethod.POST })
+	public JsonResp getSensiWordInfo(
+			@ApiParam(name = "sensiWordQueryDetailsParam", value = "系統详情参数", required = false) @RequestBody SensiWordQueryDetailsParam sensiWordQueryDetailsParam) {
+		Supplier<TbSensitiveWords> businessHandler = () -> {
+			try {
+				QueryWrapper<TbSensitiveWords> modelQueryWrapper = new QueryWrapper<>();
+				modelQueryWrapper.eq(TbSensitiveWords.IS_VALID, IsValidEnum.YES.getKey()).eq(TbSensitiveWords.ID,
+						sensiWordQueryDetailsParam.getId());
+				TbSensitiveWords sensiWord = sensitiveWordService.getOne(modelQueryWrapper);
+				return sensiWord;
+			} catch (Exception e) {
+				throwException(e);
+			}
+			return null;
+		};
+		return handleRequest(businessHandler);
 	}
 }

@@ -20,7 +20,6 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.pactera.znzmo.enums.IsValidEnum;
 import com.pactera.znzmo.enums.JsonResultEnum;
-import com.pactera.znzmo.model.Tb3dModel;
 import com.pactera.znzmo.vo.MsgAddParam;
 import com.pactera.znzmo.vo.MsgListVO;
 import com.pactera.znzmo.vo.MsgQueryDetailsParam;
@@ -97,6 +96,10 @@ public class MsgController extends BaseController {
 
 	}
 
+	/**
+	 * @param msgQueryDetailsParam
+	 * @return
+	 */
 	@ApiOperation(value = "系統消息详情", httpMethod = "POST", notes = "系統消息详情")
 	@RequestMapping(value = "/getSysMsglInfo", method = { RequestMethod.POST })
 	public JsonResp getSysMsgInfo(
@@ -104,7 +107,7 @@ public class MsgController extends BaseController {
 		Supplier<TbSysMsg> businessHandler = () -> {
 			try {
 				QueryWrapper<TbSysMsg> modelQueryWrapper = new QueryWrapper<>();
-				modelQueryWrapper.eq(TbSysMsg.IS_VALID, IsValidEnum.YES.getKey()).eq(Tb3dModel.ID,
+				modelQueryWrapper.eq(TbSysMsg.IS_VALID, IsValidEnum.YES.getKey()).eq(TbSysMsg.ID,
 						msgQueryDetailsParam.getMsgId());
 				TbSysMsg tbSysMsg = msgService.getOne(modelQueryWrapper);
 				return tbSysMsg;
