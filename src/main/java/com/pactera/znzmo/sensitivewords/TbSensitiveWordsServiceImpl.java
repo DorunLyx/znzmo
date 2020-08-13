@@ -59,4 +59,18 @@ public class TbSensitiveWordsServiceImpl extends ServiceImpl<TbSensitiveWordsMap
 		return baseMapper.selectPage(page, queryWrapper);
 	}
 
+	@Override
+	public void updteSensiWord(SensiWordAddParam sensiWordAddParam) {
+		TbSensitiveWords sensiWord = new TbSensitiveWords();
+		sensiWord.setId(Long.parseLong(sensiWordAddParam.getSenId()));
+		sensiWord.setName(sensiWordAddParam.getName());
+		sensiWord.setShowContents(sensiWordAddParam.getShowContent());
+		sensiWord.setUpdateAccount(SecurityUtils.getUsername());
+		SysUser user = sysUserService.findByUsername(SecurityUtils.getUsername());
+		sensiWord.setUpdateId(user.getId());
+		sensiWord.setUpdateName(user.getName());
+		sensiWord.setUpdateTime(LocalDateTime.now());
+		TbSensitiveWordsMapper.insert(sensiWord);
+	}
+
 }

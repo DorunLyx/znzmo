@@ -20,4 +20,6 @@ public interface TbSensitiveWordsService extends IService<TbSensitiveWords> {
 
 	IPage<TbSensitiveWords> selectSensiWordPages(Page<TbSensitiveWords> page, SensiWordQueryParam sensiWordQueryParam);
 
+	void updteSensiWord(SensiWordAddParam sensiWordAddParam);
+
 }

@@ -122,4 +122,21 @@ public class SensitiveWordController extends BaseController {
 		};
 		return handleRequest(businessHandler);
 	}
+	
+	
+	@ApiOperation(value = "敏感词编辑", httpMethod = "POST", notes = "敏感词编辑")
+	@RequestMapping(value = "/updteSensiWord", method = {RequestMethod.POST})
+	public JsonResp updteSensiWord(
+		@ApiParam(name="SensiWordAddParam", value="编辑参数", required=false)@RequestBody SensiWordAddParam sensiWordAddParam) {
+		Supplier<String> businessHandler = () ->{
+			try {
+				sensitiveWordService.updteSensiWord(sensiWordAddParam);
+				return JsonResultEnum.ok.getValue();
+			} catch (Exception e) {
+				throwException(e);
+			}
+			return JsonResultEnum.fail.getValue();
+		};
+		return handleRequest(businessHandler);
+	}
 }
