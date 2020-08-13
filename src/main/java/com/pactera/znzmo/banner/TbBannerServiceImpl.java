@@ -15,10 +15,10 @@ import com.pactera.znzmo.common.TbAttachment;
 import com.pactera.znzmo.common.dao.TbAttachmentMapper;
 import com.pactera.znzmo.enums.IsValidEnum;
 import com.pactera.znzmo.enums.StatusEnum;
-import com.pactera.znzmo.vo.BannerAddParam;
-import com.pactera.znzmo.vo.BannerQueryParam;
-import com.pactera.znzmo.vo.BannerUpdateParam;
-import com.pactera.znzmo.vo.UploadInfo;
+import com.pactera.znzmo.vo.banner.BannerAddParam;
+import com.pactera.znzmo.vo.banner.BannerQueryParam;
+import com.pactera.znzmo.vo.banner.BannerUpdateParam;
+import com.pactera.znzmo.vo.common.UploadInfo;
 
 /**
  * <p>

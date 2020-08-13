@@ -3,9 +3,9 @@ package com.pactera.znzmo.banner;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.pactera.znzmo.vo.BannerAddParam;
-import com.pactera.znzmo.vo.BannerQueryParam;
-import com.pactera.znzmo.vo.BannerUpdateParam;
+import com.pactera.znzmo.vo.banner.BannerAddParam;
+import com.pactera.znzmo.vo.banner.BannerQueryParam;
+import com.pactera.znzmo.vo.banner.BannerUpdateParam;
 
 /**
  * <p>

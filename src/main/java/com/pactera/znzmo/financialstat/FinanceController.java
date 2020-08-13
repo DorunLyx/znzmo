@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.pactera.znzmo.enums.IsValidEnum;
-import com.pactera.znzmo.vo.ProfitQueryParam;
+import com.pactera.znzmo.vo.profit.ProfitQueryParam;
 import com.pactera.znzmo.web.BaseController;
 import com.pactera.znzmo.web.JsonResp;
 

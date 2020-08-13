@@ -23,10 +23,10 @@ import com.pactera.znzmo.order.dao.TbOrderMapper;
 import com.pactera.znzmo.sumodel.TbSuModel;
 import com.pactera.znzmo.sumodel.dao.TbSuModelMapper;
 import com.pactera.znzmo.util.NumGenerationUtil;
-import com.pactera.znzmo.vo.OrderAddParam;
-import com.pactera.znzmo.vo.OrderDetailsParam;
-import com.pactera.znzmo.vo.OrderDetailsVO;
-import com.pactera.znzmo.vo.OrderQueryParam;
+import com.pactera.znzmo.vo.order.OrderAddParam;
+import com.pactera.znzmo.vo.order.OrderDetailsParam;
+import com.pactera.znzmo.vo.order.OrderDetailsVO;
+import com.pactera.znzmo.vo.order.OrderQueryParam;
 
 /**
  * <p>

@@ -14,8 +14,8 @@ import com.github.pagehelper.util.StringUtil;
 import com.pactera.znzmo.enums.IsValidEnum;
 import com.pactera.znzmo.points.dao.TbPointsDetailsMapper;
 import com.pactera.znzmo.points.dao.TbPointsMapper;
-import com.pactera.znzmo.vo.PointsAddParam;
-import com.pactera.znzmo.vo.PointsQueryParam;
+import com.pactera.znzmo.vo.points.PointsAddParam;
+import com.pactera.znzmo.vo.points.PointsQueryParam;
 
 /**
  * <p>

@@ -3,9 +3,9 @@ package com.pactera.znzmo.hd;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.pactera.znzmo.vo.HDMappingAddParam;
-import com.pactera.znzmo.vo.HDMappingUpdateParam;
-import com.pactera.znzmo.vo.ModelQueryParam;
+import com.pactera.znzmo.vo.hd.HDMappingAddParam;
+import com.pactera.znzmo.vo.hd.HDMappingUpdateParam;
+import com.pactera.znzmo.vo.model.ModelQueryParam;
 
 /**
  * <p>

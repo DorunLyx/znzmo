@@ -3,9 +3,9 @@ package com.pactera.znzmo.drawing;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.pactera.znzmo.vo.DrawingAddParam;
-import com.pactera.znzmo.vo.DrawingUpdateParam;
-import com.pactera.znzmo.vo.ModelQueryParam;
+import com.pactera.znzmo.vo.drawing.DrawingAddParam;
+import com.pactera.znzmo.vo.drawing.DrawingUpdateParam;
+import com.pactera.znzmo.vo.model.ModelQueryParam;
 
 /**
  * <p>

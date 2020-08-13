@@ -19,10 +19,10 @@ import com.pactera.znzmo.examineverify.TbExamineVerify;
 import com.pactera.znzmo.examineverify.dao.TbExamineVerifyMapper;
 import com.pactera.znzmo.model.dao.Tb3dModelMapper;
 import com.pactera.znzmo.util.NumGenerationUtil;
-import com.pactera.znzmo.vo.ModelAddParam;
-import com.pactera.znzmo.vo.ModelQueryParam;
-import com.pactera.znzmo.vo.ModelUpdateParam;
-import com.pactera.znzmo.vo.UploadInfo;
+import com.pactera.znzmo.vo.common.UploadInfo;
+import com.pactera.znzmo.vo.model.ModelAddParam;
+import com.pactera.znzmo.vo.model.ModelQueryParam;
+import com.pactera.znzmo.vo.model.ModelUpdateParam;
 
 /**
  * <p>

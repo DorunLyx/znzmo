@@ -3,8 +3,8 @@ package com.pactera.znzmo.points;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.pactera.znzmo.vo.PointsAddParam;
-import com.pactera.znzmo.vo.PointsQueryParam;
+import com.pactera.znzmo.vo.points.PointsAddParam;
+import com.pactera.znzmo.vo.points.PointsQueryParam;
 
 /**
  * <p>

@@ -3,9 +3,9 @@ package com.pactera.znzmo.database;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.pactera.znzmo.vo.DatabaseAddParam;
-import com.pactera.znzmo.vo.DatabaseUpdateParam;
-import com.pactera.znzmo.vo.ModelQueryParam;
+import com.pactera.znzmo.vo.database.DatabaseAddParam;
+import com.pactera.znzmo.vo.database.DatabaseUpdateParam;
+import com.pactera.znzmo.vo.model.ModelQueryParam;
 
 /**
  * <p>

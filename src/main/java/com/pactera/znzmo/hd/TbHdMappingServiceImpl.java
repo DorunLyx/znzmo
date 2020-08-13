@@ -19,10 +19,10 @@ import com.pactera.znzmo.examineverify.TbExamineVerify;
 import com.pactera.znzmo.examineverify.dao.TbExamineVerifyMapper;
 import com.pactera.znzmo.hd.dao.TbHdMappingMapper;
 import com.pactera.znzmo.util.NumGenerationUtil;
-import com.pactera.znzmo.vo.HDMappingAddParam;
-import com.pactera.znzmo.vo.HDMappingUpdateParam;
-import com.pactera.znzmo.vo.ModelQueryParam;
-import com.pactera.znzmo.vo.UploadInfo;
+import com.pactera.znzmo.vo.common.UploadInfo;
+import com.pactera.znzmo.vo.hd.HDMappingAddParam;
+import com.pactera.znzmo.vo.hd.HDMappingUpdateParam;
+import com.pactera.znzmo.vo.model.ModelQueryParam;
 
 /**
  * <p>

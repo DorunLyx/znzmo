@@ -20,10 +20,10 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.pactera.znzmo.util.DateUtils;
 import com.pactera.znzmo.util.ExcelExportBean;
 import com.pactera.znzmo.util.ExcelUtils;
-import com.pactera.znzmo.vo.ProfitDetailsListVO;
-import com.pactera.znzmo.vo.ProfitManageListVO;
-import com.pactera.znzmo.vo.ProfitQueryParam;
-import com.pactera.znzmo.vo.WithdrawalExportExcelBean;
+import com.pactera.znzmo.vo.profit.ProfitDetailsListVO;
+import com.pactera.znzmo.vo.profit.ProfitManageListVO;
+import com.pactera.znzmo.vo.profit.ProfitQueryParam;
+import com.pactera.znzmo.vo.profit.WithdrawalExportExcelBean;
 import com.pactera.znzmo.web.BaseController;
 import com.pactera.znzmo.web.JsonResp;
 

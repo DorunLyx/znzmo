@@ -15,9 +15,9 @@ import org.springframework.web.bind.annotation.RestController;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.pactera.znzmo.enums.JsonResultEnum;
-import com.pactera.znzmo.vo.PointsAddParam;
-import com.pactera.znzmo.vo.PointsExchangeListVO;
-import com.pactera.znzmo.vo.PointsQueryParam;
+import com.pactera.znzmo.vo.points.PointsAddParam;
+import com.pactera.znzmo.vo.points.PointsExchangeListVO;
+import com.pactera.znzmo.vo.points.PointsQueryParam;
 import com.pactera.znzmo.web.BaseController;
 import com.pactera.znzmo.web.JsonResp;
 

@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.util.StringUtil;
 import com.pactera.znzmo.enums.IsValidEnum;
 import com.pactera.znzmo.points.dao.TbPointsDetailsMapper;
-import com.pactera.znzmo.vo.PointsQueryParam;
+import com.pactera.znzmo.vo.points.PointsQueryParam;
 
 /**
  * <p>

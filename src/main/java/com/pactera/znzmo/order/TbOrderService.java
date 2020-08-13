@@ -3,10 +3,10 @@ package com.pactera.znzmo.order;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.pactera.znzmo.vo.OrderAddParam;
-import com.pactera.znzmo.vo.OrderDetailsParam;
-import com.pactera.znzmo.vo.OrderDetailsVO;
-import com.pactera.znzmo.vo.OrderQueryParam;
+import com.pactera.znzmo.vo.order.OrderAddParam;
+import com.pactera.znzmo.vo.order.OrderDetailsParam;
+import com.pactera.znzmo.vo.order.OrderDetailsVO;
+import com.pactera.znzmo.vo.order.OrderQueryParam;
 
 /**
  * <p>

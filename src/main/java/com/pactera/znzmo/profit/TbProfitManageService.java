@@ -3,7 +3,7 @@ package com.pactera.znzmo.profit;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.pactera.znzmo.vo.ProfitQueryParam;
+import com.pactera.znzmo.vo.profit.ProfitQueryParam;
 
 /**
  * <p>

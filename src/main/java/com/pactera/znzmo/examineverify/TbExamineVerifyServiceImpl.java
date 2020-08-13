@@ -25,9 +25,9 @@ import com.pactera.znzmo.model.Tb3dModel;
 import com.pactera.znzmo.model.dao.Tb3dModelMapper;
 import com.pactera.znzmo.sumodel.TbSuModel;
 import com.pactera.znzmo.sumodel.dao.TbSuModelMapper;
-import com.pactera.znzmo.vo.ExamineListVO;
-import com.pactera.znzmo.vo.ExamineQueryParam;
-import com.pactera.znzmo.vo.ExamineStatusParam;
+import com.pactera.znzmo.vo.examine.ExamineListVO;
+import com.pactera.znzmo.vo.examine.ExamineQueryParam;
+import com.pactera.znzmo.vo.examine.ExamineStatusParam;
 
 /**
  * <p>

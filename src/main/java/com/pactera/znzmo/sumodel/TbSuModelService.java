@@ -3,9 +3,9 @@ package com.pactera.znzmo.sumodel;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.pactera.znzmo.vo.ModelQueryParam;
-import com.pactera.znzmo.vo.SuModelAddParam;
-import com.pactera.znzmo.vo.SuModelUpdateParam;
+import com.pactera.znzmo.vo.model.ModelQueryParam;
+import com.pactera.znzmo.vo.su.SuModelAddParam;
+import com.pactera.znzmo.vo.su.SuModelUpdateParam;
 
 /**
  * <p>

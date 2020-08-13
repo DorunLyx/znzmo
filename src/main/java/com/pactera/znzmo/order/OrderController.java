@@ -15,12 +15,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.pactera.znzmo.enums.JsonResultEnum;
-import com.pactera.znzmo.vo.ModelQueryDetailsParam;
-import com.pactera.znzmo.vo.OrderAddParam;
-import com.pactera.znzmo.vo.OrderDetailsParam;
-import com.pactera.znzmo.vo.OrderDetailsVO;
-import com.pactera.znzmo.vo.OrderListVO;
-import com.pactera.znzmo.vo.OrderQueryParam;
+import com.pactera.znzmo.vo.model.ModelQueryDetailsParam;
+import com.pactera.znzmo.vo.order.OrderAddParam;
+import com.pactera.znzmo.vo.order.OrderDetailsParam;
+import com.pactera.znzmo.vo.order.OrderDetailsVO;
+import com.pactera.znzmo.vo.order.OrderListVO;
+import com.pactera.znzmo.vo.order.OrderQueryParam;
 import com.pactera.znzmo.web.BaseController;
 import com.pactera.znzmo.web.JsonResp;
 

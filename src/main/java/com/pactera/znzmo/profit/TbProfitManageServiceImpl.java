@@ -9,7 +9,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.github.pagehelper.util.StringUtil;
 import com.pactera.znzmo.enums.IsValidEnum;
 import com.pactera.znzmo.profit.dao.TbProfitManageMapper;
-import com.pactera.znzmo.vo.ProfitQueryParam;
+import com.pactera.znzmo.vo.profit.ProfitQueryParam;
 
 /**
  * <p>

@@ -20,10 +20,10 @@ import com.pactera.znzmo.enums.StatusEnum;
 import com.pactera.znzmo.examineverify.TbExamineVerify;
 import com.pactera.znzmo.examineverify.dao.TbExamineVerifyMapper;
 import com.pactera.znzmo.util.NumGenerationUtil;
-import com.pactera.znzmo.vo.DrawingAddParam;
-import com.pactera.znzmo.vo.DrawingUpdateParam;
-import com.pactera.znzmo.vo.ModelQueryParam;
-import com.pactera.znzmo.vo.UploadInfo;
+import com.pactera.znzmo.vo.common.UploadInfo;
+import com.pactera.znzmo.vo.drawing.DrawingAddParam;
+import com.pactera.znzmo.vo.drawing.DrawingUpdateParam;
+import com.pactera.znzmo.vo.model.ModelQueryParam;
 
 /**
  * <p>

@@ -3,9 +3,9 @@ package com.pactera.znzmo.examineverify;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.pactera.znzmo.vo.ExamineListVO;
-import com.pactera.znzmo.vo.ExamineQueryParam;
-import com.pactera.znzmo.vo.ExamineStatusParam;
+import com.pactera.znzmo.vo.examine.ExamineListVO;
+import com.pactera.znzmo.vo.examine.ExamineQueryParam;
+import com.pactera.znzmo.vo.examine.ExamineStatusParam;
 
 /**
  * <p>
