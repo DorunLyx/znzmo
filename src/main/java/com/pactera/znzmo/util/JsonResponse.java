@@ -9,9 +9,9 @@
 package com.pactera.znzmo.util;
 
 
-import com.alibaba.fastjson.JSONObject;
-
 import java.util.HashMap;
+
+import com.alibaba.fastjson.JSONObject;
 
 /**
  * Json响应实体类

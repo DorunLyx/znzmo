@@ -5,8 +5,6 @@ package com.pactera.znzmo.vo.sensitivewords;
 
 import java.time.LocalDateTime;
 
-import com.pactera.znzmo.vo.MsgListVO;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

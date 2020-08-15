@@ -1,11 +1,11 @@
 package com.pactera.znzmo.util;
 
 
-import com.baomidou.mybatisplus.plugins.Page;
-
 import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
+
+import com.baomidou.mybatisplus.plugins.Page;
 
 /**
  * 对Page<E>结果进行包装
