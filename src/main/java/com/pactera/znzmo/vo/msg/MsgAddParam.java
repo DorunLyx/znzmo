@@ -1,7 +1,7 @@
 /**
  * 
  */
-package com.pactera.znzmo.vo;
+package com.pactera.znzmo.vo.msg;
 
 import java.time.LocalDateTime;
 

@@ -20,10 +20,10 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.pactera.znzmo.enums.IsValidEnum;
 import com.pactera.znzmo.enums.JsonResultEnum;
-import com.pactera.znzmo.vo.MsgAddParam;
-import com.pactera.znzmo.vo.MsgListVO;
-import com.pactera.znzmo.vo.MsgQueryDetailsParam;
-import com.pactera.znzmo.vo.MsgQueryParam;
+import com.pactera.znzmo.vo.msg.MsgAddParam;
+import com.pactera.znzmo.vo.msg.MsgListVO;
+import com.pactera.znzmo.vo.msg.MsgQueryDetailsParam;
+import com.pactera.znzmo.vo.msg.MsgQueryParam;
 import com.pactera.znzmo.web.BaseController;
 import com.pactera.znzmo.web.JsonResp;
 

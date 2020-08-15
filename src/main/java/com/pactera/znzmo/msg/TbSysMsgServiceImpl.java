@@ -15,8 +15,8 @@ import com.pactera.znzmo.msg.dao.TbSysMsgMapper;
 import com.pactera.znzmo.sysuser.SysUser;
 import com.pactera.znzmo.sysuser.SysUserService;
 import com.pactera.znzmo.util.SecurityUtils;
-import com.pactera.znzmo.vo.MsgAddParam;
-import com.pactera.znzmo.vo.MsgQueryParam;
+import com.pactera.znzmo.vo.msg.MsgAddParam;
+import com.pactera.znzmo.vo.msg.MsgQueryParam;
 
 /**
  * <p>

@@ -3,8 +3,8 @@ package com.pactera.znzmo.msg;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.pactera.znzmo.vo.MsgAddParam;
-import com.pactera.znzmo.vo.MsgQueryParam;
+import com.pactera.znzmo.vo.msg.MsgAddParam;
+import com.pactera.znzmo.vo.msg.MsgQueryParam;
 
 /**
  * <p>

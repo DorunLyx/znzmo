@@ -1,4 +1,4 @@
-package com.pactera.znzmo.vo;
+package com.pactera.znzmo.vo.msg;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
