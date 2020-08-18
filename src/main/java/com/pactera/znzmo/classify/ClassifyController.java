@@ -1,5 +1,6 @@
 package com.pactera.znzmo.classify;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Supplier;
 
@@ -53,9 +54,20 @@ public class ClassifyController extends BaseController{
     @RequestMapping(value = "/getClassifyList", method = {RequestMethod.POST})
     public JsonResp getClassifyList(
     		@ApiParam(name="profitQueryParam", value="收益统计列表筛选参数", required=false)@RequestBody ProfitQueryParam profitQueryParam) {
-		Supplier<List<TbClass>> businessHandler = () -> {
+		Supplier<List<ClassifyDetailsVO>> businessHandler = () -> {
 			try {
-		        return tbClassService.list();
+				List<ClassifyDetailsVO> classifyDetailsVOList = new ArrayList<>();
+				List<TbClass> tbClassList = tbClassService.list();
+				for (TbClass tbClass : tbClassList) {
+					ClassifyDetailsVO classifyDetailsVO = new ClassifyDetailsVO();
+					classifyDetailsVO.setClassifyName(tbClass.getName());
+					classifyDetailsVO.setPId(tbClass.getPId());
+					classifyDetailsVO.setPName(tbClass.getPName());
+					classifyDetailsVO.setLevel(tbClass.getLevel());
+					classifyDetailsVO.setSort(tbClass.getSort());
+					classifyDetailsVOList.add(classifyDetailsVO);
+				}
+		        return classifyDetailsVOList;
 			} catch (Exception e) {
 				throwException(e);
 			}
