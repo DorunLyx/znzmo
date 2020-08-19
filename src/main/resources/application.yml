@@ -11,12 +11,12 @@ server:
 # Mybatis
 mybatis-plus:
   #MyBatis相关自定义配置
-  configLocation: org.apache.ibatis.logging.nologging.NoLoggingImpl
-  #实体类所做包
-  type-aliases-package: com.pactera.znzmo.*
+  config-location: classpath:mybatis-config.xml
+      #实体类所做包
+  type-aliases-package: com.pactera.znzmo.*.
   #mapper.xml所在位置
-  mapperLocations: classpath:sqlmap/*.xml
-  
+  mapper-locations: classpath*:com/pactera/znzmo/*/sqlmap/*.xml
+
 # DataSource
 spring:
 # 运行环境 dev:开发环境|test:测试环境|prod:生产环境
