@@ -16,6 +16,9 @@
 		<result column="seq" property="seq" />
 		<result column="is_valid" property="isValid" />
 	</resultMap>
+	<sql id="Base_Column_List">
+		id, name, url, parentid, icon, description, resource_type, seq, is_valid
+	</sql>
 	<select id="selectAll" resultMap="BaseResultMap">
 		select
 		<include refid="Base_Column_List" />
