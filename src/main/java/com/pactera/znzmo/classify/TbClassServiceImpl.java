@@ -1,13 +1,19 @@
 package com.pactera.znzmo.classify;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import org.springframework.stereotype.Service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.github.pagehelper.util.StringUtil;
 import com.pactera.znzmo.classify.dao.TbClassMapper;
 import com.pactera.znzmo.vo.classify.ClassifyAddParam;
 import com.pactera.znzmo.vo.classify.ClassifyQueryDetailsParam;
+import com.pactera.znzmo.vo.classify.ClassifyQueryParam;
 import com.pactera.znzmo.vo.classify.ClassifyUpdateParam;
 
 /**
@@ -49,6 +55,23 @@ public class TbClassServiceImpl extends ServiceImpl<TbClassMapper, TbClass> impl
 	@Override
 	public void delectClassify(ClassifyQueryDetailsParam classifyQueryDetailsParam) {
 		baseMapper.deleteById(classifyQueryDetailsParam.getClassifyId());
+	}
+
+	@Override
+	public List<TbClass> selectByPid(long pid) {
+		QueryWrapper<TbClass> queryWrapper = new QueryWrapper<TbClass>();
+		queryWrapper.eq(TbClass.P_ID, pid);
+		return baseMapper.selectList(queryWrapper);
+	}
+
+	@Override
+	public IPage<TbClass> selectClassifyList(Page<TbClass> page, ClassifyQueryParam classifyQueryParam) {
+		QueryWrapper<TbClass> queryWrapper = new QueryWrapper<TbClass>();
+		if(StringUtil.isNotEmpty(classifyQueryParam.getKeyWord())) {
+			queryWrapper.like(TbClass.NAME, classifyQueryParam.getKeyWord());
+		}
+		queryWrapper.orderByDesc(TbClass.UPDATE_TIME);
+		return baseMapper.selectPage(page,queryWrapper);
 	}
 
 }
