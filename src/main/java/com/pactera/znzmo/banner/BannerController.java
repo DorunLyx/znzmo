@@ -37,6 +37,7 @@ import com.pactera.znzmo.vo.banner.BannerDetailsVO;
 import com.pactera.znzmo.vo.banner.BannerListVO;
 import com.pactera.znzmo.vo.banner.BannerQueryParam;
 import com.pactera.znzmo.vo.banner.BannerUpdateParam;
+import com.pactera.znzmo.vo.banner.ModularBannerQueryParam;
 import com.pactera.znzmo.vo.homepage.HomePageBannerData;
 import com.pactera.znzmo.vo.homepage.HomePageDrawingData;
 import com.pactera.znzmo.vo.homepage.HomePageHDData;
@@ -100,7 +101,7 @@ public class BannerController extends BaseController{
 			try {
 				HomePageListVO homePageListVO = new HomePageListVO();
 				//首页轮播
-				List<HomePageBannerData> homePageBannerDataList = getBannerData();
+				List<HomePageBannerData> homePageBannerDataList = getBannerData(null);
 				//首页总览数据
 				HomePageOverviewData homePageOverviewData = getOverviewData();
 				//首页3d模型数据
@@ -133,9 +134,12 @@ public class BannerController extends BaseController{
 	 * @author liyongxu
 	 * @date 2020年8月12日 下午3:41:04 
 	*/
-	private List<HomePageBannerData> getBannerData() {
+	private List<HomePageBannerData> getBannerData(String type) {
 		List<HomePageBannerData> homePageBannerDataList = new ArrayList<>();
 		QueryWrapper<TbBanner> queryWrapper = new QueryWrapper<TbBanner>();
+		if(StringUtils.isNotEmpty(type)) {
+			queryWrapper.eq(TbBanner.TYPE,type);
+		}
 		queryWrapper.orderByDesc(TbBanner.START_TIME)
 		        .last("limit 1,10");
 		List<TbBanner> tbBannerList = tbBannerService.list(queryWrapper);
@@ -345,6 +349,29 @@ public class BannerController extends BaseController{
 		}
 		return homePageHDDataList;
 	}
+	
+	/**
+	 * @Title: getModularBannerList 
+	 * @Description: 模块轮播查询
+	 * @param modularBannerQueryParam
+	 * @return JsonResp
+	 * @author liyongxu
+	 * @date 2020年8月19日 上午11:48:53 
+	*/
+	@ApiOperation(value = "模块轮播查询", httpMethod = "POST", notes = "模块轮播查询")
+    @RequestMapping(value = "/getModularBannerList", method = {RequestMethod.POST})
+    public JsonResp getModularBannerList(
+    		@ApiParam(name="bannerQueryParam", value="首页列表筛选参数", required=false)@RequestBody ModularBannerQueryParam modularBannerQueryParam) {
+		Supplier<List<HomePageBannerData>> businessHandler = () ->{
+			try {
+				return getBannerData(modularBannerQueryParam.getType().toString());
+			} catch (Exception e) {
+				logger.error(e.getMessage(),e);
+			}
+			return null;
+		};
+		return handleRequest(businessHandler);
+    }
 	
 	/**
 	 * @Title: getBannerList 
