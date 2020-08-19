@@ -17,12 +17,12 @@ import org.springframework.web.bind.annotation.RestController;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.pactera.znzmo.enums.JsonResultEnum;
+import com.pactera.znzmo.util.DataUtils;
 import com.pactera.znzmo.vo.classify.ClassifyAddParam;
 import com.pactera.znzmo.vo.classify.ClassifyDetailsVO;
 import com.pactera.znzmo.vo.classify.ClassifyQueryDetailsParam;
 import com.pactera.znzmo.vo.classify.ClassifyQueryParam;
 import com.pactera.znzmo.vo.classify.ClassifyUpdateParam;
-import com.pactera.znzmo.vo.profit.ProfitQueryParam;
 import com.pactera.znzmo.web.BaseController;
 import com.pactera.znzmo.web.JsonResp;
 
@@ -50,29 +50,29 @@ public class ClassifyController extends BaseController{
 	/**
 	 * @Title: getClassifyTree 
 	 * @Description: 分类树
-	 * @param profitQueryParam
 	 * @return JsonResp
 	 * @author liyongxu
 	 * @date 2020年8月19日 下午4:36:23 
 	*/
 	@ApiOperation(value = "分类树", httpMethod = "POST", notes = "分类树")
     @RequestMapping(value = "/getClassifyTree", method = {RequestMethod.POST})
-    public JsonResp getClassifyTree(
-    		@ApiParam(name="profitQueryParam", value="收益统计列表筛选参数", required=false)@RequestBody ProfitQueryParam profitQueryParam) {
+    public JsonResp getClassifyTree() {
 		Supplier<List<Map<String, Object>>> businessHandler = () -> {
 			try {
 				List<Map<String, Object>> list = new ArrayList<>();
 				List<TbClass> tbClassList = tbClassService.selectByPid(0L);
-				for (TbClass tbClass : tbClassList) {
-					Map<String, Object> map = new LinkedHashMap<>();
-	            	map.put("id", tbClass.getId());
-	            	map.put("name", tbClass.getName());
-	            	map.put("pid", tbClass.getPId());
-	            	map.put("pname", tbClass.getPName());
-	            	map.put("leve", tbClass.getLevel());
-	            	map.put("sort", tbClass.getSort());
-	                map.put("children", getChildren(tbClass.getId()));
-	                list.add(map);
+				if(DataUtils.isNotEmpty(tbClassList)) {
+					for (TbClass tbClass : tbClassList) {
+						Map<String, Object> map = new LinkedHashMap<>();
+						map.put("id", tbClass.getId());
+						map.put("name", tbClass.getName());
+						map.put("pid", tbClass.getPId());
+						map.put("pname", tbClass.getPName());
+						map.put("leve", tbClass.getLevel());
+						map.put("sort", tbClass.getSort());
+						map.put("children", getChildren(tbClass.getId()));
+						list.add(map);
+					}
 				}
 		        return list;
 			} catch (Exception e) {
