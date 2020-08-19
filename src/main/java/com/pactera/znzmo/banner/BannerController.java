@@ -31,14 +31,20 @@ import com.pactera.znzmo.model.Tb3dModel;
 import com.pactera.znzmo.model.Tb3dModelService;
 import com.pactera.znzmo.sumodel.TbSuModel;
 import com.pactera.znzmo.sumodel.TbSuModelService;
+import com.pactera.znzmo.util.StringUtils;
 import com.pactera.znzmo.vo.banner.BannerAddParam;
 import com.pactera.znzmo.vo.banner.BannerDetailsVO;
 import com.pactera.znzmo.vo.banner.BannerListVO;
 import com.pactera.znzmo.vo.banner.BannerQueryParam;
 import com.pactera.znzmo.vo.banner.BannerUpdateParam;
 import com.pactera.znzmo.vo.homepage.HomePageBannerData;
+import com.pactera.znzmo.vo.homepage.HomePageDrawingData;
+import com.pactera.znzmo.vo.homepage.HomePageHDData;
 import com.pactera.znzmo.vo.homepage.HomePageListVO;
+import com.pactera.znzmo.vo.homepage.HomePageModelData;
+import com.pactera.znzmo.vo.homepage.HomePageOverviewData;
 import com.pactera.znzmo.vo.homepage.HomePageSimplifyData;
+import com.pactera.znzmo.vo.homepage.HomePageSuModelData;
 import com.pactera.znzmo.vo.model.ModelQueryDetailsParam;
 import com.pactera.znzmo.web.BaseController;
 import com.pactera.znzmo.web.JsonResp;
@@ -95,26 +101,22 @@ public class BannerController extends BaseController{
 				HomePageListVO homePageListVO = new HomePageListVO();
 				//首页轮播
 				List<HomePageBannerData> homePageBannerDataList = getBannerData();
+				//首页总览数据
+				HomePageOverviewData homePageOverviewData = getOverviewData();
 				//首页3d模型数据
-				List<HomePageSimplifyData> homePageModelDataList = get3dModelData();
+				HomePageModelData homePageModelData = get3dModelData();
 				//首页Su模型展示
-				List<HomePageSimplifyData> homePageSuModelDataList = getSuModelData();
-				//首页高清贴图展示
-				List<HomePageSimplifyData> homePageHDDataList = getHdData();
+				HomePageSuModelData homePageSuModelData = getSuModelData();
 				//首页图纸方案展示
-				List<HomePageSimplifyData> homePageDrawingDataList = getDrawingData();
-				//首页展示数据
-				List<HomePageSimplifyData> homePageSimplifyDataList = new ArrayList<>();
-				homePageSimplifyDataList.addAll(homePageModelDataList);
-				homePageSimplifyDataList.addAll(homePageSuModelDataList);
-				homePageSimplifyDataList.addAll(homePageHDDataList);
-				homePageSimplifyDataList.addAll(homePageDrawingDataList);
+				HomePageDrawingData homePageDrawingData= getDrawingData();
+				//首页高清贴图展示
+				HomePageHDData  homePageHDData = getHdData();
 				homePageListVO.setHomePageBannerData(homePageBannerDataList);
-				homePageListVO.setHomePageSimplifyData(homePageSimplifyDataList);
-				homePageListVO.setHomePageModelData(homePageModelDataList);
-				homePageListVO.setHomePageSuModelData(homePageSuModelDataList);
-				homePageListVO.setHomePageHDData(homePageHDDataList);
-				homePageListVO.setHomePageDrawingData(homePageDrawingDataList);
+				homePageListVO.setHomePageOverviewData(homePageOverviewData);
+				homePageListVO.setHomePageModelData(homePageModelData);
+				homePageListVO.setHomePageSuModelData(homePageSuModelData);
+				homePageListVO.setHomePageDrawingData(homePageDrawingData);
+				homePageListVO.setHomePageHDData(homePageHDData);
 				return homePageListVO;
 			} catch (Exception e) {
 				logger.error(e.getMessage(),e);
@@ -125,110 +127,8 @@ public class BannerController extends BaseController{
     }
 
 	/**
-	 * @Title: getDrawingData 
-	 * @Description: TODO(这里用一句话描述这个方法的作用)
-	 * @return List<HomePageSimplifyData>
-	 * @author liyongxu
-	 * @date 2020年8月12日 下午4:12:14 
-	*/
-	private List<HomePageSimplifyData> getDrawingData() {
-		List<HomePageSimplifyData> homePageDrawingDataList = new ArrayList<>();
-		QueryWrapper<TbDrawingScheme> queryWrapper = new QueryWrapper<TbDrawingScheme>();
-		queryWrapper.orderByDesc(TbDrawingScheme.UPDATE_TIME)
-		        .last("limit 1,10");
-		List<TbDrawingScheme> tbDrawingList = tbDrawingSchemeService.list(queryWrapper);
-		for (TbDrawingScheme tbDrawingScheme : tbDrawingList) {
-			HomePageSimplifyData homePageSimplifyData = new HomePageSimplifyData();
-			homePageSimplifyData.setReId(tbDrawingScheme.getId());
-			homePageSimplifyData.setReType(ReTypeEnum.SUMODEL.getKey());
-			homePageSimplifyData.setMainGraph(tbDrawingScheme.getMainGraph());
-			homePageSimplifyData.setTitle(tbDrawingScheme.getTitle());
-			homePageSimplifyData.setPrice(tbDrawingScheme.getPrice());
-			homePageSimplifyData.setType(tbDrawingScheme.getType());
-			homePageDrawingDataList.add(homePageSimplifyData);
-		}
-		return homePageDrawingDataList;
-	}
-
-	/**
-	 * @Title: getHdData 
-	 * @Description: TODO(这里用一句话描述这个方法的作用)
-	 * @return List<HomePageSimplifyData>
-	 * @author liyongxu
-	 * @date 2020年8月12日 下午4:09:05 
-	*/
-	private List<HomePageSimplifyData> getHdData() {
-		List<HomePageSimplifyData> homePageHDDataList = new ArrayList<>();
-		QueryWrapper<TbHdMapping> queryWrapper = new QueryWrapper<TbHdMapping>();
-		queryWrapper.orderByDesc(TbHdMapping.UPDATE_TIME)
-		        .last("limit 1,10");
-		List<TbHdMapping> tbHdList = tbHdMappingService.list(queryWrapper);
-		for (TbHdMapping tbHdMapping : tbHdList) {
-			HomePageSimplifyData homePageSimplifyData = new HomePageSimplifyData();
-			homePageSimplifyData.setReId(tbHdMapping.getId());
-			homePageSimplifyData.setReType(ReTypeEnum.HD.getKey());
-			homePageSimplifyData.setMainGraph(tbHdMapping.getMainGraph());
-			homePageSimplifyData.setTitle(tbHdMapping.getTitle());
-			homePageHDDataList.add(homePageSimplifyData);
-		}
-		return homePageHDDataList;
-	}
-
-	/**
-	 * @Title: getSuModelData 
-	 * @Description: TODO(这里用一句话描述这个方法的作用)
-	 * @return List<HomePageSimplifyData>
-	 * @author liyongxu
-	 * @date 2020年8月12日 下午4:04:02 
-	*/
-	private List<HomePageSimplifyData> getSuModelData() {
-		List<HomePageSimplifyData> homePageSuModelDataList = new ArrayList<>();
-		QueryWrapper<TbSuModel> queryWrapper = new QueryWrapper<TbSuModel>();
-		queryWrapper.orderByDesc(TbSuModel.UPDATE_TIME)
-		        .last("limit 1,10");
-		List<TbSuModel> tbSuModelList = tbSuModelService.list(queryWrapper);
-		for (TbSuModel tbSuModel : tbSuModelList) {
-			HomePageSimplifyData homePageSimplifyData = new HomePageSimplifyData();
-			homePageSimplifyData.setReId(tbSuModel.getId());
-			homePageSimplifyData.setReType(ReTypeEnum.SUMODEL.getKey());
-			homePageSimplifyData.setMainGraph(tbSuModel.getMainGraph());
-			homePageSimplifyData.setTitle(tbSuModel.getTitle());
-			homePageSimplifyData.setPrice(tbSuModel.getPrice());
-			homePageSimplifyData.setType(tbSuModel.getType());
-			homePageSuModelDataList.add(homePageSimplifyData);
-		}
-		return homePageSuModelDataList;
-	}
-
-	/**
-	 * @Title: get3dModelData 
-	 * @Description: TODO(这里用一句话描述这个方法的作用)
-	 * @return List<HomePageSimplifyData>
-	 * @author liyongxu
-	 * @date 2020年8月12日 下午3:59:18 
-	*/
-	private List<HomePageSimplifyData> get3dModelData() {
-		List<HomePageSimplifyData> homePageModelDataList = new ArrayList<>();
-		QueryWrapper<Tb3dModel> queryWrapper = new QueryWrapper<Tb3dModel>();
-		queryWrapper.orderByDesc(Tb3dModel.UPDATE_TIME)
-		        .last("limit 1,10");
-		List<Tb3dModel> tb3dModelList = tb3dModelService.list(queryWrapper);
-		for (Tb3dModel tb3dModel : tb3dModelList) {
-			HomePageSimplifyData homePageSimplifyData = new HomePageSimplifyData();
-			homePageSimplifyData.setReId(tb3dModel.getId());
-			homePageSimplifyData.setReType(ReTypeEnum.MODEL.getKey());
-			homePageSimplifyData.setMainGraph(tb3dModel.getMainGraph());
-			homePageSimplifyData.setTitle(tb3dModel.getTitle());
-			homePageSimplifyData.setPrice(tb3dModel.getPrice());
-			homePageSimplifyData.setType(tb3dModel.getType());
-			homePageModelDataList.add(homePageSimplifyData);
-		}
-		return homePageModelDataList;
-	}
-
-	/**
 	 * @Title: getBannerData 
-	 * @Description: TODO(这里用一句话描述这个方法的作用)
+	 * @Description: 首页轮播
 	 * @return List<HomePageBannerData>
 	 * @author liyongxu
 	 * @date 2020年8月12日 下午3:41:04 
@@ -250,6 +150,200 @@ public class BannerController extends BaseController{
 			homePageBannerDataList.add(homePageBannerData);
 		}
 		return homePageBannerDataList;
+	}
+	
+	/**
+	 * @Title: getOverviewData 
+	 * @Description: 首页总览数据
+	 * @return List<HomePageOverviewData>
+	 * @author liyongxu
+	 * @date 2020年8月19日 上午10:46:43 
+	*/
+	private HomePageOverviewData getOverviewData() {
+		HomePageOverviewData homePageOverviewData = new HomePageOverviewData();
+		homePageOverviewData.setModelData(get3dModelList(null));
+		homePageOverviewData.setSuModelData(getSuModelList(null));
+		homePageOverviewData.setDrawingData(getDrawingList(null));
+		homePageOverviewData.setHdData(getHdList(null));
+		return homePageOverviewData;
+	}
+	
+	/**
+	 * @Title: get3dModelData 
+	 * @Description: 3d模型首页数据
+	 * @return HomePageModelData
+	 * @author liyongxu
+	 * @date 2020年8月19日 上午10:58:39 
+	*/
+	private HomePageModelData get3dModelData() {
+		HomePageModelData homePageModelData = new HomePageModelData();
+		homePageModelData.setAllData(get3dModelList(null));
+		homePageModelData.setLivingRoomData(get3dModelList(null));
+		homePageModelData.setCeilingLampData(get3dModelList(null));
+		homePageModelData.setBedclothesData(get3dModelList(null));
+		homePageModelData.setModelFourData(get3dModelList(null));
+		homePageModelData.setCabinetData(get3dModelList(null));
+		homePageModelData.setFurnishingsData(get3dModelList(null));
+		homePageModelData.setTeahouseStudyData(get3dModelList(null));
+		return homePageModelData;
+	}
+	
+	/**
+	 * @Title: getSuModelData 
+	 * @Description: su模型数据
+	 * @return HomePageSuModelData
+	 * @author liyongxu
+	 * @date 2020年8月19日 上午11:12:19 
+	*/
+	private HomePageSuModelData getSuModelData() {
+		HomePageSuModelData homePageSuModelData = new HomePageSuModelData();
+		homePageSuModelData.setLivingRoomData(getSuModelList(null));
+		homePageSuModelData.setSofatableData(getSuModelList(null));
+		homePageSuModelData.setCommercialStreetData(getSuModelList(null));
+		homePageSuModelData.setLandscapeHousingData(getSuModelList(null));
+		homePageSuModelData.setLandscapeSketchData(getSuModelList(null));
+		return homePageSuModelData;
+	}
+	
+	/**
+	 * @Title: getDrawingData 
+	 * @Description: 图纸方案数据
+	 * @return HomePageDrawingData
+	 * @author liyongxu
+	 * @date 2020年8月19日 上午11:16:58 
+	*/
+	private HomePageDrawingData getDrawingData() {
+		HomePageDrawingData homePageDrawingData = new HomePageDrawingData();
+		homePageDrawingData.setSpaceData(getDrawingList(null));
+		homePageDrawingData.setHomeDesignData(getDrawingList(null));
+		return homePageDrawingData;
+	}
+
+	/**
+	 * @Title: getHdData 
+	 * @Description: 高清贴图
+	 * @return HomePageHDData
+	 * @author liyongxu
+	 * @date 2020年8月19日 上午11:17:01 
+	*/
+	private HomePageHDData getHdData() {
+		HomePageHDData homePageHDData = new HomePageHDData();
+		homePageHDData.setMappingData(getHdList(null));
+		return homePageHDData;
+	}
+	
+	/**
+	 * @Title: get3dModelList 
+	 * @Description: 3d模型
+	 * @return List<HomePageSimplifyData>
+	 * @author liyongxu
+	 * @date 2020年8月12日 下午3:59:18 
+	*/
+	private List<HomePageSimplifyData> get3dModelList(String classify) {
+		List<HomePageSimplifyData> homePageModelDataList = new ArrayList<>();
+		QueryWrapper<Tb3dModel> queryWrapper = new QueryWrapper<Tb3dModel>();
+		if(StringUtils.isNotEmpty(classify)) {
+			queryWrapper.eq(Tb3dModel.PRIMARY_CLASS_ID, classify);
+		}
+		queryWrapper.orderByDesc(Tb3dModel.UPDATE_TIME)
+			.last("limit 1,10");
+		List<Tb3dModel> tb3dModelList = tb3dModelService.list(queryWrapper);
+		for (Tb3dModel tb3dModel : tb3dModelList) {
+			HomePageSimplifyData homePageSimplifyData = new HomePageSimplifyData();
+			homePageSimplifyData.setReId(tb3dModel.getId());
+			homePageSimplifyData.setReType(ReTypeEnum.MODEL.getKey());
+			homePageSimplifyData.setMainGraph(tb3dModel.getMainGraph());
+			homePageSimplifyData.setTitle(tb3dModel.getTitle());
+			homePageSimplifyData.setPrice(tb3dModel.getPrice());
+			homePageSimplifyData.setType(tb3dModel.getType());
+			homePageModelDataList.add(homePageSimplifyData);
+		}
+		return homePageModelDataList;
+	}
+	
+	/**
+	 * @Title: getSuModelList
+	 * @Description: su模型
+	 * @return List<HomePageSimplifyData>
+	 * @author liyongxu
+	 * @date 2020年8月12日 下午4:04:02 
+	*/
+	private List<HomePageSimplifyData> getSuModelList(String classify) {
+		List<HomePageSimplifyData> homePageSuModelDataList = new ArrayList<>();
+		QueryWrapper<TbSuModel> queryWrapper = new QueryWrapper<TbSuModel>();
+		if(StringUtils.isNotEmpty(classify)) {
+			queryWrapper.eq(TbSuModel.PRIMARY_CLASS_ID, classify);
+		}
+		queryWrapper.orderByDesc(TbSuModel.UPDATE_TIME)
+		        .last("limit 1,10");
+		List<TbSuModel> tbSuModelList = tbSuModelService.list(queryWrapper);
+		for (TbSuModel tbSuModel : tbSuModelList) {
+			HomePageSimplifyData homePageSimplifyData = new HomePageSimplifyData();
+			homePageSimplifyData.setReId(tbSuModel.getId());
+			homePageSimplifyData.setReType(ReTypeEnum.SUMODEL.getKey());
+			homePageSimplifyData.setMainGraph(tbSuModel.getMainGraph());
+			homePageSimplifyData.setTitle(tbSuModel.getTitle());
+			homePageSimplifyData.setPrice(tbSuModel.getPrice());
+			homePageSimplifyData.setType(tbSuModel.getType());
+			homePageSuModelDataList.add(homePageSimplifyData);
+		}
+		return homePageSuModelDataList;
+	}
+	
+	/**
+	 * @Title: getDrawingList
+	 * @Description: 图纸方案
+	 * @return List<HomePageSimplifyData>
+	 * @author liyongxu
+	 * @date 2020年8月12日 下午4:12:14 
+	*/
+	private List<HomePageSimplifyData> getDrawingList(String classify) {
+		List<HomePageSimplifyData> homePageDrawingDataList = new ArrayList<>();
+		QueryWrapper<TbDrawingScheme> queryWrapper = new QueryWrapper<TbDrawingScheme>();
+		if(StringUtils.isNotEmpty(classify)) {
+			queryWrapper.eq(TbDrawingScheme.PRIMARY_CLASS_ID, classify);
+		}
+		queryWrapper.orderByDesc(TbDrawingScheme.UPDATE_TIME)
+		        .last("limit 1,10");
+		List<TbDrawingScheme> tbDrawingList = tbDrawingSchemeService.list(queryWrapper);
+		for (TbDrawingScheme tbDrawingScheme : tbDrawingList) {
+			HomePageSimplifyData homePageSimplifyData = new HomePageSimplifyData();
+			homePageSimplifyData.setReId(tbDrawingScheme.getId());
+			homePageSimplifyData.setReType(ReTypeEnum.SUMODEL.getKey());
+			homePageSimplifyData.setMainGraph(tbDrawingScheme.getMainGraph());
+			homePageSimplifyData.setTitle(tbDrawingScheme.getTitle());
+			homePageSimplifyData.setPrice(tbDrawingScheme.getPrice());
+			homePageSimplifyData.setType(tbDrawingScheme.getType());
+			homePageDrawingDataList.add(homePageSimplifyData);
+		}
+		return homePageDrawingDataList;
+	}
+
+	/**
+	 * @Title: getHdList
+	 * @Description: 高清贴图
+	 * @return List<HomePageSimplifyData>
+	 * @author liyongxu
+	 * @date 2020年8月12日 下午4:09:05 
+	*/
+	private List<HomePageSimplifyData> getHdList(String classify) {
+		List<HomePageSimplifyData> homePageHDDataList = new ArrayList<>();
+		QueryWrapper<TbHdMapping> queryWrapper = new QueryWrapper<TbHdMapping>();
+		if(StringUtils.isNotEmpty(classify)) {
+			queryWrapper.eq(TbHdMapping.PRIMARY_CLASS_ID, classify);
+		}
+		queryWrapper.orderByDesc(TbHdMapping.UPDATE_TIME)
+		        .last("limit 1,10");
+		List<TbHdMapping> tbHdList = tbHdMappingService.list(queryWrapper);
+		for (TbHdMapping tbHdMapping : tbHdList) {
+			HomePageSimplifyData homePageSimplifyData = new HomePageSimplifyData();
+			homePageSimplifyData.setReId(tbHdMapping.getId());
+			homePageSimplifyData.setReType(ReTypeEnum.HD.getKey());
+			homePageSimplifyData.setMainGraph(tbHdMapping.getMainGraph());
+			homePageSimplifyData.setTitle(tbHdMapping.getTitle());
+			homePageHDDataList.add(homePageSimplifyData);
+		}
+		return homePageHDDataList;
 	}
 	
 	/**

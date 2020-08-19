@@ -14,7 +14,7 @@ import lombok.Data;
  * @version 1.0.0 
  */
 @Data
-@ApiModel(value="首页数据",description="首页数据")
+@ApiModel(value="首页对象数据",description="首页对象数据")
 public class HomePageSimplifyData {
 	
 	@ApiModelProperty(value="业务id", name="reId")

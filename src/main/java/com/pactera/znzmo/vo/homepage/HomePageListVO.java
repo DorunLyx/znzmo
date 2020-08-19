@@ -20,19 +20,19 @@ public class HomePageListVO {
 	@ApiModelProperty(value="首页轮播展示数据", name="homePageBannerData")
 	private List<HomePageBannerData> homePageBannerData;
 	
-	@ApiModelProperty(value="首页展示数据", name="homePageSimplifyData")
-	private List<HomePageSimplifyData> homePageSimplifyData;
+	@ApiModelProperty(value="首页总览数据", name="homePageOverviewData")
+	private HomePageOverviewData homePageOverviewData;
 	
 	@ApiModelProperty(value="首页3d模型数据", name="homePageModelData")
-	private List<HomePageSimplifyData> homePageModelData;
+	private HomePageModelData homePageModelData;
 	
 	@ApiModelProperty(value="首页Su模型展示", name="homePageSuModelData")
-	private List<HomePageSimplifyData> homePageSuModelData;
-	
-	@ApiModelProperty(value="首页高清贴图展示", name="homePageHDData")
-	private List<HomePageSimplifyData> homePageHDData;
+	private HomePageSuModelData homePageSuModelData;
 	
 	@ApiModelProperty(value="首页图纸方案展示", name="homePageDrawingData")
-	private List<HomePageSimplifyData> homePageDrawingData;
+	private HomePageDrawingData homePageDrawingData;
+	
+	@ApiModelProperty(value="首页高清贴图展示", name="homePageHDData")
+	private HomePageHDData homePageHDData;
 	
 }
