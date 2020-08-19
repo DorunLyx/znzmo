@@ -11,6 +11,9 @@ server:
 # Mybatis
 mybatis-plus:
   #MyBatis相关自定义配置
+  configuration:
+    log-impl: org.apache.ibatis.logging.nologging.NoLoggingImpl
+  
   config-location: classpath:mybatis-config.xml
       #实体类所做包
   type-aliases-package: com.pactera.znzmo.*.
