@@ -56,7 +56,6 @@ public class UploadController extends BaseController{
 	@RequestMapping(value = "/file", method = RequestMethod.POST)
 	public void uploadRequestfile(@RequestParam MultipartFile file,HttpServletRequest request, HttpServletResponse response) throws Exception {
 	   response.setContentType(MediaTypes.TEXT_HTML_UTF_8);
-	   
 	   Map<String, Object> resultData = FileUtils.uploadFile(request, file,Constants.UPLOAD_ROOT);
 	   String jsonStr = JSONObject.toJSONString(resultData);
 	   response.getWriter().print(jsonStr);

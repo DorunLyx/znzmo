@@ -145,41 +145,43 @@ public class SuModelController extends BaseController{
 				queryWrapper.eq(TbSuModel.IS_VALID, IsValidEnum.YES.getKey())
 		        	.eq(TbSuModel.ID, modelQueryDetailsParam.getModelId());
 		        TbSuModel tbSuModel = tbSuModelService.getOne(queryWrapper);
-		        SuModelDetailsVO suModelDetailsVO = new SuModelDetailsVO();
-				suModelDetailsVO.setModelId(tbSuModel.getId());
-				suModelDetailsVO.setMainGraph(tbSuModel.getMainGraph());
-				suModelDetailsVO.setPrimaryClassId(tbSuModel.getPrimaryClassId());
-				suModelDetailsVO.setPrimaryClassName(tbSuModel.getPrimaryClassName());
-				suModelDetailsVO.setSecondaryClassId(tbSuModel.getSecondaryClassId());
-				suModelDetailsVO.setSecondaryClassName(tbSuModel.getSecondaryClassName());
-				suModelDetailsVO.setThreeClassId(tbSuModel.getThreeClassId());
-				suModelDetailsVO.setThreeClassName(tbSuModel.getThreeClassName());
-				suModelDetailsVO.setStyleId(tbSuModel.getStyleId());
-				suModelDetailsVO.setStyleName(tbSuModel.getStyleName());
-				suModelDetailsVO.setTitle(tbSuModel.getTitle());
-				suModelDetailsVO.setType(tbSuModel.getType());
-				suModelDetailsVO.setPrice(tbSuModel.getPrice());
-				suModelDetailsVO.setTextureMapping(tbSuModel.getTextureMapping());
-				suModelDetailsVO.setVersion(tbSuModel.getVersion());
-				suModelDetailsVO.setRemarks(tbSuModel.getRemarks());
-				List<UploadInfo> uploadInfos = new ArrayList<>();
-				QueryWrapper<TbAttachment> attachmentQueryWrapper = new QueryWrapper<>();
-				attachmentQueryWrapper.eq(TbAttachment.IS_VALID, IsValidEnum.YES.getKey())
-		        	.eq(TbAttachment.RELATION_ID, modelQueryDetailsParam.getModelId());
-		        List<TbAttachment> attachmentList = tbAttachmentService.list(attachmentQueryWrapper);
-		        if(DataUtils.isNotEmpty(attachmentList)) {
-		        	for (TbAttachment tbAttachment : attachmentList) {
-						UploadInfo uploadInfo = new UploadInfo();
-						uploadInfo.setType(tbAttachment.getReType());
-						uploadInfo.setFileName(tbAttachment.getAttachmentName());
-						uploadInfo.setFile(tbAttachment.getAttachmentPath());
-						uploadInfo.setRealName(tbAttachment.getAliasName());
-						uploadInfo.setUrl(tbAttachment.getAttachmentPath());
-						uploadInfos.add(uploadInfo);
-					}
+		        if(tbSuModel != null) {
+		        	SuModelDetailsVO suModelDetailsVO = new SuModelDetailsVO();
+					suModelDetailsVO.setModelId(tbSuModel.getId());
+					suModelDetailsVO.setMainGraph(tbSuModel.getMainGraph());
+					suModelDetailsVO.setPrimaryClassId(tbSuModel.getPrimaryClassId());
+					suModelDetailsVO.setPrimaryClassName(tbSuModel.getPrimaryClassName());
+					suModelDetailsVO.setSecondaryClassId(tbSuModel.getSecondaryClassId());
+					suModelDetailsVO.setSecondaryClassName(tbSuModel.getSecondaryClassName());
+					suModelDetailsVO.setThreeClassId(tbSuModel.getThreeClassId());
+					suModelDetailsVO.setThreeClassName(tbSuModel.getThreeClassName());
+					suModelDetailsVO.setStyleId(tbSuModel.getStyleId());
+					suModelDetailsVO.setStyleName(tbSuModel.getStyleName());
+					suModelDetailsVO.setTitle(tbSuModel.getTitle());
+					suModelDetailsVO.setType(tbSuModel.getType());
+					suModelDetailsVO.setPrice(tbSuModel.getPrice());
+					suModelDetailsVO.setTextureMapping(tbSuModel.getTextureMapping());
+					suModelDetailsVO.setVersion(tbSuModel.getVersion());
+					suModelDetailsVO.setRemarks(tbSuModel.getRemarks());
+					List<UploadInfo> uploadInfos = new ArrayList<>();
+					QueryWrapper<TbAttachment> attachmentQueryWrapper = new QueryWrapper<>();
+					attachmentQueryWrapper.eq(TbAttachment.IS_VALID, IsValidEnum.YES.getKey())
+			        	.eq(TbAttachment.RELATION_ID, modelQueryDetailsParam.getModelId());
+			        List<TbAttachment> attachmentList = tbAttachmentService.list(attachmentQueryWrapper);
+			        if(DataUtils.isNotEmpty(attachmentList)) {
+			        	for (TbAttachment tbAttachment : attachmentList) {
+							UploadInfo uploadInfo = new UploadInfo();
+							uploadInfo.setType(tbAttachment.getReType());
+							uploadInfo.setFileName(tbAttachment.getAttachmentName());
+							uploadInfo.setFile(tbAttachment.getAttachmentPath());
+							uploadInfo.setRealName(tbAttachment.getAliasName());
+							uploadInfo.setUrl(tbAttachment.getAttachmentPath());
+							uploadInfos.add(uploadInfo);
+						}
+			        }
+			        suModelDetailsVO.setUploadImg(uploadInfos);
+					return suModelDetailsVO;
 		        }
-		        suModelDetailsVO.setUploadImg(uploadInfos);
-				return suModelDetailsVO;
 			} catch (Exception e) {
 				throwException(e);
 			}
@@ -227,9 +229,13 @@ public class SuModelController extends BaseController{
 		Supplier<String> businessHandler = () ->{
 			try {
 				TbSuModel tbSuModel = tbSuModelService.getById(modelQueryDetailsParam.getModelId());
-				tbSuModel.setStatus(modelQueryDetailsParam.getStatus());
-				tbSuModelService.updateById(tbSuModel);
-				return JsonResultEnum.ok.getValue();
+				if(tbSuModel != null) {
+					tbSuModel.setStatus(modelQueryDetailsParam.getStatus());
+					tbSuModelService.updateById(tbSuModel);
+					return JsonResultEnum.ok.getValue();
+				}else {
+					return JsonResultEnum.empty.getValue();
+				}
 			} catch (Exception e) {
 				throwException(e);
 			}

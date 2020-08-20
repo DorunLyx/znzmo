@@ -188,13 +188,15 @@ public class ClassifyController extends BaseController{
 		Supplier<ClassifyDetailsVO> businessHandler = () ->{
 			try {
 				TbClass tbClass = tbClassService.getById(classifyQueryDetailsParam.getClassifyId());
-				ClassifyDetailsVO classifyDetailsVO = new ClassifyDetailsVO();
-				classifyDetailsVO.setClassifyName(tbClass.getName());
-				classifyDetailsVO.setPId(tbClass.getPId());
-				classifyDetailsVO.setPName(tbClass.getPName());
-				classifyDetailsVO.setLevel(tbClass.getLevel());
-				classifyDetailsVO.setSort(tbClass.getSort());
-				return classifyDetailsVO;
+				if(tbClass != null) {
+					ClassifyDetailsVO classifyDetailsVO = new ClassifyDetailsVO();
+					classifyDetailsVO.setClassifyName(tbClass.getName());
+					classifyDetailsVO.setPId(tbClass.getPId());
+					classifyDetailsVO.setPName(tbClass.getPName());
+					classifyDetailsVO.setLevel(tbClass.getLevel());
+					classifyDetailsVO.setSort(tbClass.getSort());
+					return classifyDetailsVO;
+				}
 			} catch (Exception e) {
 				throwException(e);
 			}

@@ -6,6 +6,7 @@ package com.pactera.znzmo.enums;
 public enum JsonResultEnum {
 	ok(1,"ok"),
 	fail(2,"系统异常，请联系管理员！"),
+	empty(3,"数据查询为空！"),
     ;
 
     private int key;

@@ -144,37 +144,39 @@ public class HDController extends BaseController{
 				queryWrapper.eq(TbHdMapping.IS_VALID, IsValidEnum.YES.getKey())
 		        	.eq(TbHdMapping.ID, modelQueryDetailsParam.getModelId());
 				TbHdMapping tbHdMapping = tbHdMappingService.getOne(queryWrapper);
-				HDMappingDetailsVO hdMappingDetailsVO = new HDMappingDetailsVO();
-				hdMappingDetailsVO.setHdId(tbHdMapping.getId());
-				hdMappingDetailsVO.setMainGraph(tbHdMapping.getMainGraph());
-				hdMappingDetailsVO.setPrimaryClassId(tbHdMapping.getPrimaryClassId());
-				hdMappingDetailsVO.setPrimaryClassName(tbHdMapping.getPrimaryClassName());
-				hdMappingDetailsVO.setSecondaryClassId(tbHdMapping.getSecondaryClassId());
-				hdMappingDetailsVO.setSecondaryClassName(tbHdMapping.getSecondaryClassName());
-				hdMappingDetailsVO.setStyleId(tbHdMapping.getStyleId());
-				hdMappingDetailsVO.setStyleName(tbHdMapping.getStyleName());
-				hdMappingDetailsVO.setTitle(tbHdMapping.getTitle());
-				hdMappingDetailsVO.setType(tbHdMapping.getType());
-				hdMappingDetailsVO.setPrice(tbHdMapping.getPrice());
-				hdMappingDetailsVO.setRemarks(tbHdMapping.getRemarks());
-				List<UploadInfo> uploadInfos = new ArrayList<>();
-				QueryWrapper<TbAttachment> attachmentQueryWrapper = new QueryWrapper<>();
-				attachmentQueryWrapper.eq(TbAttachment.IS_VALID, IsValidEnum.YES.getKey())
-		        	.eq(TbAttachment.RELATION_ID, modelQueryDetailsParam.getModelId());
-		        List<TbAttachment> attachmentList = tbAttachmentService.list(attachmentQueryWrapper);
-		        if(DataUtils.isNotEmpty(attachmentList)) {
-		        	for (TbAttachment tbAttachment : attachmentList) {
-						UploadInfo uploadInfo = new UploadInfo();
-						uploadInfo.setType(tbAttachment.getReType());
-						uploadInfo.setFileName(tbAttachment.getAttachmentName());
-						uploadInfo.setFile(tbAttachment.getAttachmentPath());
-						uploadInfo.setRealName(tbAttachment.getAliasName());
-						uploadInfo.setUrl(tbAttachment.getAttachmentPath());
-						uploadInfos.add(uploadInfo);
+				if(tbHdMapping != null) {
+					HDMappingDetailsVO hdMappingDetailsVO = new HDMappingDetailsVO();
+					hdMappingDetailsVO.setHdId(tbHdMapping.getId());
+					hdMappingDetailsVO.setMainGraph(tbHdMapping.getMainGraph());
+					hdMappingDetailsVO.setPrimaryClassId(tbHdMapping.getPrimaryClassId());
+					hdMappingDetailsVO.setPrimaryClassName(tbHdMapping.getPrimaryClassName());
+					hdMappingDetailsVO.setSecondaryClassId(tbHdMapping.getSecondaryClassId());
+					hdMappingDetailsVO.setSecondaryClassName(tbHdMapping.getSecondaryClassName());
+					hdMappingDetailsVO.setStyleId(tbHdMapping.getStyleId());
+					hdMappingDetailsVO.setStyleName(tbHdMapping.getStyleName());
+					hdMappingDetailsVO.setTitle(tbHdMapping.getTitle());
+					hdMappingDetailsVO.setType(tbHdMapping.getType());
+					hdMappingDetailsVO.setPrice(tbHdMapping.getPrice());
+					hdMappingDetailsVO.setRemarks(tbHdMapping.getRemarks());
+					List<UploadInfo> uploadInfos = new ArrayList<>();
+					QueryWrapper<TbAttachment> attachmentQueryWrapper = new QueryWrapper<>();
+					attachmentQueryWrapper.eq(TbAttachment.IS_VALID, IsValidEnum.YES.getKey())
+					.eq(TbAttachment.RELATION_ID, modelQueryDetailsParam.getModelId());
+					List<TbAttachment> attachmentList = tbAttachmentService.list(attachmentQueryWrapper);
+					if(DataUtils.isNotEmpty(attachmentList)) {
+						for (TbAttachment tbAttachment : attachmentList) {
+							UploadInfo uploadInfo = new UploadInfo();
+							uploadInfo.setType(tbAttachment.getReType());
+							uploadInfo.setFileName(tbAttachment.getAttachmentName());
+							uploadInfo.setFile(tbAttachment.getAttachmentPath());
+							uploadInfo.setRealName(tbAttachment.getAliasName());
+							uploadInfo.setUrl(tbAttachment.getAttachmentPath());
+							uploadInfos.add(uploadInfo);
+						}
 					}
-		        }
-		        hdMappingDetailsVO.setUploadImg(uploadInfos);
-				return hdMappingDetailsVO;
+					hdMappingDetailsVO.setUploadImg(uploadInfos);
+					return hdMappingDetailsVO;
+				}
 			} catch (Exception e) {
 				throwException(e);
 			}
@@ -222,9 +224,13 @@ public class HDController extends BaseController{
 		Supplier<String> businessHandler = () ->{
 			try {
 				TbHdMapping tbHdMapping = tbHdMappingService.getById(modelQueryDetailsParam.getModelId());
-				tbHdMapping.setStatus(modelQueryDetailsParam.getStatus());
-				tbHdMappingService.updateById(tbHdMapping);
-				return JsonResultEnum.ok.getValue();
+				if(tbHdMapping != null) {
+					tbHdMapping.setStatus(modelQueryDetailsParam.getStatus());
+					tbHdMappingService.updateById(tbHdMapping);
+					return JsonResultEnum.ok.getValue();
+				}else {
+					return JsonResultEnum.empty.getValue();
+				}
 			} catch (Exception e) {
 				throwException(e);
 			}

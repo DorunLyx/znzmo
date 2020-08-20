@@ -459,16 +459,18 @@ public class BannerController extends BaseController{
 				queryWrapper.eq(TbBanner.IS_VALID, IsValidEnum.YES.getKey())
 		        	.eq(TbBanner.ID, modelQueryDetailsParam.getModelId());
 				TbBanner tbBanner = tbBannerService.getOne(queryWrapper);
-				BannerDetailsVO bannerDetailsVO = new BannerDetailsVO();
-				bannerDetailsVO.setBannerId(tbBanner.getId());
-				bannerDetailsVO.setTitle(tbBanner.getTitle());
-				bannerDetailsVO.setSort(tbBanner.getSort());
-				bannerDetailsVO.setType(tbBanner.getType());
-				bannerDetailsVO.setStartTime(tbBanner.getStartTime());
-				bannerDetailsVO.setEndTime(tbBanner.getEndTime());
-				TbAttachment attachmentList = tbAttachmentService.getById(tbBanner.getAttachmentId());
-				bannerDetailsVO.setMainGraph(attachmentList.getAttachmentPath());
-				return bannerDetailsVO;
+				if(tbBanner != null) {
+					BannerDetailsVO bannerDetailsVO = new BannerDetailsVO();
+					bannerDetailsVO.setBannerId(tbBanner.getId());
+					bannerDetailsVO.setTitle(tbBanner.getTitle());
+					bannerDetailsVO.setSort(tbBanner.getSort());
+					bannerDetailsVO.setType(tbBanner.getType());
+					bannerDetailsVO.setStartTime(tbBanner.getStartTime());
+					bannerDetailsVO.setEndTime(tbBanner.getEndTime());
+					TbAttachment attachmentList = tbAttachmentService.getById(tbBanner.getAttachmentId());
+					bannerDetailsVO.setMainGraph(attachmentList.getAttachmentPath());
+					return bannerDetailsVO;
+				}
 			} catch (Exception e) {
 				throwException(e);
 			}
@@ -516,9 +518,13 @@ public class BannerController extends BaseController{
 		Supplier<String> businessHandler = () ->{
 			try {
 				TbBanner tbBanner = tbBannerService.getById(modelQueryDetailsParam.getModelId());
-				tbBanner.setStatus(modelQueryDetailsParam.getStatus());
-				tbBannerService.updateById(tbBanner);
-				return JsonResultEnum.ok.getValue();
+				if(tbBanner != null) {
+					tbBanner.setStatus(modelQueryDetailsParam.getStatus());
+					tbBannerService.updateById(tbBanner);
+					return JsonResultEnum.ok.getValue();
+				}else {
+					return JsonResultEnum.empty.getValue();
+				}
 			} catch (Exception e) {
 				throwException(e);
 			}

@@ -178,29 +178,31 @@ public class TbExamineVerifyServiceImpl extends ServiceImpl<TbExamineVerifyMappe
 	@Override
 	public void updateExamineStatus(ExamineStatusParam examineStatusParam) {
 		TbExamineVerify tbExamineVerify = baseMapper.selectById(examineStatusParam.getExamineId());
-		tbExamineVerify.setStatus(StatusEnum.START_USE.getKey());
-		if(tbExamineVerify.getReType() == 0) {
-			TbThreedModel tbThreedModel = tbThreedModelMapper.selectById(tbExamineVerify.getReId());
-			tbThreedModel.setStatus(StatusEnum.START_USE.getKey());
-			tbThreedModelMapper.updateById(tbThreedModel);
-		}else if (tbExamineVerify.getReType() == 1) {
-			TbSuModel tbSuModel = tbSuModelMapper.selectById(tbExamineVerify.getReId());
-			tbSuModel.setStatus(StatusEnum.START_USE.getKey());
-			tbSuModelMapper.updateById(tbSuModel);
-		}else if (tbExamineVerify.getReType() == 2) {
-			TbDrawingScheme tbDrawing = tbDrawingSchemeMapper.selectById(tbExamineVerify.getReId());
-			tbDrawing.setStatus(StatusEnum.START_USE.getKey());
-			tbDrawingSchemeMapper.updateById(tbDrawing);
-		}else if (tbExamineVerify.getReType() == 3) {
-			TbHdMapping tbHdMapping = tbHdMappingMapper.selectById(tbExamineVerify.getReId());
-			tbHdMapping.setStatus(StatusEnum.START_USE.getKey());
-			tbHdMappingMapper.updateById(tbHdMapping);
-		}else if (tbExamineVerify.getReType() == 4) {
-			TbDatabase tbDatabase = tbDatabaseMapper.selectById(tbExamineVerify.getReId());
-			tbDatabase.setStatus(StatusEnum.START_USE.getKey());
-			tbDatabaseMapper.updateById(tbDatabase);
+		if(tbExamineVerify != null) {
+			tbExamineVerify.setStatus(StatusEnum.START_USE.getKey());
+			if(tbExamineVerify.getReType() == 0) {
+				TbThreedModel tbThreedModel = tbThreedModelMapper.selectById(tbExamineVerify.getReId());
+				tbThreedModel.setStatus(StatusEnum.START_USE.getKey());
+				tbThreedModelMapper.updateById(tbThreedModel);
+			}else if (tbExamineVerify.getReType() == 1) {
+				TbSuModel tbSuModel = tbSuModelMapper.selectById(tbExamineVerify.getReId());
+				tbSuModel.setStatus(StatusEnum.START_USE.getKey());
+				tbSuModelMapper.updateById(tbSuModel);
+			}else if (tbExamineVerify.getReType() == 2) {
+				TbDrawingScheme tbDrawing = tbDrawingSchemeMapper.selectById(tbExamineVerify.getReId());
+				tbDrawing.setStatus(StatusEnum.START_USE.getKey());
+				tbDrawingSchemeMapper.updateById(tbDrawing);
+			}else if (tbExamineVerify.getReType() == 3) {
+				TbHdMapping tbHdMapping = tbHdMappingMapper.selectById(tbExamineVerify.getReId());
+				tbHdMapping.setStatus(StatusEnum.START_USE.getKey());
+				tbHdMappingMapper.updateById(tbHdMapping);
+			}else if (tbExamineVerify.getReType() == 4) {
+				TbDatabase tbDatabase = tbDatabaseMapper.selectById(tbExamineVerify.getReId());
+				tbDatabase.setStatus(StatusEnum.START_USE.getKey());
+				tbDatabaseMapper.updateById(tbDatabase);
+			}
+			baseMapper.updateById(tbExamineVerify);
 		}
-		baseMapper.updateById(tbExamineVerify);
 	}
 	
 }

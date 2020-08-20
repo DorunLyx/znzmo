@@ -144,37 +144,39 @@ public class DatabaseController extends BaseController{
 				queryWrapper.eq(TbDatabase.IS_VALID, IsValidEnum.YES.getKey())
 		        	.eq(TbDatabase.ID, modelQueryDetailsParam.getModelId());
 				TbDatabase tbDatabase = tbDatabaseService.getOne(queryWrapper);
-		        DrawingDetailsVO drawingDetailsVO = new DrawingDetailsVO();
-				drawingDetailsVO.setDrawingId(tbDatabase.getId());
-				drawingDetailsVO.setMainGraph(tbDatabase.getMainGraph());
-				drawingDetailsVO.setPrimaryClassId(tbDatabase.getPrimaryClassId());
-				drawingDetailsVO.setPrimaryClassName(tbDatabase.getPrimaryClassName());
-				drawingDetailsVO.setSecondaryClassId(tbDatabase.getSecondaryClassId());
-				drawingDetailsVO.setSecondaryClassName(tbDatabase.getSecondaryClassName());
-				drawingDetailsVO.setStyleId(tbDatabase.getStyleId());
-				drawingDetailsVO.setStyleName(tbDatabase.getStyleName());
-				drawingDetailsVO.setTitle(tbDatabase.getTitle());
-				drawingDetailsVO.setType(tbDatabase.getType());
-				drawingDetailsVO.setPrice(tbDatabase.getPrice());
-				drawingDetailsVO.setRemarks(tbDatabase.getRemarks());
-				List<UploadInfo> uploadInfos = new ArrayList<>();
-				QueryWrapper<TbAttachment> attachmentQueryWrapper = new QueryWrapper<>();
-				attachmentQueryWrapper.eq(TbAttachment.IS_VALID, IsValidEnum.YES.getKey())
-		        	.eq(TbAttachment.RELATION_ID, modelQueryDetailsParam.getModelId());
-		        List<TbAttachment> attachmentList = tbAttachmentService.list(attachmentQueryWrapper);
-		        if(DataUtils.isNotEmpty(attachmentList)) {
-		        	for (TbAttachment tbAttachment : attachmentList) {
-						UploadInfo uploadInfo = new UploadInfo();
-						uploadInfo.setType(tbAttachment.getReType());
-						uploadInfo.setFileName(tbAttachment.getAttachmentName());
-						uploadInfo.setFile(tbAttachment.getAttachmentPath());
-						uploadInfo.setRealName(tbAttachment.getAliasName());
-						uploadInfo.setUrl(tbAttachment.getAttachmentPath());
-						uploadInfos.add(uploadInfo);
+				if(tbDatabase != null) {
+					DrawingDetailsVO drawingDetailsVO = new DrawingDetailsVO();
+					drawingDetailsVO.setDrawingId(tbDatabase.getId());
+					drawingDetailsVO.setMainGraph(tbDatabase.getMainGraph());
+					drawingDetailsVO.setPrimaryClassId(tbDatabase.getPrimaryClassId());
+					drawingDetailsVO.setPrimaryClassName(tbDatabase.getPrimaryClassName());
+					drawingDetailsVO.setSecondaryClassId(tbDatabase.getSecondaryClassId());
+					drawingDetailsVO.setSecondaryClassName(tbDatabase.getSecondaryClassName());
+					drawingDetailsVO.setStyleId(tbDatabase.getStyleId());
+					drawingDetailsVO.setStyleName(tbDatabase.getStyleName());
+					drawingDetailsVO.setTitle(tbDatabase.getTitle());
+					drawingDetailsVO.setType(tbDatabase.getType());
+					drawingDetailsVO.setPrice(tbDatabase.getPrice());
+					drawingDetailsVO.setRemarks(tbDatabase.getRemarks());
+					List<UploadInfo> uploadInfos = new ArrayList<>();
+					QueryWrapper<TbAttachment> attachmentQueryWrapper = new QueryWrapper<>();
+					attachmentQueryWrapper.eq(TbAttachment.IS_VALID, IsValidEnum.YES.getKey())
+					.eq(TbAttachment.RELATION_ID, modelQueryDetailsParam.getModelId());
+					List<TbAttachment> attachmentList = tbAttachmentService.list(attachmentQueryWrapper);
+					if(DataUtils.isNotEmpty(attachmentList)) {
+						for (TbAttachment tbAttachment : attachmentList) {
+							UploadInfo uploadInfo = new UploadInfo();
+							uploadInfo.setType(tbAttachment.getReType());
+							uploadInfo.setFileName(tbAttachment.getAttachmentName());
+							uploadInfo.setFile(tbAttachment.getAttachmentPath());
+							uploadInfo.setRealName(tbAttachment.getAliasName());
+							uploadInfo.setUrl(tbAttachment.getAttachmentPath());
+							uploadInfos.add(uploadInfo);
+						}
 					}
-		        }
-		        drawingDetailsVO.setUploadImg(uploadInfos);
-				return drawingDetailsVO;
+					drawingDetailsVO.setUploadImg(uploadInfos);
+					return drawingDetailsVO;
+				}
 			} catch (Exception e) {
 				throwException(e);
 			}
@@ -222,9 +224,13 @@ public class DatabaseController extends BaseController{
 		Supplier<String> businessHandler = () ->{
 			try {
 				TbDatabase tbDatabase = tbDatabaseService.getById(modelQueryDetailsParam.getModelId());
-				tbDatabase.setStatus(modelQueryDetailsParam.getStatus());
-				tbDatabaseService.updateById(tbDatabase);
-				return JsonResultEnum.ok.getValue();
+				if(tbDatabase != null) {
+					tbDatabase.setStatus(modelQueryDetailsParam.getStatus());
+					tbDatabaseService.updateById(tbDatabase);
+					return JsonResultEnum.ok.getValue();
+				}else {
+					return JsonResultEnum.empty.getValue();
+				}
 			} catch (Exception e) {
 				throwException(e);
 			}

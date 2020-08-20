@@ -145,41 +145,43 @@ public class DrawingController extends BaseController{
 				queryWrapper.eq(TbDrawingScheme.IS_VALID, IsValidEnum.YES.getKey())
 		        	.eq(TbDrawingScheme.ID, modelQueryDetailsParam.getModelId());
 				TbDrawingScheme tbDrawing = tbDrawingSchemeService.getOne(queryWrapper);
-		        DrawingDetailsVO drawingDetailsVO = new DrawingDetailsVO();
-				drawingDetailsVO.setDrawingId(tbDrawing.getId());
-				drawingDetailsVO.setMainGraph(tbDrawing.getMainGraph());
-				drawingDetailsVO.setPrimaryClassId(tbDrawing.getPrimaryClassId());
-				drawingDetailsVO.setPrimaryClassName(tbDrawing.getPrimaryClassName());
-				drawingDetailsVO.setSecondaryClassId(tbDrawing.getSecondaryClassId());
-				drawingDetailsVO.setSecondaryClassName(tbDrawing.getSecondaryClassName());
-				drawingDetailsVO.setStyleId(tbDrawing.getStyleId());
-				drawingDetailsVO.setStyleName(tbDrawing.getStyleName());
-				drawingDetailsVO.setTitle(tbDrawing.getTitle());
-				drawingDetailsVO.setType(tbDrawing.getType());
-				drawingDetailsVO.setPrice(tbDrawing.getPrice());
-				drawingDetailsVO.setVersion(tbDrawing.getVersion());
-				drawingDetailsVO.setDesignTime(tbDrawing.getDesignTime());
-				drawingDetailsVO.setSynopsis(tbDrawing.getSynopsis());
-				drawingDetailsVO.setText(tbDrawing.getText());
-				drawingDetailsVO.setRemarks(tbDrawing.getRemarks());
-				List<UploadInfo> uploadInfos = new ArrayList<>();
-				QueryWrapper<TbAttachment> attachmentQueryWrapper = new QueryWrapper<>();
-				attachmentQueryWrapper.eq(TbAttachment.IS_VALID, IsValidEnum.YES.getKey())
-		        	.eq(TbAttachment.RELATION_ID, modelQueryDetailsParam.getModelId());
-		        List<TbAttachment> attachmentList = tbAttachmentService.list(attachmentQueryWrapper);
-		        if(DataUtils.isNotEmpty(attachmentList)) {
-		        	for (TbAttachment tbAttachment : attachmentList) {
-						UploadInfo uploadInfo = new UploadInfo();
-						uploadInfo.setType(tbAttachment.getReType());
-						uploadInfo.setFileName(tbAttachment.getAttachmentName());
-						uploadInfo.setFile(tbAttachment.getAttachmentPath());
-						uploadInfo.setRealName(tbAttachment.getAliasName());
-						uploadInfo.setUrl(tbAttachment.getAttachmentPath());
-						uploadInfos.add(uploadInfo);
+				if(tbDrawing != null) {
+					DrawingDetailsVO drawingDetailsVO = new DrawingDetailsVO();
+					drawingDetailsVO.setDrawingId(tbDrawing.getId());
+					drawingDetailsVO.setMainGraph(tbDrawing.getMainGraph());
+					drawingDetailsVO.setPrimaryClassId(tbDrawing.getPrimaryClassId());
+					drawingDetailsVO.setPrimaryClassName(tbDrawing.getPrimaryClassName());
+					drawingDetailsVO.setSecondaryClassId(tbDrawing.getSecondaryClassId());
+					drawingDetailsVO.setSecondaryClassName(tbDrawing.getSecondaryClassName());
+					drawingDetailsVO.setStyleId(tbDrawing.getStyleId());
+					drawingDetailsVO.setStyleName(tbDrawing.getStyleName());
+					drawingDetailsVO.setTitle(tbDrawing.getTitle());
+					drawingDetailsVO.setType(tbDrawing.getType());
+					drawingDetailsVO.setPrice(tbDrawing.getPrice());
+					drawingDetailsVO.setVersion(tbDrawing.getVersion());
+					drawingDetailsVO.setDesignTime(tbDrawing.getDesignTime());
+					drawingDetailsVO.setSynopsis(tbDrawing.getSynopsis());
+					drawingDetailsVO.setText(tbDrawing.getText());
+					drawingDetailsVO.setRemarks(tbDrawing.getRemarks());
+					List<UploadInfo> uploadInfos = new ArrayList<>();
+					QueryWrapper<TbAttachment> attachmentQueryWrapper = new QueryWrapper<>();
+					attachmentQueryWrapper.eq(TbAttachment.IS_VALID, IsValidEnum.YES.getKey())
+					.eq(TbAttachment.RELATION_ID, modelQueryDetailsParam.getModelId());
+					List<TbAttachment> attachmentList = tbAttachmentService.list(attachmentQueryWrapper);
+					if(DataUtils.isNotEmpty(attachmentList)) {
+						for (TbAttachment tbAttachment : attachmentList) {
+							UploadInfo uploadInfo = new UploadInfo();
+							uploadInfo.setType(tbAttachment.getReType());
+							uploadInfo.setFileName(tbAttachment.getAttachmentName());
+							uploadInfo.setFile(tbAttachment.getAttachmentPath());
+							uploadInfo.setRealName(tbAttachment.getAliasName());
+							uploadInfo.setUrl(tbAttachment.getAttachmentPath());
+							uploadInfos.add(uploadInfo);
+						}
 					}
-		        }
-		        drawingDetailsVO.setUploadImg(uploadInfos);
-				return drawingDetailsVO;
+					drawingDetailsVO.setUploadImg(uploadInfos);
+					return drawingDetailsVO;
+				}
 			} catch (Exception e) {
 				throwException(e);
 			}
@@ -227,9 +229,13 @@ public class DrawingController extends BaseController{
 		Supplier<String> businessHandler = () ->{
 			try {
 				TbDrawingScheme tbDrawing = tbDrawingSchemeService.getById(modelQueryDetailsParam.getModelId());
-				tbDrawing.setStatus(modelQueryDetailsParam.getStatus());
-				tbDrawingSchemeService.updateById(tbDrawing);
-				return JsonResultEnum.ok.getValue();
+				if(tbDrawing != null) {
+					tbDrawing.setStatus(modelQueryDetailsParam.getStatus());
+					tbDrawingSchemeService.updateById(tbDrawing);
+					return JsonResultEnum.ok.getValue();
+				}else {
+					return JsonResultEnum.empty.getValue();
+				}
 			} catch (Exception e) {
 				throwException(e);
 			}

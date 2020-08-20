@@ -192,39 +192,41 @@ public class ThreeDModelController extends BaseController{
 				modelQueryWrapper.eq(TbThreedModel.IS_VALID, IsValidEnum.YES.getKey())
 		        	.eq(TbThreedModel.ID, modelQueryDetailsParam.getModelId());
 		        TbThreedModel tbThreedModel = tbThreedModelService.getOne(modelQueryWrapper);
-		        ModelDetailsVO modelDetailsVO = new ModelDetailsVO();
-				modelDetailsVO.setModelId(tbThreedModel.getId());
-				modelDetailsVO.setMainGraph(tbThreedModel.getMainGraph());
-				List<UploadInfo> uploadInfos = new ArrayList<>();
-				QueryWrapper<TbAttachment> attachmentQueryWrapper = new QueryWrapper<>();
-				attachmentQueryWrapper.eq(TbAttachment.IS_VALID, IsValidEnum.YES.getKey())
-		        	.eq(TbAttachment.RELATION_ID, modelQueryDetailsParam.getModelId());
-		        List<TbAttachment> attachmentList = tbAttachmentService.list(attachmentQueryWrapper);
-		        if(DataUtils.isNotEmpty(attachmentList)) {
-		        	for (TbAttachment tbAttachment : attachmentList) {
-						UploadInfo uploadInfo = new UploadInfo();
-						uploadInfo.setType(tbAttachment.getReType());
-						uploadInfo.setFileName(tbAttachment.getAttachmentName());
-						uploadInfo.setFile(tbAttachment.getAttachmentPath());
-						uploadInfo.setRealName(tbAttachment.getAliasName());
-						uploadInfo.setUrl(tbAttachment.getAttachmentPath());
-						uploadInfos.add(uploadInfo);
-					}
+		        if(tbThreedModel != null) {
+		        	ModelDetailsVO modelDetailsVO = new ModelDetailsVO();
+					modelDetailsVO.setModelId(tbThreedModel.getId());
+					modelDetailsVO.setMainGraph(tbThreedModel.getMainGraph());
+					List<UploadInfo> uploadInfos = new ArrayList<>();
+					QueryWrapper<TbAttachment> attachmentQueryWrapper = new QueryWrapper<>();
+					attachmentQueryWrapper.eq(TbAttachment.IS_VALID, IsValidEnum.YES.getKey())
+			        	.eq(TbAttachment.RELATION_ID, modelQueryDetailsParam.getModelId());
+			        List<TbAttachment> attachmentList = tbAttachmentService.list(attachmentQueryWrapper);
+			        if(DataUtils.isNotEmpty(attachmentList)) {
+			        	for (TbAttachment tbAttachment : attachmentList) {
+							UploadInfo uploadInfo = new UploadInfo();
+							uploadInfo.setType(tbAttachment.getReType());
+							uploadInfo.setFileName(tbAttachment.getAttachmentName());
+							uploadInfo.setFile(tbAttachment.getAttachmentPath());
+							uploadInfo.setRealName(tbAttachment.getAliasName());
+							uploadInfo.setUrl(tbAttachment.getAttachmentPath());
+							uploadInfos.add(uploadInfo);
+						}
+			        }
+			        modelDetailsVO.setUploadImg(uploadInfos);
+					modelDetailsVO.setPrimaryClassId(tbThreedModel.getPrimaryClassId());
+					modelDetailsVO.setPrimaryClassName(tbThreedModel.getPrimaryClassName());
+					modelDetailsVO.setSecondaryClassId(tbThreedModel.getSecondaryClassId());
+					modelDetailsVO.setSecondaryClassName(tbThreedModel.getSecondaryClassName());
+					modelDetailsVO.setStyleId(tbThreedModel.getStyleId());
+					modelDetailsVO.setStyleName(tbThreedModel.getStyleName());
+					modelDetailsVO.setTitle(tbThreedModel.getTitle());
+					modelDetailsVO.setType(tbThreedModel.getType());
+					modelDetailsVO.setPrice(tbThreedModel.getPrice());
+					modelDetailsVO.setTextureMapping(tbThreedModel.getTextureMapping());
+					modelDetailsVO.setLightingEffects(tbThreedModel.getLightingEffects());
+					modelDetailsVO.setRemarks(tbThreedModel.getRemarks());
+					return modelDetailsVO;
 		        }
-		        modelDetailsVO.setUploadImg(uploadInfos);
-				modelDetailsVO.setPrimaryClassId(tbThreedModel.getPrimaryClassId());
-				modelDetailsVO.setPrimaryClassName(tbThreedModel.getPrimaryClassName());
-				modelDetailsVO.setSecondaryClassId(tbThreedModel.getSecondaryClassId());
-				modelDetailsVO.setSecondaryClassName(tbThreedModel.getSecondaryClassName());
-				modelDetailsVO.setStyleId(tbThreedModel.getStyleId());
-				modelDetailsVO.setStyleName(tbThreedModel.getStyleName());
-				modelDetailsVO.setTitle(tbThreedModel.getTitle());
-				modelDetailsVO.setType(tbThreedModel.getType());
-				modelDetailsVO.setPrice(tbThreedModel.getPrice());
-				modelDetailsVO.setTextureMapping(tbThreedModel.getTextureMapping());
-				modelDetailsVO.setLightingEffects(tbThreedModel.getLightingEffects());
-				modelDetailsVO.setRemarks(tbThreedModel.getRemarks());
-				return modelDetailsVO;
 			} catch (Exception e) {
 				throwException(e);
 			}
@@ -277,7 +279,7 @@ public class ThreeDModelController extends BaseController{
 					tbThreedModelService.updateById(tbThreedModel);
 					return JsonResultEnum.ok.getValue();
 				}else {
-					return "查询数据为空!";
+					return JsonResultEnum.empty.getValue();
 				}
 			} catch (Exception e) {
 				throwException(e);
