@@ -7,8 +7,8 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.github.pagehelper.util.StringUtil;
 import com.pactera.znzmo.log.dao.TbLogMapper;
+import com.pactera.znzmo.util.StringUtils;
 import com.pactera.znzmo.vo.LogQueryParam;
 
 /**
@@ -28,10 +28,10 @@ public class TbLogServiceImpl extends ServiceImpl<TbLogMapper, TbLog> implements
 	public IPage<TbLog> selectTbLogPages(Page<TbLog> page, LogQueryParam logQueryParam) {
 		QueryWrapper<TbLog> queryWrapper = new QueryWrapper<>();
 
-		if(StringUtil.isNotEmpty(logQueryParam.getTitle().toString())) {
+		if(StringUtils.isNotEmpty(logQueryParam.getTitle().toString())) {
 			queryWrapper.like(TbLog.TITLE, logQueryParam.getTitle());
 		}
-		if(StringUtil.isNotEmpty(logQueryParam.getStartTime().toString())) {
+		if(StringUtils.isNotEmpty(logQueryParam.getStartTime().toString())) {
 			queryWrapper.eq(TbLog.CREATE_TIME, logQueryParam.getStartTime());
 		}
 		queryWrapper.orderByDesc(TbLog.UPDATE_TIME);

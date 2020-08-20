@@ -8,9 +8,9 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.github.pagehelper.util.StringUtil;
 import com.pactera.znzmo.enums.IsValidEnum;
 import com.pactera.znzmo.profit.dao.TbProfitDetailsMapper;
+import com.pactera.znzmo.util.StringUtils;
 import com.pactera.znzmo.vo.profit.ProfitQueryParam;
 
 /**
@@ -29,17 +29,17 @@ public class TbProfitDetailsServiceImpl extends ServiceImpl<TbProfitDetailsMappe
 			ProfitQueryParam profitQueryParam) {
 		QueryWrapper<TbProfitDetails> queryWrapper = new QueryWrapper<>();
 		queryWrapper.eq(TbProfitDetails.IS_VALID, IsValidEnum.YES.getKey());
-		if(StringUtil.isNotEmpty(profitQueryParam.getType().toString())) {
+		if(StringUtils.isNotEmpty(profitQueryParam.getType().toString())) {
 			queryWrapper.ge(TbProfitDetails.PROFIT_TYPE, profitQueryParam.getType());
 		}
-		if(StringUtil.isNotEmpty(profitQueryParam.getKeyWord())) {
+		if(StringUtils.isNotEmpty(profitQueryParam.getKeyWord())) {
 			queryWrapper.ge(TbProfitDetails.USER_ID, profitQueryParam.getKeyWord())
 				.or().ge(TbProfitDetails.USER_NAME, profitQueryParam.getKeyWord());
 		}
-		if(StringUtil.isNotEmpty(profitQueryParam.getStartTime().toString())) {
+		if(StringUtils.isNotEmpty(profitQueryParam.getStartTime().toString())) {
 			queryWrapper.ge(TbProfitDetails.UPDATE_TIME, profitQueryParam.getStartTime());
 		}
-		if(StringUtil.isNotEmpty(profitQueryParam.getEndTime().toString())) {
+		if(StringUtils.isNotEmpty(profitQueryParam.getEndTime().toString())) {
 			queryWrapper.le(TbProfitDetails.UPDATE_TIME, profitQueryParam.getEndTime());
 		}
 		queryWrapper.orderByDesc(TbProfitDetails.UPDATE_TIME);
@@ -50,17 +50,17 @@ public class TbProfitDetailsServiceImpl extends ServiceImpl<TbProfitDetailsMappe
 	public List<TbProfitDetails> selectWithdrawalExcel(ProfitQueryParam profitQueryParam) {
 		QueryWrapper<TbProfitDetails> queryWrapper = new QueryWrapper<>();
 		queryWrapper.eq(TbProfitDetails.IS_VALID, IsValidEnum.YES.getKey());
-		if(StringUtil.isNotEmpty(profitQueryParam.getType().toString())) {
+		if(StringUtils.isNotEmpty(profitQueryParam.getType().toString())) {
 			queryWrapper.ge(TbProfitDetails.PROFIT_TYPE, profitQueryParam.getType());
 		}
-		if(StringUtil.isNotEmpty(profitQueryParam.getKeyWord())) {
+		if(StringUtils.isNotEmpty(profitQueryParam.getKeyWord())) {
 			queryWrapper.ge(TbProfitDetails.USER_ID, profitQueryParam.getKeyWord())
 				.or().ge(TbProfitDetails.USER_NAME, profitQueryParam.getKeyWord());
 		}
-		if(StringUtil.isNotEmpty(profitQueryParam.getStartTime().toString())) {
+		if(StringUtils.isNotEmpty(profitQueryParam.getStartTime().toString())) {
 			queryWrapper.ge(TbProfitDetails.UPDATE_TIME, profitQueryParam.getStartTime());
 		}
-		if(StringUtil.isNotEmpty(profitQueryParam.getEndTime().toString())) {
+		if(StringUtils.isNotEmpty(profitQueryParam.getEndTime().toString())) {
 			queryWrapper.le(TbProfitDetails.UPDATE_TIME, profitQueryParam.getEndTime());
 		}
 		queryWrapper.orderByDesc(TbProfitDetails.UPDATE_TIME);

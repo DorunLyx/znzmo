@@ -9,8 +9,8 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.github.pagehelper.util.StringUtil;
 import com.pactera.znzmo.classify.dao.TbClassMapper;
+import com.pactera.znzmo.util.StringUtils;
 import com.pactera.znzmo.vo.classify.ClassifyAddParam;
 import com.pactera.znzmo.vo.classify.ClassifyQueryDetailsParam;
 import com.pactera.znzmo.vo.classify.ClassifyQueryParam;
@@ -73,7 +73,7 @@ public class TbClassServiceImpl extends ServiceImpl<TbClassMapper, TbClass> impl
 	@Override
 	public IPage<TbClass> selectClassifyList(Page<TbClass> page, ClassifyQueryParam classifyQueryParam) {
 		QueryWrapper<TbClass> queryWrapper = new QueryWrapper<TbClass>();
-		if(StringUtil.isNotEmpty(classifyQueryParam.getKeyWord())) {
+		if(StringUtils.isNotEmpty(classifyQueryParam.getKeyWord())) {
 			queryWrapper.like(TbClass.NAME, classifyQueryParam.getKeyWord());
 		}
 		queryWrapper.orderByDesc(TbClass.UPDATE_TIME);

@@ -6,9 +6,6 @@ package com.pactera.znzmo.sysuser;
 import java.util.List;
 import java.util.Set;
 
-import com.pactera.znzmo.util.PageRequest;
-import com.pactera.znzmo.util.PageResult;
-
 /**
  * @author Administrator
  *
@@ -36,7 +33,7 @@ public interface SysUserService {
 	 * @param pageRequest 自定义，统一分页查询请求
 	 * @return PageResult 自定义，统一分页查询结果
 	 */
-	PageResult findPage(PageRequest pageRequest);
+//	PageResult findPage(PageRequest pageRequest);
 	
 	
     /**

@@ -9,7 +9,6 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.github.pagehelper.util.StringUtil;
 import com.pactera.znzmo.common.TbAttachment;
 import com.pactera.znzmo.common.dao.TbAttachmentMapper;
 import com.pactera.znzmo.enums.ApproveStatusEnum;
@@ -19,6 +18,7 @@ import com.pactera.znzmo.examineverify.TbExamineVerify;
 import com.pactera.znzmo.examineverify.dao.TbExamineVerifyMapper;
 import com.pactera.znzmo.hd.dao.TbHdMappingMapper;
 import com.pactera.znzmo.util.NumGenerationUtil;
+import com.pactera.znzmo.util.StringUtils;
 import com.pactera.znzmo.vo.common.UploadInfo;
 import com.pactera.znzmo.vo.hd.HDMappingAddParam;
 import com.pactera.znzmo.vo.hd.HDMappingUpdateParam;
@@ -45,16 +45,16 @@ public class TbHdMappingServiceImpl extends ServiceImpl<TbHdMappingMapper, TbHdM
 	public IPage<TbHdMapping> selectHdMappingPages(Page<TbHdMapping> page, ModelQueryParam modelQueryParam) {
 		QueryWrapper<TbHdMapping> queryWrapper = new QueryWrapper<>();
 		queryWrapper.eq(TbHdMapping.IS_VALID, IsValidEnum.YES.getKey());
-		if(StringUtil.isNotEmpty(modelQueryParam.getKeyword())) {
+		if(StringUtils.isNotEmpty(modelQueryParam.getKeyword())) {
 			queryWrapper.like(TbHdMapping.TITLE, modelQueryParam.getKeyword());
 		}
-		if(StringUtil.isNotEmpty(modelQueryParam.getStyleId().toString())) {
+		if(StringUtils.isNotEmpty(modelQueryParam.getStyleId().toString())) {
 			queryWrapper.eq(TbHdMapping.STYLE_ID, modelQueryParam.getStyleId());
 		}
-		if(StringUtil.isNotEmpty(modelQueryParam.getPrimaryClassId().toString())) {
+		if(StringUtils.isNotEmpty(modelQueryParam.getPrimaryClassId().toString())) {
 			queryWrapper.eq(TbHdMapping.PRIMARY_CLASS_ID, modelQueryParam.getPrimaryClassId());
 		}
-		if(StringUtil.isNotEmpty(modelQueryParam.getSecondaryClassId().toString())) {
+		if(StringUtils.isNotEmpty(modelQueryParam.getSecondaryClassId().toString())) {
 			queryWrapper.eq(TbHdMapping.SECONDARY_CLASS_ID, modelQueryParam.getSecondaryClassId());
 		}
 		queryWrapper.orderByDesc(TbHdMapping.UPDATE_TIME);

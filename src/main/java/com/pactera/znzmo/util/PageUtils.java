@@ -1,5 +1,4 @@
 package com.pactera.znzmo.util;
-import com.github.pagehelper.PageInfo;
 
 public class PageUtils {
 
@@ -14,7 +13,7 @@ public class PageUtils {
         pageResult.setPageNum(pageInfo.getPageNum());
         pageResult.setPageSize(pageInfo.getPageSize());
         pageResult.setTotalSize(pageInfo.getTotal());
-        pageResult.setTotalPages(pageInfo.getPages());
+//        pageResult.setTotalPages(pageInfo.getPages());
         pageResult.setContent(pageInfo.getList());
         return pageResult;
     }

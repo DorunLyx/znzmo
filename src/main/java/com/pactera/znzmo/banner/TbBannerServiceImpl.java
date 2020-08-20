@@ -9,12 +9,12 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.github.pagehelper.util.StringUtil;
 import com.pactera.znzmo.banner.dao.TbBannerMapper;
 import com.pactera.znzmo.common.TbAttachment;
 import com.pactera.znzmo.common.dao.TbAttachmentMapper;
 import com.pactera.znzmo.enums.IsValidEnum;
 import com.pactera.znzmo.enums.StatusEnum;
+import com.pactera.znzmo.util.StringUtils;
 import com.pactera.znzmo.vo.banner.BannerAddParam;
 import com.pactera.znzmo.vo.banner.BannerQueryParam;
 import com.pactera.znzmo.vo.banner.BannerUpdateParam;
@@ -38,10 +38,10 @@ public class TbBannerServiceImpl extends ServiceImpl<TbBannerMapper, TbBanner> i
 	public IPage<TbBanner> selectBannerPages(Page<TbBanner> page, BannerQueryParam bannerQueryParam) {
 		QueryWrapper<TbBanner> queryWrapper = new QueryWrapper<>();
 		queryWrapper.eq(TbBanner.IS_VALID, IsValidEnum.YES.getKey());
-		if(StringUtil.isNotEmpty(bannerQueryParam.getType().toString())) {
+		if(StringUtils.isNotEmpty(bannerQueryParam.getType().toString())) {
 			queryWrapper.like(TbBanner.TYPE, bannerQueryParam.getType());
 		}
-		if(StringUtil.isNotEmpty(bannerQueryParam.getStatus().toString())) {
+		if(StringUtils.isNotEmpty(bannerQueryParam.getStatus().toString())) {
 			queryWrapper.eq(TbBanner.STATUS, bannerQueryParam.getStatus());
 		}
 		queryWrapper.orderByDesc(TbBanner.UPDATE_TIME);

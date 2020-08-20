@@ -9,7 +9,6 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.github.pagehelper.util.StringUtil;
 import com.pactera.znzmo.common.TbAttachment;
 import com.pactera.znzmo.common.dao.TbAttachmentMapper;
 import com.pactera.znzmo.drawing.dao.TbDrawingSchemeMapper;
@@ -20,6 +19,7 @@ import com.pactera.znzmo.enums.StatusEnum;
 import com.pactera.znzmo.examineverify.TbExamineVerify;
 import com.pactera.znzmo.examineverify.dao.TbExamineVerifyMapper;
 import com.pactera.znzmo.util.NumGenerationUtil;
+import com.pactera.znzmo.util.StringUtils;
 import com.pactera.znzmo.vo.common.UploadInfo;
 import com.pactera.znzmo.vo.drawing.DrawingAddParam;
 import com.pactera.znzmo.vo.drawing.DrawingUpdateParam;
@@ -46,16 +46,16 @@ public class TbDrawingSchemeServiceImpl extends ServiceImpl<TbDrawingSchemeMappe
 	public IPage<TbDrawingScheme> selectDrawingPages(Page<TbDrawingScheme> page, ModelQueryParam modelQueryParam) {
 		QueryWrapper<TbDrawingScheme> queryWrapper = new QueryWrapper<>();
 		queryWrapper.eq(TbDrawingScheme.IS_VALID, IsValidEnum.YES.getKey());
-		if(StringUtil.isNotEmpty(modelQueryParam.getKeyword())) {
+		if(StringUtils.isNotEmpty(modelQueryParam.getKeyword())) {
 			queryWrapper.like(TbDrawingScheme.TITLE, modelQueryParam.getKeyword());
 		}
-		if(StringUtil.isNotEmpty(modelQueryParam.getStyleId().toString())) {
+		if(StringUtils.isNotEmpty(modelQueryParam.getStyleId().toString())) {
 			queryWrapper.eq(TbDrawingScheme.STYLE_ID, modelQueryParam.getStyleId());
 		}
-		if(StringUtil.isNotEmpty(modelQueryParam.getPrimaryClassId().toString())) {
+		if(StringUtils.isNotEmpty(modelQueryParam.getPrimaryClassId().toString())) {
 			queryWrapper.eq(TbDrawingScheme.PRIMARY_CLASS_ID, modelQueryParam.getPrimaryClassId());
 		}
-		if(StringUtil.isNotEmpty(modelQueryParam.getSecondaryClassId().toString())) {
+		if(StringUtils.isNotEmpty(modelQueryParam.getSecondaryClassId().toString())) {
 			queryWrapper.eq(TbDrawingScheme.SECONDARY_CLASS_ID, modelQueryParam.getSecondaryClassId());
 		}
 		queryWrapper.orderByDesc(TbDrawingScheme.UPDATE_TIME);

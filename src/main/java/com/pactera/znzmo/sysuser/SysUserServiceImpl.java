@@ -11,13 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.github.pagehelper.PageHelper;
-import com.github.pagehelper.PageInfo;
 import com.pactera.znzmo.sysuser.dao.SysUserDao;
 import com.pactera.znzmo.sysuser.dao.SysUserMapper;
-import com.pactera.znzmo.util.PageRequest;
-import com.pactera.znzmo.util.PageResult;
-import com.pactera.znzmo.util.PageUtils;
 
 /**
  * @author Administrator
@@ -40,24 +35,24 @@ public class SysUserServiceImpl implements SysUserService {
 		return sysUserMapper.selectAll();
 	}
 
-	/**
-	 * 调用分页插件完成分页
-	 * 
-	 * @param pageQuery
-	 * @return
-	 */
-	private PageInfo<SysUser> getPageInfo(PageRequest pageRequest) {
-		int pageNum = pageRequest.getPageNum();
-		int pageSize = pageRequest.getPageSize();
-		PageHelper.startPage(pageNum, pageSize);
-		List<SysUser> sysMenus = sysUserMapper.selectPage();
-		return new PageInfo<SysUser>(sysMenus);
-	}
-
-	@Override
-	public PageResult findPage(PageRequest pageRequest) {
-		return PageUtils.getPageResult(pageRequest, getPageInfo(pageRequest));
-	}
+//	/**
+//	 * 调用分页插件完成分页
+//	 * 
+//	 * @param pageQuery
+//	 * @return
+//	 */
+//	private PageInfo<SysUser> getPageInfo(PageRequest pageRequest) {
+//		int pageNum = pageRequest.getPageNum();
+//		int pageSize = pageRequest.getPageSize();
+//		PageHelper.startPage(pageNum, pageSize);
+//		List<SysUser> sysMenus = sysUserMapper.selectPage();
+//		return new PageInfo<SysUser>(sysMenus);
+//	}
+//
+//	@Override
+//	public PageResult findPage(PageRequest pageRequest) {
+//		return PageUtils.getPageResult(pageRequest, getPageInfo(pageRequest));
+//	}
 
 	@Override
 	public void save(SysUser user) {

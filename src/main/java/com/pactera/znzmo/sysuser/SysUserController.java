@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.pactera.znzmo.util.PageRequest;
 import com.pactera.znzmo.vo.HttpResult;
 
 /**
@@ -36,10 +35,10 @@ public class SysUserController {
 		return sysUserService.findAll();
 	}
 
-	@PostMapping(value = "/findPage")
-	public Object findPage(@RequestBody PageRequest pageQuery) {
-		return sysUserService.findPage(pageQuery);
-	}
+//	@PostMapping(value = "/findPage")
+//	public Object findPage(@RequestBody PageRequest pageQuery) {
+//		return sysUserService.findPage(pageQuery);
+//	}
 
 	@PostMapping(value = "/save")
 	public Object save(@RequestBody SysUser user) {

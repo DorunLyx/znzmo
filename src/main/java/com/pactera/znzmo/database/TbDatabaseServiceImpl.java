@@ -9,7 +9,6 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.github.pagehelper.util.StringUtil;
 import com.pactera.znzmo.common.TbAttachment;
 import com.pactera.znzmo.common.dao.TbAttachmentMapper;
 import com.pactera.znzmo.database.dao.TbDatabaseMapper;
@@ -20,6 +19,7 @@ import com.pactera.znzmo.enums.StatusEnum;
 import com.pactera.znzmo.examineverify.TbExamineVerify;
 import com.pactera.znzmo.examineverify.dao.TbExamineVerifyMapper;
 import com.pactera.znzmo.util.NumGenerationUtil;
+import com.pactera.znzmo.util.StringUtils;
 import com.pactera.znzmo.vo.common.UploadInfo;
 import com.pactera.znzmo.vo.database.DatabaseAddParam;
 import com.pactera.znzmo.vo.database.DatabaseUpdateParam;
@@ -46,16 +46,16 @@ public class TbDatabaseServiceImpl extends ServiceImpl<TbDatabaseMapper, TbDatab
 	public IPage<TbDatabase> selectDatabasePages(Page<TbDatabase> page, ModelQueryParam modelQueryParam) {
 		QueryWrapper<TbDatabase> queryWrapper = new QueryWrapper<>();
 		queryWrapper.eq(TbDatabase.IS_VALID, IsValidEnum.YES.getKey());
-		if(StringUtil.isNotEmpty(modelQueryParam.getKeyword())) {
+		if(StringUtils.isNotEmpty(modelQueryParam.getKeyword())) {
 			queryWrapper.like(TbDatabase.TITLE, modelQueryParam.getKeyword());
 		}
-		if(StringUtil.isNotEmpty(modelQueryParam.getStyleId().toString())) {
+		if(StringUtils.isNotEmpty(modelQueryParam.getStyleId().toString())) {
 			queryWrapper.eq(TbDatabase.STYLE_ID, modelQueryParam.getStyleId());
 		}
-		if(StringUtil.isNotEmpty(modelQueryParam.getPrimaryClassId().toString())) {
+		if(StringUtils.isNotEmpty(modelQueryParam.getPrimaryClassId().toString())) {
 			queryWrapper.eq(TbDatabase.PRIMARY_CLASS_ID, modelQueryParam.getPrimaryClassId());
 		}
-		if(StringUtil.isNotEmpty(modelQueryParam.getSecondaryClassId().toString())) {
+		if(StringUtils.isNotEmpty(modelQueryParam.getSecondaryClassId().toString())) {
 			queryWrapper.eq(TbDatabase.SECONDARY_CLASS_ID, modelQueryParam.getSecondaryClassId());
 		}
 		queryWrapper.orderByDesc(TbDatabase.UPDATE_TIME);

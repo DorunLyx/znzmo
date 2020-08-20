@@ -10,10 +10,10 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.github.pagehelper.util.StringUtil;
 import com.pactera.znzmo.enums.IsValidEnum;
 import com.pactera.znzmo.points.dao.TbPointsDetailsMapper;
 import com.pactera.znzmo.points.dao.TbPointsMapper;
+import com.pactera.znzmo.util.StringUtils;
 import com.pactera.znzmo.vo.points.PointsAddParam;
 import com.pactera.znzmo.vo.points.PointsQueryParam;
 
@@ -36,13 +36,13 @@ public class TbPointsServiceImpl extends ServiceImpl<TbPointsMapper, TbPoints> i
 			PointsQueryParam pointsQueryParam) {
 		QueryWrapper<TbPoints> queryWrapper = new QueryWrapper<>();
 		queryWrapper.eq(TbPoints.IS_VALID, IsValidEnum.YES.getKey());
-		if(StringUtil.isNotEmpty(pointsQueryParam.getUserName())) {
+		if(StringUtils.isNotEmpty(pointsQueryParam.getUserName())) {
 			queryWrapper.like(TbPoints.USER_NAME, pointsQueryParam.getUserName());
 		}
-		if(StringUtil.isNotEmpty(pointsQueryParam.getStartTime().toString())) {
+		if(StringUtils.isNotEmpty(pointsQueryParam.getStartTime().toString())) {
 			queryWrapper.ge(TbPoints.UPDATE_TIME, pointsQueryParam.getStartTime());
 		}
-		if(StringUtil.isNotEmpty(pointsQueryParam.getEndTime().toString())) {
+		if(StringUtils.isNotEmpty(pointsQueryParam.getEndTime().toString())) {
 			queryWrapper.le(TbPoints.UPDATE_TIME, pointsQueryParam.getEndTime());
 		}
 		queryWrapper.orderByDesc(TbPoints.UPDATE_TIME);

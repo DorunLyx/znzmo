@@ -9,7 +9,6 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.github.pagehelper.util.StringUtil;
 import com.pactera.znzmo.database.TbDatabase;
 import com.pactera.znzmo.database.dao.TbDatabaseMapper;
 import com.pactera.znzmo.drawing.TbDrawingScheme;
@@ -23,6 +22,7 @@ import com.pactera.znzmo.order.dao.TbOrderMapper;
 import com.pactera.znzmo.sumodel.TbSuModel;
 import com.pactera.znzmo.sumodel.dao.TbSuModelMapper;
 import com.pactera.znzmo.util.NumGenerationUtil;
+import com.pactera.znzmo.util.StringUtils;
 import com.pactera.znzmo.vo.order.OrderAddParam;
 import com.pactera.znzmo.vo.order.OrderDetailsParam;
 import com.pactera.znzmo.vo.order.OrderDetailsVO;
@@ -58,16 +58,16 @@ public class TbOrderServiceImpl extends ServiceImpl<TbOrderMapper, TbOrder> impl
 	public IPage<TbOrder> selectOrderPages(Page<TbOrder> page, OrderQueryParam orderQueryParam) {
 		QueryWrapper<TbOrder> queryWrapper = new QueryWrapper<>();
 		queryWrapper.eq(TbOrder.IS_VALID, IsValidEnum.YES.getKey());
-		if(StringUtil.isNotEmpty(orderQueryParam.getKeyword())) {
+		if(StringUtils.isNotEmpty(orderQueryParam.getKeyword())) {
 			queryWrapper.like(TbOrder.TITLE, orderQueryParam.getKeyword());
 		}
-		if(StringUtil.isNotEmpty(orderQueryParam.getType().toString())) {
+		if(StringUtils.isNotEmpty(orderQueryParam.getType().toString())) {
 			queryWrapper.eq(TbOrder.TYPE, orderQueryParam.getType());
 		}
-		if(StringUtil.isNotEmpty(orderQueryParam.getStartTime().toString())) {
+		if(StringUtils.isNotEmpty(orderQueryParam.getStartTime().toString())) {
 			queryWrapper.ge(TbOrder.ORDER_TIME, orderQueryParam.getStartTime());
 		}
-		if(StringUtil.isNotEmpty(orderQueryParam.getEndTime().toString())) {
+		if(StringUtils.isNotEmpty(orderQueryParam.getEndTime().toString())) {
 			queryWrapper.le(TbOrder.ORDER_TIME, orderQueryParam.getEndTime());
 		}
 		queryWrapper.orderByDesc(TbOrder.UPDATE_TIME);

@@ -10,7 +10,6 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.github.pagehelper.util.StringUtil;
 import com.pactera.znzmo.banner.TbBanner;
 import com.pactera.znzmo.database.TbDatabase;
 import com.pactera.znzmo.database.dao.TbDatabaseMapper;
@@ -25,6 +24,7 @@ import com.pactera.znzmo.model.Tb3dModel;
 import com.pactera.znzmo.model.dao.Tb3dModelMapper;
 import com.pactera.znzmo.sumodel.TbSuModel;
 import com.pactera.znzmo.sumodel.dao.TbSuModelMapper;
+import com.pactera.znzmo.util.StringUtils;
 import com.pactera.znzmo.vo.examine.ExamineListVO;
 import com.pactera.znzmo.vo.examine.ExamineQueryParam;
 import com.pactera.znzmo.vo.examine.ExamineStatusParam;
@@ -59,10 +59,10 @@ public class TbExamineVerifyServiceImpl extends ServiceImpl<TbExamineVerifyMappe
 	public IPage<ExamineListVO> selectExaminePages(Page<TbExamineVerify> page, ExamineQueryParam examineQueryParam) {
 		QueryWrapper<TbExamineVerify> queryWrapper = new QueryWrapper<>();
 		queryWrapper.eq(TbExamineVerify.IS_VALID, IsValidEnum.YES.getKey());
-		if(StringUtil.isNotEmpty(examineQueryParam.getType().toString())) {
+		if(StringUtils.isNotEmpty(examineQueryParam.getType().toString())) {
 			queryWrapper.eq(TbExamineVerify.RE_TYPE, examineQueryParam.getType());
 		}
-		if(StringUtil.isNotEmpty(examineQueryParam.getStatus().toString())) {
+		if(StringUtils.isNotEmpty(examineQueryParam.getStatus().toString())) {
 			queryWrapper.eq(TbBanner.STATUS, examineQueryParam.getStatus());
 		}
 		queryWrapper.orderByDesc(TbBanner.UPDATE_TIME);
