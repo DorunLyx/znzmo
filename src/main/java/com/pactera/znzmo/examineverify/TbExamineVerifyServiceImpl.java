@@ -20,8 +20,8 @@ import com.pactera.znzmo.enums.StatusEnum;
 import com.pactera.znzmo.examineverify.dao.TbExamineVerifyMapper;
 import com.pactera.znzmo.hd.TbHdMapping;
 import com.pactera.znzmo.hd.dao.TbHdMappingMapper;
-import com.pactera.znzmo.model.Tb3dModel;
-import com.pactera.znzmo.model.dao.Tb3dModelMapper;
+import com.pactera.znzmo.model.TbThreedModel;
+import com.pactera.znzmo.model.dao.TbThreedModelMapper;
 import com.pactera.znzmo.sumodel.TbSuModel;
 import com.pactera.znzmo.sumodel.dao.TbSuModelMapper;
 import com.pactera.znzmo.util.StringUtils;
@@ -41,7 +41,7 @@ import com.pactera.znzmo.vo.examine.ExamineStatusParam;
 public class TbExamineVerifyServiceImpl extends ServiceImpl<TbExamineVerifyMapper, TbExamineVerify> implements TbExamineVerifyService {
 
 	@Autowired
-	private Tb3dModelMapper tb3dModelMapper;
+	private TbThreedModelMapper tbThreedModelMapper;
 	
 	@Autowired
 	private TbSuModelMapper tbSuModelMapper;
@@ -107,18 +107,18 @@ public class TbExamineVerifyServiceImpl extends ServiceImpl<TbExamineVerifyMappe
 	*/
 	private ExamineListVO selectReInfoByType(ExamineListVO examineListVO, Long reId, Integer reType) {
 		if(reType == 0) {
-			Tb3dModel tb3dModel = tb3dModelMapper.selectById(reId);
-			examineListVO.setMainGraph(tb3dModel.getMainGraph());
-			examineListVO.setCode(tb3dModel.getCode());
-			examineListVO.setPrimaryClassName(tb3dModel.getPrimaryClassName());
-			examineListVO.setClassName(tb3dModel.getSecondaryClassName());
-			examineListVO.setStyleName(tb3dModel.getStyleName());
-			examineListVO.setTitle(tb3dModel.getTitle());
-			examineListVO.setType(tb3dModel.getType());
-			examineListVO.setPrice(tb3dModel.getPrice());
-			examineListVO.setStatus(tb3dModel.getStatus());
-			examineListVO.setUploadUser(tb3dModel.getCreateName());
-			examineListVO.setUploadTime(tb3dModel.getCreateTime());
+			TbThreedModel tbThreedModel = tbThreedModelMapper.selectById(reId);
+			examineListVO.setMainGraph(tbThreedModel.getMainGraph());
+			examineListVO.setCode(tbThreedModel.getCode());
+			examineListVO.setPrimaryClassName(tbThreedModel.getPrimaryClassName());
+			examineListVO.setClassName(tbThreedModel.getSecondaryClassName());
+			examineListVO.setStyleName(tbThreedModel.getStyleName());
+			examineListVO.setTitle(tbThreedModel.getTitle());
+			examineListVO.setType(tbThreedModel.getType());
+			examineListVO.setPrice(tbThreedModel.getPrice());
+			examineListVO.setStatus(tbThreedModel.getStatus());
+			examineListVO.setUploadUser(tbThreedModel.getCreateName());
+			examineListVO.setUploadTime(tbThreedModel.getCreateTime());
 		}else if (reType == 1) {
 			TbSuModel tbSuModel = tbSuModelMapper.selectById(reId);
 			examineListVO.setMainGraph(tbSuModel.getMainGraph());
@@ -180,9 +180,9 @@ public class TbExamineVerifyServiceImpl extends ServiceImpl<TbExamineVerifyMappe
 		TbExamineVerify tbExamineVerify = baseMapper.selectById(examineStatusParam.getExamineId());
 		tbExamineVerify.setStatus(StatusEnum.START_USE.getKey());
 		if(tbExamineVerify.getReType() == 0) {
-			Tb3dModel tb3dModel = tb3dModelMapper.selectById(tbExamineVerify.getReId());
-			tb3dModel.setStatus(StatusEnum.START_USE.getKey());
-			tb3dModelMapper.updateById(tb3dModel);
+			TbThreedModel tbThreedModel = tbThreedModelMapper.selectById(tbExamineVerify.getReId());
+			tbThreedModel.setStatus(StatusEnum.START_USE.getKey());
+			tbThreedModelMapper.updateById(tbThreedModel);
 		}else if (tbExamineVerify.getReType() == 1) {
 			TbSuModel tbSuModel = tbSuModelMapper.selectById(tbExamineVerify.getReId());
 			tbSuModel.setStatus(StatusEnum.START_USE.getKey());

@@ -16,7 +16,7 @@ import com.pactera.znzmo.enums.IsValidEnum;
 import com.pactera.znzmo.enums.ReTypeEnum;
 import com.pactera.znzmo.examineverify.TbExamineVerify;
 import com.pactera.znzmo.examineverify.dao.TbExamineVerifyMapper;
-import com.pactera.znzmo.model.dao.Tb3dModelMapper;
+import com.pactera.znzmo.model.dao.TbThreedModelMapper;
 import com.pactera.znzmo.util.NumGenerationUtil;
 import com.pactera.znzmo.util.StringUtils;
 import com.pactera.znzmo.vo.common.UploadInfo;
@@ -33,7 +33,7 @@ import com.pactera.znzmo.vo.model.ModelUpdateParam;
  * @since 2020-08-03
  */
 @Service
-public class Tb3dModelServiceImpl extends ServiceImpl<Tb3dModelMapper, Tb3dModel> implements Tb3dModelService {
+public class TbThreedModelServiceImpl extends ServiceImpl<TbThreedModelMapper, TbThreedModel> implements TbThreedModelService {
 
 	@Autowired
 	private TbAttachmentMapper tbAttachmentMapper;
@@ -42,61 +42,61 @@ public class Tb3dModelServiceImpl extends ServiceImpl<Tb3dModelMapper, Tb3dModel
 	private TbExamineVerifyMapper tbExamineVerifyMapper;
 	
 	@Override
-	public IPage<Tb3dModel> select3DModelPages(Page<Tb3dModel> page, ModelQueryParam modelQueryParam) {
-		QueryWrapper<Tb3dModel> queryWrapper = new QueryWrapper<>();
-		queryWrapper.eq(Tb3dModel.IS_VALID, IsValidEnum.YES.getKey());
+	public IPage<TbThreedModel> select3DModelPages(Page<TbThreedModel> page, ModelQueryParam modelQueryParam) {
+		QueryWrapper<TbThreedModel> queryWrapper = new QueryWrapper<>();
+		queryWrapper.eq(TbThreedModel.IS_VALID, IsValidEnum.YES.getKey());
 		if(StringUtils.isNotEmpty(modelQueryParam.getKeyword())) {
-			queryWrapper.like(Tb3dModel.TITLE, modelQueryParam.getKeyword());
+			queryWrapper.like(TbThreedModel.TITLE, modelQueryParam.getKeyword());
 		}
-		if(StringUtils.isNotEmpty(modelQueryParam.getStyleId().toString())) {
-			queryWrapper.eq(Tb3dModel.STYLE_ID, modelQueryParam.getStyleId());
+		if(modelQueryParam.getStyleId() != 0) {
+			queryWrapper.eq(TbThreedModel.STYLE_ID, modelQueryParam.getStyleId());
 		}
-		if(StringUtils.isNotEmpty(modelQueryParam.getPrimaryClassId().toString())) {
-			queryWrapper.eq(Tb3dModel.PRIMARY_CLASS_ID, modelQueryParam.getPrimaryClassId());
+		if(modelQueryParam.getPrimaryClassId() != 0) {
+			queryWrapper.eq(TbThreedModel.PRIMARY_CLASS_ID, modelQueryParam.getPrimaryClassId());
 		}
-		if(StringUtils.isNotEmpty(modelQueryParam.getSecondaryClassId().toString())) {
-			queryWrapper.eq(Tb3dModel.SECONDARY_CLASS_ID, modelQueryParam.getSecondaryClassId());
+		if(modelQueryParam.getSecondaryClassId() != 0) {
+			queryWrapper.eq(TbThreedModel.SECONDARY_CLASS_ID, modelQueryParam.getSecondaryClassId());
 		}
-		queryWrapper.orderByDesc(Tb3dModel.UPDATE_TIME);
+		queryWrapper.orderByDesc(TbThreedModel.UPDATE_TIME);
 		return baseMapper.selectPage(page,queryWrapper);
 	}
 
 	@Override
 	public void add3DModel(ModelAddParam modelAddParam) {
-		Tb3dModel tb3dModel = new Tb3dModel();
-		tb3dModel.setMainGraph(modelAddParam.getMainGraph());
-		tb3dModel.setCode(NumGenerationUtil.getrandom());
-		tb3dModel.setPrimaryClassId(modelAddParam.getPrimaryClassId());
-		tb3dModel.setPrimaryClassName(modelAddParam.getPrimaryClassName());
-		tb3dModel.setSecondaryClassId(modelAddParam.getSecondaryClassId());
-		tb3dModel.setSecondaryClassName(modelAddParam.getSecondaryClassName());
-		tb3dModel.setStyleId(modelAddParam.getStyleId());
-		tb3dModel.setStyleName(modelAddParam.getStyleName());
-		tb3dModel.setTitle(modelAddParam.getTitle());
-		tb3dModel.setType(modelAddParam.getType());
-		tb3dModel.setPrice(modelAddParam.getPrice());
-		tb3dModel.setTextureMapping(modelAddParam.getTextureMapping());
-		tb3dModel.setLightingEffects(modelAddParam.getLightingEffects());
-		tb3dModel.setRemarks(modelAddParam.getRemarks());
-		tb3dModel.setIsValid(IsValidEnum.YES.getKey());
-		tb3dModel.setStatus(ApproveStatusEnum.WAITAPPROVAL.getKey());
-//		tb3dModel.setCreateId(user.getUserId());
-//		tb3dModel.setCreateName(user.getUserName());
-		tb3dModel.setCreateTime(LocalDateTime.now());
-//		tb3dModel.setUpdateId(user.getUserId());
-//		tb3dModel.setUpdateName(user.getUserName());
-		tb3dModel.setUpdateTime(LocalDateTime.now());
-		baseMapper.insert(tb3dModel);
+		TbThreedModel tbThreedModel = new TbThreedModel();
+		tbThreedModel.setMainGraph(modelAddParam.getMainGraph());
+		tbThreedModel.setCode(NumGenerationUtil.getrandom());
+		tbThreedModel.setPrimaryClassId(modelAddParam.getPrimaryClassId());
+		tbThreedModel.setPrimaryClassName(modelAddParam.getPrimaryClassName());
+		tbThreedModel.setSecondaryClassId(modelAddParam.getSecondaryClassId());
+		tbThreedModel.setSecondaryClassName(modelAddParam.getSecondaryClassName());
+		tbThreedModel.setStyleId(modelAddParam.getStyleId());
+		tbThreedModel.setStyleName(modelAddParam.getStyleName());
+		tbThreedModel.setTitle(modelAddParam.getTitle());
+		tbThreedModel.setType(modelAddParam.getType());
+		tbThreedModel.setPrice(modelAddParam.getPrice());
+		tbThreedModel.setTextureMapping(modelAddParam.getTextureMapping());
+		tbThreedModel.setLightingEffects(modelAddParam.getLightingEffects());
+		tbThreedModel.setRemarks(modelAddParam.getRemarks());
+		tbThreedModel.setIsValid(IsValidEnum.YES.getKey());
+		tbThreedModel.setStatus(ApproveStatusEnum.WAITAPPROVAL.getKey());
+//		tbThreedModel.setCreateId(user.getUserId());
+//		tbThreedModel.setCreateName(user.getUserName());
+		tbThreedModel.setCreateTime(LocalDateTime.now());
+//		tbThreedModel.setUpdateId(user.getUserId());
+//		tbThreedModel.setUpdateName(user.getUserName());
+		tbThreedModel.setUpdateTime(LocalDateTime.now());
+		baseMapper.insert(tbThreedModel);
 		
 		//新增上传文件
         for (UploadInfo keyAndUrl : modelAddParam.getUploadImg()) {
             TbAttachment tbAttachment = new TbAttachment();
-            tbAttachment.setRelationId(tb3dModel.getId());
+            tbAttachment.setRelationId(tbThreedModel.getId());
             tbAttachment.setAttachmentName(keyAndUrl.getFileName());
             tbAttachment.setAttachmentPath(keyAndUrl.getFile());
             tbAttachment.setPhysicalPath(keyAndUrl.getFile());
             tbAttachment.setAliasName(keyAndUrl.getRealName());
-            tbAttachment.setReType(IsValidEnum.YES.getValue());
+            tbAttachment.setReType(keyAndUrl.getType());
             tbAttachment.setIsValid(IsValidEnum.YES.getKey());
 //            tbAttachment.setCreateId(user.getUserId());
 //            tbAttachment.setCreateName(user.getUserName());
@@ -108,7 +108,7 @@ public class Tb3dModelServiceImpl extends ServiceImpl<Tb3dModelMapper, Tb3dModel
         TbExamineVerify tbExamineVerify = new TbExamineVerify();
         tbExamineVerify.setUserId(1L);
         tbExamineVerify.setUserName("admin");
-        tbExamineVerify.setReId(tb3dModel.getId());
+        tbExamineVerify.setReId(tbThreedModel.getId());
         tbExamineVerify.setReType(ReTypeEnum.MODEL.getKey());
         tbExamineVerify.setStatus(ApproveStatusEnum.WAITAPPROVAL.getKey());
         tbExamineVerify.setIsValid(IsValidEnum.YES.getKey());
@@ -123,24 +123,24 @@ public class Tb3dModelServiceImpl extends ServiceImpl<Tb3dModelMapper, Tb3dModel
 
 	@Override
 	public void updte3DModel(ModelUpdateParam modelUpdateParam) {
-		Tb3dModel tb3dModel = baseMapper.selectById(modelUpdateParam.getModelId());
-		tb3dModel.setMainGraph(modelUpdateParam.getMainGraph());
-		tb3dModel.setPrimaryClassId(modelUpdateParam.getPrimaryClassId());
-		tb3dModel.setPrimaryClassName(modelUpdateParam.getPrimaryClassName());
-		tb3dModel.setSecondaryClassId(modelUpdateParam.getSecondaryClassId());
-		tb3dModel.setSecondaryClassName(modelUpdateParam.getSecondaryClassName());
-		tb3dModel.setStyleId(modelUpdateParam.getStyleId());
-		tb3dModel.setStyleName(modelUpdateParam.getStyleName());
-		tb3dModel.setTitle(modelUpdateParam.getTitle());
-		tb3dModel.setType(modelUpdateParam.getType());
-		tb3dModel.setPrice(modelUpdateParam.getPrice());
-		tb3dModel.setTextureMapping(modelUpdateParam.getTextureMapping());
-		tb3dModel.setLightingEffects(modelUpdateParam.getLightingEffects());
-		tb3dModel.setRemarks(modelUpdateParam.getRemarks());
-//		tb3dModel.setUpdateId(user.getUserId());
-//		tb3dModel.setUpdateName(user.getUserName());
-		tb3dModel.setUpdateTime(LocalDateTime.now());
-		baseMapper.updateById(tb3dModel);
+		TbThreedModel tbThreedModel = baseMapper.selectById(modelUpdateParam.getModelId());
+		tbThreedModel.setMainGraph(modelUpdateParam.getMainGraph());
+		tbThreedModel.setPrimaryClassId(modelUpdateParam.getPrimaryClassId());
+		tbThreedModel.setPrimaryClassName(modelUpdateParam.getPrimaryClassName());
+		tbThreedModel.setSecondaryClassId(modelUpdateParam.getSecondaryClassId());
+		tbThreedModel.setSecondaryClassName(modelUpdateParam.getSecondaryClassName());
+		tbThreedModel.setStyleId(modelUpdateParam.getStyleId());
+		tbThreedModel.setStyleName(modelUpdateParam.getStyleName());
+		tbThreedModel.setTitle(modelUpdateParam.getTitle());
+		tbThreedModel.setType(modelUpdateParam.getType());
+		tbThreedModel.setPrice(modelUpdateParam.getPrice());
+		tbThreedModel.setTextureMapping(modelUpdateParam.getTextureMapping());
+		tbThreedModel.setLightingEffects(modelUpdateParam.getLightingEffects());
+		tbThreedModel.setRemarks(modelUpdateParam.getRemarks());
+//		tbThreedModel.setUpdateId(user.getUserId());
+//		tbThreedModel.setUpdateName(user.getUserName());
+		tbThreedModel.setUpdateTime(LocalDateTime.now());
+		baseMapper.updateById(tbThreedModel);
 		
 		QueryWrapper<TbAttachment> queryWrapper = new QueryWrapper<>();
 		queryWrapper.eq(TbAttachment.RELATION_ID, modelUpdateParam.getModelId());
@@ -149,12 +149,12 @@ public class Tb3dModelServiceImpl extends ServiceImpl<Tb3dModelMapper, Tb3dModel
 		//新增上传文件
         for (UploadInfo keyAndUrl : modelUpdateParam.getUploadImg()) {
             TbAttachment tbAttachment = new TbAttachment();
-            tbAttachment.setRelationId(tb3dModel.getId());
+            tbAttachment.setRelationId(tbThreedModel.getId());
             tbAttachment.setAttachmentName(keyAndUrl.getFileName());
             tbAttachment.setAttachmentPath(keyAndUrl.getFile());
             tbAttachment.setPhysicalPath(keyAndUrl.getFile());
             tbAttachment.setAliasName(keyAndUrl.getRealName());
-            tbAttachment.setReType(IsValidEnum.YES.getValue());
+            tbAttachment.setReType(keyAndUrl.getType());
             tbAttachment.setIsValid(IsValidEnum.YES.getKey());
 //            tbAttachment.setCreateId(user.getUserId());
 //            tbAttachment.setCreateName(user.getUserName());

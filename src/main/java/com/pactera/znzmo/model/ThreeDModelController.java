@@ -46,15 +46,15 @@ import io.swagger.annotations.ApiParam;
 @Api(tags = "3D模型API", value = "3D模型API")
 @RestController
 @RequestMapping(value = "/3dmodel")
-public class ModelController extends BaseController{
+public class ThreeDModelController extends BaseController{
 	
 	@Autowired
-	private Tb3dModelService tb3dModelService;
+	private TbThreedModelService tbThreedModelService;
 	
 	@Autowired
 	private TbAttachmentService tbAttachmentService;
 	
-	public static final Logger logger = LoggerFactory.getLogger(ModelController.class);
+	public static final Logger logger = LoggerFactory.getLogger(ThreeDModelController.class);
 
 	/**
 	 * @Title: get3DModelPage 
@@ -71,17 +71,17 @@ public class ModelController extends BaseController{
 		Supplier<IPage<HomePageSimplifyData>> businessHandler = () -> {
 			try {
 				List<HomePageSimplifyData> homePageModelDataList = new ArrayList<HomePageSimplifyData>();
-				Page<Tb3dModel> page = new Page<Tb3dModel>(modelQueryParam.getPageNo(), modelQueryParam.getPageSize());
+				Page<TbThreedModel> page = new Page<TbThreedModel>(modelQueryParam.getPageNo(), modelQueryParam.getPageSize());
 		        IPage<HomePageSimplifyData> modeListPage =  new Page<HomePageSimplifyData>(modelQueryParam.getPageNo(), modelQueryParam.getPageSize());
-		        IPage<Tb3dModel> iPage = tb3dModelService.select3DModelPages(page, modelQueryParam);
-				for (Tb3dModel tb3dModel : iPage.getRecords()) {
+		        IPage<TbThreedModel> iPage = tbThreedModelService.select3DModelPages(page, modelQueryParam);
+				for (TbThreedModel tbThreedModel : iPage.getRecords()) {
 					HomePageSimplifyData homePageSimplifyData = new HomePageSimplifyData();
-					homePageSimplifyData.setReId(tb3dModel.getId());
+					homePageSimplifyData.setReId(tbThreedModel.getId());
 					homePageSimplifyData.setReType(ReTypeEnum.MODEL.getKey());
-					homePageSimplifyData.setMainGraph(tb3dModel.getMainGraph());
-					homePageSimplifyData.setTitle(tb3dModel.getTitle());
-					homePageSimplifyData.setPrice(tb3dModel.getPrice());
-					homePageSimplifyData.setType(tb3dModel.getType());
+					homePageSimplifyData.setMainGraph(tbThreedModel.getMainGraph());
+					homePageSimplifyData.setTitle(tbThreedModel.getTitle());
+					homePageSimplifyData.setPrice(tbThreedModel.getPrice());
+					homePageSimplifyData.setType(tbThreedModel.getType());
 					homePageModelDataList.add(homePageSimplifyData);
 				}
 				modeListPage.setRecords(homePageModelDataList);
@@ -113,27 +113,27 @@ public class ModelController extends BaseController{
 		Supplier<IPage<ModelListVO>> businessHandler = () -> {
 			try {
 				List<ModelListVO> modelList = new ArrayList<ModelListVO>();
-				Page<Tb3dModel> page = new Page<Tb3dModel>(modelQueryParam.getPageNo(), modelQueryParam.getPageSize());
+				Page<TbThreedModel> page = new Page<TbThreedModel>(modelQueryParam.getPageNo(), modelQueryParam.getPageSize());
 		        IPage<ModelListVO> modeListPage =  new Page<ModelListVO>(modelQueryParam.getPageNo(), modelQueryParam.getPageSize());
-		        IPage<Tb3dModel> iPage = tb3dModelService.select3DModelPages(page, modelQueryParam);
-				for (Tb3dModel tb3dModel : iPage.getRecords()) {
+		        IPage<TbThreedModel> iPage = tbThreedModelService.select3DModelPages(page, modelQueryParam);
+				for (TbThreedModel tbThreedModel : iPage.getRecords()) {
 					ModelListVO modelListVO = new ModelListVO();
-					modelListVO.setModelId(tb3dModel.getId());
-					modelListVO.setMainGraph(tb3dModel.getMainGraph());
-					modelListVO.setCode(tb3dModel.getCode());
-					modelListVO.setPrimaryClassName(tb3dModel.getPrimaryClassName());
-					modelListVO.setSecondaryClassName(tb3dModel.getSecondaryClassName());
-					modelListVO.setStyleName(tb3dModel.getStyleName());
-					modelListVO.setTitle(tb3dModel.getTitle());
-					modelListVO.setType(tb3dModel.getType());
-					modelListVO.setPrice(tb3dModel.getPrice());
-					modelListVO.setTextureMapping(tb3dModel.getTextureMapping());
-					modelListVO.setLightingEffects(tb3dModel.getLightingEffects());
-					modelListVO.setStatus(tb3dModel.getStatus());
-					modelListVO.setVisitsNum(tb3dModel.getVisitsNum());
-					modelListVO.setDownloadNum(tb3dModel.getDownloadNum());
-					modelListVO.setUploadUser(tb3dModel.getCreateName());
-					modelListVO.setUploadTime(tb3dModel.getCreateTime());
+					modelListVO.setModelId(tbThreedModel.getId());
+					modelListVO.setMainGraph(tbThreedModel.getMainGraph());
+					modelListVO.setCode(tbThreedModel.getCode());
+					modelListVO.setPrimaryClassName(tbThreedModel.getPrimaryClassName());
+					modelListVO.setSecondaryClassName(tbThreedModel.getSecondaryClassName());
+					modelListVO.setStyleName(tbThreedModel.getStyleName());
+					modelListVO.setTitle(tbThreedModel.getTitle());
+					modelListVO.setType(tbThreedModel.getType());
+					modelListVO.setPrice(tbThreedModel.getPrice());
+					modelListVO.setTextureMapping(tbThreedModel.getTextureMapping());
+					modelListVO.setLightingEffects(tbThreedModel.getLightingEffects());
+					modelListVO.setStatus(tbThreedModel.getStatus());
+					modelListVO.setVisitsNum(tbThreedModel.getVisitsNum());
+					modelListVO.setDownloadNum(tbThreedModel.getDownloadNum());
+					modelListVO.setUploadUser(tbThreedModel.getCreateName());
+					modelListVO.setUploadTime(tbThreedModel.getCreateTime());
 					modelList.add(modelListVO);
 	    		}
 				modeListPage.setRecords(modelList);
@@ -164,7 +164,7 @@ public class ModelController extends BaseController{
 			@ApiParam(name="modelAddParam", value="3d模型新增参数", required=false)@RequestBody ModelAddParam modelAddParam) {
 		Supplier<String> businessHandler = () ->{
 			try {
-				tb3dModelService.add3DModel(modelAddParam);
+				tbThreedModelService.add3DModel(modelAddParam);
 				return JsonResultEnum.ok.getValue();
 			} catch (Exception e) {
 				throwException(e);
@@ -188,13 +188,13 @@ public class ModelController extends BaseController{
     		@ApiParam(name="modelQueryDetailsParam", value="3d模型详情参数", required=false)@RequestBody ModelQueryDetailsParam modelQueryDetailsParam) {
 		Supplier<ModelDetailsVO> businessHandler = () ->{
 			try {
-				QueryWrapper<Tb3dModel> modelQueryWrapper = new QueryWrapper<>();
-				modelQueryWrapper.eq(Tb3dModel.IS_VALID, IsValidEnum.YES.getKey())
-		        	.eq(Tb3dModel.ID, modelQueryDetailsParam.getModelId());
-		        Tb3dModel tb3dModel = tb3dModelService.getOne(modelQueryWrapper);
+				QueryWrapper<TbThreedModel> modelQueryWrapper = new QueryWrapper<>();
+				modelQueryWrapper.eq(TbThreedModel.IS_VALID, IsValidEnum.YES.getKey())
+		        	.eq(TbThreedModel.ID, modelQueryDetailsParam.getModelId());
+		        TbThreedModel tbThreedModel = tbThreedModelService.getOne(modelQueryWrapper);
 		        ModelDetailsVO modelDetailsVO = new ModelDetailsVO();
-				modelDetailsVO.setModelId(tb3dModel.getId());
-				modelDetailsVO.setMainGraph(tb3dModel.getMainGraph());
+				modelDetailsVO.setModelId(tbThreedModel.getId());
+				modelDetailsVO.setMainGraph(tbThreedModel.getMainGraph());
 				List<UploadInfo> uploadInfos = new ArrayList<>();
 				QueryWrapper<TbAttachment> attachmentQueryWrapper = new QueryWrapper<>();
 				attachmentQueryWrapper.eq(TbAttachment.IS_VALID, IsValidEnum.YES.getKey())
@@ -212,18 +212,18 @@ public class ModelController extends BaseController{
 					}
 		        }
 		        modelDetailsVO.setUploadImg(uploadInfos);
-				modelDetailsVO.setPrimaryClassId(tb3dModel.getPrimaryClassId());
-				modelDetailsVO.setPrimaryClassName(tb3dModel.getPrimaryClassName());
-				modelDetailsVO.setSecondaryClassId(tb3dModel.getSecondaryClassId());
-				modelDetailsVO.setSecondaryClassName(tb3dModel.getSecondaryClassName());
-				modelDetailsVO.setStyleId(tb3dModel.getStyleId());
-				modelDetailsVO.setStyleName(tb3dModel.getStyleName());
-				modelDetailsVO.setTitle(tb3dModel.getTitle());
-				modelDetailsVO.setType(tb3dModel.getType());
-				modelDetailsVO.setPrice(tb3dModel.getPrice());
-				modelDetailsVO.setTextureMapping(tb3dModel.getTextureMapping());
-				modelDetailsVO.setLightingEffects(tb3dModel.getLightingEffects());
-				modelDetailsVO.setRemarks(tb3dModel.getRemarks());
+				modelDetailsVO.setPrimaryClassId(tbThreedModel.getPrimaryClassId());
+				modelDetailsVO.setPrimaryClassName(tbThreedModel.getPrimaryClassName());
+				modelDetailsVO.setSecondaryClassId(tbThreedModel.getSecondaryClassId());
+				modelDetailsVO.setSecondaryClassName(tbThreedModel.getSecondaryClassName());
+				modelDetailsVO.setStyleId(tbThreedModel.getStyleId());
+				modelDetailsVO.setStyleName(tbThreedModel.getStyleName());
+				modelDetailsVO.setTitle(tbThreedModel.getTitle());
+				modelDetailsVO.setType(tbThreedModel.getType());
+				modelDetailsVO.setPrice(tbThreedModel.getPrice());
+				modelDetailsVO.setTextureMapping(tbThreedModel.getTextureMapping());
+				modelDetailsVO.setLightingEffects(tbThreedModel.getLightingEffects());
+				modelDetailsVO.setRemarks(tbThreedModel.getRemarks());
 				return modelDetailsVO;
 			} catch (Exception e) {
 				throwException(e);
@@ -247,7 +247,7 @@ public class ModelController extends BaseController{
 			@ApiParam(name="modelUpdateParam", value="3d模型编辑参数", required=false)@RequestBody ModelUpdateParam modelUpdateParam) {
 		Supplier<String> businessHandler = () ->{
 			try {
-				tb3dModelService.updte3DModel(modelUpdateParam);
+				tbThreedModelService.updte3DModel(modelUpdateParam);
 				return JsonResultEnum.ok.getValue();
 			} catch (Exception e) {
 				throwException(e);
@@ -271,10 +271,14 @@ public class ModelController extends BaseController{
     		@ApiParam(name="modelQueryDetailsParam", value="3d模型详情参数", required=false)@RequestBody ModelQueryDetailsParam modelQueryDetailsParam) {
 		Supplier<String> businessHandler = () ->{
 			try {
-				Tb3dModel tb3dModel = tb3dModelService.getById(modelQueryDetailsParam.getModelId());
-				tb3dModel.setStatus(modelQueryDetailsParam.getStatus());
-				tb3dModelService.updateById(tb3dModel);
-				return JsonResultEnum.ok.getValue();
+				TbThreedModel tbThreedModel = tbThreedModelService.getById(modelQueryDetailsParam.getModelId());
+				if(tbThreedModel != null) {
+					tbThreedModel.setStatus(modelQueryDetailsParam.getStatus());
+					tbThreedModelService.updateById(tbThreedModel);
+					return JsonResultEnum.ok.getValue();
+				}else {
+					return "查询数据为空!";
+				}
 			} catch (Exception e) {
 				throwException(e);
 				logger.error(e.getMessage(),e);

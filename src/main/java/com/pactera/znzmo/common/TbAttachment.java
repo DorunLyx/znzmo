@@ -39,7 +39,7 @@ public class TbAttachment implements Serializable {
     /**
      * 关联业务类型
      */
-    private String reType;
+    private Integer reType;
 
     /**
      * 附件名称

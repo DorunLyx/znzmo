@@ -74,7 +74,7 @@ public class TbBannerServiceImpl extends ServiceImpl<TbBannerMapper, TbBanner> i
             tbAttachment.setAttachmentPath(keyAndUrl.getFile());
             tbAttachment.setPhysicalPath(keyAndUrl.getFile());
             tbAttachment.setAliasName(keyAndUrl.getRealName());
-            tbAttachment.setReType(IsValidEnum.YES.getValue());
+            tbAttachment.setReType(keyAndUrl.getType());
             tbAttachment.setIsValid(IsValidEnum.YES.getKey());
 //            tbAttachment.setCreateId(user.getUserId());
 //            tbAttachment.setCreateName(user.getUserName());
@@ -110,7 +110,7 @@ public class TbBannerServiceImpl extends ServiceImpl<TbBannerMapper, TbBanner> i
             tbAttachment.setAttachmentPath(keyAndUrl.getFile());
             tbAttachment.setPhysicalPath(keyAndUrl.getFile());
             tbAttachment.setAliasName(keyAndUrl.getRealName());
-            tbAttachment.setReType(IsValidEnum.YES.getValue());
+            tbAttachment.setReType(keyAndUrl.getType());
             tbAttachment.setIsValid(IsValidEnum.YES.getKey());
 //            tbAttachment.setCreateId(user.getUserId());
 //            tbAttachment.setCreateName(user.getUserName());

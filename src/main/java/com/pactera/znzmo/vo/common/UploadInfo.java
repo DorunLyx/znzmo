@@ -16,7 +16,7 @@ import lombok.Data;
 public class UploadInfo {
 
 	@ApiModelProperty(value="类型", name="type")
-	private String type;
+	private Integer type;
 	
     @ApiModelProperty(value="原名称", name="realName")
     private String realName;

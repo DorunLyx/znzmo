@@ -27,8 +27,8 @@ import com.pactera.znzmo.enums.JsonResultEnum;
 import com.pactera.znzmo.enums.ReTypeEnum;
 import com.pactera.znzmo.hd.TbHdMapping;
 import com.pactera.znzmo.hd.TbHdMappingService;
-import com.pactera.znzmo.model.Tb3dModel;
-import com.pactera.znzmo.model.Tb3dModelService;
+import com.pactera.znzmo.model.TbThreedModel;
+import com.pactera.znzmo.model.TbThreedModelService;
 import com.pactera.znzmo.sumodel.TbSuModel;
 import com.pactera.znzmo.sumodel.TbSuModelService;
 import com.pactera.znzmo.util.StringUtils;
@@ -70,7 +70,7 @@ public class BannerController extends BaseController{
 	private TbBannerService tbBannerService;
 	
 	@Autowired
-	private Tb3dModelService tb3dModelService;
+	private TbThreedModelService tbThreedModelService;
 	
 	@Autowired
 	private TbSuModelService tbSuModelService;
@@ -245,21 +245,21 @@ public class BannerController extends BaseController{
 	*/
 	private List<HomePageSimplifyData> get3dModelList(String classify) {
 		List<HomePageSimplifyData> homePageModelDataList = new ArrayList<>();
-		QueryWrapper<Tb3dModel> queryWrapper = new QueryWrapper<Tb3dModel>();
+		QueryWrapper<TbThreedModel> queryWrapper = new QueryWrapper<TbThreedModel>();
 		if(StringUtils.isNotEmpty(classify)) {
-			queryWrapper.eq(Tb3dModel.PRIMARY_CLASS_ID, classify);
+			queryWrapper.eq(TbThreedModel.PRIMARY_CLASS_ID, classify);
 		}
-		queryWrapper.orderByDesc(Tb3dModel.UPDATE_TIME)
+		queryWrapper.orderByDesc(TbThreedModel.UPDATE_TIME)
 			.last("limit 1,10");
-		List<Tb3dModel> tb3dModelList = tb3dModelService.list(queryWrapper);
-		for (Tb3dModel tb3dModel : tb3dModelList) {
+		List<TbThreedModel> tb3dModelList = tbThreedModelService.list(queryWrapper);
+		for (TbThreedModel tbThreedModel : tb3dModelList) {
 			HomePageSimplifyData homePageSimplifyData = new HomePageSimplifyData();
-			homePageSimplifyData.setReId(tb3dModel.getId());
+			homePageSimplifyData.setReId(tbThreedModel.getId());
 			homePageSimplifyData.setReType(ReTypeEnum.MODEL.getKey());
-			homePageSimplifyData.setMainGraph(tb3dModel.getMainGraph());
-			homePageSimplifyData.setTitle(tb3dModel.getTitle());
-			homePageSimplifyData.setPrice(tb3dModel.getPrice());
-			homePageSimplifyData.setType(tb3dModel.getType());
+			homePageSimplifyData.setMainGraph(tbThreedModel.getMainGraph());
+			homePageSimplifyData.setTitle(tbThreedModel.getTitle());
+			homePageSimplifyData.setPrice(tbThreedModel.getPrice());
+			homePageSimplifyData.setType(tbThreedModel.getType());
 			homePageModelDataList.add(homePageSimplifyData);
 		}
 		return homePageModelDataList;

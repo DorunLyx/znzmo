@@ -15,18 +15,18 @@ import com.pactera.znzmo.vo.model.ModelUpdateParam;
  * @author liyongxu
  * @since 2020-08-03
  */
-public interface Tb3dModelService extends IService<Tb3dModel> {
+public interface TbThreedModelService extends IService<TbThreedModel> {
 
 	/**
 	 * @Title: select3DModelPages 
 	 * @Description: TODO(这里用一句话描述这个方法的作用)
 	 * @param page
 	 * @param modelQueryParam
-	 * @return IPage<Tb3dModel>
+	 * @return IPage<TbThreedModel>
 	 * @author liyongxu
 	 * @date 2020年8月4日 上午11:46:41 
 	*/
-	IPage<Tb3dModel> select3DModelPages(Page<Tb3dModel> page, ModelQueryParam modelQueryParam);
+	IPage<TbThreedModel> select3DModelPages(Page<TbThreedModel> page, ModelQueryParam modelQueryParam);
 
 	/**
 	 * @Title: add3DModel 

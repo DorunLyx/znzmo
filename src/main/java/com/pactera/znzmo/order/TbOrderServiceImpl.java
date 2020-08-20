@@ -16,8 +16,8 @@ import com.pactera.znzmo.drawing.dao.TbDrawingSchemeMapper;
 import com.pactera.znzmo.enums.IsValidEnum;
 import com.pactera.znzmo.hd.TbHdMapping;
 import com.pactera.znzmo.hd.dao.TbHdMappingMapper;
-import com.pactera.znzmo.model.Tb3dModel;
-import com.pactera.znzmo.model.dao.Tb3dModelMapper;
+import com.pactera.znzmo.model.TbThreedModel;
+import com.pactera.znzmo.model.dao.TbThreedModelMapper;
 import com.pactera.znzmo.order.dao.TbOrderMapper;
 import com.pactera.znzmo.sumodel.TbSuModel;
 import com.pactera.znzmo.sumodel.dao.TbSuModelMapper;
@@ -40,7 +40,7 @@ import com.pactera.znzmo.vo.order.OrderQueryParam;
 public class TbOrderServiceImpl extends ServiceImpl<TbOrderMapper, TbOrder> implements TbOrderService {
 
 	@Autowired
-	private Tb3dModelMapper tb3dModelMapper;
+	private TbThreedModelMapper tbThreedModelMapper;
 	
 	@Autowired
 	private TbSuModelMapper tbSuModelMapper;
@@ -79,9 +79,9 @@ public class TbOrderServiceImpl extends ServiceImpl<TbOrderMapper, TbOrder> impl
 		TbOrder tbOrder = new TbOrder();
 		tbOrder.setOrderCode(NumGenerationUtil.getrandom());
 		if(orderAddParam.getType() == 0) {
-			Tb3dModel tb3dModel = tb3dModelMapper.selectById(orderAddParam.getReId());
-			tbOrder.setTitle(tb3dModel.getTitle());
-			tbOrder.setPrice(tb3dModel.getPrice());
+			TbThreedModel tbThreedModel = tbThreedModelMapper.selectById(orderAddParam.getReId());
+			tbOrder.setTitle(tbThreedModel.getTitle());
+			tbOrder.setPrice(tbThreedModel.getPrice());
 		}else if (orderAddParam.getType() == 1) {
 			TbSuModel tbSuModel = tbSuModelMapper.selectById(orderAddParam.getReId());
 			tbOrder.setTitle(tbSuModel.getTitle());
@@ -125,17 +125,17 @@ public class TbOrderServiceImpl extends ServiceImpl<TbOrderMapper, TbOrder> impl
 		orderDetailsVO.setUserName(tbOrder.getUserName());
 		orderDetailsVO.setOrderTime(tbOrder.getOrderTime());
 		if(tbOrder.getType() == 0) {
-			Tb3dModel tb3dModel = tb3dModelMapper.selectById(tbOrder.getReId());
-			orderDetailsVO.setMainGraph(tb3dModel.getMainGraph());
-			orderDetailsVO.setPrimaryClassId(tb3dModel.getPrimaryClassId());
-			orderDetailsVO.setPrimaryClassName(tb3dModel.getPrimaryClassName());
-			orderDetailsVO.setSecondaryClassId(tb3dModel.getSecondaryClassId());
-			orderDetailsVO.setSecondaryClassName(tb3dModel.getSecondaryClassName());
-			orderDetailsVO.setStyleId(tb3dModel.getStyleId());
-			orderDetailsVO.setStyleName(tb3dModel.getStyleName());
-			orderDetailsVO.setTextureMapping(tb3dModel.getTextureMapping());
-			orderDetailsVO.setLightingEffects(tb3dModel.getLightingEffects());
-			orderDetailsVO.setRemarks(tb3dModel.getRemarks());
+			TbThreedModel tbThreedModel = tbThreedModelMapper.selectById(tbOrder.getReId());
+			orderDetailsVO.setMainGraph(tbThreedModel.getMainGraph());
+			orderDetailsVO.setPrimaryClassId(tbThreedModel.getPrimaryClassId());
+			orderDetailsVO.setPrimaryClassName(tbThreedModel.getPrimaryClassName());
+			orderDetailsVO.setSecondaryClassId(tbThreedModel.getSecondaryClassId());
+			orderDetailsVO.setSecondaryClassName(tbThreedModel.getSecondaryClassName());
+			orderDetailsVO.setStyleId(tbThreedModel.getStyleId());
+			orderDetailsVO.setStyleName(tbThreedModel.getStyleName());
+			orderDetailsVO.setTextureMapping(tbThreedModel.getTextureMapping());
+			orderDetailsVO.setLightingEffects(tbThreedModel.getLightingEffects());
+			orderDetailsVO.setRemarks(tbThreedModel.getRemarks());
 		}else if (tbOrder.getType() == 1) {
 			TbSuModel tbSuModel = tbSuModelMapper.selectById(tbOrder.getReId());
 			orderDetailsVO.setMainGraph(tbSuModel.getMainGraph());
