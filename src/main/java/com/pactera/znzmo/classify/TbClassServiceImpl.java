@@ -32,7 +32,10 @@ public class TbClassServiceImpl extends ServiceImpl<TbClassMapper, TbClass> impl
 		TbClass tbClass = new TbClass();
 		tbClass.setName(classifyAddParam.getClassifyName());
 		tbClass.setPId(classifyAddParam.getPId());
-		tbClass.setPName(classifyAddParam.getPName());
+		TbClass tbClassPInfo = baseMapper.selectById(classifyAddParam.getPId());
+		if(tbClassPInfo != null) {
+			tbClass.setPName(tbClassPInfo.getName());
+		}
 		tbClass.setLevel(classifyAddParam.getLevel());
 		tbClass.setSort(classifyAddParam.getSort());
 		tbClass.setCreateTime(LocalDateTime.now());
@@ -45,7 +48,10 @@ public class TbClassServiceImpl extends ServiceImpl<TbClassMapper, TbClass> impl
 		TbClass tbClass = baseMapper.selectById(classifyUpdateParam.getClassifyId());
 		tbClass.setName(classifyUpdateParam.getClassifyName());
 		tbClass.setPId(classifyUpdateParam.getPId());
-		tbClass.setPName(classifyUpdateParam.getPName());
+		TbClass tbClassPInfo = baseMapper.selectById(classifyUpdateParam.getPId());
+		if(tbClassPInfo != null) {
+			tbClass.setPName(tbClassPInfo.getName());
+		}
 		tbClass.setLevel(classifyUpdateParam.getLevel());
 		tbClass.setSort(classifyUpdateParam.getSort());
 		tbClass.setUpdateTime(LocalDateTime.now());
