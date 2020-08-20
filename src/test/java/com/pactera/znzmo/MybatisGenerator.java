@@ -1,4 +1,4 @@
-package com.pactera.znzmo.mybatis;
+package com.pactera.znzmo;
 
 import java.util.ArrayList;
 import java.util.List;
