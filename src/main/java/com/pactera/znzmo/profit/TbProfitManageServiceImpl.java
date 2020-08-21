@@ -28,8 +28,8 @@ public class TbProfitManageServiceImpl extends ServiceImpl<TbProfitManageMapper,
 		QueryWrapper<TbProfitManage> queryWrapper = new QueryWrapper<>();
 		queryWrapper.eq(TbProfitManage.IS_VALID, IsValidEnum.YES.getKey());
 		if(StringUtils.isNotEmpty(profitQueryParam.getKeyWord())) {
-			queryWrapper.ge(TbProfitManage.USER_ID, profitQueryParam.getKeyWord())
-				.or().ge(TbProfitManage.USER_NAME, profitQueryParam.getKeyWord());
+			queryWrapper.eq(TbProfitManage.USER_ID, profitQueryParam.getKeyWord())
+				.or().eq(TbProfitManage.USER_NAME, profitQueryParam.getKeyWord());
 		}
 		if(StringUtils.isNotEmpty(profitQueryParam.getStartTime().toString())) {
 			queryWrapper.ge(TbProfitManage.UPDATE_TIME, profitQueryParam.getStartTime());
@@ -38,7 +38,7 @@ public class TbProfitManageServiceImpl extends ServiceImpl<TbProfitManageMapper,
 			queryWrapper.le(TbProfitManage.UPDATE_TIME, profitQueryParam.getEndTime());
 		}
 		if(profitQueryParam.getUserId() != 0) {
-			queryWrapper.le(TbProfitManage.USER_ID, profitQueryParam.getUserId());
+			queryWrapper.eq(TbProfitManage.USER_ID, profitQueryParam.getUserId());
 		}
 		queryWrapper.orderByDesc(TbProfitManage.UPDATE_TIME);
 		return baseMapper.selectPage(page,queryWrapper);

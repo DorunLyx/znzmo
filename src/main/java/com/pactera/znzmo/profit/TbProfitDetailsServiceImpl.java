@@ -30,11 +30,11 @@ public class TbProfitDetailsServiceImpl extends ServiceImpl<TbProfitDetailsMappe
 		QueryWrapper<TbProfitDetails> queryWrapper = new QueryWrapper<>();
 		queryWrapper.eq(TbProfitDetails.IS_VALID, IsValidEnum.YES.getKey());
 		if(StringUtils.isNotEmpty(profitQueryParam.getType().toString())) {
-			queryWrapper.ge(TbProfitDetails.PROFIT_TYPE, profitQueryParam.getType());
+			queryWrapper.eq(TbProfitDetails.PROFIT_TYPE, profitQueryParam.getType());
 		}
 		if(StringUtils.isNotEmpty(profitQueryParam.getKeyWord())) {
-			queryWrapper.ge(TbProfitDetails.USER_ID, profitQueryParam.getKeyWord())
-				.or().ge(TbProfitDetails.USER_NAME, profitQueryParam.getKeyWord());
+			queryWrapper.eq(TbProfitDetails.USER_ID, profitQueryParam.getKeyWord())
+				.or().eq(TbProfitDetails.USER_NAME, profitQueryParam.getKeyWord());
 		}
 		if(StringUtils.isNotEmpty(profitQueryParam.getStartTime().toString())) {
 			queryWrapper.ge(TbProfitDetails.UPDATE_TIME, profitQueryParam.getStartTime());
@@ -51,11 +51,11 @@ public class TbProfitDetailsServiceImpl extends ServiceImpl<TbProfitDetailsMappe
 		QueryWrapper<TbProfitDetails> queryWrapper = new QueryWrapper<>();
 		queryWrapper.eq(TbProfitDetails.IS_VALID, IsValidEnum.YES.getKey());
 		if(StringUtils.isNotEmpty(profitQueryParam.getType().toString())) {
-			queryWrapper.ge(TbProfitDetails.PROFIT_TYPE, profitQueryParam.getType());
+			queryWrapper.eq(TbProfitDetails.PROFIT_TYPE, profitQueryParam.getType());
 		}
 		if(StringUtils.isNotEmpty(profitQueryParam.getKeyWord())) {
-			queryWrapper.ge(TbProfitDetails.USER_ID, profitQueryParam.getKeyWord())
-				.or().ge(TbProfitDetails.USER_NAME, profitQueryParam.getKeyWord());
+			queryWrapper.eq(TbProfitDetails.USER_ID, profitQueryParam.getKeyWord())
+				.or().eq(TbProfitDetails.USER_NAME, profitQueryParam.getKeyWord());
 		}
 		if(StringUtils.isNotEmpty(profitQueryParam.getStartTime().toString())) {
 			queryWrapper.ge(TbProfitDetails.UPDATE_TIME, profitQueryParam.getStartTime());
