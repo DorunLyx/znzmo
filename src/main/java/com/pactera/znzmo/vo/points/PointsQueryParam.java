@@ -23,6 +23,9 @@ public class PointsQueryParam {
 	@ApiModelProperty(value="页面数量", name="pageSize")
 	private Integer pageSize;
 	
+	@ApiModelProperty(value="用户id", name="userId")
+	private Long userId;
+	
 	@ApiModelProperty(value="用户名", name="userName")
     private String userName;
 

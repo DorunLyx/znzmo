@@ -23,6 +23,9 @@ public class ProfitQueryParam {
 	@ApiModelProperty(value="页面数量", name="pageSize")
 	private Integer pageSize;
 	
+	@ApiModelProperty(value="用户id", name="userId")
+	private Long userId;
+	
 	@ApiModelProperty(value="类型", name="type")
 	private Integer type;
 	

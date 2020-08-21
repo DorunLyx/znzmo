@@ -37,6 +37,9 @@ public class TbProfitManageServiceImpl extends ServiceImpl<TbProfitManageMapper,
 		if(StringUtils.isNotEmpty(profitQueryParam.getEndTime().toString())) {
 			queryWrapper.le(TbProfitManage.UPDATE_TIME, profitQueryParam.getEndTime());
 		}
+		if(profitQueryParam.getUserId() != 0) {
+			queryWrapper.le(TbProfitManage.USER_ID, profitQueryParam.getUserId());
+		}
 		queryWrapper.orderByDesc(TbProfitManage.UPDATE_TIME);
 		return baseMapper.selectPage(page,queryWrapper);
 	}

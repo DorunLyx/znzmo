@@ -36,6 +36,9 @@ public class TbPointsDetailsServiceImpl extends ServiceImpl<TbPointsDetailsMappe
 		if(StringUtils.isNotEmpty(pointsQueryParam.getEndTime().toString())) {
 			queryWrapper.le(TbPointsDetails.EXCHANGE_TIME, pointsQueryParam.getEndTime());
 		}
+		if(pointsQueryParam.getUserId() != 0) {
+			queryWrapper.le(TbPointsDetails.USER_ID, pointsQueryParam.getUserId());
+		}
 		queryWrapper.orderByDesc(TbPointsDetails.UPDATE_TIME);
 		return baseMapper.selectPage(page,queryWrapper);
 	}
