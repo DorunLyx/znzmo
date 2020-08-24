@@ -19,11 +19,15 @@ import com.pactera.znzmo.common.TbAttachment;
 import com.pactera.znzmo.common.TbAttachmentService;
 import com.pactera.znzmo.enums.IsValidEnum;
 import com.pactera.znzmo.enums.JsonResultEnum;
+import com.pactera.znzmo.enums.ReTypeEnum;
 import com.pactera.znzmo.util.DataUtils;
+import com.pactera.znzmo.util.DateUtils;
 import com.pactera.znzmo.vo.common.UploadInfo;
 import com.pactera.znzmo.vo.hd.HDMappingAddParam;
 import com.pactera.znzmo.vo.hd.HDMappingDetailsVO;
+import com.pactera.znzmo.vo.hd.HDMappingInfoVO;
 import com.pactera.znzmo.vo.hd.HDMappingUpdateParam;
+import com.pactera.znzmo.vo.homepage.HomePageSimplifyData;
 import com.pactera.znzmo.vo.model.ModelListVO;
 import com.pactera.znzmo.vo.model.ModelQueryDetailsParam;
 import com.pactera.znzmo.vo.model.ModelQueryParam;
@@ -54,6 +58,106 @@ public class HDController extends BaseController{
 	
 	public static final Logger logger = LoggerFactory.getLogger(HDController.class);
 
+	/**
+	 * @Title: getHdMappingPage 
+	 * @Description: HD贴图首页查询
+	 * @param modelQueryParam
+	 * @return JsonResp
+	 * @author liyongxu
+	 * @date 2020年8月24日 下午5:52:49 
+	*/
+	@ApiOperation(value = "HD贴图首页查询", httpMethod = "POST", notes = "HD贴图首页查询")
+	@RequestMapping(value = "/getHdMappingPage", method = {RequestMethod.POST})
+	public JsonResp getHdMappingPage(
+			@ApiParam(name="modelQueryParam", value="Su模型列表筛选参数", required=false)@RequestBody ModelQueryParam modelQueryParam) {
+		Supplier<IPage<HomePageSimplifyData>> businessHandler = () ->{
+			try {
+				List<HomePageSimplifyData> homePageHdList = new ArrayList<HomePageSimplifyData>();
+				Page<TbHdMapping> page = new Page<TbHdMapping>(modelQueryParam.getPageNo(), modelQueryParam.getPageSize());
+				IPage<HomePageSimplifyData> hdListPage =  new Page<HomePageSimplifyData>(modelQueryParam.getPageNo(), modelQueryParam.getPageSize());
+				IPage<TbHdMapping> iPage = tbHdMappingService.selectHdMappingPages(page, modelQueryParam);
+				for (TbHdMapping tbHdMapping : iPage.getRecords()) {
+					HomePageSimplifyData homePageSimplifyData = new HomePageSimplifyData();
+					homePageSimplifyData.setReId(tbHdMapping.getId().toString());
+					homePageSimplifyData.setReType(ReTypeEnum.MODEL.getKey());
+					homePageSimplifyData.setMainGraph(tbHdMapping.getMainGraph());
+					homePageSimplifyData.setTitle(tbHdMapping.getTitle());
+					homePageSimplifyData.setPrice(tbHdMapping.getPrice());
+					homePageSimplifyData.setType(tbHdMapping.getType());
+					homePageHdList.add(homePageSimplifyData);
+				}
+				hdListPage.setRecords(homePageHdList);
+				hdListPage.setCurrent(iPage.getCurrent());
+				hdListPage.setPages(iPage.getPages());
+				hdListPage.setSize(iPage.getSize());
+				hdListPage.setTotal(iPage.getTotal());			
+				return hdListPage;
+			} catch (Exception e) {
+				throwException(e);
+			}
+			return null;
+		};
+		return handleRequest(businessHandler);
+	}
+	
+	/**
+	 * @Title: getHdMappingDetails 
+	 * @Description: HD贴图下载页详情
+	 * @param modelQueryDetailsParam
+	 * @return JsonResp
+	 * @author liyongxu
+	 * @date 2020年8月24日 下午6:01:51 
+	*/
+	@ApiOperation(value = "HD贴图下载页详情", httpMethod = "POST", notes = "HD贴图下载页详情")
+    @RequestMapping(value = "/getHdMappingDetails", method = {RequestMethod.POST})
+    public JsonResp getHdMappingDetails(
+    		@ApiParam(name="modelQueryDetailsParam", value="HD贴图详情参数", required=false)@RequestBody ModelQueryDetailsParam modelQueryDetailsParam) {
+		Supplier<HDMappingDetailsVO> businessHandler = () ->{
+			try {
+				QueryWrapper<TbHdMapping> queryWrapper = new QueryWrapper<>();
+				queryWrapper.eq(TbHdMapping.IS_VALID, IsValidEnum.YES.getKey())
+		        	.eq(TbHdMapping.ID, modelQueryDetailsParam.getModelId());
+				TbHdMapping tbHdMapping = tbHdMappingService.getOne(queryWrapper);
+				if(tbHdMapping != null) {
+					HDMappingDetailsVO hdMappingDetailsVO = new HDMappingDetailsVO();
+					hdMappingDetailsVO.setHdId(tbHdMapping.getId().toString());
+					hdMappingDetailsVO.setMainGraph(tbHdMapping.getMainGraph());
+					List<UploadInfo> uploadInfos = new ArrayList<>();
+					QueryWrapper<TbAttachment> attachmentQueryWrapper = new QueryWrapper<>();
+					attachmentQueryWrapper.eq(TbAttachment.IS_VALID, IsValidEnum.YES.getKey())
+					.eq(TbAttachment.RELATION_ID, modelQueryDetailsParam.getModelId());
+					List<TbAttachment> attachmentList = tbAttachmentService.list(attachmentQueryWrapper);
+					if(DataUtils.isNotEmpty(attachmentList)) {
+						for (TbAttachment tbAttachment : attachmentList) {
+							UploadInfo uploadInfo = new UploadInfo();
+							uploadInfo.setType(tbAttachment.getReType());
+							uploadInfo.setFileName(tbAttachment.getAttachmentName());
+							uploadInfo.setFile(tbAttachment.getAttachmentPath());
+							uploadInfo.setRealName(tbAttachment.getAliasName());
+							uploadInfo.setUrl(tbAttachment.getAttachmentPath());
+							uploadInfos.add(uploadInfo);
+						}
+					}
+					hdMappingDetailsVO.setUploadImg(uploadInfos);
+					hdMappingDetailsVO.setTitle(tbHdMapping.getTitle());
+					hdMappingDetailsVO.setVisitsNum(tbHdMapping.getVisitsNum());
+					hdMappingDetailsVO.setDownloadNum(tbHdMapping.getDownloadNum());
+					hdMappingDetailsVO.setCollectionNum(tbHdMapping.getDownloadNum());
+					hdMappingDetailsVO.setUpdatetTime(DateUtils.localDateTimeToString(tbHdMapping.getUpdateTime(), DateUtils.DATE_FORMAT));
+					hdMappingDetailsVO.setFileSize("");
+					hdMappingDetailsVO.setImagesize("");
+					hdMappingDetailsVO.setFileFormat("");
+					hdMappingDetailsVO.setPrice(tbHdMapping.getPrice());
+					return hdMappingDetailsVO;
+				}
+			} catch (Exception e) {
+				throwException(e);
+			}
+			return null;
+		};
+		return handleRequest(businessHandler);
+    }
+	
 	/**
 	 * @Title: getHdMappingList 
 	 * @Description: HD贴图列表查询
@@ -138,26 +242,26 @@ public class HDController extends BaseController{
     @RequestMapping(value = "/getHdMappingInfo", method = {RequestMethod.POST})
     public JsonResp getHdMappingInfo(
     		@ApiParam(name="modelQueryDetailsParam", value="HD贴图详情参数", required=false)@RequestBody ModelQueryDetailsParam modelQueryDetailsParam) {
-		Supplier<HDMappingDetailsVO> businessHandler = () ->{
+		Supplier<HDMappingInfoVO> businessHandler = () ->{
 			try {
 				QueryWrapper<TbHdMapping> queryWrapper = new QueryWrapper<>();
 				queryWrapper.eq(TbHdMapping.IS_VALID, IsValidEnum.YES.getKey())
 		        	.eq(TbHdMapping.ID, modelQueryDetailsParam.getModelId());
 				TbHdMapping tbHdMapping = tbHdMappingService.getOne(queryWrapper);
 				if(tbHdMapping != null) {
-					HDMappingDetailsVO hdMappingDetailsVO = new HDMappingDetailsVO();
-					hdMappingDetailsVO.setHdId(tbHdMapping.getId().toString());
-					hdMappingDetailsVO.setMainGraph(tbHdMapping.getMainGraph());
-					hdMappingDetailsVO.setPrimaryClassId(tbHdMapping.getPrimaryClassId().toString());
-					hdMappingDetailsVO.setPrimaryClassName(tbHdMapping.getPrimaryClassName());
-					hdMappingDetailsVO.setSecondaryClassId(tbHdMapping.getSecondaryClassId().toString());
-					hdMappingDetailsVO.setSecondaryClassName(tbHdMapping.getSecondaryClassName());
-					hdMappingDetailsVO.setStyleId(tbHdMapping.getStyleId().toString());
-					hdMappingDetailsVO.setStyleName(tbHdMapping.getStyleName());
-					hdMappingDetailsVO.setTitle(tbHdMapping.getTitle());
-					hdMappingDetailsVO.setType(tbHdMapping.getType());
-					hdMappingDetailsVO.setPrice(tbHdMapping.getPrice());
-					hdMappingDetailsVO.setRemarks(tbHdMapping.getRemarks());
+					HDMappingInfoVO hDMappingInfoVO = new HDMappingInfoVO();
+					hDMappingInfoVO.setHdId(tbHdMapping.getId().toString());
+					hDMappingInfoVO.setMainGraph(tbHdMapping.getMainGraph());
+					hDMappingInfoVO.setPrimaryClassId(tbHdMapping.getPrimaryClassId().toString());
+					hDMappingInfoVO.setPrimaryClassName(tbHdMapping.getPrimaryClassName());
+					hDMappingInfoVO.setSecondaryClassId(tbHdMapping.getSecondaryClassId().toString());
+					hDMappingInfoVO.setSecondaryClassName(tbHdMapping.getSecondaryClassName());
+					hDMappingInfoVO.setStyleId(tbHdMapping.getStyleId().toString());
+					hDMappingInfoVO.setStyleName(tbHdMapping.getStyleName());
+					hDMappingInfoVO.setTitle(tbHdMapping.getTitle());
+					hDMappingInfoVO.setType(tbHdMapping.getType());
+					hDMappingInfoVO.setPrice(tbHdMapping.getPrice());
+					hDMappingInfoVO.setRemarks(tbHdMapping.getRemarks());
 					List<UploadInfo> uploadInfos = new ArrayList<>();
 					QueryWrapper<TbAttachment> attachmentQueryWrapper = new QueryWrapper<>();
 					attachmentQueryWrapper.eq(TbAttachment.IS_VALID, IsValidEnum.YES.getKey())
@@ -174,8 +278,8 @@ public class HDController extends BaseController{
 							uploadInfos.add(uploadInfo);
 						}
 					}
-					hdMappingDetailsVO.setUploadImg(uploadInfos);
-					return hdMappingDetailsVO;
+					hDMappingInfoVO.setUploadImg(uploadInfos);
+					return hDMappingInfoVO;
 				}
 			} catch (Exception e) {
 				throwException(e);

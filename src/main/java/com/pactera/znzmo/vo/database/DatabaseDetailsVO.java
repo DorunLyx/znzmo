@@ -1,4 +1,4 @@
-package com.pactera.znzmo.vo.hd;
+package com.pactera.znzmo.vo.database;
 
 import java.math.BigDecimal;
 import java.util.List;
@@ -10,19 +10,19 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
- * @ClassName：HDMappingDetailsVO
- * @Description：HD贴图详情
+ * @ClassName：DrawingDetailsVO
+ * @Description：图纸方案详情VO
  * @author liyongxu 
  * @date 2020年8月4日 上午11:21:33 
  * @version 1.0.0 
  */
 @Data
-@ApiModel(value="HD贴图详情VO",description="HD贴图详情VO")
-public class HDMappingDetailsVO {
+@ApiModel(value="图纸方案详情VO",description="图纸方案详情VO")
+public class DatabaseDetailsVO {
 
-	@ApiModelProperty(value="hdId", name="hdId")
-	private String hdId;
-	
+	@ApiModelProperty(value="图纸Id", name="drawingId")
+	private String drawingId;
+
 	@ApiModelProperty(value="主图地址", name="mainGraph")
     private String mainGraph;
 
@@ -47,8 +47,14 @@ public class HDMappingDetailsVO {
 	@ApiModelProperty(value="文件大小", name="fileSize")
 	private String fileSize;
 
-	@ApiModelProperty(value="图片尺寸", name="imagesize")
-    private String imagesize;
+	@ApiModelProperty(value="风格", name="styleName")
+    private String styleName;
+
+	@ApiModelProperty(value="材质贴图", name="textureMapping")
+    private Integer textureMapping;
+	
+	@ApiModelProperty(value="图纸版本", name="version")
+	private String version;
 
 	@ApiModelProperty(value="文件格式", name="fileFormat")
     private String fileFormat;

@@ -25,55 +25,40 @@ public class DrawingDetailsVO {
 
 	@ApiModelProperty(value="主图地址", name="mainGraph")
     private String mainGraph;
-	
-	@ApiModelProperty(value="标题", name="title")
-	private String title;
-	
-	@ApiModelProperty(value="标签", name="tag")
-	private String tag;
 
-	@ApiModelProperty(value="设计风格id", name="styleId")
-    private String styleId;
+    @ApiModelProperty(value="上传文件", name="uploadImg")
+    private List<UploadInfo> uploadImg;
+
+	@ApiModelProperty(value="标题", name="title")
+    private String title;
+	
+	@ApiModelProperty(value="浏览次数", name="visitsNum")
+    private Integer visitsNum;
+	
+	@ApiModelProperty(value="下载次数", name="downloadNum")
+	private Integer downloadNum;
+	
+	@ApiModelProperty(value="收藏次数", name="collectionNum")
+	private Integer collectionNum;
+	
+	@ApiModelProperty(value="更新时间", name="updatetTime")
+	private String updatetTime;
+	
+	@ApiModelProperty(value="文件大小", name="fileSize")
+	private String fileSize;
 
 	@ApiModelProperty(value="风格", name="styleName")
     private String styleName;
 
-	@ApiModelProperty(value="一级分类id", name="primaryclassId")
-    private String primaryClassId;
-
-	@ApiModelProperty(value="一级分类名称", name="primaryClassName")
-    private String primaryClassName;
+	@ApiModelProperty(value="材质贴图", name="textureMapping")
+    private Integer textureMapping;
 	
-	@ApiModelProperty(value="二级分类id", name="secondaryClassId")
-	private String secondaryClassId;
-	
-	@ApiModelProperty(value="二级分类名称", name="secondaryClassName")
-	private String secondaryClassName;
-
-	@ApiModelProperty(value="资料类型", name="type")
-    private Integer type;
-
-	@ApiModelProperty(value="价格", name="price")
-    private BigDecimal price;
-
 	@ApiModelProperty(value="图纸版本", name="version")
-    private String version;
-	
-	@ApiModelProperty(value="设计时间", name="designTime")
-	private String designTime;
-	
-	@ApiModelProperty(value="项目位置", name="location")
-	private Integer location;
-	
-	@ApiModelProperty(value="简介", name="synopsis")
-	private String synopsis;
-	
-	@ApiModelProperty(value="正文介绍", name="text")
-	private String text;
+	private String version;
 
-	@ApiModelProperty(value="备注", name="remarks")
-    private String remarks;
+	@ApiModelProperty(value="文件格式", name="fileFormat")
+    private String fileFormat;
 	
-    @ApiModelProperty(value="上传文件", name="uploadImg")
-    private List<UploadInfo> uploadImg;
+	@ApiModelProperty(value="价格", name="price")
+	private BigDecimal price;
 }

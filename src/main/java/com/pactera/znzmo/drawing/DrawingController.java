@@ -19,12 +19,15 @@ import com.pactera.znzmo.common.TbAttachment;
 import com.pactera.znzmo.common.TbAttachmentService;
 import com.pactera.znzmo.enums.IsValidEnum;
 import com.pactera.znzmo.enums.JsonResultEnum;
+import com.pactera.znzmo.enums.ReTypeEnum;
 import com.pactera.znzmo.util.DataUtils;
 import com.pactera.znzmo.util.DateUtils;
 import com.pactera.znzmo.vo.common.UploadInfo;
 import com.pactera.znzmo.vo.drawing.DrawingAddParam;
 import com.pactera.znzmo.vo.drawing.DrawingDetailsVO;
+import com.pactera.znzmo.vo.drawing.DrawingInfoVO;
 import com.pactera.znzmo.vo.drawing.DrawingUpdateParam;
+import com.pactera.znzmo.vo.homepage.HomePageSimplifyData;
 import com.pactera.znzmo.vo.model.ModelListVO;
 import com.pactera.znzmo.vo.model.ModelQueryDetailsParam;
 import com.pactera.znzmo.vo.model.ModelQueryParam;
@@ -55,6 +58,108 @@ public class DrawingController extends BaseController{
 	
 	public static final Logger logger = LoggerFactory.getLogger(DrawingController.class);
 
+	/**
+	 * @Title: getDrawingPage 
+	 * @Description: 图纸前台页面查询
+	 * @param modelQueryParam
+	 * @return JsonResp
+	 * @author liyongxu
+	 * @date 2020年8月24日 下午5:39:54 
+	*/
+	@ApiOperation(value = "图纸前台页面查询", httpMethod = "POST", notes = "图纸前台页面查询")
+	@RequestMapping(value = "/getDrawingPage", method = {RequestMethod.POST})
+	public JsonResp getDrawingPage(
+			@ApiParam(name="modelQueryParam", value="图纸列表筛选参数", required=false)@RequestBody ModelQueryParam modelQueryParam) {
+		Supplier<IPage<HomePageSimplifyData>> businessHandler = () ->{
+			try {
+				List<HomePageSimplifyData> homePageDrawingList = new ArrayList<HomePageSimplifyData>();
+				Page<TbDrawingScheme> page = new Page<TbDrawingScheme>(modelQueryParam.getPageNo(), modelQueryParam.getPageSize());
+				IPage<HomePageSimplifyData> modeListPage =  new Page<HomePageSimplifyData>(modelQueryParam.getPageNo(), modelQueryParam.getPageSize());
+				IPage<TbDrawingScheme> iPage = tbDrawingSchemeService.selectDrawingPages(page, modelQueryParam);
+				for (TbDrawingScheme tbDrawing : iPage.getRecords()) {
+					HomePageSimplifyData homePageSimplifyData = new HomePageSimplifyData();
+					homePageSimplifyData.setReId(tbDrawing.getId().toString());
+					homePageSimplifyData.setReType(ReTypeEnum.MODEL.getKey());
+					homePageSimplifyData.setMainGraph(tbDrawing.getMainGraph());
+					homePageSimplifyData.setTitle(tbDrawing.getTitle());
+					homePageSimplifyData.setPrice(tbDrawing.getPrice());
+					homePageSimplifyData.setType(tbDrawing.getType());
+					homePageDrawingList.add(homePageSimplifyData);
+				}
+				modeListPage.setRecords(homePageDrawingList);
+				modeListPage.setCurrent(iPage.getCurrent());
+				modeListPage.setPages(iPage.getPages());
+				modeListPage.setSize(iPage.getSize());
+				modeListPage.setTotal(iPage.getTotal());			
+				return modeListPage;
+			} catch (Exception e) {
+				throwException(e);
+			}
+			return null;
+		};
+		return handleRequest(businessHandler);
+	}
+	
+	/**
+	 * @Title: getDrawingDetails 
+	 * @Description: 图纸方案下载页详情
+	 * @param modelQueryDetailsParam
+	 * @return JsonResp
+	 * @author liyongxu
+	 * @date 2020年8月24日 下午5:43:35 
+	*/
+	@ApiOperation(value = "图纸方案下载页详情", httpMethod = "POST", notes = "图纸方案下载页详情")
+    @RequestMapping(value = "/getDrawingDetails", method = {RequestMethod.POST})
+    public JsonResp getDrawingDetails(
+    		@ApiParam(name="modelQueryDetailsParam", value="图纸方案详情参数", required=false)@RequestBody ModelQueryDetailsParam modelQueryDetailsParam) {
+		Supplier<DrawingDetailsVO> businessHandler = () ->{
+			try {
+				QueryWrapper<TbDrawingScheme> queryWrapper = new QueryWrapper<>();
+				queryWrapper.eq(TbDrawingScheme.IS_VALID, IsValidEnum.YES.getKey())
+		        	.eq(TbDrawingScheme.ID, modelQueryDetailsParam.getModelId());
+				TbDrawingScheme tbDrawing = tbDrawingSchemeService.getOne(queryWrapper);
+				if(tbDrawing != null) {
+					DrawingDetailsVO drawingDetailsVO = new DrawingDetailsVO();
+					drawingDetailsVO.setDrawingId(tbDrawing.getId().toString());
+					drawingDetailsVO.setMainGraph(tbDrawing.getMainGraph());
+					List<UploadInfo> uploadInfos = new ArrayList<>();
+					QueryWrapper<TbAttachment> attachmentQueryWrapper = new QueryWrapper<>();
+					attachmentQueryWrapper.eq(TbAttachment.IS_VALID, IsValidEnum.YES.getKey())
+					.eq(TbAttachment.RELATION_ID, modelQueryDetailsParam.getModelId());
+					List<TbAttachment> attachmentList = tbAttachmentService.list(attachmentQueryWrapper);
+					if(DataUtils.isNotEmpty(attachmentList)) {
+						for (TbAttachment tbAttachment : attachmentList) {
+							UploadInfo uploadInfo = new UploadInfo();
+							uploadInfo.setType(tbAttachment.getReType());
+							uploadInfo.setFileName(tbAttachment.getAttachmentName());
+							uploadInfo.setFile(tbAttachment.getAttachmentPath());
+							uploadInfo.setRealName(tbAttachment.getAliasName());
+							uploadInfo.setUrl(tbAttachment.getAttachmentPath());
+							uploadInfos.add(uploadInfo);
+						}
+					}
+					drawingDetailsVO.setUploadImg(uploadInfos);
+					drawingDetailsVO.setStyleName(tbDrawing.getStyleName());
+					drawingDetailsVO.setTitle(tbDrawing.getTitle());
+					drawingDetailsVO.setVisitsNum(tbDrawing.getVisitsNum());
+					drawingDetailsVO.setDownloadNum(tbDrawing.getDownloadNum());
+					drawingDetailsVO.setCollectionNum(tbDrawing.getDownloadNum());
+					drawingDetailsVO.setUpdatetTime(DateUtils.localDateTimeToString(tbDrawing.getUpdateTime(), DateUtils.DATE_FORMAT));
+					drawingDetailsVO.setFileSize("");
+					drawingDetailsVO.setTextureMapping(tbDrawing.getTextureMapping());
+					drawingDetailsVO.setVersion(tbDrawing.getVersion());
+					drawingDetailsVO.setFileFormat("");
+					drawingDetailsVO.setPrice(tbDrawing.getPrice());
+					return drawingDetailsVO;
+				}
+			} catch (Exception e) {
+				throwException(e);
+			}
+			return null;
+		};
+		return handleRequest(businessHandler);
+    }
+	
 	/**
 	 * @Title: getDrawingList 
 	 * @Description: 图纸列表查询
@@ -140,30 +245,30 @@ public class DrawingController extends BaseController{
     @RequestMapping(value = "/getDrawingInfo", method = {RequestMethod.POST})
     public JsonResp getDrawingInfo(
     		@ApiParam(name="modelQueryDetailsParam", value="图纸方案详情参数", required=false)@RequestBody ModelQueryDetailsParam modelQueryDetailsParam) {
-		Supplier<DrawingDetailsVO> businessHandler = () ->{
+		Supplier<DrawingInfoVO> businessHandler = () ->{
 			try {
 				QueryWrapper<TbDrawingScheme> queryWrapper = new QueryWrapper<>();
 				queryWrapper.eq(TbDrawingScheme.IS_VALID, IsValidEnum.YES.getKey())
 		        	.eq(TbDrawingScheme.ID, modelQueryDetailsParam.getModelId());
 				TbDrawingScheme tbDrawing = tbDrawingSchemeService.getOne(queryWrapper);
 				if(tbDrawing != null) {
-					DrawingDetailsVO drawingDetailsVO = new DrawingDetailsVO();
-					drawingDetailsVO.setDrawingId(tbDrawing.getId().toString());
-					drawingDetailsVO.setMainGraph(tbDrawing.getMainGraph());
-					drawingDetailsVO.setPrimaryClassId(tbDrawing.getPrimaryClassId().toString());
-					drawingDetailsVO.setPrimaryClassName(tbDrawing.getPrimaryClassName());
-					drawingDetailsVO.setSecondaryClassId(tbDrawing.getSecondaryClassId().toString());
-					drawingDetailsVO.setSecondaryClassName(tbDrawing.getSecondaryClassName());
-					drawingDetailsVO.setStyleId(tbDrawing.getStyleId().toString());
-					drawingDetailsVO.setStyleName(tbDrawing.getStyleName());
-					drawingDetailsVO.setTitle(tbDrawing.getTitle());
-					drawingDetailsVO.setType(tbDrawing.getType());
-					drawingDetailsVO.setPrice(tbDrawing.getPrice());
-					drawingDetailsVO.setVersion(tbDrawing.getVersion());
-					drawingDetailsVO.setDesignTime(DateUtils.localDateTimeToString(tbDrawing.getDesignTime(), DateUtils.DATE_FORMAT));
-					drawingDetailsVO.setSynopsis(tbDrawing.getSynopsis());
-					drawingDetailsVO.setText(tbDrawing.getText());
-					drawingDetailsVO.setRemarks(tbDrawing.getRemarks());
+					DrawingInfoVO drawingInfoVO = new DrawingInfoVO();
+					drawingInfoVO.setDrawingId(tbDrawing.getId().toString());
+					drawingInfoVO.setMainGraph(tbDrawing.getMainGraph());
+					drawingInfoVO.setPrimaryClassId(tbDrawing.getPrimaryClassId().toString());
+					drawingInfoVO.setPrimaryClassName(tbDrawing.getPrimaryClassName());
+					drawingInfoVO.setSecondaryClassId(tbDrawing.getSecondaryClassId().toString());
+					drawingInfoVO.setSecondaryClassName(tbDrawing.getSecondaryClassName());
+					drawingInfoVO.setStyleId(tbDrawing.getStyleId().toString());
+					drawingInfoVO.setStyleName(tbDrawing.getStyleName());
+					drawingInfoVO.setTitle(tbDrawing.getTitle());
+					drawingInfoVO.setType(tbDrawing.getType());
+					drawingInfoVO.setPrice(tbDrawing.getPrice());
+					drawingInfoVO.setVersion(tbDrawing.getVersion());
+					drawingInfoVO.setDesignTime(DateUtils.localDateTimeToString(tbDrawing.getDesignTime(), DateUtils.DATE_FORMAT));
+					drawingInfoVO.setSynopsis(tbDrawing.getSynopsis());
+					drawingInfoVO.setText(tbDrawing.getText());
+					drawingInfoVO.setRemarks(tbDrawing.getRemarks());
 					List<UploadInfo> uploadInfos = new ArrayList<>();
 					QueryWrapper<TbAttachment> attachmentQueryWrapper = new QueryWrapper<>();
 					attachmentQueryWrapper.eq(TbAttachment.IS_VALID, IsValidEnum.YES.getKey())
@@ -180,8 +285,8 @@ public class DrawingController extends BaseController{
 							uploadInfos.add(uploadInfo);
 						}
 					}
-					drawingDetailsVO.setUploadImg(uploadInfos);
-					return drawingDetailsVO;
+					drawingInfoVO.setUploadImg(uploadInfos);
+					return drawingInfoVO;
 				}
 			} catch (Exception e) {
 				throwException(e);

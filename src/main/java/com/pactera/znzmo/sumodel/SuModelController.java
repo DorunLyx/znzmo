@@ -19,13 +19,17 @@ import com.pactera.znzmo.common.TbAttachment;
 import com.pactera.znzmo.common.TbAttachmentService;
 import com.pactera.znzmo.enums.IsValidEnum;
 import com.pactera.znzmo.enums.JsonResultEnum;
+import com.pactera.znzmo.enums.ReTypeEnum;
 import com.pactera.znzmo.util.DataUtils;
+import com.pactera.znzmo.util.DateUtils;
 import com.pactera.znzmo.vo.common.UploadInfo;
+import com.pactera.znzmo.vo.homepage.HomePageSimplifyData;
 import com.pactera.znzmo.vo.model.ModelListVO;
 import com.pactera.znzmo.vo.model.ModelQueryDetailsParam;
 import com.pactera.znzmo.vo.model.ModelQueryParam;
 import com.pactera.znzmo.vo.su.SuModelAddParam;
 import com.pactera.znzmo.vo.su.SuModelDetailsVO;
+import com.pactera.znzmo.vo.su.SuModelInfoVO;
 import com.pactera.znzmo.vo.su.SuModelUpdateParam;
 import com.pactera.znzmo.web.BaseController;
 import com.pactera.znzmo.web.JsonResp;
@@ -62,6 +66,108 @@ public class SuModelController extends BaseController{
 	 * @author liyongxu
 	 * @date 2020年8月4日 上午11:35:35 
 	*/
+	@ApiOperation(value = "su模型前台页面查询", httpMethod = "POST", notes = "su模型前台页面查询")
+    @RequestMapping(value = "/getSuModelPage", method = {RequestMethod.POST})
+    public JsonResp getSuModelPage(
+    		@ApiParam(name="modelQueryParam", value="Su模型列表筛选参数", required=false)@RequestBody ModelQueryParam modelQueryParam) {
+		Supplier<IPage<HomePageSimplifyData>> businessHandler = () ->{
+			try {
+				List<HomePageSimplifyData> homePageSuModelDataList = new ArrayList<HomePageSimplifyData>();
+				Page<TbSuModel> page = new Page<TbSuModel>(modelQueryParam.getPageNo(), modelQueryParam.getPageSize());
+				IPage<HomePageSimplifyData> suModeListPage =  new Page<HomePageSimplifyData>(modelQueryParam.getPageNo(), modelQueryParam.getPageSize());
+				IPage<TbSuModel> iPage = tbSuModelService.selectSuModelPages(page, modelQueryParam);
+				for (TbSuModel tbSuModel : iPage.getRecords()) {
+					HomePageSimplifyData homePageSimplifyData = new HomePageSimplifyData();
+					homePageSimplifyData.setReId(tbSuModel.getId().toString());
+					homePageSimplifyData.setReType(ReTypeEnum.MODEL.getKey());
+					homePageSimplifyData.setMainGraph(tbSuModel.getMainGraph());
+					homePageSimplifyData.setTitle(tbSuModel.getTitle());
+					homePageSimplifyData.setPrice(tbSuModel.getPrice());
+					homePageSimplifyData.setType(tbSuModel.getType());
+					homePageSuModelDataList.add(homePageSimplifyData);
+	    		}
+				suModeListPage.setRecords(homePageSuModelDataList);
+				suModeListPage.setCurrent(iPage.getCurrent());
+				suModeListPage.setPages(iPage.getPages());
+				suModeListPage.setSize(iPage.getSize());
+				suModeListPage.setTotal(iPage.getTotal());			
+				return suModeListPage;
+			} catch (Exception e) {
+				throwException(e);
+			}
+			return null;
+		};
+		return handleRequest(businessHandler);
+    }
+	
+	/**
+	 * @Title: getSuModelDetails 
+	 * @Description: su模型下载页详情
+	 * @param modelQueryDetailsParam
+	 * @return JsonResp
+	 * @author liyongxu
+	 * @date 2020年8月24日 下午5:26:42 
+	*/
+	@ApiOperation(value = "su模型下载页详情", httpMethod = "POST", notes = "su模型详情")
+    @RequestMapping(value = "/getSuModelDetails", method = {RequestMethod.POST})
+    public JsonResp getSuModelDetails(
+    		@ApiParam(name="modelQueryDetailsParam", value="Su模型详情参数", required=false)@RequestBody ModelQueryDetailsParam modelQueryDetailsParam) {
+		Supplier<SuModelDetailsVO> businessHandler = () ->{
+			try {
+				QueryWrapper<TbSuModel> queryWrapper = new QueryWrapper<>();
+				queryWrapper.eq(TbSuModel.IS_VALID, IsValidEnum.YES.getKey())
+		        	.eq(TbSuModel.ID, modelQueryDetailsParam.getModelId());
+		        TbSuModel tbSuModel = tbSuModelService.getOne(queryWrapper);
+		        if(tbSuModel != null) {
+		        	SuModelDetailsVO suModelDetailsVO = new SuModelDetailsVO();
+					suModelDetailsVO.setSuModelId(tbSuModel.getId().toString());
+					suModelDetailsVO.setMainGraph(tbSuModel.getMainGraph());
+					List<UploadInfo> uploadInfos = new ArrayList<>();
+					QueryWrapper<TbAttachment> attachmentQueryWrapper = new QueryWrapper<>();
+					attachmentQueryWrapper.eq(TbAttachment.IS_VALID, IsValidEnum.YES.getKey())
+			        	.eq(TbAttachment.RELATION_ID, modelQueryDetailsParam.getModelId());
+			        List<TbAttachment> attachmentList = tbAttachmentService.list(attachmentQueryWrapper);
+			        if(DataUtils.isNotEmpty(attachmentList)) {
+			        	for (TbAttachment tbAttachment : attachmentList) {
+							UploadInfo uploadInfo = new UploadInfo();
+							uploadInfo.setType(tbAttachment.getReType());
+							uploadInfo.setFileName(tbAttachment.getAttachmentName());
+							uploadInfo.setFile(tbAttachment.getAttachmentPath());
+							uploadInfo.setRealName(tbAttachment.getAliasName());
+							uploadInfo.setUrl(tbAttachment.getAttachmentPath());
+							uploadInfos.add(uploadInfo);
+						}
+			        }
+			        suModelDetailsVO.setUploadImg(uploadInfos);
+					suModelDetailsVO.setVisitsNum(tbSuModel.getVisitsNum());
+					suModelDetailsVO.setDownloadNum(tbSuModel.getDownloadNum());
+					suModelDetailsVO.setCollectionNum(tbSuModel.getDownloadNum());
+					suModelDetailsVO.setUpdatetTime(DateUtils.localDateTimeToString(tbSuModel.getUpdateTime(), DateUtils.DATE_FORMAT));
+					suModelDetailsVO.setFileSize("");
+					suModelDetailsVO.setStyleName(tbSuModel.getStyleName());
+					suModelDetailsVO.setTitle(tbSuModel.getTitle());
+					suModelDetailsVO.setType(tbSuModel.getType());
+					suModelDetailsVO.setPrice(tbSuModel.getPrice());
+					suModelDetailsVO.setTextureMapping(tbSuModel.getTextureMapping());
+					suModelDetailsVO.setSuVersion(tbSuModel.getVersion());
+					return suModelDetailsVO;
+		        }
+			} catch (Exception e) {
+				throwException(e);
+			}
+			return null;
+		};
+		return handleRequest(businessHandler);
+    }
+	
+	/**
+	 * @Title: getsuModelList 
+	 * @Description: su模型列表查询
+	 * @param homePageQueryParam
+	 * @return JsonResult<IPage<HomePageListVO>>
+	 * @author liyongxu
+	 * @date 2020年8月4日 上午11:35:35 
+	*/
 	@ApiOperation(value = "su模型列表查询", httpMethod = "POST", notes = "su模型列表查询")
     @RequestMapping(value = "/getSuModelList", method = {RequestMethod.POST})
     public JsonResp getSuModelList(
@@ -70,7 +176,7 @@ public class SuModelController extends BaseController{
 			try {
 				List<ModelListVO> modelList = new ArrayList<ModelListVO>();
 				Page<TbSuModel> page = new Page<TbSuModel>(modelQueryParam.getPageNo(), modelQueryParam.getPageSize());
-				IPage<ModelListVO> modeListPage =  new Page<ModelListVO>(modelQueryParam.getPageNo(), modelQueryParam.getPageSize());
+				IPage<ModelListVO> suModeListPage =  new Page<ModelListVO>(modelQueryParam.getPageNo(), modelQueryParam.getPageSize());
 				IPage<TbSuModel> iPage = tbSuModelService.selectSuModelPages(page, modelQueryParam);
 				for (TbSuModel tbSuModel : iPage.getRecords()) {
 					ModelListVO modelListVO = new ModelListVO();
@@ -89,12 +195,12 @@ public class SuModelController extends BaseController{
 					modelListVO.setDownloadNum(tbSuModel.getDownloadNum());
 					modelList.add(modelListVO);
 	    		}
-				modeListPage.setRecords(modelList);
-				modeListPage.setCurrent(iPage.getCurrent());
-				modeListPage.setPages(iPage.getPages());
-				modeListPage.setSize(iPage.getSize());
-				modeListPage.setTotal(iPage.getTotal());			
-				return modeListPage;
+				suModeListPage.setRecords(modelList);
+				suModeListPage.setCurrent(iPage.getCurrent());
+				suModeListPage.setPages(iPage.getPages());
+				suModeListPage.setSize(iPage.getSize());
+				suModeListPage.setTotal(iPage.getTotal());			
+				return suModeListPage;
 			} catch (Exception e) {
 				throwException(e);
 			}
@@ -139,30 +245,30 @@ public class SuModelController extends BaseController{
     @RequestMapping(value = "/getSuModelInfo", method = {RequestMethod.POST})
     public JsonResp getSuModelInfo(
     		@ApiParam(name="modelQueryDetailsParam", value="Su模型详情参数", required=false)@RequestBody ModelQueryDetailsParam modelQueryDetailsParam) {
-		Supplier<SuModelDetailsVO> businessHandler = () ->{
+		Supplier<SuModelInfoVO> businessHandler = () ->{
 			try {
 				QueryWrapper<TbSuModel> queryWrapper = new QueryWrapper<>();
 				queryWrapper.eq(TbSuModel.IS_VALID, IsValidEnum.YES.getKey())
 		        	.eq(TbSuModel.ID, modelQueryDetailsParam.getModelId());
 		        TbSuModel tbSuModel = tbSuModelService.getOne(queryWrapper);
 		        if(tbSuModel != null) {
-		        	SuModelDetailsVO suModelDetailsVO = new SuModelDetailsVO();
-					suModelDetailsVO.setModelId(tbSuModel.getId().toString());
-					suModelDetailsVO.setMainGraph(tbSuModel.getMainGraph());
-					suModelDetailsVO.setPrimaryClassId(tbSuModel.getPrimaryClassId().toString());
-					suModelDetailsVO.setPrimaryClassName(tbSuModel.getPrimaryClassName());
-					suModelDetailsVO.setSecondaryClassId(tbSuModel.getSecondaryClassId().toString());
-					suModelDetailsVO.setSecondaryClassName(tbSuModel.getSecondaryClassName());
-					suModelDetailsVO.setThreeClassId(tbSuModel.getThreeClassId().toString());
-					suModelDetailsVO.setThreeClassName(tbSuModel.getThreeClassName());
-					suModelDetailsVO.setStyleId(tbSuModel.getStyleId().toString());
-					suModelDetailsVO.setStyleName(tbSuModel.getStyleName());
-					suModelDetailsVO.setTitle(tbSuModel.getTitle());
-					suModelDetailsVO.setType(tbSuModel.getType());
-					suModelDetailsVO.setPrice(tbSuModel.getPrice());
-					suModelDetailsVO.setTextureMapping(tbSuModel.getTextureMapping());
-					suModelDetailsVO.setVersion(tbSuModel.getVersion());
-					suModelDetailsVO.setRemarks(tbSuModel.getRemarks());
+		        	SuModelInfoVO suModelInfoVO = new SuModelInfoVO();
+					suModelInfoVO.setModelId(tbSuModel.getId().toString());
+					suModelInfoVO.setMainGraph(tbSuModel.getMainGraph());
+					suModelInfoVO.setPrimaryClassId(tbSuModel.getPrimaryClassId().toString());
+					suModelInfoVO.setPrimaryClassName(tbSuModel.getPrimaryClassName());
+					suModelInfoVO.setSecondaryClassId(tbSuModel.getSecondaryClassId().toString());
+					suModelInfoVO.setSecondaryClassName(tbSuModel.getSecondaryClassName());
+					suModelInfoVO.setThreeClassId(tbSuModel.getThreeClassId().toString());
+					suModelInfoVO.setThreeClassName(tbSuModel.getThreeClassName());
+					suModelInfoVO.setStyleId(tbSuModel.getStyleId().toString());
+					suModelInfoVO.setStyleName(tbSuModel.getStyleName());
+					suModelInfoVO.setTitle(tbSuModel.getTitle());
+					suModelInfoVO.setType(tbSuModel.getType());
+					suModelInfoVO.setPrice(tbSuModel.getPrice());
+					suModelInfoVO.setTextureMapping(tbSuModel.getTextureMapping());
+					suModelInfoVO.setVersion(tbSuModel.getVersion());
+					suModelInfoVO.setRemarks(tbSuModel.getRemarks());
 					List<UploadInfo> uploadInfos = new ArrayList<>();
 					QueryWrapper<TbAttachment> attachmentQueryWrapper = new QueryWrapper<>();
 					attachmentQueryWrapper.eq(TbAttachment.IS_VALID, IsValidEnum.YES.getKey())
@@ -179,8 +285,8 @@ public class SuModelController extends BaseController{
 							uploadInfos.add(uploadInfo);
 						}
 			        }
-			        suModelDetailsVO.setUploadImg(uploadInfos);
-					return suModelDetailsVO;
+			        suModelInfoVO.setUploadImg(uploadInfos);
+					return suModelInfoVO;
 		        }
 			} catch (Exception e) {
 				throwException(e);

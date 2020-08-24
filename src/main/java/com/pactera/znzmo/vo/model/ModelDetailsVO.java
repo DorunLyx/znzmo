@@ -10,10 +10,10 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
- * @ClassName：ModelListVO
- * @Description：3d模型列表
+ * @ClassName：ModelDetailsVO
+ * @Description：3d模型详情VO
  * @author liyongxu 
- * @date 2020年8月4日 上午11:21:33 
+ * @date 2020年8月24日 下午4:08:46 
  * @version 1.0.0 
  */
 @Data
@@ -26,42 +26,42 @@ public class ModelDetailsVO {
 	@ApiModelProperty(value="主图地址", name="mainGraph")
     private String mainGraph;
 
-	@ApiModelProperty(value="一级分类id", name="primaryclassId")
-    private String primaryClassId;
+    @ApiModelProperty(value="上传文件", name="uploadImg")
+    private List<UploadInfo> uploadImg;
 
-	@ApiModelProperty(value="一级分类名称", name="primaryClassName")
-    private String primaryClassName;
+	@ApiModelProperty(value="标题", name="title")
+    private String title;
 	
-	@ApiModelProperty(value="二级分类id", name="secondaryClassId")
-	private String secondaryClassId;
+	@ApiModelProperty(value="浏览次数", name="visitsNum")
+    private Integer visitsNum;
 	
-	@ApiModelProperty(value="二级分类名称", name="secondaryClassName")
-	private String secondaryClassName;
-
-	@ApiModelProperty(value="设计风格id", name="styleId")
-    private String styleId;
+	@ApiModelProperty(value="下载次数", name="downloadNum")
+	private Integer downloadNum;
+	
+	@ApiModelProperty(value="收藏次数", name="collectionNum")
+	private Integer collectionNum;
+	
+	@ApiModelProperty(value="更新时间", name="updatetTime")
+	private String updatetTime;
+	
+	@ApiModelProperty(value="文件大小", name="fileSize")
+	private String fileSize;
 
 	@ApiModelProperty(value="风格", name="styleName")
     private String styleName;
 
-	@ApiModelProperty(value="标题", name="title")
-    private String title;
-
+	@ApiModelProperty(value="材质贴图", name="textureMapping")
+    private Integer textureMapping;
+	
 	@ApiModelProperty(value="模型类型", name="type")
     private Integer type;
 
-	@ApiModelProperty(value="模型价格", name="price")
-    private BigDecimal price;
-
-	@ApiModelProperty(value="材质贴图", name="textureMapping")
-    private Integer textureMapping;
-
 	@ApiModelProperty(value="灯光效果", name="lightingEffects")
     private String lightingEffects;
-
-	@ApiModelProperty(value="备注", name="remarks")
-    private String remarks;
 	
-    @ApiModelProperty(value="上传文件", name="uploadImg")
-    private List<UploadInfo> uploadImg;
+	@ApiModelProperty(value="模型价格", name="price")
+	private BigDecimal price;
+	
+	@ApiModelProperty(value="MAX版本", name="MAXVersion")
+	private String MAXVersion;
 }
