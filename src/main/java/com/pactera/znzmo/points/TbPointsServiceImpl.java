@@ -39,11 +39,11 @@ public class TbPointsServiceImpl extends ServiceImpl<TbPointsMapper, TbPoints> i
 		if(StringUtils.isNotEmpty(pointsQueryParam.getUserName())) {
 			queryWrapper.like(TbPoints.USER_NAME, pointsQueryParam.getUserName());
 		}
-		if(StringUtils.isNotEmpty(pointsQueryParam.getStartTime().toString())) {
-			queryWrapper.ge(TbPoints.UPDATE_TIME, pointsQueryParam.getStartTime());
+		if(StringUtils.isNotEmpty(pointsQueryParam.getStartTime())) {
+			queryWrapper.ge(TbPoints.UPDATE_TIME, pointsQueryParam.getStartTime() + " 00:00:00");
 		}
-		if(StringUtils.isNotEmpty(pointsQueryParam.getEndTime().toString())) {
-			queryWrapper.le(TbPoints.UPDATE_TIME, pointsQueryParam.getEndTime());
+		if(StringUtils.isNotEmpty(pointsQueryParam.getEndTime())) {
+			queryWrapper.le(TbPoints.UPDATE_TIME, pointsQueryParam.getEndTime() + " 23:59:59");
 		}
 		queryWrapper.orderByDesc(TbPoints.UPDATE_TIME);
 		return baseMapper.selectPage(page,queryWrapper);
@@ -63,7 +63,7 @@ public class TbPointsServiceImpl extends ServiceImpl<TbPointsMapper, TbPoints> i
 			addPointsDetails(tbPoints, pointsAddParam);
 		}else {
 			TbPoints tbPointsNew = new TbPoints();
-			tbPointsNew.setUserId(pointsAddParam.getUserId());
+			tbPointsNew.setUserId(Long.valueOf(pointsAddParam.getUserId()));
 			tbPointsNew.setUserName(pointsAddParam.getUserName());
 			tbPointsNew.setTotalPoints(pointsAddParam.getPointsNum());
 			tbPointsNew.setCurrentPoints(pointsAddParam.getPointsNum());

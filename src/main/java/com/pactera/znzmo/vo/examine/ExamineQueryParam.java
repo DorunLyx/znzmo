@@ -22,7 +22,7 @@ public class ExamineQueryParam {
 	private Integer pageSize;
 	
 	@ApiModelProperty(value="分类id", name="classId")
-	private Long classId;
+	private String classId;
 	
 	@ApiModelProperty(value="类型", name="type")
 	private Integer type;

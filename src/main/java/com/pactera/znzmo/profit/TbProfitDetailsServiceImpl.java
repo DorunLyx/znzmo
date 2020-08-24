@@ -36,11 +36,11 @@ public class TbProfitDetailsServiceImpl extends ServiceImpl<TbProfitDetailsMappe
 			queryWrapper.eq(TbProfitDetails.USER_ID, profitQueryParam.getKeyWord())
 				.or().eq(TbProfitDetails.USER_NAME, profitQueryParam.getKeyWord());
 		}
-		if(StringUtils.isNotEmpty(profitQueryParam.getStartTime().toString())) {
-			queryWrapper.ge(TbProfitDetails.UPDATE_TIME, profitQueryParam.getStartTime());
+		if(StringUtils.isNotEmpty(profitQueryParam.getStartTime())) {
+			queryWrapper.ge(TbProfitDetails.UPDATE_TIME, profitQueryParam.getStartTime() + " 00:00:00");
 		}
-		if(StringUtils.isNotEmpty(profitQueryParam.getEndTime().toString())) {
-			queryWrapper.le(TbProfitDetails.UPDATE_TIME, profitQueryParam.getEndTime());
+		if(StringUtils.isNotEmpty(profitQueryParam.getEndTime())) {
+			queryWrapper.le(TbProfitDetails.UPDATE_TIME, profitQueryParam.getEndTime() + " 23:59:59");
 		}
 		queryWrapper.orderByDesc(TbProfitDetails.UPDATE_TIME);
 		return baseMapper.selectPage(page,queryWrapper);
@@ -57,11 +57,11 @@ public class TbProfitDetailsServiceImpl extends ServiceImpl<TbProfitDetailsMappe
 			queryWrapper.eq(TbProfitDetails.USER_ID, profitQueryParam.getKeyWord())
 				.or().eq(TbProfitDetails.USER_NAME, profitQueryParam.getKeyWord());
 		}
-		if(StringUtils.isNotEmpty(profitQueryParam.getStartTime().toString())) {
-			queryWrapper.ge(TbProfitDetails.UPDATE_TIME, profitQueryParam.getStartTime());
+		if(StringUtils.isNotEmpty(profitQueryParam.getStartTime())) {
+			queryWrapper.ge(TbProfitDetails.UPDATE_TIME, profitQueryParam.getStartTime() + " 00:00:00");
 		}
-		if(StringUtils.isNotEmpty(profitQueryParam.getEndTime().toString())) {
-			queryWrapper.le(TbProfitDetails.UPDATE_TIME, profitQueryParam.getEndTime());
+		if(StringUtils.isNotEmpty(profitQueryParam.getEndTime())) {
+			queryWrapper.le(TbProfitDetails.UPDATE_TIME, profitQueryParam.getEndTime() + " 23:59:59");
 		}
 		queryWrapper.orderByDesc(TbProfitDetails.UPDATE_TIME);
 		return baseMapper.selectList(queryWrapper);

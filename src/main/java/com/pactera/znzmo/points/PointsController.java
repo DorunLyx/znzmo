@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.pactera.znzmo.enums.JsonResultEnum;
+import com.pactera.znzmo.util.DateUtils;
 import com.pactera.znzmo.vo.points.PointsAddParam;
 import com.pactera.znzmo.vo.points.PointsExchangeListVO;
 import com.pactera.znzmo.vo.points.PointsQueryParam;
@@ -65,11 +66,11 @@ public class PointsController extends BaseController{
 		        IPage<TbPointsDetails> iPage = tbPointsDetailsService.selectPointsExchangePages(page, pointsQueryParam);
 				for (TbPointsDetails tbPointsDetails : iPage.getRecords()) {
 					PointsExchangeListVO pointsExchangeListVO = new PointsExchangeListVO();
-					pointsExchangeListVO.setPointsExchangeId(tbPointsDetails.getId());
-					pointsExchangeListVO.setUserId(tbPointsDetails.getUserId());
+					pointsExchangeListVO.setPointsExchangeId(tbPointsDetails.getId().toString());
+					pointsExchangeListVO.setUserId(tbPointsDetails.getUserId().toString());
 					pointsExchangeListVO.setUserName(tbPointsDetails.getUserName());
 					pointsExchangeListVO.setExchangePackage(tbPointsDetails.getExchangePackage());
-					pointsExchangeListVO.setExchangeTime(tbPointsDetails.getExchangeTime());
+					pointsExchangeListVO.setExchangeTime(DateUtils.localDateTimeToString(tbPointsDetails.getExchangeTime(), DateUtils.DATE_FORMAT));
 					pointsExchangeListVO.setConsumePoints(tbPointsDetails.getConsumePoints());
 					pointsExchangeListVO.setCurrentPoints(tbPointsDetails.getCurrentPoints());
 					pointsExchangeList.add(pointsExchangeListVO);
@@ -108,8 +109,8 @@ public class PointsController extends BaseController{
 		        IPage<TbPoints> iPage = tbPointsService.selectPointsManagePages(page, pointsQueryParam);
 				for (TbPoints tbPoints : iPage.getRecords()) {
 					PointsExchangeListVO pointsExchangeListVO = new PointsExchangeListVO();
-					pointsExchangeListVO.setPointsExchangeId(tbPoints.getId());
-					pointsExchangeListVO.setUserId(tbPoints.getUserId());
+					pointsExchangeListVO.setPointsExchangeId(tbPoints.getId().toString());
+					pointsExchangeListVO.setUserId(tbPoints.getUserId().toString());
 					pointsExchangeListVO.setUserName(tbPoints.getUserName());
 					pointsExchangeListVO.setConsumePoints(tbPoints.getConsumePoints());
 					pointsExchangeListVO.setTotalPoints(tbPoints.getTotalPoints());

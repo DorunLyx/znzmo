@@ -30,25 +30,25 @@ public class SuModelAddParam {
 	private String title;
 	
 	@ApiModelProperty(value="风格id", name="styleId")
-	private Long styleId;
+	private String styleId;
 	
 	@ApiModelProperty(value="风格", name="styleName")
 	private String styleName;
 
 	@ApiModelProperty(value="一级分类id", name="primaryclassId")
-    private Long primaryClassId;
+    private String primaryClassId;
 
 	@ApiModelProperty(value="一级分类名称", name="primaryClassName")
     private String primaryClassName;
 	
 	@ApiModelProperty(value="二级分类id", name="secondaryClassId")
-	private Long secondaryClassId;
+	private String secondaryClassId;
 	
 	@ApiModelProperty(value="二级分类名称", name="secondaryClassName")
 	private String secondaryClassName;
 	
 	@ApiModelProperty(value="三级分类id", name="threeClassId")
-	private Long threeClassId;
+	private String threeClassId;
 	
 	@ApiModelProperty(value="三级分类名称", name="threeClassName")
 	private String threeClassName;

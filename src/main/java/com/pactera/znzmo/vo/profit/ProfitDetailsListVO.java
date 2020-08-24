@@ -1,7 +1,6 @@
 package com.pactera.znzmo.vo.profit;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -19,13 +18,13 @@ import lombok.Data;
 public class ProfitDetailsListVO {
 
 	@ApiModelProperty(value="收益明细Id", name="profitDetailsId")
-	private Long profitDetailsId;
+	private String profitDetailsId;
 
 	@ApiModelProperty(value="用户名称", name="userName")
 	private String userName;
 
 	@ApiModelProperty(value="用户Id", name="userId")
-	private Long userId;
+	private String userId;
 	
 	@ApiModelProperty(value="手机号", name="mobile")
     private String mobile;
@@ -34,7 +33,7 @@ public class ProfitDetailsListVO {
 	private BigDecimal amount;
 	
 	@ApiModelProperty(value="操作时间", name="operationTime")
-	private LocalDateTime operationTime;
+	private String operationTime;
 	
 	@ApiModelProperty(value="提现单号", name="withdrawalCode")
 	private String withdrawalCode;

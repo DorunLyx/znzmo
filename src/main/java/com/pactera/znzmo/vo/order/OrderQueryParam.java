@@ -1,7 +1,5 @@
 package com.pactera.znzmo.vo.order;
 
-import java.time.LocalDateTime;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -30,8 +28,8 @@ public class OrderQueryParam {
     private Integer type;
 
 	@ApiModelProperty(value="开始时间", name="startTime")
-	private LocalDateTime startTime;
+	private String startTime;
 	
 	@ApiModelProperty(value="结束时间", name="endTime")
-	private LocalDateTime endTime;
+	private String endTime;
 }

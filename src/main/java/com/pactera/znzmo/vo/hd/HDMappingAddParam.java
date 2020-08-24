@@ -1,7 +1,6 @@
 package com.pactera.znzmo.vo.hd;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import com.pactera.znzmo.vo.common.UploadInfo;
@@ -34,19 +33,19 @@ public class HDMappingAddParam {
 	private String tag;
 	
 	@ApiModelProperty(value="风格id", name="styleId")
-	private Long styleId;
+	private String styleId;
 	
 	@ApiModelProperty(value="风格", name="styleName")
 	private String styleName;
 
 	@ApiModelProperty(value="一级分类id", name="primaryclassId")
-    private Long primaryClassId;
+    private String primaryClassId;
 
 	@ApiModelProperty(value="一级分类名称", name="primaryClassName")
     private String primaryClassName;
 	
 	@ApiModelProperty(value="二级分类id", name="secondaryClassId")
-	private Long secondaryClassId;
+	private String secondaryClassId;
 	
 	@ApiModelProperty(value="二级分类名称", name="secondaryClassName")
 	private String secondaryClassName;
@@ -61,7 +60,7 @@ public class HDMappingAddParam {
     private String version;
 	
 	@ApiModelProperty(value="设计时间", name="designTime")
-	private LocalDateTime designTime;
+	private String designTime;
 	
 	@ApiModelProperty(value="项目位置", name="location")
 	private Integer location;

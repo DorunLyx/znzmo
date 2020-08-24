@@ -16,7 +16,7 @@ import lombok.Data;
 public class ExamineStatusParam {
 
 	@ApiModelProperty(value="审核id", name="examineId")
-    private Long examineId;
+    private String examineId;
 	
 	@ApiModelProperty(value="状态", name="status")
 	private Integer status;

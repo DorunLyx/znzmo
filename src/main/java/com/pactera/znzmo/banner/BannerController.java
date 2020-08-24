@@ -31,6 +31,7 @@ import com.pactera.znzmo.model.TbThreedModel;
 import com.pactera.znzmo.model.TbThreedModelService;
 import com.pactera.znzmo.sumodel.TbSuModel;
 import com.pactera.znzmo.sumodel.TbSuModelService;
+import com.pactera.znzmo.util.DateUtils;
 import com.pactera.znzmo.util.StringUtils;
 import com.pactera.znzmo.vo.banner.BannerAddParam;
 import com.pactera.znzmo.vo.banner.BannerDetailsVO;
@@ -254,7 +255,7 @@ public class BannerController extends BaseController{
 		List<TbThreedModel> tb3dModelList = tbThreedModelService.list(queryWrapper);
 		for (TbThreedModel tbThreedModel : tb3dModelList) {
 			HomePageSimplifyData homePageSimplifyData = new HomePageSimplifyData();
-			homePageSimplifyData.setReId(tbThreedModel.getId());
+			homePageSimplifyData.setReId(tbThreedModel.getId().toString());
 			homePageSimplifyData.setReType(ReTypeEnum.MODEL.getKey());
 			homePageSimplifyData.setMainGraph(tbThreedModel.getMainGraph());
 			homePageSimplifyData.setTitle(tbThreedModel.getTitle());
@@ -283,7 +284,7 @@ public class BannerController extends BaseController{
 		List<TbSuModel> tbSuModelList = tbSuModelService.list(queryWrapper);
 		for (TbSuModel tbSuModel : tbSuModelList) {
 			HomePageSimplifyData homePageSimplifyData = new HomePageSimplifyData();
-			homePageSimplifyData.setReId(tbSuModel.getId());
+			homePageSimplifyData.setReId(tbSuModel.getId().toString());
 			homePageSimplifyData.setReType(ReTypeEnum.SUMODEL.getKey());
 			homePageSimplifyData.setMainGraph(tbSuModel.getMainGraph());
 			homePageSimplifyData.setTitle(tbSuModel.getTitle());
@@ -312,7 +313,7 @@ public class BannerController extends BaseController{
 		List<TbDrawingScheme> tbDrawingList = tbDrawingSchemeService.list(queryWrapper);
 		for (TbDrawingScheme tbDrawingScheme : tbDrawingList) {
 			HomePageSimplifyData homePageSimplifyData = new HomePageSimplifyData();
-			homePageSimplifyData.setReId(tbDrawingScheme.getId());
+			homePageSimplifyData.setReId(tbDrawingScheme.getId().toString());
 			homePageSimplifyData.setReType(ReTypeEnum.SUMODEL.getKey());
 			homePageSimplifyData.setMainGraph(tbDrawingScheme.getMainGraph());
 			homePageSimplifyData.setTitle(tbDrawingScheme.getTitle());
@@ -341,7 +342,7 @@ public class BannerController extends BaseController{
 		List<TbHdMapping> tbHdList = tbHdMappingService.list(queryWrapper);
 		for (TbHdMapping tbHdMapping : tbHdList) {
 			HomePageSimplifyData homePageSimplifyData = new HomePageSimplifyData();
-			homePageSimplifyData.setReId(tbHdMapping.getId());
+			homePageSimplifyData.setReId(tbHdMapping.getId().toString());
 			homePageSimplifyData.setReType(ReTypeEnum.HD.getKey());
 			homePageSimplifyData.setMainGraph(tbHdMapping.getMainGraph());
 			homePageSimplifyData.setTitle(tbHdMapping.getTitle());
@@ -393,12 +394,12 @@ public class BannerController extends BaseController{
 				IPage<TbBanner> iPage = tbBannerService.selectBannerPages(page, bannerQueryParam);
 				for (TbBanner tbBanner : iPage.getRecords()) {
 					BannerListVO bannerListVO = new BannerListVO();
-					bannerListVO.setBannerId(tbBanner.getId());
+					bannerListVO.setBannerId(tbBanner.getId().toString());
 					bannerListVO.setStatus(tbBanner.getStatus());
 					bannerListVO.setSort(tbBanner.getSort());
 					bannerListVO.setType(tbBanner.getType());
-					bannerListVO.setStartTime(tbBanner.getStartTime());
-					bannerListVO.setEndTime(tbBanner.getEndTime());
+					bannerListVO.setStartTime(DateUtils.localDateTimeToString(tbBanner.getStartTime(), DateUtils.DATE_FORMAT));
+					bannerListVO.setEndTime(DateUtils.localDateTimeToString(tbBanner.getEndTime(), DateUtils.DATE_FORMAT));
 			        TbAttachment attachmentList = tbAttachmentService.getById(tbBanner.getAttachmentId());
 					bannerListVO.setMainGraph(attachmentList.getAttachmentPath());
 					bannerList.add(bannerListVO);
@@ -465,8 +466,8 @@ public class BannerController extends BaseController{
 					bannerDetailsVO.setTitle(tbBanner.getTitle());
 					bannerDetailsVO.setSort(tbBanner.getSort());
 					bannerDetailsVO.setType(tbBanner.getType());
-					bannerDetailsVO.setStartTime(tbBanner.getStartTime());
-					bannerDetailsVO.setEndTime(tbBanner.getEndTime());
+					bannerDetailsVO.setStartTime(DateUtils.localDateTimeToString(tbBanner.getStartTime(), DateUtils.DATE_FORMAT));
+					bannerDetailsVO.setEndTime(DateUtils.localDateTimeToString(tbBanner.getEndTime(), DateUtils.DATE_FORMAT));
 					TbAttachment attachmentList = tbAttachmentService.getById(tbBanner.getAttachmentId());
 					bannerDetailsVO.setMainGraph(attachmentList.getAttachmentPath());
 					return bannerDetailsVO;

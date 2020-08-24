@@ -18,13 +18,13 @@ import lombok.Data;
 public class ProfitManageListVO {
 
 	@ApiModelProperty(value="收益统计Id", name="profitId")
-	private Long profitId;
+	private String profitId;
 
 	@ApiModelProperty(value="用户名称", name="userName")
 	private String userName;
 
 	@ApiModelProperty(value="用户Id", name="userId")
-	private Long userId;
+	private String userId;
 	
 	@ApiModelProperty(value="手机号", name="mobile")
     private String mobile;

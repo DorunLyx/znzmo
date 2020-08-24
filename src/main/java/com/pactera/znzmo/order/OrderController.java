@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.pactera.znzmo.enums.JsonResultEnum;
+import com.pactera.znzmo.util.DateUtils;
 import com.pactera.znzmo.vo.model.ModelQueryDetailsParam;
 import com.pactera.znzmo.vo.order.OrderAddParam;
 import com.pactera.znzmo.vo.order.OrderDetailsParam;
@@ -65,14 +66,14 @@ public class OrderController extends BaseController{
 		        IPage<TbOrder> iPage = tbOrderService.selectOrderPages(page, orderQueryParam);
 				for (TbOrder tbOrder : iPage.getRecords()) {
 					OrderListVO orderListVO = new OrderListVO();
-					orderListVO.setOrderId(tbOrder.getId());
+					orderListVO.setOrderId(tbOrder.getId().toString());
 					orderListVO.setCode(tbOrder.getOrderCode());
 					orderListVO.setTitle(tbOrder.getTitle());
 					orderListVO.setType(tbOrder.getType());
 					orderListVO.setPrice(tbOrder.getPrice());
-					orderListVO.setUserId(tbOrder.getUserId());
+					orderListVO.setUserId(tbOrder.getUserId().toString());
 					orderListVO.setUserName(tbOrder.getUserName());
-					orderListVO.setOrderTime(tbOrder.getOrderTime());
+					orderListVO.setOrderTime(DateUtils.localDateTimeToString(tbOrder.getOrderTime(), DateUtils.DATE_FORMAT));
 					modelList.add(orderListVO);
 	    		}
 				orderListPage.setRecords(modelList);

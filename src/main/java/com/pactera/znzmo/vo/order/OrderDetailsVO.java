@@ -1,7 +1,6 @@
 package com.pactera.znzmo.vo.order;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 import java.util.List;
 
 import com.pactera.znzmo.vo.common.UploadInfo;
@@ -22,7 +21,7 @@ import lombok.Data;
 public class OrderDetailsVO {
 
 	@ApiModelProperty(value="订单Id", name="orderId")
-	private Long orderId;
+	private String orderId;
 	
 	@ApiModelProperty(value="编号", name="code")
     private String code;
@@ -40,28 +39,28 @@ public class OrderDetailsVO {
 	private String userName;
 
 	@ApiModelProperty(value="用户Id", name="userId")
-	private Long userId;
+	private String userId;
 	
 	@ApiModelProperty(value="下单时间", name="orderTime")
-	private LocalDateTime orderTime;
+	private String orderTime;
 
 	@ApiModelProperty(value="主图地址", name="mainGraph")
     private String mainGraph;
 
 	@ApiModelProperty(value="设计风格id", name="styleId")
-    private Long styleId;
+    private String styleId;
 
 	@ApiModelProperty(value="风格", name="styleName")
     private String styleName;
 	
 	@ApiModelProperty(value="一级分类id", name="primaryclassId")
-    private Long primaryClassId;
+    private String primaryClassId;
 
 	@ApiModelProperty(value="一级分类名称", name="primaryClassName")
     private String primaryClassName;
 	
 	@ApiModelProperty(value="二级分类id", name="secondaryClassId")
-	private Long secondaryClassId;
+	private String secondaryClassId;
 	
 	@ApiModelProperty(value="二级分类名称", name="secondaryClassName")
 	private String secondaryClassName;

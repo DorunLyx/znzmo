@@ -1,7 +1,6 @@
 package com.pactera.znzmo.vo.order;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -19,7 +18,7 @@ import lombok.Data;
 public class OrderListVO {
 
 	@ApiModelProperty(value="订单Id", name="orderId")
-	private Long orderId;
+	private String orderId;
 
 	@ApiModelProperty(value="编号", name="code")
     private String code;
@@ -37,9 +36,9 @@ public class OrderListVO {
 	private String userName;
 
 	@ApiModelProperty(value="用户Id", name="userId")
-	private Long userId;
+	private String userId;
 	
 	@ApiModelProperty(value="下单时间", name="orderTime")
-	private LocalDateTime orderTime;
+	private String orderTime;
 	
 }

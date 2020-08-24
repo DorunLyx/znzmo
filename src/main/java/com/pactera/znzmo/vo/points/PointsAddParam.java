@@ -1,7 +1,6 @@
 package com.pactera.znzmo.vo.points;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -22,7 +21,7 @@ public class PointsAddParam {
 	private Integer type;
 	
 	@ApiModelProperty(value="用户id", name="userId")
-	private Long userId;
+	private String userId;
 	
 	@ApiModelProperty(value="用户名称", name="userName")
 	private String userName;
@@ -34,6 +33,6 @@ public class PointsAddParam {
 	private String remarks;
 
 	@ApiModelProperty(value="积分时间", name="pointsTime")
-    private LocalDateTime pointsTime;
+    private String pointsTime;
 	
 }

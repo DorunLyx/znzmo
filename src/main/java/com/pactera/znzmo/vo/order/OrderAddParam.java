@@ -24,7 +24,7 @@ public class OrderAddParam {
 	private Integer type;
 	
 	@ApiModelProperty(value="用户id", name="userId")
-	private Long userId;
+	private String userId;
 	
 	@ApiModelProperty(value="用户名称", name="userName")
 	private String userName;

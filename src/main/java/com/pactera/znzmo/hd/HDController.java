@@ -74,7 +74,7 @@ public class HDController extends BaseController{
 				IPage<TbHdMapping> iPage = tbHdMappingService.selectHdMappingPages(page, modelQueryParam);
 				for (TbHdMapping tbHdMapping : iPage.getRecords()) {
 					ModelListVO modelListVO = new ModelListVO();
-					modelListVO.setModelId(tbHdMapping.getId());
+					modelListVO.setModelId(tbHdMapping.getId().toString());
 					modelListVO.setMainGraph(tbHdMapping.getMainGraph());
 					modelListVO.setCode(tbHdMapping.getCode());
 					modelListVO.setPrimaryClassName(tbHdMapping.getPrimaryClassName());
@@ -146,13 +146,13 @@ public class HDController extends BaseController{
 				TbHdMapping tbHdMapping = tbHdMappingService.getOne(queryWrapper);
 				if(tbHdMapping != null) {
 					HDMappingDetailsVO hdMappingDetailsVO = new HDMappingDetailsVO();
-					hdMappingDetailsVO.setHdId(tbHdMapping.getId());
+					hdMappingDetailsVO.setHdId(tbHdMapping.getId().toString());
 					hdMappingDetailsVO.setMainGraph(tbHdMapping.getMainGraph());
-					hdMappingDetailsVO.setPrimaryClassId(tbHdMapping.getPrimaryClassId());
+					hdMappingDetailsVO.setPrimaryClassId(tbHdMapping.getPrimaryClassId().toString());
 					hdMappingDetailsVO.setPrimaryClassName(tbHdMapping.getPrimaryClassName());
-					hdMappingDetailsVO.setSecondaryClassId(tbHdMapping.getSecondaryClassId());
+					hdMappingDetailsVO.setSecondaryClassId(tbHdMapping.getSecondaryClassId().toString());
 					hdMappingDetailsVO.setSecondaryClassName(tbHdMapping.getSecondaryClassName());
-					hdMappingDetailsVO.setStyleId(tbHdMapping.getStyleId());
+					hdMappingDetailsVO.setStyleId(tbHdMapping.getStyleId().toString());
 					hdMappingDetailsVO.setStyleName(tbHdMapping.getStyleName());
 					hdMappingDetailsVO.setTitle(tbHdMapping.getTitle());
 					hdMappingDetailsVO.setType(tbHdMapping.getType());

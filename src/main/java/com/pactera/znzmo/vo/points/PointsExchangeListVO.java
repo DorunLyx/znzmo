@@ -1,7 +1,6 @@
 package com.pactera.znzmo.vo.points;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -19,19 +18,19 @@ import lombok.Data;
 public class PointsExchangeListVO {
 
 	@ApiModelProperty(value="积分兑换Id", name="pointsExchangeId")
-	private Long pointsExchangeId;
+	private String pointsExchangeId;
 
 	@ApiModelProperty(value="用户名称", name="userName")
 	private String userName;
 
 	@ApiModelProperty(value="用户Id", name="userId")
-	private Long userId;
+	private String userId;
 	
 	@ApiModelProperty(value="积分兑换套餐", name="exchangePackage")
     private Integer exchangePackage;
 	
 	@ApiModelProperty(value="兑换时间", name="exchangeTime")
-	private LocalDateTime exchangeTime;
+	private String exchangeTime;
 	
 	@ApiModelProperty(value="消费积分", name="consumePoints")
 	private BigDecimal consumePoints;

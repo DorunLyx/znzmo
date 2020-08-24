@@ -19,7 +19,7 @@ public class ClassifyAddParam {
 	private String classifyName;
 	
 	@ApiModelProperty(value="父级id", name="pId")
-	private Long pId;
+	private String pId;
 	
 	@ApiModelProperty(value="级别", name="level")
 	private String level;

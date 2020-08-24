@@ -16,6 +16,6 @@ import lombok.Data;
 public class OrderDetailsParam {
 
 	@ApiModelProperty(value="订单id", name="orderId")
-    private Long orderId;
+    private String orderId;
 	
 }

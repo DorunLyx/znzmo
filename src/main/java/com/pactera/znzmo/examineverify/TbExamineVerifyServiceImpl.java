@@ -24,6 +24,7 @@ import com.pactera.znzmo.model.TbThreedModel;
 import com.pactera.znzmo.model.dao.TbThreedModelMapper;
 import com.pactera.znzmo.sumodel.TbSuModel;
 import com.pactera.znzmo.sumodel.dao.TbSuModelMapper;
+import com.pactera.znzmo.util.DateUtils;
 import com.pactera.znzmo.util.StringUtils;
 import com.pactera.znzmo.vo.examine.ExamineListVO;
 import com.pactera.znzmo.vo.examine.ExamineQueryParam;
@@ -83,7 +84,7 @@ public class TbExamineVerifyServiceImpl extends ServiceImpl<TbExamineVerifyMappe
 		IPage<ExamineListVO> exmaineListPage =  new Page<ExamineListVO>(examineQueryParam.getPageNo(), examineQueryParam.getPageSize());
 		for (TbExamineVerify tbExamineVerify : iPage.getRecords()) {
 			ExamineListVO examineListVO = new ExamineListVO();
-			examineListVO.setExamineId(tbExamineVerify.getId());
+			examineListVO.setExamineId(tbExamineVerify.getId().toString());
 			examineListVO.setStatus(tbExamineVerify.getStatus());
 			examineListVO = this.selectReInfoByType(examineListVO, tbExamineVerify.getReId(), tbExamineVerify.getReType());
 			examineList.add(examineListVO);
@@ -118,7 +119,7 @@ public class TbExamineVerifyServiceImpl extends ServiceImpl<TbExamineVerifyMappe
 			examineListVO.setPrice(tbThreedModel.getPrice());
 			examineListVO.setStatus(tbThreedModel.getStatus());
 			examineListVO.setUploadUser(tbThreedModel.getCreateName());
-			examineListVO.setUploadTime(tbThreedModel.getCreateTime());
+			examineListVO.setUploadTime(DateUtils.localDateTimeToString(tbThreedModel.getCreateTime(), DateUtils.DATE_FORMAT));
 		}else if (reType == 1) {
 			TbSuModel tbSuModel = tbSuModelMapper.selectById(reId);
 			examineListVO.setMainGraph(tbSuModel.getMainGraph());
@@ -131,7 +132,7 @@ public class TbExamineVerifyServiceImpl extends ServiceImpl<TbExamineVerifyMappe
 			examineListVO.setPrice(tbSuModel.getPrice());
 			examineListVO.setStatus(tbSuModel.getStatus());
 			examineListVO.setUploadUser(tbSuModel.getCreateName());
-			examineListVO.setUploadTime(tbSuModel.getCreateTime());
+			examineListVO.setUploadTime(DateUtils.localDateTimeToString(tbSuModel.getCreateTime(), DateUtils.DATE_FORMAT));
 		}else if (reType == 2) {
 			TbDrawingScheme tbDrawing = tbDrawingSchemeMapper.selectById(reId);
 			examineListVO.setMainGraph(tbDrawing.getMainGraph());
@@ -144,7 +145,7 @@ public class TbExamineVerifyServiceImpl extends ServiceImpl<TbExamineVerifyMappe
 			examineListVO.setPrice(tbDrawing.getPrice());
 			examineListVO.setStatus(tbDrawing.getStatus());
 			examineListVO.setUploadUser(tbDrawing.getCreateName());
-			examineListVO.setUploadTime(tbDrawing.getCreateTime());
+			examineListVO.setUploadTime(DateUtils.localDateTimeToString(tbDrawing.getCreateTime(), DateUtils.DATE_FORMAT));
 		}else if (reType == 3) {
 			TbHdMapping tbHdMapping = tbHdMappingMapper.selectById(reId);
 			examineListVO.setMainGraph(tbHdMapping.getMainGraph());
@@ -157,7 +158,7 @@ public class TbExamineVerifyServiceImpl extends ServiceImpl<TbExamineVerifyMappe
 			examineListVO.setPrice(tbHdMapping.getPrice());
 			examineListVO.setStatus(tbHdMapping.getStatus());
 			examineListVO.setUploadUser(tbHdMapping.getCreateName());
-			examineListVO.setUploadTime(tbHdMapping.getCreateTime());
+			examineListVO.setUploadTime(DateUtils.localDateTimeToString(tbHdMapping.getCreateTime(), DateUtils.DATE_FORMAT));
 		}else if (reType == 4) {
 			TbDatabase tbDatabase = tbDatabaseMapper.selectById(reId);
 			examineListVO.setMainGraph(tbDatabase.getMainGraph());
@@ -170,7 +171,7 @@ public class TbExamineVerifyServiceImpl extends ServiceImpl<TbExamineVerifyMappe
 			examineListVO.setPrice(tbDatabase.getPrice());
 			examineListVO.setStatus(tbDatabase.getStatus());
 			examineListVO.setUploadUser(tbDatabase.getCreateName());
-			examineListVO.setUploadTime(tbDatabase.getCreateTime());
+			examineListVO.setUploadTime(DateUtils.localDateTimeToString(tbDatabase.getCreateTime(), DateUtils.DATE_FORMAT));
 		}
 		return examineListVO;
 	}

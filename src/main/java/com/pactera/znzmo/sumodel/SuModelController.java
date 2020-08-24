@@ -74,7 +74,7 @@ public class SuModelController extends BaseController{
 				IPage<TbSuModel> iPage = tbSuModelService.selectSuModelPages(page, modelQueryParam);
 				for (TbSuModel tbSuModel : iPage.getRecords()) {
 					ModelListVO modelListVO = new ModelListVO();
-					modelListVO.setModelId(tbSuModel.getId());
+					modelListVO.setModelId(tbSuModel.getId().toString());
 					modelListVO.setMainGraph(tbSuModel.getMainGraph());
 					modelListVO.setCode(tbSuModel.getCode());
 					modelListVO.setPrimaryClassName(tbSuModel.getPrimaryClassName());
@@ -147,15 +147,15 @@ public class SuModelController extends BaseController{
 		        TbSuModel tbSuModel = tbSuModelService.getOne(queryWrapper);
 		        if(tbSuModel != null) {
 		        	SuModelDetailsVO suModelDetailsVO = new SuModelDetailsVO();
-					suModelDetailsVO.setModelId(tbSuModel.getId());
+					suModelDetailsVO.setModelId(tbSuModel.getId().toString());
 					suModelDetailsVO.setMainGraph(tbSuModel.getMainGraph());
-					suModelDetailsVO.setPrimaryClassId(tbSuModel.getPrimaryClassId());
+					suModelDetailsVO.setPrimaryClassId(tbSuModel.getPrimaryClassId().toString());
 					suModelDetailsVO.setPrimaryClassName(tbSuModel.getPrimaryClassName());
-					suModelDetailsVO.setSecondaryClassId(tbSuModel.getSecondaryClassId());
+					suModelDetailsVO.setSecondaryClassId(tbSuModel.getSecondaryClassId().toString());
 					suModelDetailsVO.setSecondaryClassName(tbSuModel.getSecondaryClassName());
-					suModelDetailsVO.setThreeClassId(tbSuModel.getThreeClassId());
+					suModelDetailsVO.setThreeClassId(tbSuModel.getThreeClassId().toString());
 					suModelDetailsVO.setThreeClassName(tbSuModel.getThreeClassName());
-					suModelDetailsVO.setStyleId(tbSuModel.getStyleId());
+					suModelDetailsVO.setStyleId(tbSuModel.getStyleId().toString());
 					suModelDetailsVO.setStyleName(tbSuModel.getStyleName());
 					suModelDetailsVO.setTitle(tbSuModel.getTitle());
 					suModelDetailsVO.setType(tbSuModel.getType());

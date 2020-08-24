@@ -74,7 +74,7 @@ public class DatabaseController extends BaseController{
 				IPage<TbDatabase> iPage = tbDatabaseService.selectDatabasePages(page, modelQueryParam);
 				for (TbDatabase tbDrawing : iPage.getRecords()) {
 					ModelListVO modelListVO = new ModelListVO();
-					modelListVO.setModelId(tbDrawing.getId());
+					modelListVO.setModelId(tbDrawing.getId().toString());
 					modelListVO.setMainGraph(tbDrawing.getMainGraph());
 					modelListVO.setCode(tbDrawing.getCode());
 					modelListVO.setPrimaryClassName(tbDrawing.getPrimaryClassName());
@@ -146,13 +146,13 @@ public class DatabaseController extends BaseController{
 				TbDatabase tbDatabase = tbDatabaseService.getOne(queryWrapper);
 				if(tbDatabase != null) {
 					DrawingDetailsVO drawingDetailsVO = new DrawingDetailsVO();
-					drawingDetailsVO.setDrawingId(tbDatabase.getId());
+					drawingDetailsVO.setDrawingId(tbDatabase.getId().toString());
 					drawingDetailsVO.setMainGraph(tbDatabase.getMainGraph());
-					drawingDetailsVO.setPrimaryClassId(tbDatabase.getPrimaryClassId());
+					drawingDetailsVO.setPrimaryClassId(tbDatabase.getPrimaryClassId().toString());
 					drawingDetailsVO.setPrimaryClassName(tbDatabase.getPrimaryClassName());
-					drawingDetailsVO.setSecondaryClassId(tbDatabase.getSecondaryClassId());
+					drawingDetailsVO.setSecondaryClassId(tbDatabase.getSecondaryClassId().toString());
 					drawingDetailsVO.setSecondaryClassName(tbDatabase.getSecondaryClassName());
-					drawingDetailsVO.setStyleId(tbDatabase.getStyleId());
+					drawingDetailsVO.setStyleId(tbDatabase.getStyleId().toString());
 					drawingDetailsVO.setStyleName(tbDatabase.getStyleName());
 					drawingDetailsVO.setTitle(tbDatabase.getTitle());
 					drawingDetailsVO.setType(tbDatabase.getType());

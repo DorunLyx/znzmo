@@ -1,7 +1,6 @@
 package com.pactera.znzmo.vo.examine;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -19,7 +18,7 @@ import lombok.Data;
 public class ExamineListVO {
 
 	@ApiModelProperty(value="审核Id", name="examineId")
-	private Long examineId;
+	private String examineId;
 
 	@ApiModelProperty(value="主图地址", name="mainGraph")
     private String mainGraph;
@@ -46,7 +45,7 @@ public class ExamineListVO {
 	private String uploadUser;
 	
 	@ApiModelProperty(value="上传时间", name="uploadTime")
-	private LocalDateTime uploadTime;
+	private String uploadTime;
 
 	@ApiModelProperty(value="价格", name="price")
     private BigDecimal price;

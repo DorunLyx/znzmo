@@ -21,25 +21,25 @@ import lombok.Data;
 public class HDMappingDetailsVO {
 
 	@ApiModelProperty(value="hdId", name="hdId")
-	private Long hdId;
+	private String hdId;
 
 	@ApiModelProperty(value="主图地址", name="mainGraph")
     private String mainGraph;
 
 	@ApiModelProperty(value="一级分类id", name="primaryclassId")
-    private Long primaryClassId;
+    private String primaryClassId;
 
 	@ApiModelProperty(value="一级分类名称", name="primaryClassName")
     private String primaryClassName;
 	
 	@ApiModelProperty(value="二级分类id", name="secondaryClassId")
-	private Long secondaryClassId;
+	private String secondaryClassId;
 	
 	@ApiModelProperty(value="二级分类名称", name="secondaryClassName")
 	private String secondaryClassName;
 
 	@ApiModelProperty(value="设计风格id", name="styleId")
-    private Long styleId;
+    private String styleId;
 
 	@ApiModelProperty(value="风格", name="styleName")
     private String styleName;

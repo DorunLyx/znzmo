@@ -71,8 +71,8 @@ public class ProfitController extends BaseController{
 		        IPage<TbProfitManage> iPage = tbProfitManageService.selectProfitManagePages(page, profitQueryParam);
 				for (TbProfitManage tbProfitManage : iPage.getRecords()) {
 					ProfitManageListVO profitManageListVO = new ProfitManageListVO();
-					profitManageListVO.setProfitId(tbProfitManage.getId());
-					profitManageListVO.setUserId(tbProfitManage.getUserId());
+					profitManageListVO.setProfitId(tbProfitManage.getId().toString());
+					profitManageListVO.setUserId(tbProfitManage.getUserId().toString());
 					profitManageListVO.setUserName(tbProfitManage.getUserName());
 					profitManageListVO.setMobile(tbProfitManage.getMobile());
 					profitManageListVO.setTotalRevenue(tbProfitManage.getTotalRevenue());
@@ -114,12 +114,12 @@ public class ProfitController extends BaseController{
 		        IPage<TbProfitDetails> iPage = tbProfitDetailsService.selectProfitDetailsPages(page, profitQueryParam);
 				for (TbProfitDetails tbProfitDetails : iPage.getRecords()) {
 					ProfitDetailsListVO profitDetailsListVO = new ProfitDetailsListVO();
-					profitDetailsListVO.setProfitDetailsId(tbProfitDetails.getId());
-					profitDetailsListVO.setUserId(tbProfitDetails.getUserId());
+					profitDetailsListVO.setProfitDetailsId(tbProfitDetails.getId().toString());
+					profitDetailsListVO.setUserId(tbProfitDetails.getUserId().toString());
 					profitDetailsListVO.setUserName(tbProfitDetails.getUserName());
 					profitDetailsListVO.setMobile(tbProfitDetails.getMobile());
 					profitDetailsListVO.setAmount(tbProfitDetails.getAmount());
-					profitDetailsListVO.setOperationTime(tbProfitDetails.getOperationTime());
+					profitDetailsListVO.setOperationTime(DateUtils.localDateTimeToString(tbProfitDetails.getOperationTime(), DateUtils.DATE_FORMAT));
 					profitDetailsListVO.setWithdrawalCode(tbProfitDetails.getOrderCode());
 					profitDetailsListVO.setRemarks(tbProfitDetails.getRemarks());
 					pointsExchangeList.add(profitDetailsListVO);

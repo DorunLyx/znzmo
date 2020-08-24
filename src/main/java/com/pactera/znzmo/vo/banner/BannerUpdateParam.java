@@ -1,6 +1,5 @@
 package com.pactera.znzmo.vo.banner;
 
-import java.time.LocalDateTime;
 import java.util.List;
 
 import com.pactera.znzmo.vo.common.UploadInfo;
@@ -21,7 +20,7 @@ import lombok.Data;
 public class BannerUpdateParam {
 	
 	@ApiModelProperty(value="轮播Id", name="bannerId")
-	private Long bannerId;
+	private String bannerId;
 	
 	@ApiModelProperty(value="主图地址id", name="mainGraphId")
 	private String mainGraph;
@@ -36,10 +35,10 @@ public class BannerUpdateParam {
     private Integer type;
 
 	@ApiModelProperty(value="开始时间", name="startTime")
-	private LocalDateTime startTime;
+	private String startTime;
 	
 	@ApiModelProperty(value="结束时间", name="endTime")
-	private LocalDateTime endTime;
+	private String endTime;
 
 	@ApiModelProperty(value="跳转链接", name="jumpLink")
 	private String jumpLink;

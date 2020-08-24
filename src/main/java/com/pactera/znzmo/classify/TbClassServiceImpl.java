@@ -31,7 +31,7 @@ public class TbClassServiceImpl extends ServiceImpl<TbClassMapper, TbClass> impl
 	public void addClassify(ClassifyAddParam classifyAddParam) {
 		TbClass tbClass = new TbClass();
 		tbClass.setName(classifyAddParam.getClassifyName());
-		tbClass.setPId(classifyAddParam.getPId());
+		tbClass.setPId(Long.valueOf(classifyAddParam.getPId()));
 		TbClass tbClassPInfo = baseMapper.selectById(classifyAddParam.getPId());
 		if(tbClassPInfo != null) {
 			tbClass.setPName(tbClassPInfo.getName());
@@ -47,7 +47,7 @@ public class TbClassServiceImpl extends ServiceImpl<TbClassMapper, TbClass> impl
 	public void updteClassify(ClassifyUpdateParam classifyUpdateParam) {
 		TbClass tbClass = baseMapper.selectById(classifyUpdateParam.getClassifyId());
 		tbClass.setName(classifyUpdateParam.getClassifyName());
-		tbClass.setPId(classifyUpdateParam.getPId());
+		tbClass.setPId(Long.valueOf(classifyUpdateParam.getPId()));
 		TbClass tbClassPInfo = baseMapper.selectById(classifyUpdateParam.getPId());
 		if(tbClassPInfo != null) {
 			tbClass.setPName(tbClassPInfo.getName());

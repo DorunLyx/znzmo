@@ -30,13 +30,13 @@ public class TbPointsDetailsServiceImpl extends ServiceImpl<TbPointsDetailsMappe
 		if(StringUtils.isNotEmpty(pointsQueryParam.getUserName())) {
 			queryWrapper.like(TbPointsDetails.USER_NAME, pointsQueryParam.getUserName());
 		}
-		if(StringUtils.isNotEmpty(pointsQueryParam.getStartTime().toString())) {
-			queryWrapper.ge(TbPointsDetails.EXCHANGE_TIME, pointsQueryParam.getStartTime());
+		if(StringUtils.isNotEmpty(pointsQueryParam.getStartTime())) {
+			queryWrapper.ge(TbPointsDetails.EXCHANGE_TIME, pointsQueryParam.getStartTime() + " 00:00:00");
 		}
-		if(StringUtils.isNotEmpty(pointsQueryParam.getEndTime().toString())) {
-			queryWrapper.le(TbPointsDetails.EXCHANGE_TIME, pointsQueryParam.getEndTime());
+		if(StringUtils.isNotEmpty(pointsQueryParam.getEndTime())) {
+			queryWrapper.le(TbPointsDetails.EXCHANGE_TIME, pointsQueryParam.getEndTime() + " 23:59:59");
 		}
-		if(pointsQueryParam.getUserId() != 0) {
+		if(StringUtils.isNotEmpty(pointsQueryParam.getUserId())) {
 			queryWrapper.eq(TbPointsDetails.USER_ID, pointsQueryParam.getUserId());
 		}
 		queryWrapper.orderByDesc(TbPointsDetails.UPDATE_TIME);

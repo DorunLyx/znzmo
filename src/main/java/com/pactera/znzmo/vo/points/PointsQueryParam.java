@@ -1,7 +1,5 @@
 package com.pactera.znzmo.vo.points;
 
-import java.time.LocalDateTime;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -24,14 +22,14 @@ public class PointsQueryParam {
 	private Integer pageSize;
 	
 	@ApiModelProperty(value="用户id", name="userId")
-	private Long userId;
+	private String userId;
 	
 	@ApiModelProperty(value="用户名", name="userName")
     private String userName;
 
 	@ApiModelProperty(value="开始时间", name="startTime")
-	private LocalDateTime startTime;
+	private String startTime;
 	
 	@ApiModelProperty(value="结束时间", name="endTime")
-	private LocalDateTime endTime;
+	private String endTime;
 }

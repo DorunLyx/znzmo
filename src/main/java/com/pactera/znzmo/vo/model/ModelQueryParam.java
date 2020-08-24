@@ -25,11 +25,11 @@ public class ModelQueryParam {
     private String keyword;
 	
 	@ApiModelProperty(value="设计风格id", name="styleId")
-    private Long styleId;
+    private String styleId;
 
 	@ApiModelProperty(value="一级分类id", name="primaryclassId")
-    private Long primaryClassId;
+    private String primaryClassId;
 	
 	@ApiModelProperty(value="二级分类id", name="secondaryClassId")
-	private Long secondaryClassId;
+	private String secondaryClassId;
 }

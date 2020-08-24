@@ -16,6 +16,6 @@ import lombok.Data;
 public class ClassifyQueryDetailsParam {
 
 	@ApiModelProperty(value="分类id", name="classifyId")
-    private Long classifyId;
+    private String classifyId;
 	
 }

@@ -31,13 +31,13 @@ public class TbProfitManageServiceImpl extends ServiceImpl<TbProfitManageMapper,
 			queryWrapper.eq(TbProfitManage.USER_ID, profitQueryParam.getKeyWord())
 				.or().eq(TbProfitManage.USER_NAME, profitQueryParam.getKeyWord());
 		}
-		if(StringUtils.isNotEmpty(profitQueryParam.getStartTime().toString())) {
-			queryWrapper.ge(TbProfitManage.UPDATE_TIME, profitQueryParam.getStartTime());
+		if(StringUtils.isNotEmpty(profitQueryParam.getStartTime())) {
+			queryWrapper.ge(TbProfitManage.UPDATE_TIME, profitQueryParam.getStartTime() + " 00:00:00");
 		}
-		if(StringUtils.isNotEmpty(profitQueryParam.getEndTime().toString())) {
-			queryWrapper.le(TbProfitManage.UPDATE_TIME, profitQueryParam.getEndTime());
+		if(StringUtils.isNotEmpty(profitQueryParam.getEndTime())) {
+			queryWrapper.le(TbProfitManage.UPDATE_TIME, profitQueryParam.getEndTime() + " 23:59:59");
 		}
-		if(profitQueryParam.getUserId() != 0) {
+		if(StringUtils.isNotEmpty(profitQueryParam.getUserId())) {
 			queryWrapper.eq(TbProfitManage.USER_ID, profitQueryParam.getUserId());
 		}
 		queryWrapper.orderByDesc(TbProfitManage.UPDATE_TIME);

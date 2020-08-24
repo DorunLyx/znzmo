@@ -20,6 +20,7 @@ import com.pactera.znzmo.common.TbAttachmentService;
 import com.pactera.znzmo.enums.IsValidEnum;
 import com.pactera.znzmo.enums.JsonResultEnum;
 import com.pactera.znzmo.util.DataUtils;
+import com.pactera.znzmo.util.DateUtils;
 import com.pactera.znzmo.vo.common.UploadInfo;
 import com.pactera.znzmo.vo.drawing.DrawingAddParam;
 import com.pactera.znzmo.vo.drawing.DrawingDetailsVO;
@@ -74,7 +75,7 @@ public class DrawingController extends BaseController{
 				IPage<TbDrawingScheme> iPage = tbDrawingSchemeService.selectDrawingPages(page, modelQueryParam);
 				for (TbDrawingScheme tbDrawing : iPage.getRecords()) {
 					ModelListVO modelListVO = new ModelListVO();
-					modelListVO.setModelId(tbDrawing.getId());
+					modelListVO.setModelId(tbDrawing.getId().toString());
 					modelListVO.setMainGraph(tbDrawing.getMainGraph());
 					modelListVO.setCode(tbDrawing.getCode());
 					modelListVO.setPrimaryClassName(tbDrawing.getPrimaryClassName());
@@ -147,19 +148,19 @@ public class DrawingController extends BaseController{
 				TbDrawingScheme tbDrawing = tbDrawingSchemeService.getOne(queryWrapper);
 				if(tbDrawing != null) {
 					DrawingDetailsVO drawingDetailsVO = new DrawingDetailsVO();
-					drawingDetailsVO.setDrawingId(tbDrawing.getId());
+					drawingDetailsVO.setDrawingId(tbDrawing.getId().toString());
 					drawingDetailsVO.setMainGraph(tbDrawing.getMainGraph());
-					drawingDetailsVO.setPrimaryClassId(tbDrawing.getPrimaryClassId());
+					drawingDetailsVO.setPrimaryClassId(tbDrawing.getPrimaryClassId().toString());
 					drawingDetailsVO.setPrimaryClassName(tbDrawing.getPrimaryClassName());
-					drawingDetailsVO.setSecondaryClassId(tbDrawing.getSecondaryClassId());
+					drawingDetailsVO.setSecondaryClassId(tbDrawing.getSecondaryClassId().toString());
 					drawingDetailsVO.setSecondaryClassName(tbDrawing.getSecondaryClassName());
-					drawingDetailsVO.setStyleId(tbDrawing.getStyleId());
+					drawingDetailsVO.setStyleId(tbDrawing.getStyleId().toString());
 					drawingDetailsVO.setStyleName(tbDrawing.getStyleName());
 					drawingDetailsVO.setTitle(tbDrawing.getTitle());
 					drawingDetailsVO.setType(tbDrawing.getType());
 					drawingDetailsVO.setPrice(tbDrawing.getPrice());
 					drawingDetailsVO.setVersion(tbDrawing.getVersion());
-					drawingDetailsVO.setDesignTime(tbDrawing.getDesignTime());
+					drawingDetailsVO.setDesignTime(DateUtils.localDateTimeToString(tbDrawing.getDesignTime(), DateUtils.DATE_FORMAT));
 					drawingDetailsVO.setSynopsis(tbDrawing.getSynopsis());
 					drawingDetailsVO.setText(tbDrawing.getText());
 					drawingDetailsVO.setRemarks(tbDrawing.getRemarks());

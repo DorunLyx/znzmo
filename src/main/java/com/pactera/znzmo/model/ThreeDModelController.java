@@ -21,6 +21,7 @@ import com.pactera.znzmo.enums.IsValidEnum;
 import com.pactera.znzmo.enums.JsonResultEnum;
 import com.pactera.znzmo.enums.ReTypeEnum;
 import com.pactera.znzmo.util.DataUtils;
+import com.pactera.znzmo.util.DateUtils;
 import com.pactera.znzmo.vo.common.UploadInfo;
 import com.pactera.znzmo.vo.homepage.HomePageSimplifyData;
 import com.pactera.znzmo.vo.model.ModelAddParam;
@@ -76,7 +77,7 @@ public class ThreeDModelController extends BaseController{
 		        IPage<TbThreedModel> iPage = tbThreedModelService.select3DModelPages(page, modelQueryParam);
 				for (TbThreedModel tbThreedModel : iPage.getRecords()) {
 					HomePageSimplifyData homePageSimplifyData = new HomePageSimplifyData();
-					homePageSimplifyData.setReId(tbThreedModel.getId());
+					homePageSimplifyData.setReId(tbThreedModel.getId().toString());
 					homePageSimplifyData.setReType(ReTypeEnum.MODEL.getKey());
 					homePageSimplifyData.setMainGraph(tbThreedModel.getMainGraph());
 					homePageSimplifyData.setTitle(tbThreedModel.getTitle());
@@ -118,7 +119,7 @@ public class ThreeDModelController extends BaseController{
 		        IPage<TbThreedModel> iPage = tbThreedModelService.select3DModelPages(page, modelQueryParam);
 				for (TbThreedModel tbThreedModel : iPage.getRecords()) {
 					ModelListVO modelListVO = new ModelListVO();
-					modelListVO.setModelId(tbThreedModel.getId());
+					modelListVO.setModelId(tbThreedModel.getId().toString());
 					modelListVO.setMainGraph(tbThreedModel.getMainGraph());
 					modelListVO.setCode(tbThreedModel.getCode());
 					modelListVO.setPrimaryClassName(tbThreedModel.getPrimaryClassName());
@@ -133,7 +134,7 @@ public class ThreeDModelController extends BaseController{
 					modelListVO.setVisitsNum(tbThreedModel.getVisitsNum());
 					modelListVO.setDownloadNum(tbThreedModel.getDownloadNum());
 					modelListVO.setUploadUser(tbThreedModel.getCreateName());
-					modelListVO.setUploadTime(tbThreedModel.getCreateTime());
+					modelListVO.setUploadTime(DateUtils.localDateTimeToString(tbThreedModel.getCreateTime(), DateUtils.DATE_FORMAT));
 					modelList.add(modelListVO);
 	    		}
 				modeListPage.setRecords(modelList);
@@ -194,7 +195,7 @@ public class ThreeDModelController extends BaseController{
 		        TbThreedModel tbThreedModel = tbThreedModelService.getOne(modelQueryWrapper);
 		        if(tbThreedModel != null) {
 		        	ModelDetailsVO modelDetailsVO = new ModelDetailsVO();
-					modelDetailsVO.setModelId(tbThreedModel.getId());
+					modelDetailsVO.setModelId(tbThreedModel.getId().toString());
 					modelDetailsVO.setMainGraph(tbThreedModel.getMainGraph());
 					List<UploadInfo> uploadInfos = new ArrayList<>();
 					QueryWrapper<TbAttachment> attachmentQueryWrapper = new QueryWrapper<>();
@@ -213,11 +214,11 @@ public class ThreeDModelController extends BaseController{
 						}
 			        }
 			        modelDetailsVO.setUploadImg(uploadInfos);
-					modelDetailsVO.setPrimaryClassId(tbThreedModel.getPrimaryClassId());
+					modelDetailsVO.setPrimaryClassId(tbThreedModel.getPrimaryClassId().toString());
 					modelDetailsVO.setPrimaryClassName(tbThreedModel.getPrimaryClassName());
-					modelDetailsVO.setSecondaryClassId(tbThreedModel.getSecondaryClassId());
+					modelDetailsVO.setSecondaryClassId(tbThreedModel.getSecondaryClassId().toString());
 					modelDetailsVO.setSecondaryClassName(tbThreedModel.getSecondaryClassName());
-					modelDetailsVO.setStyleId(tbThreedModel.getStyleId());
+					modelDetailsVO.setStyleId(tbThreedModel.getStyleId().toString());
 					modelDetailsVO.setStyleName(tbThreedModel.getStyleName());
 					modelDetailsVO.setTitle(tbThreedModel.getTitle());
 					modelDetailsVO.setType(tbThreedModel.getType());

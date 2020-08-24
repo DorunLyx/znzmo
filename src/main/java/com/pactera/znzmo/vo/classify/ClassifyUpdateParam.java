@@ -16,13 +16,13 @@ import lombok.Data;
 public class ClassifyUpdateParam {
 
 	@ApiModelProperty(value="分类Id", name="classifyId")
-	private Long classifyId;
+	private String classifyId;
 
 	@ApiModelProperty(value="分类名称", name="classifyName")
 	private String classifyName;
 	
 	@ApiModelProperty(value="父级id", name="pId")
-	private Long pId;
+	private String pId;
 	
 	@ApiModelProperty(value="父级名称", name="pName")
 	private String pName;

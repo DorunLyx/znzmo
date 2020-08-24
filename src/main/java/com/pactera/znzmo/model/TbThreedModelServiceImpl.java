@@ -48,13 +48,13 @@ public class TbThreedModelServiceImpl extends ServiceImpl<TbThreedModelMapper, T
 		if(StringUtils.isNotEmpty(modelQueryParam.getKeyword())) {
 			queryWrapper.like(TbThreedModel.TITLE, modelQueryParam.getKeyword());
 		}
-		if(modelQueryParam.getStyleId() != 0) {
+		if(StringUtils.isNotEmpty(modelQueryParam.getStyleId())) {
 			queryWrapper.eq(TbThreedModel.STYLE_ID, modelQueryParam.getStyleId());
 		}
-		if(modelQueryParam.getPrimaryClassId() != 0) {
+		if(StringUtils.isNotEmpty(modelQueryParam.getPrimaryClassId())) {
 			queryWrapper.eq(TbThreedModel.PRIMARY_CLASS_ID, modelQueryParam.getPrimaryClassId());
 		}
-		if(modelQueryParam.getSecondaryClassId() != 0) {
+		if(StringUtils.isNotEmpty(modelQueryParam.getSecondaryClassId())) {
 			queryWrapper.eq(TbThreedModel.SECONDARY_CLASS_ID, modelQueryParam.getSecondaryClassId());
 		}
 		queryWrapper.orderByDesc(TbThreedModel.UPDATE_TIME);
@@ -66,11 +66,11 @@ public class TbThreedModelServiceImpl extends ServiceImpl<TbThreedModelMapper, T
 		TbThreedModel tbThreedModel = new TbThreedModel();
 		tbThreedModel.setMainGraph(modelAddParam.getMainGraph());
 		tbThreedModel.setCode(NumGenerationUtil.getrandom());
-		tbThreedModel.setPrimaryClassId(modelAddParam.getPrimaryClassId());
+		tbThreedModel.setPrimaryClassId(Long.valueOf(modelAddParam.getPrimaryClassId()));
 		tbThreedModel.setPrimaryClassName(modelAddParam.getPrimaryClassName());
-		tbThreedModel.setSecondaryClassId(modelAddParam.getSecondaryClassId());
+		tbThreedModel.setSecondaryClassId(Long.valueOf(modelAddParam.getSecondaryClassId()));
 		tbThreedModel.setSecondaryClassName(modelAddParam.getSecondaryClassName());
-		tbThreedModel.setStyleId(modelAddParam.getStyleId());
+		tbThreedModel.setStyleId(Long.valueOf(modelAddParam.getStyleId()));
 		tbThreedModel.setStyleName(modelAddParam.getStyleName());
 		tbThreedModel.setTitle(modelAddParam.getTitle());
 		tbThreedModel.setType(modelAddParam.getType());
@@ -125,11 +125,11 @@ public class TbThreedModelServiceImpl extends ServiceImpl<TbThreedModelMapper, T
 	public void updte3DModel(ModelUpdateParam modelUpdateParam) {
 		TbThreedModel tbThreedModel = baseMapper.selectById(modelUpdateParam.getModelId());
 		tbThreedModel.setMainGraph(modelUpdateParam.getMainGraph());
-		tbThreedModel.setPrimaryClassId(modelUpdateParam.getPrimaryClassId());
+		tbThreedModel.setPrimaryClassId(Long.valueOf(modelUpdateParam.getPrimaryClassId()));
 		tbThreedModel.setPrimaryClassName(modelUpdateParam.getPrimaryClassName());
-		tbThreedModel.setSecondaryClassId(modelUpdateParam.getSecondaryClassId());
+		tbThreedModel.setSecondaryClassId(Long.valueOf(modelUpdateParam.getSecondaryClassId()));
 		tbThreedModel.setSecondaryClassName(modelUpdateParam.getSecondaryClassName());
-		tbThreedModel.setStyleId(modelUpdateParam.getStyleId());
+		tbThreedModel.setStyleId(Long.valueOf(modelUpdateParam.getStyleId()));
 		tbThreedModel.setStyleName(modelUpdateParam.getStyleName());
 		tbThreedModel.setTitle(modelUpdateParam.getTitle());
 		tbThreedModel.setType(modelUpdateParam.getType());

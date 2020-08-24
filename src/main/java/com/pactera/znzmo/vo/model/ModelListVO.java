@@ -1,7 +1,6 @@
 package com.pactera.znzmo.vo.model;
 
 import java.math.BigDecimal;
-import java.time.LocalDateTime;
 
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
@@ -19,7 +18,7 @@ import lombok.Data;
 public class ModelListVO {
 
 	@ApiModelProperty(value="3d模板Id", name="modelId")
-	private Long modelId;
+	private String modelId;
 
 	@ApiModelProperty(value="主图地址", name="mainGraph")
     private String mainGraph;
@@ -64,6 +63,6 @@ public class ModelListVO {
 	private String uploadUser;
 	
 	@ApiModelProperty(value="上传时间", name="uploadTime")
-	private LocalDateTime uploadTime;
+	private String uploadTime;
 	
 }

@@ -49,13 +49,13 @@ public class TbDatabaseServiceImpl extends ServiceImpl<TbDatabaseMapper, TbDatab
 		if(StringUtils.isNotEmpty(modelQueryParam.getKeyword())) {
 			queryWrapper.like(TbDatabase.TITLE, modelQueryParam.getKeyword());
 		}
-		if(StringUtils.isNotEmpty(modelQueryParam.getStyleId().toString())) {
+		if(StringUtils.isNotEmpty(modelQueryParam.getStyleId())) {
 			queryWrapper.eq(TbDatabase.STYLE_ID, modelQueryParam.getStyleId());
 		}
-		if(StringUtils.isNotEmpty(modelQueryParam.getPrimaryClassId().toString())) {
+		if(StringUtils.isNotEmpty(modelQueryParam.getPrimaryClassId())) {
 			queryWrapper.eq(TbDatabase.PRIMARY_CLASS_ID, modelQueryParam.getPrimaryClassId());
 		}
-		if(StringUtils.isNotEmpty(modelQueryParam.getSecondaryClassId().toString())) {
+		if(StringUtils.isNotEmpty(modelQueryParam.getSecondaryClassId())) {
 			queryWrapper.eq(TbDatabase.SECONDARY_CLASS_ID, modelQueryParam.getSecondaryClassId());
 		}
 		queryWrapper.orderByDesc(TbDatabase.UPDATE_TIME);
@@ -67,11 +67,11 @@ public class TbDatabaseServiceImpl extends ServiceImpl<TbDatabaseMapper, TbDatab
 		TbDatabase tbDatabase = new TbDatabase();
 		tbDatabase.setMainGraph(databaseAddParam.getMainGraph());
 		tbDatabase.setCode(NumGenerationUtil.getrandom());
-		tbDatabase.setPrimaryClassId(databaseAddParam.getPrimaryClassId());
+		tbDatabase.setPrimaryClassId(Long.valueOf(databaseAddParam.getPrimaryClassId()));
 		tbDatabase.setPrimaryClassName(databaseAddParam.getPrimaryClassName());
-		tbDatabase.setSecondaryClassId(databaseAddParam.getSecondaryClassId());
+		tbDatabase.setSecondaryClassId(Long.valueOf(databaseAddParam.getSecondaryClassId()));
 		tbDatabase.setSecondaryClassName(databaseAddParam.getSecondaryClassName());
-		tbDatabase.setStyleId(databaseAddParam.getStyleId());
+		tbDatabase.setStyleId(Long.valueOf(databaseAddParam.getStyleId()));
 		tbDatabase.setStyleName(databaseAddParam.getStyleName());
 		tbDatabase.setTitle(databaseAddParam.getTitle());
 		tbDatabase.setType(databaseAddParam.getType());
@@ -124,11 +124,11 @@ public class TbDatabaseServiceImpl extends ServiceImpl<TbDatabaseMapper, TbDatab
 	public void updteDatabase(DatabaseUpdateParam databaseUpdateParam) {
 		TbDatabase tbDatabase = baseMapper.selectById(databaseUpdateParam.getDatabaseId());
 		tbDatabase.setMainGraph(databaseUpdateParam.getMainGraph());
-		tbDatabase.setPrimaryClassId(databaseUpdateParam.getPrimaryClassId());
+		tbDatabase.setPrimaryClassId(Long.valueOf(databaseUpdateParam.getPrimaryClassId()));
 		tbDatabase.setPrimaryClassName(databaseUpdateParam.getPrimaryClassName());
-		tbDatabase.setSecondaryClassId(databaseUpdateParam.getSecondaryClassId());
+		tbDatabase.setSecondaryClassId(Long.valueOf(databaseUpdateParam.getSecondaryClassId()));
 		tbDatabase.setSecondaryClassName(databaseUpdateParam.getSecondaryClassName());
-		tbDatabase.setStyleId(databaseUpdateParam.getStyleId());
+		tbDatabase.setStyleId(Long.valueOf(databaseUpdateParam.getStyleId()));
 		tbDatabase.setStyleName(databaseUpdateParam.getStyleName());
 		tbDatabase.setTitle(databaseUpdateParam.getTitle());
 		tbDatabase.setType(databaseUpdateParam.getType());

@@ -48,13 +48,13 @@ public class TbSuModelServiceImpl extends ServiceImpl<TbSuModelMapper, TbSuModel
 		if(StringUtils.isNotEmpty(modelQueryParam.getKeyword())) {
 			queryWrapper.like(TbSuModel.TITLE, modelQueryParam.getKeyword());
 		}
-		if(StringUtils.isNotEmpty(modelQueryParam.getStyleId().toString())) {
+		if(StringUtils.isNotEmpty(modelQueryParam.getStyleId())) {
 			queryWrapper.eq(TbSuModel.STYLE_ID, modelQueryParam.getStyleId());
 		}
-		if(StringUtils.isNotEmpty(modelQueryParam.getPrimaryClassId().toString())) {
+		if(StringUtils.isNotEmpty(modelQueryParam.getPrimaryClassId())) {
 			queryWrapper.eq(TbSuModel.PRIMARY_CLASS_ID, modelQueryParam.getPrimaryClassId());
 		}
-		if(StringUtils.isNotEmpty(modelQueryParam.getSecondaryClassId().toString())) {
+		if(StringUtils.isNotEmpty(modelQueryParam.getSecondaryClassId())) {
 			queryWrapper.eq(TbSuModel.SECONDARY_CLASS_ID, modelQueryParam.getSecondaryClassId());
 		}
 		queryWrapper.orderByDesc(TbSuModel.UPDATE_TIME);
@@ -66,13 +66,13 @@ public class TbSuModelServiceImpl extends ServiceImpl<TbSuModelMapper, TbSuModel
 		TbSuModel tbSuModel = new TbSuModel();
 		tbSuModel.setMainGraph(suModelAddParam.getMainGraph());
 		tbSuModel.setCode(NumGenerationUtil.getrandom());
-		tbSuModel.setPrimaryClassId(suModelAddParam.getPrimaryClassId());
+		tbSuModel.setPrimaryClassId(Long.valueOf(suModelAddParam.getPrimaryClassId()));
 		tbSuModel.setPrimaryClassName(suModelAddParam.getPrimaryClassName());
-		tbSuModel.setSecondaryClassId(suModelAddParam.getSecondaryClassId());
+		tbSuModel.setSecondaryClassId(Long.valueOf(suModelAddParam.getSecondaryClassId()));
 		tbSuModel.setSecondaryClassName(suModelAddParam.getSecondaryClassName());
-		tbSuModel.setThreeClassId(suModelAddParam.getThreeClassId());
+		tbSuModel.setThreeClassId(Long.valueOf(suModelAddParam.getThreeClassId()));
 		tbSuModel.setThreeClassName(suModelAddParam.getThreeClassName());
-		tbSuModel.setStyleId(suModelAddParam.getStyleId());
+		tbSuModel.setStyleId(Long.valueOf(suModelAddParam.getStyleId()));
 		tbSuModel.setStyleName(suModelAddParam.getStyleName());
 		tbSuModel.setTitle(suModelAddParam.getTitle());
 		tbSuModel.setType(suModelAddParam.getType());
@@ -126,13 +126,13 @@ public class TbSuModelServiceImpl extends ServiceImpl<TbSuModelMapper, TbSuModel
 	public void updteSuModel(SuModelUpdateParam suModelUpdateParam) {
 		TbSuModel tbSuModel = baseMapper.selectById(suModelUpdateParam.getSuModelId());
 		tbSuModel.setMainGraph(suModelUpdateParam.getMainGraph());
-		tbSuModel.setPrimaryClassId(suModelUpdateParam.getPrimaryClassId());
+		tbSuModel.setPrimaryClassId(Long.valueOf(suModelUpdateParam.getPrimaryClassId()));
 		tbSuModel.setPrimaryClassName(suModelUpdateParam.getPrimaryClassName());
-		tbSuModel.setSecondaryClassId(suModelUpdateParam.getSecondaryClassId());
+		tbSuModel.setSecondaryClassId(Long.valueOf(suModelUpdateParam.getSecondaryClassId()));
 		tbSuModel.setSecondaryClassName(suModelUpdateParam.getSecondaryClassName());
-		tbSuModel.setThreeClassId(suModelUpdateParam.getThreeClassId());
+		tbSuModel.setThreeClassId(Long.valueOf(suModelUpdateParam.getThreeClassId()));
 		tbSuModel.setThreeClassName(suModelUpdateParam.getThreeClassName());
-		tbSuModel.setStyleId(suModelUpdateParam.getStyleId());
+		tbSuModel.setStyleId(Long.valueOf(suModelUpdateParam.getStyleId()));
 		tbSuModel.setStyleName(suModelUpdateParam.getStyleName());
 		tbSuModel.setTitle(suModelUpdateParam.getTitle());
 		tbSuModel.setType(suModelUpdateParam.getType());

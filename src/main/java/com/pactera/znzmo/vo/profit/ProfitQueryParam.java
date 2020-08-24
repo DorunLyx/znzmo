@@ -1,7 +1,5 @@
 package com.pactera.znzmo.vo.profit;
 
-import java.time.LocalDateTime;
-
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
@@ -24,7 +22,7 @@ public class ProfitQueryParam {
 	private Integer pageSize;
 	
 	@ApiModelProperty(value="用户id", name="userId")
-	private Long userId;
+	private String userId;
 	
 	@ApiModelProperty(value="类型", name="type")
 	private Integer type;
@@ -33,8 +31,8 @@ public class ProfitQueryParam {
     private String keyWord;
 
 	@ApiModelProperty(value="开始时间", name="startTime")
-	private LocalDateTime startTime;
+	private String startTime;
 	
 	@ApiModelProperty(value="结束时间", name="endTime")
-	private LocalDateTime endTime;
+	private String endTime;
 }

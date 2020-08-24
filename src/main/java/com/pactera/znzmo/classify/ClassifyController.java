@@ -129,7 +129,7 @@ public class ClassifyController extends BaseController{
 				for (TbClass tbClass : iPage.getRecords()) {
 					ClassifyDetailsVO classifyDetailsVO = new ClassifyDetailsVO();
 					classifyDetailsVO.setClassifyName(tbClass.getName());
-					classifyDetailsVO.setPId(tbClass.getPId());
+					classifyDetailsVO.setPId(tbClass.getPId().toString());
 					classifyDetailsVO.setPName(tbClass.getPName());
 					classifyDetailsVO.setLevel(tbClass.getLevel());
 					classifyDetailsVO.setSort(tbClass.getSort());
@@ -191,7 +191,7 @@ public class ClassifyController extends BaseController{
 				if(tbClass != null) {
 					ClassifyDetailsVO classifyDetailsVO = new ClassifyDetailsVO();
 					classifyDetailsVO.setClassifyName(tbClass.getName());
-					classifyDetailsVO.setPId(tbClass.getPId());
+					classifyDetailsVO.setPId(tbClass.getPId().toString());
 					classifyDetailsVO.setPName(tbClass.getPName());
 					classifyDetailsVO.setLevel(tbClass.getLevel());
 					classifyDetailsVO.setSort(tbClass.getSort());

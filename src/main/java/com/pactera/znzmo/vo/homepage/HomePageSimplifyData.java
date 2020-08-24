@@ -18,7 +18,7 @@ import lombok.Data;
 public class HomePageSimplifyData {
 	
 	@ApiModelProperty(value="业务id", name="reId")
-	private Long reId;
+	private String reId;
 	
 	@ApiModelProperty(value="业务类型", name="reType")
 	private Integer reType;

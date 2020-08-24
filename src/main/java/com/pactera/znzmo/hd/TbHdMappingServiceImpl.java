@@ -48,13 +48,13 @@ public class TbHdMappingServiceImpl extends ServiceImpl<TbHdMappingMapper, TbHdM
 		if(StringUtils.isNotEmpty(modelQueryParam.getKeyword())) {
 			queryWrapper.like(TbHdMapping.TITLE, modelQueryParam.getKeyword());
 		}
-		if(StringUtils.isNotEmpty(modelQueryParam.getStyleId().toString())) {
+		if(StringUtils.isNotEmpty(modelQueryParam.getStyleId())) {
 			queryWrapper.eq(TbHdMapping.STYLE_ID, modelQueryParam.getStyleId());
 		}
-		if(StringUtils.isNotEmpty(modelQueryParam.getPrimaryClassId().toString())) {
+		if(StringUtils.isNotEmpty(modelQueryParam.getPrimaryClassId())) {
 			queryWrapper.eq(TbHdMapping.PRIMARY_CLASS_ID, modelQueryParam.getPrimaryClassId());
 		}
-		if(StringUtils.isNotEmpty(modelQueryParam.getSecondaryClassId().toString())) {
+		if(StringUtils.isNotEmpty(modelQueryParam.getSecondaryClassId())) {
 			queryWrapper.eq(TbHdMapping.SECONDARY_CLASS_ID, modelQueryParam.getSecondaryClassId());
 		}
 		queryWrapper.orderByDesc(TbHdMapping.UPDATE_TIME);
@@ -66,11 +66,11 @@ public class TbHdMappingServiceImpl extends ServiceImpl<TbHdMappingMapper, TbHdM
 		TbHdMapping tbHdMapping = new TbHdMapping();
 		tbHdMapping.setMainGraph(hdMappingAddParam.getMainGraph());
 		tbHdMapping.setCode(NumGenerationUtil.getrandom());
-		tbHdMapping.setPrimaryClassId(hdMappingAddParam.getPrimaryClassId());
+		tbHdMapping.setPrimaryClassId(Long.valueOf(hdMappingAddParam.getPrimaryClassId()));
 		tbHdMapping.setPrimaryClassName(hdMappingAddParam.getPrimaryClassName());
-		tbHdMapping.setSecondaryClassId(hdMappingAddParam.getSecondaryClassId());
+		tbHdMapping.setSecondaryClassId(Long.valueOf(hdMappingAddParam.getSecondaryClassId()));
 		tbHdMapping.setSecondaryClassName(hdMappingAddParam.getSecondaryClassName());
-		tbHdMapping.setStyleId(hdMappingAddParam.getStyleId());
+		tbHdMapping.setStyleId(Long.valueOf(hdMappingAddParam.getStyleId()));
 		tbHdMapping.setStyleName(hdMappingAddParam.getStyleName());
 		tbHdMapping.setTitle(hdMappingAddParam.getTitle());
 		tbHdMapping.setType(hdMappingAddParam.getType());
@@ -123,11 +123,11 @@ public class TbHdMappingServiceImpl extends ServiceImpl<TbHdMappingMapper, TbHdM
 	public void updteHdMapping(HDMappingUpdateParam hDMappingUpdateParam) {
 		TbHdMapping tbHdMapping = baseMapper.selectById(hDMappingUpdateParam.getHdId());
 		tbHdMapping.setMainGraph(hDMappingUpdateParam.getMainGraph());
-		tbHdMapping.setPrimaryClassId(hDMappingUpdateParam.getPrimaryClassId());
+		tbHdMapping.setPrimaryClassId(Long.valueOf(hDMappingUpdateParam.getPrimaryClassId()));
 		tbHdMapping.setPrimaryClassName(hDMappingUpdateParam.getPrimaryClassName());
-		tbHdMapping.setSecondaryClassId(hDMappingUpdateParam.getSecondaryClassId());
+		tbHdMapping.setSecondaryClassId(Long.valueOf(hDMappingUpdateParam.getSecondaryClassId()));
 		tbHdMapping.setSecondaryClassName(hDMappingUpdateParam.getSecondaryClassName());
-		tbHdMapping.setStyleId(hDMappingUpdateParam.getStyleId());
+		tbHdMapping.setStyleId(Long.valueOf(hDMappingUpdateParam.getStyleId()));
 		tbHdMapping.setStyleName(hDMappingUpdateParam.getStyleName());
 		tbHdMapping.setTitle(hDMappingUpdateParam.getTitle());
 		tbHdMapping.setType(hDMappingUpdateParam.getType());

@@ -18,6 +18,7 @@ import com.pactera.znzmo.enums.ReTypeEnum;
 import com.pactera.znzmo.enums.StatusEnum;
 import com.pactera.znzmo.examineverify.TbExamineVerify;
 import com.pactera.znzmo.examineverify.dao.TbExamineVerifyMapper;
+import com.pactera.znzmo.util.DateUtils;
 import com.pactera.znzmo.util.NumGenerationUtil;
 import com.pactera.znzmo.util.StringUtils;
 import com.pactera.znzmo.vo.common.UploadInfo;
@@ -49,13 +50,13 @@ public class TbDrawingSchemeServiceImpl extends ServiceImpl<TbDrawingSchemeMappe
 		if(StringUtils.isNotEmpty(modelQueryParam.getKeyword())) {
 			queryWrapper.like(TbDrawingScheme.TITLE, modelQueryParam.getKeyword());
 		}
-		if(StringUtils.isNotEmpty(modelQueryParam.getStyleId().toString())) {
+		if(StringUtils.isNotEmpty(modelQueryParam.getStyleId())) {
 			queryWrapper.eq(TbDrawingScheme.STYLE_ID, modelQueryParam.getStyleId());
 		}
-		if(StringUtils.isNotEmpty(modelQueryParam.getPrimaryClassId().toString())) {
+		if(StringUtils.isNotEmpty(modelQueryParam.getPrimaryClassId())) {
 			queryWrapper.eq(TbDrawingScheme.PRIMARY_CLASS_ID, modelQueryParam.getPrimaryClassId());
 		}
-		if(StringUtils.isNotEmpty(modelQueryParam.getSecondaryClassId().toString())) {
+		if(StringUtils.isNotEmpty(modelQueryParam.getSecondaryClassId())) {
 			queryWrapper.eq(TbDrawingScheme.SECONDARY_CLASS_ID, modelQueryParam.getSecondaryClassId());
 		}
 		queryWrapper.orderByDesc(TbDrawingScheme.UPDATE_TIME);
@@ -67,18 +68,18 @@ public class TbDrawingSchemeServiceImpl extends ServiceImpl<TbDrawingSchemeMappe
 		TbDrawingScheme tbDrawing = new TbDrawingScheme();
 		tbDrawing.setMainGraph(drawingAddParam.getMainGraph());
 		tbDrawing.setCode(NumGenerationUtil.getrandom());
-		tbDrawing.setPrimaryClassId(drawingAddParam.getPrimaryClassId());
+		tbDrawing.setPrimaryClassId(Long.valueOf(drawingAddParam.getPrimaryClassId()));
 		tbDrawing.setPrimaryClassName(drawingAddParam.getPrimaryClassName());
-		tbDrawing.setSecondaryClassId(drawingAddParam.getSecondaryClassId());
+		tbDrawing.setSecondaryClassId(Long.valueOf(drawingAddParam.getSecondaryClassId()));
 		tbDrawing.setSecondaryClassName(drawingAddParam.getSecondaryClassName());
-		tbDrawing.setStyleId(drawingAddParam.getStyleId());
+		tbDrawing.setStyleId(Long.valueOf(drawingAddParam.getStyleId()));
 		tbDrawing.setStyleName(drawingAddParam.getStyleName());
 		tbDrawing.setTitle(drawingAddParam.getTitle());
 		tbDrawing.setTag(drawingAddParam.getTag());
 		tbDrawing.setType(drawingAddParam.getType());
 		tbDrawing.setPrice(drawingAddParam.getPrice());
 		tbDrawing.setVersion(drawingAddParam.getVersion());
-		tbDrawing.setDesignTime(drawingAddParam.getDesignTime());
+		tbDrawing.setDesignTime(DateUtils.parseDate(drawingAddParam.getDesignTime() + " 00:00:00", DateUtils.FORMAT_ONE));
 		tbDrawing.setLocation(drawingAddParam.getLocation());
 		tbDrawing.setSynopsis(drawingAddParam.getSynopsis());
 		tbDrawing.setText(drawingAddParam.getText());
@@ -130,18 +131,18 @@ public class TbDrawingSchemeServiceImpl extends ServiceImpl<TbDrawingSchemeMappe
 	public void updteDrawing(DrawingUpdateParam drawingUpdateParam) {
 		TbDrawingScheme tbDrawing = baseMapper.selectById(drawingUpdateParam.getDrawingId());
 		tbDrawing.setMainGraph(drawingUpdateParam.getMainGraph());
-		tbDrawing.setPrimaryClassId(drawingUpdateParam.getPrimaryClassId());
+		tbDrawing.setPrimaryClassId(Long.valueOf(drawingUpdateParam.getPrimaryClassId()));
 		tbDrawing.setPrimaryClassName(drawingUpdateParam.getPrimaryClassName());
-		tbDrawing.setSecondaryClassId(drawingUpdateParam.getSecondaryClassId());
+		tbDrawing.setSecondaryClassId(Long.valueOf(drawingUpdateParam.getSecondaryClassId()));
 		tbDrawing.setSecondaryClassName(drawingUpdateParam.getSecondaryClassName());
-		tbDrawing.setStyleId(drawingUpdateParam.getStyleId());
+		tbDrawing.setStyleId(Long.valueOf(drawingUpdateParam.getStyleId()));
 		tbDrawing.setStyleName(drawingUpdateParam.getStyleName());
 		tbDrawing.setTitle(drawingUpdateParam.getTitle());
 		tbDrawing.setTag(drawingUpdateParam.getTag());
 		tbDrawing.setType(drawingUpdateParam.getType());
 		tbDrawing.setPrice(drawingUpdateParam.getPrice());
 		tbDrawing.setVersion(drawingUpdateParam.getVersion());
-		tbDrawing.setDesignTime(drawingUpdateParam.getDesignTime());
+		tbDrawing.setDesignTime(DateUtils.parseDate(drawingUpdateParam.getDesignTime() + " 00:00:00", DateUtils.FORMAT_ONE));
 		tbDrawing.setLocation(drawingUpdateParam.getLocation());
 		tbDrawing.setSynopsis(drawingUpdateParam.getSynopsis());
 		tbDrawing.setText(drawingUpdateParam.getText());
