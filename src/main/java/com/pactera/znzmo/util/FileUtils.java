@@ -1,5 +1,6 @@
 package com.pactera.znzmo.util;
 
+import java.awt.image.BufferedImage;
 import java.io.BufferedInputStream;
 import java.io.BufferedOutputStream;
 import java.io.ByteArrayOutputStream;
@@ -13,9 +14,11 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
+import java.text.DecimalFormat;
 import java.util.HashMap;
 import java.util.Map;
 
+import javax.imageio.ImageIO;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
@@ -49,7 +52,7 @@ public class FileUtils {
 	public static Map<String, Object> uploadFile(HttpServletRequest request, MultipartFile file, String uploadSubPath) {
           Map<String, Object> jsonMap = new HashMap<String, Object>();
           try {
-              if(file.isEmpty()){
+        	  if(file.isEmpty()){
                   jsonMap.put("success", false);
                   jsonMap.put("errorCode", "fileEmpty");
                   jsonMap.put("error", "上传文件为空");
@@ -67,13 +70,33 @@ public class FileUtils {
                   uploadSubPath = "/default";
               }
 
-
+              //文件大小
+              long size = file.getSize();
+              DecimalFormat df = new DecimalFormat("0.00");
+  			  Double doubleSize = Double.valueOf(String.valueOf(size))/1024/1024;
+  			  String sizes = "";
+  			  if(doubleSize > 1024){
+  				  doubleSize = doubleSize/1024;
+  				  sizes = df.format(doubleSize) + "G";
+  			  }else {
+  				  sizes = df.format(doubleSize) + "M";
+          	  }
+              
+  			  //图片尺寸
+  			  InputStream is = file.getInputStream();
+  			  BufferedImage sourceImg = ImageIO.read(is);
+  			  String pictureSize = "";
+  			  if(sourceImg != null) {
+  				pictureSize = sourceImg.getHeight() + "*" + sourceImg.getWidth();
+  			  }
+              
               //创建相对路径
               String serverRealPath =  FileUtils.getRealPath(request);
 //              SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 //              String dirRelativePath = uploadSubPath + "/"  + sdf.format(new Date());
               String dirRelativePath = uploadSubPath;
               String dirRealPath = serverRealPath + dirRelativePath;
+             
               //创建文件夹
               File uploadDir = new File(dirRealPath);
               if(!uploadDir.exists()){
@@ -82,7 +105,6 @@ public class FileUtils {
 
               //文件重命名
               String fileEnd = System.currentTimeMillis() + "";
-
               String uploadFileName = fileEnd + fileSuffix;
 
               //创建文件
@@ -90,10 +112,11 @@ public class FileUtils {
               //上传
               file.transferTo(uploadFile);
 
-              String relativeUrl =   dirRelativePath + "/" + uploadFileName;//文件的相对路径
+              //文件的相对路径
+              String relativeUrl =   dirRelativePath + "/" + uploadFileName;
               String domain = getAccessDomain(request);
               String accessUrl = domain + relativeUrl;
-
+              
               jsonMap.put("success", true);
               jsonMap.put("url", relativeUrl);
               //绝对路径
@@ -103,6 +126,9 @@ public class FileUtils {
               jsonMap.put("realPath", uploadFile.getPath());
               jsonMap.put("fileName", uploadFileName);
               jsonMap.put("file", uploadFile);
+              jsonMap.put("sizes", sizes);
+              jsonMap.put("pictureSize", pictureSize);
+              jsonMap.put("fileSuffix", fileSuffix);
           } catch (Exception e) {
               jsonMap.put("success", false);
               jsonMap.put("error",e.getMessage());
@@ -276,7 +302,6 @@ public class FileUtils {
 	 * @author LiuGuiChao
 	 * @date 2018年12月4日 下午3:27:03
 	*/
-	@SuppressWarnings("resource")
 	public static byte[] getBytesFromFile(String fileUrl,HttpServletRequest request) throws IOException {
 		String domain = UIHelper.getWebRealPath(request);
 		String accessUrl = domain + fileUrl;
@@ -482,108 +507,5 @@ public class FileUtils {
         multipartFile.transferTo(excelFile);
 		return excelFile;
 	}
-
-	/**
-	 * @Title: verifyExcel
-	 * @Description: 校验excel是否合法
-	 * @param reader
-	 * @return Boolean
-	 * @author liyongxu
-	 * @date 2019年12月17日 上午10:48:31
-	 */
-	public static Boolean verifyExcel(ExcelImport reader) {
-		//列数目
-		Integer columnNum = reader.getColumnNum(Constants.EXCEL_TEMPLATE_DEFAULT_SHEET);
-		if (!Constants.EXCEL_INIT_TEMPLATE_COLUMN_COUNT.equals(columnNum)) {
-			return false;
-		}
-		//标题数目校验
-		int titleRowNum = Constants.EXCEL_TEMPLATE_TITLE_ROW;
-		String[] titles = reader.getRowData(Constants.EXCEL_TEMPLATE_DEFAULT_SHEET, titleRowNum);
-		if (titles == null || !Constants.EXCEL_INIT_TEMPLATE_COLUMN_COUNT.equals(titles.length)) {
-			return false;
-		}
-		return true;
-	}
-
-	/**
-	 * @Author zhangzewen
-	 * @Description //校验excel是否合法
-	 * @Date 15:23 2019/12/26
-	 * @Param [reader]
-	 * @return java.lang.Boolean
-	 **/
-	public static Boolean skuVerifyExcel(ExcelImport reader) {
-		//列数目
-		Integer columnNum = reader.getColumnNum(Constants.EXCEL_TEMPLATE_DEFAULT_SHEET);
-		if (!Constants.SKU_EXCEL_INIT_TEMPLATE_COLUMN_COUNT.equals(columnNum)) {
-			return false;
-		}
-		//标题数目校验
-		int titleRowNum = Constants.EXCEL_TEMPLATE_TITLE_ROW;
-		String[] titles = reader.getRowData(Constants.EXCEL_TEMPLATE_DEFAULT_SHEET, titleRowNum);
-		if (titles == null || !Constants.SKU_EXCEL_INIT_TEMPLATE_COLUMN_COUNT.equals(titles.length)) {
-			return false;
-		}
-		return true;
-	}
-
-	/**
-	 * @Author zhangzewen
-	 * @Description //校验excel是否合法
-	 * @Date 15:23 2019/12/26
-	 * @Param [reader]
-	 * @return java.lang.Boolean
-	 **/
-	public static Boolean supplierVerifyExcel(ExcelImport reader) {
-		//列数目
-		Integer columnNum = reader.getColumnNum(Constants.EXCEL_TEMPLATE_DEFAULT_SHEET);
-		if (!Constants.SUPPLIER_EXCEL_INIT_TEMPLATE_COLUMN_COUNT.equals(columnNum)) {
-			return false;
-		}
-		//标题数目校验
-		int titleRowNum = Constants.EXCEL_TEMPLATE_TITLE_ROW;
-		String[] titles = reader.getRowData(Constants.EXCEL_TEMPLATE_DEFAULT_SHEET, titleRowNum);
-		if (titles == null || !Constants.SUPPLIER_EXCEL_INIT_TEMPLATE_COLUMN_COUNT.equals(titles.length)) {
-			return false;
-		}
-		return true;
-	}
-
-	/**
-	 * @Author zhangzewen
-	 * @Description //校验excel是否合法
-	 * @Date 15:23 2019/12/26
-	 * @Param [reader]
-	 * @return java.lang.Boolean
-	 **/
-	public static Boolean brandVerifyExcel(ExcelImport reader) {
-		//列数目
-		Integer columnNum = reader.getColumnNum(Constants.EXCEL_TEMPLATE_DEFAULT_SHEET);
-		if (!Constants.BRAND_EXCEL_INIT_TEMPLATE_COLUMN_COUNT.equals(columnNum)) {
-			return false;
-		}
-		//标题数目校验
-		int titleRowNum = Constants.EXCEL_TEMPLATE_TITLE_ROW;
-		String[] titles = reader.getRowData(Constants.EXCEL_TEMPLATE_DEFAULT_SHEET, titleRowNum);
-		if (titles == null || !Constants.BRAND_EXCEL_INIT_TEMPLATE_COLUMN_COUNT.equals(titles.length)) {
-			return false;
-		}
-		return true;
-	}
-
-	public static Boolean scrapAssetVerifyExcel(ExcelImport reader) {
-		//列数目
-		Integer columnNum = reader.getColumnNum(Constants.EXCEL_TEMPLATE_DEFAULT_SHEET);
-		if (!Constants.SCRAPASSET_EXCEL_INIT_TEMPLATE_COLUMN_COUNT.equals(columnNum)) {
-			return false;
-		}
-		//标题数目校验
-		int titleRowNum = Constants.EXCEL_TEMPLATE_TITLE_ROW;
-		String[] titles = reader.getRowData(Constants.EXCEL_TEMPLATE_DEFAULT_SHEET, titleRowNum);
-		if (titles == null || !Constants.SCRAPASSET_EXCEL_INIT_TEMPLATE_COLUMN_COUNT.equals(titles.length)) {
-			return false;
-		}
-		return true;
-	}
+	
 }
