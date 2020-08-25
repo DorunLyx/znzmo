@@ -22,9 +22,6 @@ public class ModelUpdateParam {
 	
 	@ApiModelProperty(value="3d模型id", name="modelId")
 	private String modelId;
-	
-	@ApiModelProperty(value="主图地址id", name="mainGraphId")
-    private String mainGraph;
 
 	@ApiModelProperty(value="上传文件", name="uploadImg")
     private List<UploadInfo> uploadImg;

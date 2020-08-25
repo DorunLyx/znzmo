@@ -65,7 +65,6 @@ public class TbDatabaseServiceImpl extends ServiceImpl<TbDatabaseMapper, TbDatab
 	@Override
 	public void addDatabase(DatabaseAddParam databaseAddParam) {
 		TbDatabase tbDatabase = new TbDatabase();
-		tbDatabase.setMainGraph(databaseAddParam.getMainGraph());
 		tbDatabase.setCode(NumGenerationUtil.getrandom());
 		tbDatabase.setPrimaryClassId(Long.valueOf(databaseAddParam.getPrimaryClassId()));
 		tbDatabase.setPrimaryClassName(databaseAddParam.getPrimaryClassName());
@@ -88,21 +87,28 @@ public class TbDatabaseServiceImpl extends ServiceImpl<TbDatabaseMapper, TbDatab
 		baseMapper.insert(tbDatabase);
 		
 		//新增上传文件
-        for (UploadInfo keyAndUrl : databaseAddParam.getUploadImg()) {
+		for (UploadInfo uploadInfo : databaseAddParam.getUploadImg()) {
             TbAttachment tbAttachment = new TbAttachment();
             tbAttachment.setRelationId(tbDatabase.getId());
-            tbAttachment.setAttachmentName(keyAndUrl.getFileName());
-            tbAttachment.setAttachmentPath(keyAndUrl.getFile());
-            tbAttachment.setPhysicalPath(keyAndUrl.getFile());
-            tbAttachment.setAliasName(keyAndUrl.getRealName());
-            tbAttachment.setReType(keyAndUrl.getType());
+            tbAttachment.setAttachmentName(uploadInfo.getFileName());
+            tbAttachment.setAttachmentPath(uploadInfo.getFile());
+            tbAttachment.setPhysicalPath(uploadInfo.getFile());
+            tbAttachment.setAliasName(uploadInfo.getRealName());
+            tbAttachment.setReType(uploadInfo.getType());
+            tbAttachment.setSuffix(uploadInfo.getFileSuffix());
+            tbAttachment.setAttachmentSize(uploadInfo.getSizes());
+            tbAttachment.setPictureSize(uploadInfo.getPictureSize());
             tbAttachment.setIsValid(IsValidEnum.YES.getKey());
-//            tbAttachment.setCreateId(user.getUserId());
-//            tbAttachment.setCreateName(user.getUserName());
+//	            tbAttachment.setCreateId(user.getUserId());
+//	            tbAttachment.setCreateName(user.getUserName());
             tbAttachment.setCreateTime(LocalDateTime.now());
             tbAttachment.setUpdateTime(LocalDateTime.now());
             tbAttachmentMapper.insert(tbAttachment);
-        }
+            if(uploadInfo.getType() == 1) {
+            	tbDatabase.setMainGraph(tbAttachment.getId().toString());
+            	baseMapper.updateById(tbDatabase);
+            }
+		}
         
         TbExamineVerify tbExamineVerify = new TbExamineVerify();
         tbExamineVerify.setUserId(1L);
@@ -123,7 +129,6 @@ public class TbDatabaseServiceImpl extends ServiceImpl<TbDatabaseMapper, TbDatab
 	@Override
 	public void updteDatabase(DatabaseUpdateParam databaseUpdateParam) {
 		TbDatabase tbDatabase = baseMapper.selectById(databaseUpdateParam.getDatabaseId());
-		tbDatabase.setMainGraph(databaseUpdateParam.getMainGraph());
 		tbDatabase.setPrimaryClassId(Long.valueOf(databaseUpdateParam.getPrimaryClassId()));
 		tbDatabase.setPrimaryClassName(databaseUpdateParam.getPrimaryClassName());
 		tbDatabase.setSecondaryClassId(Long.valueOf(databaseUpdateParam.getSecondaryClassId()));
@@ -145,21 +150,28 @@ public class TbDatabaseServiceImpl extends ServiceImpl<TbDatabaseMapper, TbDatab
 		tbAttachmentMapper.delete(queryWrapper);
 		
 		//新增上传文件
-        for (UploadInfo keyAndUrl : databaseUpdateParam.getUploadImg()) {
+		for (UploadInfo uploadInfo : databaseUpdateParam.getUploadImg()) {
             TbAttachment tbAttachment = new TbAttachment();
             tbAttachment.setRelationId(tbDatabase.getId());
-            tbAttachment.setAttachmentName(keyAndUrl.getFileName());
-            tbAttachment.setAttachmentPath(keyAndUrl.getFile());
-            tbAttachment.setPhysicalPath(keyAndUrl.getFile());
-            tbAttachment.setAliasName(keyAndUrl.getRealName());
-            tbAttachment.setReType(keyAndUrl.getType());
+            tbAttachment.setAttachmentName(uploadInfo.getFileName());
+            tbAttachment.setAttachmentPath(uploadInfo.getFile());
+            tbAttachment.setPhysicalPath(uploadInfo.getFile());
+            tbAttachment.setAliasName(uploadInfo.getRealName());
+            tbAttachment.setReType(uploadInfo.getType());
+            tbAttachment.setSuffix(uploadInfo.getFileSuffix());
+            tbAttachment.setAttachmentSize(uploadInfo.getSizes());
+            tbAttachment.setPictureSize(uploadInfo.getPictureSize());
             tbAttachment.setIsValid(IsValidEnum.YES.getKey());
-//            tbAttachment.setCreateId(user.getUserId());
-//            tbAttachment.setCreateName(user.getUserName());
+//	            tbAttachment.setCreateId(user.getUserId());
+//	            tbAttachment.setCreateName(user.getUserName());
             tbAttachment.setCreateTime(LocalDateTime.now());
             tbAttachment.setUpdateTime(LocalDateTime.now());
             tbAttachmentMapper.insert(tbAttachment);
-        }
+            if(uploadInfo.getType() == 1) {
+            	tbDatabase.setMainGraph(tbAttachment.getId().toString());
+            	baseMapper.updateById(tbDatabase);
+            }
+		}
 	}
 
 }

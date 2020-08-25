@@ -121,7 +121,6 @@ public class ThreeDModelController extends BaseController{
 		        if(tbThreedModel != null) {
 		        	ModelDetailsVO modelDetailsVO = new ModelDetailsVO();
 					modelDetailsVO.setModelId(tbThreedModel.getId().toString());
-					modelDetailsVO.setMainGraph(tbThreedModel.getMainGraph());
 					List<UploadInfo> uploadInfos = new ArrayList<>();
 					QueryWrapper<TbAttachment> attachmentQueryWrapper = new QueryWrapper<>();
 					attachmentQueryWrapper.eq(TbAttachment.IS_VALID, IsValidEnum.YES.getKey())
@@ -136,6 +135,9 @@ public class ThreeDModelController extends BaseController{
 							uploadInfo.setRealName(tbAttachment.getAliasName());
 							uploadInfo.setUrl(tbAttachment.getAttachmentPath());
 							uploadInfos.add(uploadInfo);
+							if(tbAttachment.getId().equals(Long.valueOf(tbThreedModel.getMainGraph()))) {
+								modelDetailsVO.setFileSize(tbAttachment.getAttachmentSize());
+							}
 						}
 			        }
 			        modelDetailsVO.setUploadImg(uploadInfos);
@@ -144,7 +146,6 @@ public class ThreeDModelController extends BaseController{
 			        modelDetailsVO.setDownloadNum(tbThreedModel.getDownloadNum());
 			        modelDetailsVO.setCollectionNum(tbThreedModel.getDownloadNum());
 			        modelDetailsVO.setUpdatetTime(DateUtils.localDateTimeToString(tbThreedModel.getUpdateTime(), DateUtils.DATE_FORMAT));
-			        modelDetailsVO.setFileSize("");
 					modelDetailsVO.setStyleName(tbThreedModel.getStyleName());
 					modelDetailsVO.setTextureMapping(tbThreedModel.getTextureMapping());
 					modelDetailsVO.setType(tbThreedModel.getType());
@@ -258,7 +259,6 @@ public class ThreeDModelController extends BaseController{
 		        if(tbThreedModel != null) {
 		        	ModelInfoVO modelInfoVO = new ModelInfoVO();
 					modelInfoVO.setModelId(tbThreedModel.getId().toString());
-					modelInfoVO.setMainGraph(tbThreedModel.getMainGraph());
 					List<UploadInfo> uploadInfos = new ArrayList<>();
 					QueryWrapper<TbAttachment> attachmentQueryWrapper = new QueryWrapper<>();
 					attachmentQueryWrapper.eq(TbAttachment.IS_VALID, IsValidEnum.YES.getKey())

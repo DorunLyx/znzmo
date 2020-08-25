@@ -69,12 +69,17 @@ public class TbAttachment implements Serializable {
     /**
      * 附件大小
      */
-    private Integer attachmentSize;
+    private String attachmentSize;
 
     /**
      * 附件描述
      */
     private String attachmentDesc;
+    
+    /**
+     * 图片尺寸
+     */
+    private String pictureSize;
 
     /**
      * 是否有效(0.无效,1.有效)
@@ -141,6 +146,8 @@ public class TbAttachment implements Serializable {
     public static final String ATTACHMENT_SIZE = "attachment_size";
 
     public static final String ATTACHMENT_DESC = "attachment_desc";
+    
+    public static final String PICTURE_SIZE = "picture_size";
 
     public static final String IS_VALID = "is_valid";
 

@@ -22,9 +22,6 @@ public class DrawingUpdateParam {
 	
 	@ApiModelProperty(value="图纸id", name="drawingId")
 	private String drawingId;
-	
-	@ApiModelProperty(value="主图地址id", name="mainGraphId")
-	private String mainGraph;
 
     @ApiModelProperty(value="上传文件", name="uploadImg")
     private List<UploadInfo> uploadImg;

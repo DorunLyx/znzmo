@@ -24,9 +24,9 @@ import com.pactera.znzmo.util.DataUtils;
 import com.pactera.znzmo.util.DateUtils;
 import com.pactera.znzmo.vo.common.UploadInfo;
 import com.pactera.znzmo.vo.database.DatabaseAddParam;
+import com.pactera.znzmo.vo.database.DatabaseDetailsVO;
 import com.pactera.znzmo.vo.database.DatabaseInfoVO;
 import com.pactera.znzmo.vo.database.DatabaseUpdateParam;
-import com.pactera.znzmo.vo.drawing.DrawingDetailsVO;
 import com.pactera.znzmo.vo.homepage.HomePageSimplifyData;
 import com.pactera.znzmo.vo.model.ModelQueryDetailsParam;
 import com.pactera.znzmo.vo.model.ModelQueryParam;
@@ -111,16 +111,15 @@ public class DatabaseController extends BaseController{
     @RequestMapping(value = "/getDatabaseDetails", method = {RequestMethod.POST})
     public JsonResp getDatabaseDetails(
     		@ApiParam(name="modelQueryDetailsParam", value="资料库详情参数", required=false)@RequestBody ModelQueryDetailsParam modelQueryDetailsParam) {
-		Supplier<DrawingDetailsVO> businessHandler = () ->{
+		Supplier<DatabaseDetailsVO> businessHandler = () ->{
 			try {
 				QueryWrapper<TbDatabase> queryWrapper = new QueryWrapper<>();
 				queryWrapper.eq(TbDatabase.IS_VALID, IsValidEnum.YES.getKey())
 		        	.eq(TbDatabase.ID, modelQueryDetailsParam.getModelId());
 				TbDatabase tbDatabase = tbDatabaseService.getOne(queryWrapper);
 				if(tbDatabase != null) {
-					DrawingDetailsVO drawingDetailsVO = new DrawingDetailsVO();
-					drawingDetailsVO.setDrawingId(tbDatabase.getId().toString());
-					drawingDetailsVO.setMainGraph(tbDatabase.getMainGraph());
+					DatabaseDetailsVO databaseDetailsVO = new DatabaseDetailsVO();
+					databaseDetailsVO.setDrawingId(tbDatabase.getId().toString());
 					List<UploadInfo> uploadInfos = new ArrayList<>();
 					QueryWrapper<TbAttachment> attachmentQueryWrapper = new QueryWrapper<>();
 					attachmentQueryWrapper.eq(TbAttachment.IS_VALID, IsValidEnum.YES.getKey())
@@ -135,21 +134,23 @@ public class DatabaseController extends BaseController{
 							uploadInfo.setRealName(tbAttachment.getAliasName());
 							uploadInfo.setUrl(tbAttachment.getAttachmentPath());
 							uploadInfos.add(uploadInfo);
+							if(tbAttachment.getId().equals(Long.valueOf(tbDatabase.getMainGraph()))) {
+								databaseDetailsVO.setFileSize(tbAttachment.getAttachmentSize());
+								databaseDetailsVO.setFileFormat(tbAttachment.getSuffix());
+							}
 						}
 					}
-					drawingDetailsVO.setUploadImg(uploadInfos);
-					drawingDetailsVO.setStyleName(tbDatabase.getStyleName());
-					drawingDetailsVO.setTitle(tbDatabase.getTitle());
-					drawingDetailsVO.setVisitsNum(tbDatabase.getVisitsNum());
-					drawingDetailsVO.setDownloadNum(tbDatabase.getDownloadNum());
-					drawingDetailsVO.setCollectionNum(tbDatabase.getDownloadNum());
-					drawingDetailsVO.setUpdatetTime(DateUtils.localDateTimeToString(tbDatabase.getUpdateTime(), DateUtils.DATE_FORMAT));
-					drawingDetailsVO.setFileSize("");
+					databaseDetailsVO.setUploadImg(uploadInfos);
+					databaseDetailsVO.setStyleName(tbDatabase.getStyleName());
+					databaseDetailsVO.setTitle(tbDatabase.getTitle());
+					databaseDetailsVO.setVisitsNum(tbDatabase.getVisitsNum());
+					databaseDetailsVO.setDownloadNum(tbDatabase.getDownloadNum());
+					databaseDetailsVO.setCollectionNum(tbDatabase.getDownloadNum());
+					databaseDetailsVO.setUpdatetTime(DateUtils.localDateTimeToString(tbDatabase.getUpdateTime(), DateUtils.DATE_FORMAT));
 //					drawingDetailsVO.setTextureMapping(tbDatabase.getTextureMapping());
 //					drawingDetailsVO.setVersion(tbDatabase.getVersion());
-					drawingDetailsVO.setFileFormat("");
-					drawingDetailsVO.setPrice(tbDatabase.getPrice());
-					return drawingDetailsVO;
+					databaseDetailsVO.setPrice(tbDatabase.getPrice());
+					return databaseDetailsVO;
 				}
 			} catch (Exception e) {
 				throwException(e);
@@ -204,7 +205,6 @@ public class DatabaseController extends BaseController{
 				if(tbDatabase != null) {
 					DatabaseInfoVO databaseInfoVO = new DatabaseInfoVO();
 					databaseInfoVO.setDatabaseId(tbDatabase.getId().toString());
-					databaseInfoVO.setMainGraph(tbDatabase.getMainGraph());
 					databaseInfoVO.setPrimaryClassId(tbDatabase.getPrimaryClassId().toString());
 					databaseInfoVO.setPrimaryClassName(tbDatabase.getPrimaryClassName());
 					databaseInfoVO.setSecondaryClassId(tbDatabase.getSecondaryClassId().toString());

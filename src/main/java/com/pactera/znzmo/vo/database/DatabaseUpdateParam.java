@@ -22,9 +22,6 @@ public class DatabaseUpdateParam {
 
 	@ApiModelProperty(value="资料库Id", name="databaseId")
 	private String databaseId;
-	
-	@ApiModelProperty(value="主图地址id", name="mainGraphId")
-	private String mainGraph;
 
     @ApiModelProperty(value="上传文件", name="uploadImg")
     private List<UploadInfo> uploadImg;

@@ -22,9 +22,6 @@ public class HDMappingDetailsVO {
 
 	@ApiModelProperty(value="hdId", name="hdId")
 	private String hdId;
-	
-	@ApiModelProperty(value="主图地址", name="mainGraph")
-    private String mainGraph;
 
     @ApiModelProperty(value="上传文件", name="uploadImg")
     private List<UploadInfo> uploadImg;
@@ -48,7 +45,7 @@ public class HDMappingDetailsVO {
 	private String fileSize;
 
 	@ApiModelProperty(value="图片尺寸", name="imagesize")
-    private String imagesize;
+    private String imageSize;
 
 	@ApiModelProperty(value="文件格式", name="fileFormat")
     private String fileFormat;

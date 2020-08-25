@@ -23,9 +23,6 @@ public class SuModelDetailsVO {
 	@ApiModelProperty(value="su模板Id", name="suModelId")
 	private String suModelId;
 
-	@ApiModelProperty(value="主图地址", name="mainGraph")
-    private String mainGraph;
-
     @ApiModelProperty(value="上传文件", name="uploadImg")
     private List<UploadInfo> uploadImg;
 

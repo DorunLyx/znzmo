@@ -22,9 +22,6 @@ public class DatabaseInfoVO {
 
 	@ApiModelProperty(value="资料库Id", name="databaseId")
 	private String databaseId;
-
-	@ApiModelProperty(value="主图地址", name="mainGraph")
-    private String mainGraph;
 	
 	@ApiModelProperty(value="标题", name="title")
 	private String title;

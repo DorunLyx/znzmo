@@ -64,7 +64,6 @@ public class TbSuModelServiceImpl extends ServiceImpl<TbSuModelMapper, TbSuModel
 	@Override
 	public void addSuModel(SuModelAddParam suModelAddParam) {
 		TbSuModel tbSuModel = new TbSuModel();
-		tbSuModel.setMainGraph(suModelAddParam.getMainGraph());
 		tbSuModel.setCode(NumGenerationUtil.getrandom());
 		tbSuModel.setPrimaryClassId(Long.valueOf(suModelAddParam.getPrimaryClassId()));
 		tbSuModel.setPrimaryClassName(suModelAddParam.getPrimaryClassName());
@@ -90,21 +89,28 @@ public class TbSuModelServiceImpl extends ServiceImpl<TbSuModelMapper, TbSuModel
 		baseMapper.insert(tbSuModel);
 		
 		//新增上传文件
-        for (UploadInfo keyAndUrl : suModelAddParam.getUploadImg()) {
+		for (UploadInfo uploadInfo : suModelAddParam.getUploadImg()) {
             TbAttachment tbAttachment = new TbAttachment();
             tbAttachment.setRelationId(tbSuModel.getId());
-            tbAttachment.setAttachmentName(keyAndUrl.getFileName());
-            tbAttachment.setAttachmentPath(keyAndUrl.getFile());
-            tbAttachment.setPhysicalPath(keyAndUrl.getFile());
-            tbAttachment.setAliasName(keyAndUrl.getRealName());
-            tbAttachment.setReType(keyAndUrl.getType());
+            tbAttachment.setAttachmentName(uploadInfo.getFileName());
+            tbAttachment.setAttachmentPath(uploadInfo.getFile());
+            tbAttachment.setPhysicalPath(uploadInfo.getFile());
+            tbAttachment.setAliasName(uploadInfo.getRealName());
+            tbAttachment.setReType(uploadInfo.getType());
+            tbAttachment.setSuffix(uploadInfo.getFileSuffix());
+            tbAttachment.setAttachmentSize(uploadInfo.getSizes());
+            tbAttachment.setPictureSize(uploadInfo.getPictureSize());
             tbAttachment.setIsValid(IsValidEnum.YES.getKey());
-//            tbAttachment.setCreateId(user.getUserId());
-//            tbAttachment.setCreateName(user.getUserName());
+//	            tbAttachment.setCreateId(user.getUserId());
+//	            tbAttachment.setCreateName(user.getUserName());
             tbAttachment.setCreateTime(LocalDateTime.now());
             tbAttachment.setUpdateTime(LocalDateTime.now());
             tbAttachmentMapper.insert(tbAttachment);
-        }
+            if(uploadInfo.getType() == 1) {
+            	tbSuModel.setMainGraph(tbAttachment.getId().toString());
+            	baseMapper.updateById(tbSuModel);
+            }
+		}
         
         TbExamineVerify tbExamineVerify = new TbExamineVerify();
         tbExamineVerify.setUserId(1L);
@@ -125,7 +131,6 @@ public class TbSuModelServiceImpl extends ServiceImpl<TbSuModelMapper, TbSuModel
 	@Override
 	public void updteSuModel(SuModelUpdateParam suModelUpdateParam) {
 		TbSuModel tbSuModel = baseMapper.selectById(suModelUpdateParam.getSuModelId());
-		tbSuModel.setMainGraph(suModelUpdateParam.getMainGraph());
 		tbSuModel.setPrimaryClassId(Long.valueOf(suModelUpdateParam.getPrimaryClassId()));
 		tbSuModel.setPrimaryClassName(suModelUpdateParam.getPrimaryClassName());
 		tbSuModel.setSecondaryClassId(Long.valueOf(suModelUpdateParam.getSecondaryClassId()));
@@ -149,21 +154,28 @@ public class TbSuModelServiceImpl extends ServiceImpl<TbSuModelMapper, TbSuModel
 		tbAttachmentMapper.delete(queryWrapper);
 		
 		//新增上传文件
-        for (UploadInfo keyAndUrl : suModelUpdateParam.getUploadImg()) {
+		for (UploadInfo uploadInfo : suModelUpdateParam.getUploadImg()) {
             TbAttachment tbAttachment = new TbAttachment();
             tbAttachment.setRelationId(tbSuModel.getId());
-            tbAttachment.setAttachmentName(keyAndUrl.getFileName());
-            tbAttachment.setAttachmentPath(keyAndUrl.getFile());
-            tbAttachment.setPhysicalPath(keyAndUrl.getFile());
-            tbAttachment.setAliasName(keyAndUrl.getRealName());
-            tbAttachment.setReType(keyAndUrl.getType());
+            tbAttachment.setAttachmentName(uploadInfo.getFileName());
+            tbAttachment.setAttachmentPath(uploadInfo.getFile());
+            tbAttachment.setPhysicalPath(uploadInfo.getFile());
+            tbAttachment.setAliasName(uploadInfo.getRealName());
+            tbAttachment.setReType(uploadInfo.getType());
+            tbAttachment.setSuffix(uploadInfo.getFileSuffix());
+            tbAttachment.setAttachmentSize(uploadInfo.getSizes());
+            tbAttachment.setPictureSize(uploadInfo.getPictureSize());
             tbAttachment.setIsValid(IsValidEnum.YES.getKey());
-//            tbAttachment.setCreateId(user.getUserId());
-//            tbAttachment.setCreateName(user.getUserName());
+//	            tbAttachment.setCreateId(user.getUserId());
+//	            tbAttachment.setCreateName(user.getUserName());
             tbAttachment.setCreateTime(LocalDateTime.now());
             tbAttachment.setUpdateTime(LocalDateTime.now());
             tbAttachmentMapper.insert(tbAttachment);
-        }
+            if(uploadInfo.getType() == 1) {
+            	tbSuModel.setMainGraph(tbAttachment.getId().toString());
+            	baseMapper.updateById(tbSuModel);
+            }
+		}
 	}
 
 }

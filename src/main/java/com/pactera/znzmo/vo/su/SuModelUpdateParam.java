@@ -22,9 +22,6 @@ public class SuModelUpdateParam {
 	
 	@ApiModelProperty(value="su模型id", name="suModelId")
 	private String suModelId;
-	
-	@ApiModelProperty(value="主图地址id", name="mainGraphId")
-    private String mainGraph;
 
 	@ApiModelProperty(value="上传文件", name="uploadImg")
     private List<UploadInfo> uploadImg;

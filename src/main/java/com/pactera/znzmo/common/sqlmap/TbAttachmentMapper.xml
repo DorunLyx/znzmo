@@ -14,6 +14,7 @@
         <result column="alias_name" property="aliasName" />
         <result column="attachment_size" property="attachmentSize" />
         <result column="attachment_desc" property="attachmentDesc" />
+        <result column="picture_size" property="pictureSize" />
         <result column="is_valid" property="isValid" />
         <result column="create_id" property="createId" />
         <result column="create_account" property="createAccount" />

@@ -3,6 +3,7 @@
  */
 package com.pactera.znzmo.personal;
 
+import java.util.List;
 import java.util.function.Supplier;
 
 import org.slf4j.Logger;
@@ -38,6 +39,9 @@ public class PersonalController extends BaseController{
 	@Autowired
 	private TbUserAssetsService tbUserAssetsService;
 	
+	@Autowired
+	private TbCollectionService tbCollectionService;
+	
 	public static final Logger logger = LoggerFactory.getLogger(PersonalController.class);
 
 	/**
@@ -66,4 +70,29 @@ public class PersonalController extends BaseController{
 		return handleRequest(businessHandler);
     }
 	
+	/**
+	 * @Title: getCollection 
+	 * @Description: 我的收藏
+	 * @param userId
+	 * @return JsonResp
+	 * @author liyongxu
+	 * @date 2020年8月25日 下午2:05:30 
+	*/
+	@ApiOperation(value = "我的收藏", httpMethod = "POST", notes = "我的收藏")
+    @RequestMapping(value = "/getCollection", method = {RequestMethod.POST})
+    public JsonResp getCollection(
+    		@ApiParam(name="userId", value="用户id", required=false)@RequestParam Long userId) {
+		Supplier<List<TbCollection>> businessHandler = () ->{
+			try {
+				QueryWrapper<TbCollection> queryWrapper = new QueryWrapper<>();
+				queryWrapper.eq(TbCollection.USER_ID, userId);
+				List<TbCollection> tbCollectionList = tbCollectionService.list(queryWrapper);
+				return tbCollectionList;
+			} catch (Exception e) {
+				logger.error(e.getMessage(),e);
+			}
+			return null;
+		};
+		return handleRequest(businessHandler);
+    }
 }

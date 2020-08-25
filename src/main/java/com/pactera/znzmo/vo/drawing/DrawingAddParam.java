@@ -19,9 +19,6 @@ import lombok.Data;
 @Data
 @ApiModel(value="图纸新增参数",description="图纸新增参数")
 public class DrawingAddParam {
-	
-	@ApiModelProperty(value="主图地址id", name="mainGraphId")
-	private String mainGraph;
 
     @ApiModelProperty(value="上传文件", name="uploadImg")
     private List<UploadInfo> uploadImg;

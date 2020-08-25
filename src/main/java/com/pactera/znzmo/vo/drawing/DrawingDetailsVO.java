@@ -23,9 +23,6 @@ public class DrawingDetailsVO {
 	@ApiModelProperty(value="图纸Id", name="drawingId")
 	private String drawingId;
 
-	@ApiModelProperty(value="主图地址", name="mainGraph")
-    private String mainGraph;
-
     @ApiModelProperty(value="上传文件", name="uploadImg")
     private List<UploadInfo> uploadImg;
 

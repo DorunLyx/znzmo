@@ -64,7 +64,6 @@ public class TbThreedModelServiceImpl extends ServiceImpl<TbThreedModelMapper, T
 	@Override
 	public void add3DModel(ModelAddParam modelAddParam) {
 		TbThreedModel tbThreedModel = new TbThreedModel();
-		tbThreedModel.setMainGraph(modelAddParam.getMainGraph());
 		tbThreedModel.setCode(NumGenerationUtil.getrandom());
 		tbThreedModel.setPrimaryClassId(Long.valueOf(modelAddParam.getPrimaryClassId()));
 		tbThreedModel.setPrimaryClassName(modelAddParam.getPrimaryClassName());
@@ -89,20 +88,27 @@ public class TbThreedModelServiceImpl extends ServiceImpl<TbThreedModelMapper, T
 		baseMapper.insert(tbThreedModel);
 		
 		//新增上传文件
-        for (UploadInfo keyAndUrl : modelAddParam.getUploadImg()) {
+        for (UploadInfo uploadInfo : modelAddParam.getUploadImg()) {
             TbAttachment tbAttachment = new TbAttachment();
             tbAttachment.setRelationId(tbThreedModel.getId());
-            tbAttachment.setAttachmentName(keyAndUrl.getFileName());
-            tbAttachment.setAttachmentPath(keyAndUrl.getFile());
-            tbAttachment.setPhysicalPath(keyAndUrl.getFile());
-            tbAttachment.setAliasName(keyAndUrl.getRealName());
-            tbAttachment.setReType(keyAndUrl.getType());
+            tbAttachment.setAttachmentName(uploadInfo.getFileName());
+            tbAttachment.setAttachmentPath(uploadInfo.getFile());
+            tbAttachment.setPhysicalPath(uploadInfo.getFile());
+            tbAttachment.setAliasName(uploadInfo.getRealName());
+            tbAttachment.setReType(uploadInfo.getType());
+            tbAttachment.setSuffix(uploadInfo.getFileSuffix());
+            tbAttachment.setAttachmentSize(uploadInfo.getSizes());
+            tbAttachment.setPictureSize(uploadInfo.getPictureSize());
             tbAttachment.setIsValid(IsValidEnum.YES.getKey());
 //            tbAttachment.setCreateId(user.getUserId());
 //            tbAttachment.setCreateName(user.getUserName());
             tbAttachment.setCreateTime(LocalDateTime.now());
             tbAttachment.setUpdateTime(LocalDateTime.now());
             tbAttachmentMapper.insert(tbAttachment);
+            if(uploadInfo.getType() == 1) {
+            	tbThreedModel.setMainGraph(tbAttachment.getId().toString());
+            	baseMapper.updateById(tbThreedModel);
+            }
         }
         
         TbExamineVerify tbExamineVerify = new TbExamineVerify();
@@ -124,7 +130,6 @@ public class TbThreedModelServiceImpl extends ServiceImpl<TbThreedModelMapper, T
 	@Override
 	public void updte3DModel(ModelUpdateParam modelUpdateParam) {
 		TbThreedModel tbThreedModel = baseMapper.selectById(modelUpdateParam.getModelId());
-		tbThreedModel.setMainGraph(modelUpdateParam.getMainGraph());
 		tbThreedModel.setPrimaryClassId(Long.valueOf(modelUpdateParam.getPrimaryClassId()));
 		tbThreedModel.setPrimaryClassName(modelUpdateParam.getPrimaryClassName());
 		tbThreedModel.setSecondaryClassId(Long.valueOf(modelUpdateParam.getSecondaryClassId()));
@@ -147,21 +152,28 @@ public class TbThreedModelServiceImpl extends ServiceImpl<TbThreedModelMapper, T
 		tbAttachmentMapper.delete(queryWrapper);
 		
 		//新增上传文件
-        for (UploadInfo keyAndUrl : modelUpdateParam.getUploadImg()) {
+		for (UploadInfo uploadInfo : modelUpdateParam.getUploadImg()) {
             TbAttachment tbAttachment = new TbAttachment();
             tbAttachment.setRelationId(tbThreedModel.getId());
-            tbAttachment.setAttachmentName(keyAndUrl.getFileName());
-            tbAttachment.setAttachmentPath(keyAndUrl.getFile());
-            tbAttachment.setPhysicalPath(keyAndUrl.getFile());
-            tbAttachment.setAliasName(keyAndUrl.getRealName());
-            tbAttachment.setReType(keyAndUrl.getType());
+            tbAttachment.setAttachmentName(uploadInfo.getFileName());
+            tbAttachment.setAttachmentPath(uploadInfo.getFile());
+            tbAttachment.setPhysicalPath(uploadInfo.getFile());
+            tbAttachment.setAliasName(uploadInfo.getRealName());
+            tbAttachment.setReType(uploadInfo.getType());
+            tbAttachment.setSuffix(uploadInfo.getFileSuffix());
+            tbAttachment.setAttachmentSize(uploadInfo.getSizes());
+            tbAttachment.setPictureSize(uploadInfo.getPictureSize());
             tbAttachment.setIsValid(IsValidEnum.YES.getKey());
-//            tbAttachment.setCreateId(user.getUserId());
-//            tbAttachment.setCreateName(user.getUserName());
+//	            tbAttachment.setCreateId(user.getUserId());
+//	            tbAttachment.setCreateName(user.getUserName());
             tbAttachment.setCreateTime(LocalDateTime.now());
             tbAttachment.setUpdateTime(LocalDateTime.now());
             tbAttachmentMapper.insert(tbAttachment);
-        }
+            if(uploadInfo.getType() == 1) {
+            	tbThreedModel.setMainGraph(tbAttachment.getId().toString());
+            	baseMapper.updateById(tbThreedModel);
+            }
+		}
 	}
 
 }

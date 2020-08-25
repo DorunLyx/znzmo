@@ -121,7 +121,6 @@ public class SuModelController extends BaseController{
 		        if(tbSuModel != null) {
 		        	SuModelDetailsVO suModelDetailsVO = new SuModelDetailsVO();
 					suModelDetailsVO.setSuModelId(tbSuModel.getId().toString());
-					suModelDetailsVO.setMainGraph(tbSuModel.getMainGraph());
 					List<UploadInfo> uploadInfos = new ArrayList<>();
 					QueryWrapper<TbAttachment> attachmentQueryWrapper = new QueryWrapper<>();
 					attachmentQueryWrapper.eq(TbAttachment.IS_VALID, IsValidEnum.YES.getKey())
@@ -136,6 +135,9 @@ public class SuModelController extends BaseController{
 							uploadInfo.setRealName(tbAttachment.getAliasName());
 							uploadInfo.setUrl(tbAttachment.getAttachmentPath());
 							uploadInfos.add(uploadInfo);
+							if(tbAttachment.getId().equals(Long.valueOf(tbSuModel.getMainGraph()))) {
+								suModelDetailsVO.setFileSize(tbAttachment.getAttachmentSize());
+							}
 						}
 			        }
 			        suModelDetailsVO.setUploadImg(uploadInfos);
@@ -143,7 +145,6 @@ public class SuModelController extends BaseController{
 					suModelDetailsVO.setDownloadNum(tbSuModel.getDownloadNum());
 					suModelDetailsVO.setCollectionNum(tbSuModel.getDownloadNum());
 					suModelDetailsVO.setUpdatetTime(DateUtils.localDateTimeToString(tbSuModel.getUpdateTime(), DateUtils.DATE_FORMAT));
-					suModelDetailsVO.setFileSize("");
 					suModelDetailsVO.setStyleName(tbSuModel.getStyleName());
 					suModelDetailsVO.setTitle(tbSuModel.getTitle());
 					suModelDetailsVO.setType(tbSuModel.getType());
@@ -254,7 +255,6 @@ public class SuModelController extends BaseController{
 		        if(tbSuModel != null) {
 		        	SuModelInfoVO suModelInfoVO = new SuModelInfoVO();
 					suModelInfoVO.setModelId(tbSuModel.getId().toString());
-					suModelInfoVO.setMainGraph(tbSuModel.getMainGraph());
 					suModelInfoVO.setPrimaryClassId(tbSuModel.getPrimaryClassId().toString());
 					suModelInfoVO.setPrimaryClassName(tbSuModel.getPrimaryClassName());
 					suModelInfoVO.setSecondaryClassId(tbSuModel.getSecondaryClassId().toString());

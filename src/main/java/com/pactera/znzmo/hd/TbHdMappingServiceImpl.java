@@ -64,7 +64,6 @@ public class TbHdMappingServiceImpl extends ServiceImpl<TbHdMappingMapper, TbHdM
 	@Override
 	public void addHdMapping(HDMappingAddParam hdMappingAddParam) {
 		TbHdMapping tbHdMapping = new TbHdMapping();
-		tbHdMapping.setMainGraph(hdMappingAddParam.getMainGraph());
 		tbHdMapping.setCode(NumGenerationUtil.getrandom());
 		tbHdMapping.setPrimaryClassId(Long.valueOf(hdMappingAddParam.getPrimaryClassId()));
 		tbHdMapping.setPrimaryClassName(hdMappingAddParam.getPrimaryClassName());
@@ -87,21 +86,28 @@ public class TbHdMappingServiceImpl extends ServiceImpl<TbHdMappingMapper, TbHdM
 		baseMapper.insert(tbHdMapping);
 		
 		//新增上传文件
-        for (UploadInfo keyAndUrl : hdMappingAddParam.getUploadImg()) {
+		for (UploadInfo uploadInfo : hdMappingAddParam.getUploadImg()) {
             TbAttachment tbAttachment = new TbAttachment();
             tbAttachment.setRelationId(tbHdMapping.getId());
-            tbAttachment.setAttachmentName(keyAndUrl.getFileName());
-            tbAttachment.setAttachmentPath(keyAndUrl.getFile());
-            tbAttachment.setPhysicalPath(keyAndUrl.getFile());
-            tbAttachment.setAliasName(keyAndUrl.getRealName());
-            tbAttachment.setReType(keyAndUrl.getType());
+            tbAttachment.setAttachmentName(uploadInfo.getFileName());
+            tbAttachment.setAttachmentPath(uploadInfo.getFile());
+            tbAttachment.setPhysicalPath(uploadInfo.getFile());
+            tbAttachment.setAliasName(uploadInfo.getRealName());
+            tbAttachment.setReType(uploadInfo.getType());
+            tbAttachment.setSuffix(uploadInfo.getFileSuffix());
+            tbAttachment.setAttachmentSize(uploadInfo.getSizes());
+            tbAttachment.setPictureSize(uploadInfo.getPictureSize());
             tbAttachment.setIsValid(IsValidEnum.YES.getKey());
-//            tbAttachment.setCreateId(user.getUserId());
-//            tbAttachment.setCreateName(user.getUserName());
+//	            tbAttachment.setCreateId(user.getUserId());
+//	            tbAttachment.setCreateName(user.getUserName());
             tbAttachment.setCreateTime(LocalDateTime.now());
             tbAttachment.setUpdateTime(LocalDateTime.now());
             tbAttachmentMapper.insert(tbAttachment);
-        }
+            if(uploadInfo.getType() == 1) {
+            	tbHdMapping.setMainGraph(tbAttachment.getId().toString());
+            	baseMapper.updateById(tbHdMapping);
+            }
+		}
         
         TbExamineVerify tbExamineVerify = new TbExamineVerify();
         tbExamineVerify.setUserId(1L);
@@ -122,7 +128,6 @@ public class TbHdMappingServiceImpl extends ServiceImpl<TbHdMappingMapper, TbHdM
 	@Override
 	public void updteHdMapping(HDMappingUpdateParam hDMappingUpdateParam) {
 		TbHdMapping tbHdMapping = baseMapper.selectById(hDMappingUpdateParam.getHdId());
-		tbHdMapping.setMainGraph(hDMappingUpdateParam.getMainGraph());
 		tbHdMapping.setPrimaryClassId(Long.valueOf(hDMappingUpdateParam.getPrimaryClassId()));
 		tbHdMapping.setPrimaryClassName(hDMappingUpdateParam.getPrimaryClassName());
 		tbHdMapping.setSecondaryClassId(Long.valueOf(hDMappingUpdateParam.getSecondaryClassId()));
@@ -143,21 +148,28 @@ public class TbHdMappingServiceImpl extends ServiceImpl<TbHdMappingMapper, TbHdM
 		tbAttachmentMapper.delete(queryWrapper);
 		
 		//新增上传文件
-        for (UploadInfo keyAndUrl : hDMappingUpdateParam.getUploadImg()) {
+		for (UploadInfo uploadInfo : hDMappingUpdateParam.getUploadImg()) {
             TbAttachment tbAttachment = new TbAttachment();
             tbAttachment.setRelationId(tbHdMapping.getId());
-            tbAttachment.setAttachmentName(keyAndUrl.getFileName());
-            tbAttachment.setAttachmentPath(keyAndUrl.getFile());
-            tbAttachment.setPhysicalPath(keyAndUrl.getFile());
-            tbAttachment.setAliasName(keyAndUrl.getRealName());
-            tbAttachment.setReType(keyAndUrl.getType());
+            tbAttachment.setAttachmentName(uploadInfo.getFileName());
+            tbAttachment.setAttachmentPath(uploadInfo.getFile());
+            tbAttachment.setPhysicalPath(uploadInfo.getFile());
+            tbAttachment.setAliasName(uploadInfo.getRealName());
+            tbAttachment.setReType(uploadInfo.getType());
+            tbAttachment.setSuffix(uploadInfo.getFileSuffix());
+            tbAttachment.setAttachmentSize(uploadInfo.getSizes());
+            tbAttachment.setPictureSize(uploadInfo.getPictureSize());
             tbAttachment.setIsValid(IsValidEnum.YES.getKey());
-//            tbAttachment.setCreateId(user.getUserId());
-//            tbAttachment.setCreateName(user.getUserName());
+//	            tbAttachment.setCreateId(user.getUserId());
+//	            tbAttachment.setCreateName(user.getUserName());
             tbAttachment.setCreateTime(LocalDateTime.now());
             tbAttachment.setUpdateTime(LocalDateTime.now());
             tbAttachmentMapper.insert(tbAttachment);
-        }
+            if(uploadInfo.getType() == 1) {
+            	tbHdMapping.setMainGraph(tbAttachment.getId().toString());
+            	baseMapper.updateById(tbHdMapping);
+            }
+		}
 	}
 
 }

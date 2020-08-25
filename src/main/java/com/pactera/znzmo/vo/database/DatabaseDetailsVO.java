@@ -10,21 +10,18 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
- * @ClassName：DrawingDetailsVO
- * @Description：图纸方案详情VO
+ * @ClassName：DatabaseDetailsVO
+ * @Description：资料库下载详情VO
  * @author liyongxu 
- * @date 2020年8月4日 上午11:21:33 
+ * @date 2020年8月25日 下午3:23:48 
  * @version 1.0.0 
  */
 @Data
-@ApiModel(value="图纸方案详情VO",description="图纸方案详情VO")
+@ApiModel(value="资料库下载详情VO",description="资料库下载详情VO")
 public class DatabaseDetailsVO {
 
 	@ApiModelProperty(value="图纸Id", name="drawingId")
 	private String drawingId;
-
-	@ApiModelProperty(value="主图地址", name="mainGraph")
-    private String mainGraph;
 
     @ApiModelProperty(value="上传文件", name="uploadImg")
     private List<UploadInfo> uploadImg;

@@ -121,7 +121,6 @@ public class HDController extends BaseController{
 				if(tbHdMapping != null) {
 					HDMappingDetailsVO hdMappingDetailsVO = new HDMappingDetailsVO();
 					hdMappingDetailsVO.setHdId(tbHdMapping.getId().toString());
-					hdMappingDetailsVO.setMainGraph(tbHdMapping.getMainGraph());
 					List<UploadInfo> uploadInfos = new ArrayList<>();
 					QueryWrapper<TbAttachment> attachmentQueryWrapper = new QueryWrapper<>();
 					attachmentQueryWrapper.eq(TbAttachment.IS_VALID, IsValidEnum.YES.getKey())
@@ -136,6 +135,11 @@ public class HDController extends BaseController{
 							uploadInfo.setRealName(tbAttachment.getAliasName());
 							uploadInfo.setUrl(tbAttachment.getAttachmentPath());
 							uploadInfos.add(uploadInfo);
+							if(tbAttachment.getId().equals(Long.valueOf(tbHdMapping.getMainGraph()))) {
+								hdMappingDetailsVO.setFileSize(tbAttachment.getAttachmentSize());
+								hdMappingDetailsVO.setImageSize(tbAttachment.getPictureSize());
+								hdMappingDetailsVO.setFileFormat(tbAttachment.getSuffix());
+							}
 						}
 					}
 					hdMappingDetailsVO.setUploadImg(uploadInfos);
@@ -144,9 +148,6 @@ public class HDController extends BaseController{
 					hdMappingDetailsVO.setDownloadNum(tbHdMapping.getDownloadNum());
 					hdMappingDetailsVO.setCollectionNum(tbHdMapping.getDownloadNum());
 					hdMappingDetailsVO.setUpdatetTime(DateUtils.localDateTimeToString(tbHdMapping.getUpdateTime(), DateUtils.DATE_FORMAT));
-					hdMappingDetailsVO.setFileSize("");
-					hdMappingDetailsVO.setImagesize("");
-					hdMappingDetailsVO.setFileFormat("");
 					hdMappingDetailsVO.setPrice(tbHdMapping.getPrice());
 					return hdMappingDetailsVO;
 				}
@@ -251,7 +252,6 @@ public class HDController extends BaseController{
 				if(tbHdMapping != null) {
 					HDMappingInfoVO hDMappingInfoVO = new HDMappingInfoVO();
 					hDMappingInfoVO.setHdId(tbHdMapping.getId().toString());
-					hDMappingInfoVO.setMainGraph(tbHdMapping.getMainGraph());
 					hDMappingInfoVO.setPrimaryClassId(tbHdMapping.getPrimaryClassId().toString());
 					hDMappingInfoVO.setPrimaryClassName(tbHdMapping.getPrimaryClassName());
 					hDMappingInfoVO.setSecondaryClassId(tbHdMapping.getSecondaryClassId().toString());

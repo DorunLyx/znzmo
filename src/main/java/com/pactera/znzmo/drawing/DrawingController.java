@@ -121,7 +121,6 @@ public class DrawingController extends BaseController{
 				if(tbDrawing != null) {
 					DrawingDetailsVO drawingDetailsVO = new DrawingDetailsVO();
 					drawingDetailsVO.setDrawingId(tbDrawing.getId().toString());
-					drawingDetailsVO.setMainGraph(tbDrawing.getMainGraph());
 					List<UploadInfo> uploadInfos = new ArrayList<>();
 					QueryWrapper<TbAttachment> attachmentQueryWrapper = new QueryWrapper<>();
 					attachmentQueryWrapper.eq(TbAttachment.IS_VALID, IsValidEnum.YES.getKey())
@@ -136,6 +135,10 @@ public class DrawingController extends BaseController{
 							uploadInfo.setRealName(tbAttachment.getAliasName());
 							uploadInfo.setUrl(tbAttachment.getAttachmentPath());
 							uploadInfos.add(uploadInfo);
+							if(tbAttachment.getId().equals(Long.valueOf(tbDrawing.getMainGraph()))) {
+								drawingDetailsVO.setFileSize(tbAttachment.getAttachmentSize());
+								drawingDetailsVO.setFileFormat(tbAttachment.getSuffix());
+							}
 						}
 					}
 					drawingDetailsVO.setUploadImg(uploadInfos);
@@ -145,10 +148,8 @@ public class DrawingController extends BaseController{
 					drawingDetailsVO.setDownloadNum(tbDrawing.getDownloadNum());
 					drawingDetailsVO.setCollectionNum(tbDrawing.getDownloadNum());
 					drawingDetailsVO.setUpdatetTime(DateUtils.localDateTimeToString(tbDrawing.getUpdateTime(), DateUtils.DATE_FORMAT));
-					drawingDetailsVO.setFileSize("");
 					drawingDetailsVO.setTextureMapping(tbDrawing.getTextureMapping());
 					drawingDetailsVO.setVersion(tbDrawing.getVersion());
-					drawingDetailsVO.setFileFormat("");
 					drawingDetailsVO.setPrice(tbDrawing.getPrice());
 					return drawingDetailsVO;
 				}
@@ -254,7 +255,6 @@ public class DrawingController extends BaseController{
 				if(tbDrawing != null) {
 					DrawingInfoVO drawingInfoVO = new DrawingInfoVO();
 					drawingInfoVO.setDrawingId(tbDrawing.getId().toString());
-					drawingInfoVO.setMainGraph(tbDrawing.getMainGraph());
 					drawingInfoVO.setPrimaryClassId(tbDrawing.getPrimaryClassId().toString());
 					drawingInfoVO.setPrimaryClassName(tbDrawing.getPrimaryClassName());
 					drawingInfoVO.setSecondaryClassId(tbDrawing.getSecondaryClassId().toString());

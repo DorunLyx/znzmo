@@ -23,9 +23,6 @@ public class ModelInfoVO {
 	@ApiModelProperty(value="3d模板Id", name="modelId")
 	private String modelId;
 
-	@ApiModelProperty(value="主图地址", name="mainGraph")
-    private String mainGraph;
-
 	@ApiModelProperty(value="一级分类id", name="primaryclassId")
     private String primaryClassId;
 

@@ -23,9 +23,6 @@ public class HDMappingInfoVO {
 	@ApiModelProperty(value="hdId", name="hdId")
 	private String hdId;
 
-	@ApiModelProperty(value="主图地址", name="mainGraph")
-    private String mainGraph;
-
 	@ApiModelProperty(value="一级分类id", name="primaryclassId")
     private String primaryClassId;
 

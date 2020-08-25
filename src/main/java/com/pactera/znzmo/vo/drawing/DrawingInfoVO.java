@@ -22,9 +22,6 @@ public class DrawingInfoVO {
 
 	@ApiModelProperty(value="图纸Id", name="drawingId")
 	private String drawingId;
-
-	@ApiModelProperty(value="主图地址", name="mainGraph")
-    private String mainGraph;
 	
 	@ApiModelProperty(value="标题", name="title")
 	private String title;

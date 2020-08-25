@@ -66,7 +66,6 @@ public class TbDrawingSchemeServiceImpl extends ServiceImpl<TbDrawingSchemeMappe
 	@Override
 	public void addDrawing(DrawingAddParam drawingAddParam) {
 		TbDrawingScheme tbDrawing = new TbDrawingScheme();
-		tbDrawing.setMainGraph(drawingAddParam.getMainGraph());
 		tbDrawing.setCode(NumGenerationUtil.getrandom());
 		tbDrawing.setPrimaryClassId(Long.valueOf(drawingAddParam.getPrimaryClassId()));
 		tbDrawing.setPrimaryClassName(drawingAddParam.getPrimaryClassName());
@@ -95,21 +94,28 @@ public class TbDrawingSchemeServiceImpl extends ServiceImpl<TbDrawingSchemeMappe
 		baseMapper.insert(tbDrawing);
 		
 		//新增上传文件
-        for (UploadInfo keyAndUrl : drawingAddParam.getUploadImg()) {
+		for (UploadInfo uploadInfo : drawingAddParam.getUploadImg()) {
             TbAttachment tbAttachment = new TbAttachment();
             tbAttachment.setRelationId(tbDrawing.getId());
-            tbAttachment.setAttachmentName(keyAndUrl.getFileName());
-            tbAttachment.setAttachmentPath(keyAndUrl.getFile());
-            tbAttachment.setPhysicalPath(keyAndUrl.getFile());
-            tbAttachment.setAliasName(keyAndUrl.getRealName());
-            tbAttachment.setReType(keyAndUrl.getType());
+            tbAttachment.setAttachmentName(uploadInfo.getFileName());
+            tbAttachment.setAttachmentPath(uploadInfo.getFile());
+            tbAttachment.setPhysicalPath(uploadInfo.getFile());
+            tbAttachment.setAliasName(uploadInfo.getRealName());
+            tbAttachment.setReType(uploadInfo.getType());
+            tbAttachment.setSuffix(uploadInfo.getFileSuffix());
+            tbAttachment.setAttachmentSize(uploadInfo.getSizes());
+            tbAttachment.setPictureSize(uploadInfo.getPictureSize());
             tbAttachment.setIsValid(IsValidEnum.YES.getKey());
-//            tbAttachment.setCreateId(user.getUserId());
-//            tbAttachment.setCreateName(user.getUserName());
+//	            tbAttachment.setCreateId(user.getUserId());
+//	            tbAttachment.setCreateName(user.getUserName());
             tbAttachment.setCreateTime(LocalDateTime.now());
             tbAttachment.setUpdateTime(LocalDateTime.now());
             tbAttachmentMapper.insert(tbAttachment);
-        }
+            if(uploadInfo.getType() == 1) {
+            	tbDrawing.setMainGraph(tbAttachment.getId().toString());
+            	baseMapper.updateById(tbDrawing);
+            }
+		}
         
         TbExamineVerify tbExamineVerify = new TbExamineVerify();
         tbExamineVerify.setUserId(1L);
@@ -130,7 +136,6 @@ public class TbDrawingSchemeServiceImpl extends ServiceImpl<TbDrawingSchemeMappe
 	@Override
 	public void updteDrawing(DrawingUpdateParam drawingUpdateParam) {
 		TbDrawingScheme tbDrawing = baseMapper.selectById(drawingUpdateParam.getDrawingId());
-		tbDrawing.setMainGraph(drawingUpdateParam.getMainGraph());
 		tbDrawing.setPrimaryClassId(Long.valueOf(drawingUpdateParam.getPrimaryClassId()));
 		tbDrawing.setPrimaryClassName(drawingUpdateParam.getPrimaryClassName());
 		tbDrawing.setSecondaryClassId(Long.valueOf(drawingUpdateParam.getSecondaryClassId()));
@@ -158,21 +163,28 @@ public class TbDrawingSchemeServiceImpl extends ServiceImpl<TbDrawingSchemeMappe
 		tbAttachmentMapper.delete(queryWrapper);
 		
 		//新增上传文件
-        for (UploadInfo keyAndUrl : drawingUpdateParam.getUploadImg()) {
+		for (UploadInfo uploadInfo : drawingUpdateParam.getUploadImg()) {
             TbAttachment tbAttachment = new TbAttachment();
             tbAttachment.setRelationId(tbDrawing.getId());
-            tbAttachment.setAttachmentName(keyAndUrl.getFileName());
-            tbAttachment.setAttachmentPath(keyAndUrl.getFile());
-            tbAttachment.setPhysicalPath(keyAndUrl.getFile());
-            tbAttachment.setAliasName(keyAndUrl.getRealName());
-            tbAttachment.setReType(keyAndUrl.getType());
+            tbAttachment.setAttachmentName(uploadInfo.getFileName());
+            tbAttachment.setAttachmentPath(uploadInfo.getFile());
+            tbAttachment.setPhysicalPath(uploadInfo.getFile());
+            tbAttachment.setAliasName(uploadInfo.getRealName());
+            tbAttachment.setReType(uploadInfo.getType());
+            tbAttachment.setSuffix(uploadInfo.getFileSuffix());
+            tbAttachment.setAttachmentSize(uploadInfo.getSizes());
+            tbAttachment.setPictureSize(uploadInfo.getPictureSize());
             tbAttachment.setIsValid(IsValidEnum.YES.getKey());
-//            tbAttachment.setCreateId(user.getUserId());
-//            tbAttachment.setCreateName(user.getUserName());
+//	            tbAttachment.setCreateId(user.getUserId());
+//	            tbAttachment.setCreateName(user.getUserName());
             tbAttachment.setCreateTime(LocalDateTime.now());
             tbAttachment.setUpdateTime(LocalDateTime.now());
             tbAttachmentMapper.insert(tbAttachment);
-        }
+            if(uploadInfo.getType() == 1) {
+            	tbDrawing.setMainGraph(tbAttachment.getId().toString());
+            	baseMapper.updateById(tbDrawing);
+            }
+		}
 	}
 
 }
