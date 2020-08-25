@@ -126,9 +126,9 @@ public class FileUtils {
               jsonMap.put("realPath", uploadFile.getPath());
               jsonMap.put("fileName", uploadFileName);
               jsonMap.put("file", uploadFile);
+              jsonMap.put("fileSuffix", fileSuffix);
               jsonMap.put("sizes", sizes);
               jsonMap.put("pictureSize", pictureSize);
-              jsonMap.put("fileSuffix", fileSuffix);
           } catch (Exception e) {
               jsonMap.put("success", false);
               jsonMap.put("error",e.getMessage());
