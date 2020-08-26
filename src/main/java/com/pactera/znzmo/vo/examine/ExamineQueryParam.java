@@ -21,16 +21,22 @@ public class ExamineQueryParam {
 	@ApiModelProperty(value="页面数量", name="pageSize")
 	private Integer pageSize;
 	
-	@ApiModelProperty(value="分类id", name="classId")
-	private String classId;
+	@ApiModelProperty(value="分类", name="type")
+	private String type;
 	
-	@ApiModelProperty(value="类型", name="type")
-	private Integer type;
+	@ApiModelProperty(value="模板类型", name="modelType")
+	private Integer modelType;
 
 	@ApiModelProperty(value="状态", name="status")
     private Integer status;
 
 	@ApiModelProperty(value="关键字", name="keyword")
     private String keyword;
+
+	@ApiModelProperty(value="开始时间", name="startTime")
+	private String startTime;
+	
+	@ApiModelProperty(value="结束时间", name="endTime")
+	private String endTime;
 	
 }

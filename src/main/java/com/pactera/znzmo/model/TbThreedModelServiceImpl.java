@@ -142,6 +142,7 @@ public class TbThreedModelServiceImpl extends ServiceImpl<TbThreedModelMapper, T
 		tbThreedModel.setTextureMapping(modelUpdateParam.getTextureMapping());
 		tbThreedModel.setLightingEffects(modelUpdateParam.getLightingEffects());
 		tbThreedModel.setRemarks(modelUpdateParam.getRemarks());
+		tbThreedModel.setStatus(ApproveStatusEnum.WAITAPPROVAL.getKey());
 //		tbThreedModel.setUpdateId(user.getUserId());
 //		tbThreedModel.setUpdateName(user.getUserName());
 		tbThreedModel.setUpdateTime(LocalDateTime.now());

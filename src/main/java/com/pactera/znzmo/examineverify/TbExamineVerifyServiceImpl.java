@@ -16,6 +16,7 @@ import com.pactera.znzmo.database.dao.TbDatabaseMapper;
 import com.pactera.znzmo.drawing.TbDrawingScheme;
 import com.pactera.znzmo.drawing.dao.TbDrawingSchemeMapper;
 import com.pactera.znzmo.enums.IsValidEnum;
+import com.pactera.znzmo.enums.ReTypeEnum;
 import com.pactera.znzmo.enums.StatusEnum;
 import com.pactera.znzmo.examineverify.dao.TbExamineVerifyMapper;
 import com.pactera.znzmo.hd.TbHdMapping;
@@ -64,7 +65,13 @@ public class TbExamineVerifyServiceImpl extends ServiceImpl<TbExamineVerifyMappe
 			queryWrapper.eq(TbExamineVerify.RE_TYPE, examineQueryParam.getType());
 		}
 		if(StringUtils.isNotEmpty(examineQueryParam.getStatus().toString())) {
-			queryWrapper.eq(TbBanner.STATUS, examineQueryParam.getStatus());
+			queryWrapper.eq(TbExamineVerify.STATUS, examineQueryParam.getStatus());
+		}
+		if(StringUtils.isNotEmpty(examineQueryParam.getStartTime())) {
+			queryWrapper.ge(TbExamineVerify.UPDATE_TIME, examineQueryParam.getStartTime() + " 00:00:00");
+		}
+		if(StringUtils.isNotEmpty(examineQueryParam.getEndTime())) {
+			queryWrapper.le(TbExamineVerify.UPDATE_TIME, examineQueryParam.getEndTime() + " 23:59:59");
 		}
 		queryWrapper.orderByDesc(TbBanner.UPDATE_TIME);
 		IPage<TbExamineVerify> selectPage = baseMapper.selectPage(page,queryWrapper);
@@ -107,7 +114,7 @@ public class TbExamineVerifyServiceImpl extends ServiceImpl<TbExamineVerifyMappe
 	 * @date 2020年8月10日 上午11:09:29 
 	*/
 	private ExamineListVO selectReInfoByType(ExamineListVO examineListVO, Long reId, Integer reType) {
-		if(reType == 0) {
+		if(reType == ReTypeEnum.MODEL.getKey()) {
 			TbThreedModel tbThreedModel = tbThreedModelMapper.selectById(reId);
 			examineListVO.setMainGraph(tbThreedModel.getMainGraph());
 			examineListVO.setCode(tbThreedModel.getCode());
@@ -120,7 +127,7 @@ public class TbExamineVerifyServiceImpl extends ServiceImpl<TbExamineVerifyMappe
 			examineListVO.setStatus(tbThreedModel.getStatus());
 			examineListVO.setUploadUser(tbThreedModel.getCreateName());
 			examineListVO.setUploadTime(DateUtils.localDateTimeToString(tbThreedModel.getCreateTime(), DateUtils.DATE_FORMAT));
-		}else if (reType == 1) {
+		}else if (reType == ReTypeEnum.SUMODEL.getKey()) {
 			TbSuModel tbSuModel = tbSuModelMapper.selectById(reId);
 			examineListVO.setMainGraph(tbSuModel.getMainGraph());
 			examineListVO.setCode(tbSuModel.getCode());
@@ -133,7 +140,7 @@ public class TbExamineVerifyServiceImpl extends ServiceImpl<TbExamineVerifyMappe
 			examineListVO.setStatus(tbSuModel.getStatus());
 			examineListVO.setUploadUser(tbSuModel.getCreateName());
 			examineListVO.setUploadTime(DateUtils.localDateTimeToString(tbSuModel.getCreateTime(), DateUtils.DATE_FORMAT));
-		}else if (reType == 2) {
+		}else if (reType == ReTypeEnum.DRAWING.getKey()) {
 			TbDrawingScheme tbDrawing = tbDrawingSchemeMapper.selectById(reId);
 			examineListVO.setMainGraph(tbDrawing.getMainGraph());
 			examineListVO.setCode(tbDrawing.getCode());
@@ -146,7 +153,7 @@ public class TbExamineVerifyServiceImpl extends ServiceImpl<TbExamineVerifyMappe
 			examineListVO.setStatus(tbDrawing.getStatus());
 			examineListVO.setUploadUser(tbDrawing.getCreateName());
 			examineListVO.setUploadTime(DateUtils.localDateTimeToString(tbDrawing.getCreateTime(), DateUtils.DATE_FORMAT));
-		}else if (reType == 3) {
+		}else if (reType == ReTypeEnum.HD.getKey()) {
 			TbHdMapping tbHdMapping = tbHdMappingMapper.selectById(reId);
 			examineListVO.setMainGraph(tbHdMapping.getMainGraph());
 			examineListVO.setCode(tbHdMapping.getCode());
@@ -159,7 +166,7 @@ public class TbExamineVerifyServiceImpl extends ServiceImpl<TbExamineVerifyMappe
 			examineListVO.setStatus(tbHdMapping.getStatus());
 			examineListVO.setUploadUser(tbHdMapping.getCreateName());
 			examineListVO.setUploadTime(DateUtils.localDateTimeToString(tbHdMapping.getCreateTime(), DateUtils.DATE_FORMAT));
-		}else if (reType == 4) {
+		}else if (reType == ReTypeEnum.DATABASE.getKey()) {
 			TbDatabase tbDatabase = tbDatabaseMapper.selectById(reId);
 			examineListVO.setMainGraph(tbDatabase.getMainGraph());
 			examineListVO.setCode(tbDatabase.getCode());
@@ -181,23 +188,23 @@ public class TbExamineVerifyServiceImpl extends ServiceImpl<TbExamineVerifyMappe
 		TbExamineVerify tbExamineVerify = baseMapper.selectById(examineStatusParam.getExamineId());
 		if(tbExamineVerify != null) {
 			tbExamineVerify.setStatus(StatusEnum.START_USE.getKey());
-			if(tbExamineVerify.getReType() == 0) {
+			if(tbExamineVerify.getReType().equals(ReTypeEnum.MODEL.getKey())) {
 				TbThreedModel tbThreedModel = tbThreedModelMapper.selectById(tbExamineVerify.getReId());
 				tbThreedModel.setStatus(StatusEnum.START_USE.getKey());
 				tbThreedModelMapper.updateById(tbThreedModel);
-			}else if (tbExamineVerify.getReType() == 1) {
+			}else if (tbExamineVerify.getReType().equals(ReTypeEnum.SUMODEL.getKey())) {
 				TbSuModel tbSuModel = tbSuModelMapper.selectById(tbExamineVerify.getReId());
 				tbSuModel.setStatus(StatusEnum.START_USE.getKey());
 				tbSuModelMapper.updateById(tbSuModel);
-			}else if (tbExamineVerify.getReType() == 2) {
+			}else if (tbExamineVerify.getReType().equals(ReTypeEnum.DRAWING.getKey())) {
 				TbDrawingScheme tbDrawing = tbDrawingSchemeMapper.selectById(tbExamineVerify.getReId());
 				tbDrawing.setStatus(StatusEnum.START_USE.getKey());
 				tbDrawingSchemeMapper.updateById(tbDrawing);
-			}else if (tbExamineVerify.getReType() == 3) {
+			}else if (tbExamineVerify.getReType().equals(ReTypeEnum.HD.getKey())) {
 				TbHdMapping tbHdMapping = tbHdMappingMapper.selectById(tbExamineVerify.getReId());
 				tbHdMapping.setStatus(StatusEnum.START_USE.getKey());
 				tbHdMappingMapper.updateById(tbHdMapping);
-			}else if (tbExamineVerify.getReType() == 4) {
+			}else if (tbExamineVerify.getReType().equals(ReTypeEnum.DATABASE.getKey())) {
 				TbDatabase tbDatabase = tbDatabaseMapper.selectById(tbExamineVerify.getReId());
 				tbDatabase.setStatus(StatusEnum.START_USE.getKey());
 				tbDatabaseMapper.updateById(tbDatabase);

@@ -6,7 +6,7 @@ package com.pactera.znzmo.enums;
 public enum ReTypeEnum {
 	MODEL(0,"3dModel"),
 	SUMODEL(1,"suModel"),
-    IMPORT(2,"drawing"),
+	DRAWING(2,"drawing"),
     HD(3,"hd"),
 	DATABASE(4,"dataBase");
 

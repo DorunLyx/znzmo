@@ -116,7 +116,7 @@ public class TbSuModelServiceImpl extends ServiceImpl<TbSuModelMapper, TbSuModel
         tbExamineVerify.setUserId(1L);
         tbExamineVerify.setUserName("admin");
         tbExamineVerify.setReId(tbSuModel.getId());
-        tbExamineVerify.setReType(ReTypeEnum.MODEL.getKey());
+        tbExamineVerify.setReType(ReTypeEnum.SUMODEL.getKey());
         tbExamineVerify.setStatus(ApproveStatusEnum.WAITAPPROVAL.getKey());
         tbExamineVerify.setIsValid(IsValidEnum.YES.getKey());
 //		tbExamineVerify.setCreateId(user.getUserId());
@@ -144,6 +144,7 @@ public class TbSuModelServiceImpl extends ServiceImpl<TbSuModelMapper, TbSuModel
 		tbSuModel.setPrice(suModelUpdateParam.getPrice());
 		tbSuModel.setTextureMapping(suModelUpdateParam.getTextureMapping());
 		tbSuModel.setRemarks(suModelUpdateParam.getRemarks());
+		tbSuModel.setStatus(ApproveStatusEnum.WAITAPPROVAL.getKey());
 //		tbSuModel.setUpdateId(user.getUserId());
 //		tbSuModel.setUpdateName(user.getUserName());
 		tbSuModel.setUpdateTime(LocalDateTime.now());

@@ -15,7 +15,6 @@ import com.pactera.znzmo.drawing.dao.TbDrawingSchemeMapper;
 import com.pactera.znzmo.enums.ApproveStatusEnum;
 import com.pactera.znzmo.enums.IsValidEnum;
 import com.pactera.znzmo.enums.ReTypeEnum;
-import com.pactera.znzmo.enums.StatusEnum;
 import com.pactera.znzmo.examineverify.TbExamineVerify;
 import com.pactera.znzmo.examineverify.dao.TbExamineVerifyMapper;
 import com.pactera.znzmo.util.DateUtils;
@@ -121,7 +120,7 @@ public class TbDrawingSchemeServiceImpl extends ServiceImpl<TbDrawingSchemeMappe
         tbExamineVerify.setUserId(1L);
         tbExamineVerify.setUserName("admin");
         tbExamineVerify.setReId(tbDrawing.getId());
-        tbExamineVerify.setReType(ReTypeEnum.MODEL.getKey());
+        tbExamineVerify.setReType(ReTypeEnum.DRAWING.getKey());
         tbExamineVerify.setStatus(ApproveStatusEnum.WAITAPPROVAL.getKey());
         tbExamineVerify.setIsValid(IsValidEnum.YES.getKey());
 //		tbExamineVerify.setCreateId(user.getUserId());
@@ -152,7 +151,7 @@ public class TbDrawingSchemeServiceImpl extends ServiceImpl<TbDrawingSchemeMappe
 		tbDrawing.setSynopsis(drawingUpdateParam.getSynopsis());
 		tbDrawing.setText(drawingUpdateParam.getText());
 		tbDrawing.setRemarks(drawingUpdateParam.getRemarks());
-		tbDrawing.setStatus(StatusEnum.START_USE.getKey());
+		tbDrawing.setStatus(ApproveStatusEnum.WAITAPPROVAL.getKey());
 //		tbDrawing.setUpdateId(user.getUserId());
 //		tbDrawing.setUpdateName(user.getUserName());
 		tbDrawing.setUpdateTime(LocalDateTime.now());

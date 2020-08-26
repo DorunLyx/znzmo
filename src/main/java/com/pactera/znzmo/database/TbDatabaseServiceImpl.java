@@ -15,7 +15,6 @@ import com.pactera.znzmo.database.dao.TbDatabaseMapper;
 import com.pactera.znzmo.enums.ApproveStatusEnum;
 import com.pactera.znzmo.enums.IsValidEnum;
 import com.pactera.znzmo.enums.ReTypeEnum;
-import com.pactera.znzmo.enums.StatusEnum;
 import com.pactera.znzmo.examineverify.TbExamineVerify;
 import com.pactera.znzmo.examineverify.dao.TbExamineVerifyMapper;
 import com.pactera.znzmo.util.NumGenerationUtil;
@@ -114,7 +113,7 @@ public class TbDatabaseServiceImpl extends ServiceImpl<TbDatabaseMapper, TbDatab
         tbExamineVerify.setUserId(1L);
         tbExamineVerify.setUserName("admin");
         tbExamineVerify.setReId(tbDatabase.getId());
-        tbExamineVerify.setReType(ReTypeEnum.MODEL.getKey());
+        tbExamineVerify.setReType(ReTypeEnum.DATABASE.getKey());
         tbExamineVerify.setStatus(ApproveStatusEnum.WAITAPPROVAL.getKey());
         tbExamineVerify.setIsValid(IsValidEnum.YES.getKey());
 //		tbExamineVerify.setCreateId(user.getUserId());
@@ -139,7 +138,7 @@ public class TbDatabaseServiceImpl extends ServiceImpl<TbDatabaseMapper, TbDatab
 		tbDatabase.setType(databaseUpdateParam.getType());
 		tbDatabase.setPrice(databaseUpdateParam.getPrice());
 		tbDatabase.setRemarks(databaseUpdateParam.getRemarks());
-		tbDatabase.setStatus(StatusEnum.START_USE.getKey());
+		tbDatabase.setStatus(ApproveStatusEnum.WAITAPPROVAL.getKey());
 //		tbDatabase.setUpdateId(user.getUserId());
 //		tbDatabase.setUpdateName(user.getUserName());
 		tbDatabase.setUpdateTime(LocalDateTime.now());
