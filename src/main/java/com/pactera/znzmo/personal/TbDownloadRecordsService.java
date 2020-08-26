@@ -3,6 +3,7 @@ package com.pactera.znzmo.personal;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.pactera.znzmo.vo.personal.DownloadRecordsAddParam;
 import com.pactera.znzmo.vo.personal.DownloadRecordsQueryParam;
 import com.pactera.znzmo.vo.personal.DownloadRecordsVO;
 
@@ -27,5 +28,14 @@ public interface TbDownloadRecordsService extends IService<TbDownloadRecords> {
 	*/
 	IPage<DownloadRecordsVO> selectDownloadRecordsPages(Page<TbDownloadRecords> page,
 			DownloadRecordsQueryParam downloadRecordsQueryParam);
+
+	/**
+	 * @Title: addDownloadRecords 
+	 * @Description: TODO(这里用一句话描述这个方法的作用)
+	 * @param downloadRecordsAddParam void
+	 * @author liyongxu
+	 * @date 2020年8月26日 下午2:07:37 
+	*/
+	void addDownloadRecords(DownloadRecordsAddParam downloadRecordsAddParam);
 
 }

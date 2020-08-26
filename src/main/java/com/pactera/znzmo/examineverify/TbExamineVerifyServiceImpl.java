@@ -10,6 +10,8 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.pactera.znzmo.common.TbAttachment;
+import com.pactera.znzmo.common.dao.TbAttachmentMapper;
 import com.pactera.znzmo.database.TbDatabase;
 import com.pactera.znzmo.database.dao.TbDatabaseMapper;
 import com.pactera.znzmo.drawing.TbDrawingScheme;
@@ -55,6 +57,9 @@ public class TbExamineVerifyServiceImpl extends ServiceImpl<TbExamineVerifyMappe
 	
 	@Autowired
 	private TbDatabaseMapper tbDatabaseMapper;
+	
+	@Autowired
+	private TbAttachmentMapper tbAttachmentMapper;
 	
 	@Override
 	public IPage<ExamineListVO> selectExaminePages(Page<TbExamineVerify> page, ExamineQueryParam examineQueryParam) {
@@ -118,7 +123,10 @@ public class TbExamineVerifyServiceImpl extends ServiceImpl<TbExamineVerifyMappe
 	private ExamineListVO selectReInfoByType(ExamineListVO examineListVO, Long reId, Integer reType) {
 		if(reType == ReTypeEnum.MODEL.getKey()) {
 			TbThreedModel tbThreedModel = tbThreedModelMapper.selectById(reId);
-			examineListVO.setMainGraph(tbThreedModel.getMainGraph());
+	        TbAttachment tbAttachment = tbAttachmentMapper.selectById(tbThreedModel.getMainGraph());
+	        if(tbAttachment != null) {
+	        	examineListVO.setMainGraph(tbAttachment.getAttachmentPath());
+	        }
 			examineListVO.setCode(tbThreedModel.getCode());
 			examineListVO.setPrimaryClassName(tbThreedModel.getPrimaryClassName());
 			examineListVO.setClassName(tbThreedModel.getSecondaryClassName());
@@ -131,7 +139,10 @@ public class TbExamineVerifyServiceImpl extends ServiceImpl<TbExamineVerifyMappe
 			examineListVO.setUploadTime(DateUtils.localDateTimeToString(tbThreedModel.getCreateTime(), DateUtils.DATE_FORMAT));
 		}else if (reType == ReTypeEnum.SUMODEL.getKey()) {
 			TbSuModel tbSuModel = tbSuModelMapper.selectById(reId);
-			examineListVO.setMainGraph(tbSuModel.getMainGraph());
+			TbAttachment tbAttachment = tbAttachmentMapper.selectById(tbSuModel.getMainGraph());
+	        if(tbAttachment != null) {
+	        	examineListVO.setMainGraph(tbAttachment.getAttachmentPath());
+	        }
 			examineListVO.setCode(tbSuModel.getCode());
 			examineListVO.setPrimaryClassName(tbSuModel.getPrimaryClassName());
 			examineListVO.setClassName(tbSuModel.getSecondaryClassName());
@@ -144,7 +155,10 @@ public class TbExamineVerifyServiceImpl extends ServiceImpl<TbExamineVerifyMappe
 			examineListVO.setUploadTime(DateUtils.localDateTimeToString(tbSuModel.getCreateTime(), DateUtils.DATE_FORMAT));
 		}else if (reType == ReTypeEnum.DRAWING.getKey()) {
 			TbDrawingScheme tbDrawing = tbDrawingSchemeMapper.selectById(reId);
-			examineListVO.setMainGraph(tbDrawing.getMainGraph());
+			TbAttachment tbAttachment = tbAttachmentMapper.selectById(tbDrawing.getMainGraph());
+	        if(tbAttachment != null) {
+	        	examineListVO.setMainGraph(tbAttachment.getAttachmentPath());
+	        }
 			examineListVO.setCode(tbDrawing.getCode());
 			examineListVO.setPrimaryClassName(tbDrawing.getPrimaryClassName());
 			examineListVO.setClassName(tbDrawing.getSecondaryClassName());
@@ -157,7 +171,10 @@ public class TbExamineVerifyServiceImpl extends ServiceImpl<TbExamineVerifyMappe
 			examineListVO.setUploadTime(DateUtils.localDateTimeToString(tbDrawing.getCreateTime(), DateUtils.DATE_FORMAT));
 		}else if (reType == ReTypeEnum.HD.getKey()) {
 			TbHdMapping tbHdMapping = tbHdMappingMapper.selectById(reId);
-			examineListVO.setMainGraph(tbHdMapping.getMainGraph());
+			TbAttachment tbAttachment = tbAttachmentMapper.selectById(tbHdMapping.getMainGraph());
+	        if(tbAttachment != null) {
+	        	examineListVO.setMainGraph(tbAttachment.getAttachmentPath());
+	        }
 			examineListVO.setCode(tbHdMapping.getCode());
 			examineListVO.setPrimaryClassName(tbHdMapping.getPrimaryClassName());
 			examineListVO.setClassName(tbHdMapping.getSecondaryClassName());
@@ -170,7 +187,10 @@ public class TbExamineVerifyServiceImpl extends ServiceImpl<TbExamineVerifyMappe
 			examineListVO.setUploadTime(DateUtils.localDateTimeToString(tbHdMapping.getCreateTime(), DateUtils.DATE_FORMAT));
 		}else if (reType == ReTypeEnum.DATABASE.getKey()) {
 			TbDatabase tbDatabase = tbDatabaseMapper.selectById(reId);
-			examineListVO.setMainGraph(tbDatabase.getMainGraph());
+			TbAttachment tbAttachment = tbAttachmentMapper.selectById(tbDatabase.getMainGraph());
+	        if(tbAttachment != null) {
+	        	examineListVO.setMainGraph(tbAttachment.getAttachmentPath());
+	        }
 			examineListVO.setCode(tbDatabase.getCode());
 			examineListVO.setPrimaryClassName(tbDatabase.getPrimaryClassName());
 			examineListVO.setClassName(tbDatabase.getSecondaryClassName());

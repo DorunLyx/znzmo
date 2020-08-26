@@ -18,8 +18,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
+import com.pactera.znzmo.enums.JsonResultEnum;
 import com.pactera.znzmo.sysuser.TbUserAssets;
 import com.pactera.znzmo.sysuser.TbUserAssetsService;
+import com.pactera.znzmo.vo.personal.DownloadRecordsAddParam;
 import com.pactera.znzmo.vo.personal.DownloadRecordsQueryParam;
 import com.pactera.znzmo.vo.personal.DownloadRecordsVO;
 import com.pactera.znzmo.web.BaseController;
@@ -115,7 +117,7 @@ public class PersonalController extends BaseController{
 	@ApiOperation(value = "我的下载", httpMethod = "POST", notes = "我的下载")
     @RequestMapping(value = "/getDownloadRecords", method = {RequestMethod.POST})
     public JsonResp getDownloadRecords(
-    		@ApiParam(name="examineQueryParam", value="我的下载列表筛选参数", required=false)@RequestBody DownloadRecordsQueryParam downloadRecordsQueryParam) {
+    		@ApiParam(name="downloadRecordsQueryParam", value="我的下载列表筛选参数", required=false)@RequestBody DownloadRecordsQueryParam downloadRecordsQueryParam) {
 		Supplier<IPage<DownloadRecordsVO>> businessHandler = () ->{
 			try {
 				Page<TbDownloadRecords> page = new Page<TbDownloadRecords>(downloadRecordsQueryParam.getPageNo(), downloadRecordsQueryParam.getPageSize());
@@ -128,4 +130,28 @@ public class PersonalController extends BaseController{
 		};
 		return handleRequest(businessHandler);
     }
+	
+	/**
+	 * @Title: addDownloadRecords 
+	 * @Description: 下载记录新增
+	 * @param downloadRecordsAddParam
+	 * @return JsonResp
+	 * @author liyongxu
+	 * @date 2020年8月26日 上午11:54:00 
+	*/
+	@ApiOperation(value = "下载记录新增", httpMethod = "POST", notes = "下载记录新增")
+    @RequestMapping(value = "/addDownloadRecords", method = {RequestMethod.POST})
+	public JsonResp addDownloadRecords(
+			@ApiParam(name="downloadRecordsAddParam", value="3d模型新增参数", required=false)@RequestBody DownloadRecordsAddParam downloadRecordsAddParam) {
+		Supplier<String> businessHandler = () ->{
+			try {
+				tbDownloadRecordsService.addDownloadRecords(downloadRecordsAddParam);
+				return JsonResultEnum.ok.getValue();
+			} catch (Exception e) {
+				throwException(e);
+			}
+			return JsonResultEnum.fail.getValue();
+		};
+		return handleRequest(businessHandler);
+	}
 }

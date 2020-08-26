@@ -1,5 +1,6 @@
 package com.pactera.znzmo.personal;
 
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -10,6 +11,8 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.pactera.znzmo.common.TbAttachment;
+import com.pactera.znzmo.common.dao.TbAttachmentMapper;
 import com.pactera.znzmo.database.TbDatabase;
 import com.pactera.znzmo.database.dao.TbDatabaseMapper;
 import com.pactera.znzmo.drawing.TbDrawingScheme;
@@ -25,6 +28,7 @@ import com.pactera.znzmo.sumodel.TbSuModel;
 import com.pactera.znzmo.sumodel.dao.TbSuModelMapper;
 import com.pactera.znzmo.util.DateUtils;
 import com.pactera.znzmo.util.StringUtils;
+import com.pactera.znzmo.vo.personal.DownloadRecordsAddParam;
 import com.pactera.znzmo.vo.personal.DownloadRecordsQueryParam;
 import com.pactera.znzmo.vo.personal.DownloadRecordsVO;
 
@@ -53,6 +57,9 @@ public class TbDownloadRecordsServiceImpl extends ServiceImpl<TbDownloadRecordsM
 	
 	@Autowired
 	private TbDatabaseMapper tbDatabaseMapper;
+	
+	@Autowired
+	private TbAttachmentMapper tbAttachmentMapper;
 	
 	@Override
 	public IPage<DownloadRecordsVO> selectDownloadRecordsPages(Page<TbDownloadRecords> page,
@@ -113,7 +120,10 @@ public class TbDownloadRecordsServiceImpl extends ServiceImpl<TbDownloadRecordsM
 	private DownloadRecordsVO selectReInfoByType(DownloadRecordsVO downloadRecordsVO, Long reId, Integer reType) {
 		if(reType == ReTypeEnum.MODEL.getKey()) {
 			TbThreedModel tbThreedModel = tbThreedModelMapper.selectById(reId);
-			downloadRecordsVO.setMainGraph(tbThreedModel.getMainGraph());
+			TbAttachment tbAttachment = tbAttachmentMapper.selectById(tbThreedModel.getMainGraph());
+	        if(tbAttachment != null) {
+	        	downloadRecordsVO.setMainGraph(tbAttachment.getAttachmentPath());
+	        }
 			downloadRecordsVO.setCode(tbThreedModel.getCode());
 			downloadRecordsVO.setPrimaryClassName(tbThreedModel.getPrimaryClassName());
 			downloadRecordsVO.setClassName(tbThreedModel.getSecondaryClassName());
@@ -126,7 +136,10 @@ public class TbDownloadRecordsServiceImpl extends ServiceImpl<TbDownloadRecordsM
 			downloadRecordsVO.setUploadTime(DateUtils.localDateTimeToString(tbThreedModel.getCreateTime(), DateUtils.DATE_FORMAT));
 		}else if (reType == ReTypeEnum.SUMODEL.getKey()) {
 			TbSuModel tbSuModel = tbSuModelMapper.selectById(reId);
-			downloadRecordsVO.setMainGraph(tbSuModel.getMainGraph());
+			TbAttachment tbAttachment = tbAttachmentMapper.selectById(tbSuModel.getMainGraph());
+	        if(tbAttachment != null) {
+	        	downloadRecordsVO.setMainGraph(tbAttachment.getAttachmentPath());
+	        }
 			downloadRecordsVO.setCode(tbSuModel.getCode());
 			downloadRecordsVO.setPrimaryClassName(tbSuModel.getPrimaryClassName());
 			downloadRecordsVO.setClassName(tbSuModel.getSecondaryClassName());
@@ -139,7 +152,10 @@ public class TbDownloadRecordsServiceImpl extends ServiceImpl<TbDownloadRecordsM
 			downloadRecordsVO.setUploadTime(DateUtils.localDateTimeToString(tbSuModel.getCreateTime(), DateUtils.DATE_FORMAT));
 		}else if (reType == ReTypeEnum.DRAWING.getKey()) {
 			TbDrawingScheme tbDrawing = tbDrawingSchemeMapper.selectById(reId);
-			downloadRecordsVO.setMainGraph(tbDrawing.getMainGraph());
+			TbAttachment tbAttachment = tbAttachmentMapper.selectById(tbDrawing.getMainGraph());
+	        if(tbAttachment != null) {
+	        	downloadRecordsVO.setMainGraph(tbAttachment.getAttachmentPath());
+	        }
 			downloadRecordsVO.setCode(tbDrawing.getCode());
 			downloadRecordsVO.setPrimaryClassName(tbDrawing.getPrimaryClassName());
 			downloadRecordsVO.setClassName(tbDrawing.getSecondaryClassName());
@@ -152,7 +168,10 @@ public class TbDownloadRecordsServiceImpl extends ServiceImpl<TbDownloadRecordsM
 			downloadRecordsVO.setUploadTime(DateUtils.localDateTimeToString(tbDrawing.getCreateTime(), DateUtils.DATE_FORMAT));
 		}else if (reType == ReTypeEnum.HD.getKey()) {
 			TbHdMapping tbHdMapping = tbHdMappingMapper.selectById(reId);
-			downloadRecordsVO.setMainGraph(tbHdMapping.getMainGraph());
+			TbAttachment tbAttachment = tbAttachmentMapper.selectById(tbHdMapping.getMainGraph());
+	        if(tbAttachment != null) {
+	        	downloadRecordsVO.setMainGraph(tbAttachment.getAttachmentPath());
+	        }
 			downloadRecordsVO.setCode(tbHdMapping.getCode());
 			downloadRecordsVO.setPrimaryClassName(tbHdMapping.getPrimaryClassName());
 			downloadRecordsVO.setClassName(tbHdMapping.getSecondaryClassName());
@@ -165,7 +184,10 @@ public class TbDownloadRecordsServiceImpl extends ServiceImpl<TbDownloadRecordsM
 			downloadRecordsVO.setUploadTime(DateUtils.localDateTimeToString(tbHdMapping.getCreateTime(), DateUtils.DATE_FORMAT));
 		}else if (reType == ReTypeEnum.DATABASE.getKey()) {
 			TbDatabase tbDatabase = tbDatabaseMapper.selectById(reId);
-			downloadRecordsVO.setMainGraph(tbDatabase.getMainGraph());
+			TbAttachment tbAttachment = tbAttachmentMapper.selectById(tbDatabase.getMainGraph());
+	        if(tbAttachment != null) {
+	        	downloadRecordsVO.setMainGraph(tbAttachment.getAttachmentPath());
+	        }
 			downloadRecordsVO.setCode(tbDatabase.getCode());
 			downloadRecordsVO.setPrimaryClassName(tbDatabase.getPrimaryClassName());
 			downloadRecordsVO.setClassName(tbDatabase.getSecondaryClassName());
@@ -178,6 +200,35 @@ public class TbDownloadRecordsServiceImpl extends ServiceImpl<TbDownloadRecordsM
 			downloadRecordsVO.setUploadTime(DateUtils.localDateTimeToString(tbDatabase.getCreateTime(), DateUtils.DATE_FORMAT));
 		}
 		return downloadRecordsVO;
+	}
+
+	@Override
+	public void addDownloadRecords(DownloadRecordsAddParam downloadRecordsAddParam) {
+		QueryWrapper<TbDownloadRecords> queryWrapper = new QueryWrapper<>();
+		queryWrapper.eq(TbDownloadRecords.IS_VALID, IsValidEnum.YES.getKey())
+			.eq(TbDownloadRecords.USER_ID, downloadRecordsAddParam.getUserId())
+			.eq(TbDownloadRecords.RE_ID, downloadRecordsAddParam.getReId());
+		TbDownloadRecords tbDownloadRecords = baseMapper.selectOne(queryWrapper);
+		if(tbDownloadRecords != null) {
+			tbDownloadRecords.setDownloadNum(tbDownloadRecords.getDownloadNum() + 1);
+			tbDownloadRecords.setUpdateTime(LocalDateTime.now());
+	        baseMapper.updateById(tbDownloadRecords);
+		}else {
+			TbDownloadRecords tbDownloadRecordsNew = new TbDownloadRecords();
+			tbDownloadRecordsNew.setUserId(1L);
+			tbDownloadRecordsNew.setUserName("admin");
+			tbDownloadRecordsNew.setReId(Long.valueOf(downloadRecordsAddParam.getReId()));
+			tbDownloadRecordsNew.setReType(downloadRecordsAddParam.getReType());
+			tbDownloadRecordsNew.setDownloadNum(1);
+			tbDownloadRecordsNew.setIsValid(IsValidEnum.YES.getKey());
+//			tbDownloadRecordsNew.setCreateId(user.getUserId());
+//			tbDownloadRecordsNew.setCreateName(user.getUserName());
+			tbDownloadRecordsNew.setCreateTime(LocalDateTime.now());
+//			tbDownloadRecordsNew.setUpdateId(user.getUserId());
+//			tbDownloadRecordsNew.setUpdateName(user.getUserName());
+			tbDownloadRecordsNew.setUpdateTime(LocalDateTime.now());
+	        baseMapper.insert(tbDownloadRecordsNew);
+		}
 	}
 
 }
