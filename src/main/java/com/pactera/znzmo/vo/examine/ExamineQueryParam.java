@@ -21,6 +21,9 @@ public class ExamineQueryParam {
 	@ApiModelProperty(value="页面数量", name="pageSize")
 	private Integer pageSize;
 	
+	@ApiModelProperty(value="用户id", name="userId")
+	private String userId;
+	
 	@ApiModelProperty(value="分类", name="type")
 	private String type;
 	

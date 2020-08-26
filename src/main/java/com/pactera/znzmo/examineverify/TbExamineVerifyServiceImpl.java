@@ -61,7 +61,10 @@ public class TbExamineVerifyServiceImpl extends ServiceImpl<TbExamineVerifyMappe
 	public IPage<ExamineListVO> selectExaminePages(Page<TbExamineVerify> page, ExamineQueryParam examineQueryParam) {
 		QueryWrapper<TbExamineVerify> queryWrapper = new QueryWrapper<>();
 		queryWrapper.eq(TbExamineVerify.IS_VALID, IsValidEnum.YES.getKey());
-		if(StringUtils.isNotEmpty(examineQueryParam.getType().toString())) {
+		if(StringUtils.isNotEmpty(examineQueryParam.getUserId())) {
+			queryWrapper.eq(TbExamineVerify.CREATE_ID, examineQueryParam.getUserId());
+		}
+		if(StringUtils.isNotEmpty(examineQueryParam.getType())) {
 			queryWrapper.eq(TbExamineVerify.RE_TYPE, examineQueryParam.getType());
 		}
 		if(StringUtils.isNotEmpty(examineQueryParam.getStatus().toString())) {
