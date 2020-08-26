@@ -9,14 +9,19 @@ import java.util.function.Supplier;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.pactera.znzmo.sysuser.TbUserAssets;
 import com.pactera.znzmo.sysuser.TbUserAssetsService;
+import com.pactera.znzmo.vo.personal.DownloadRecordsQueryParam;
+import com.pactera.znzmo.vo.personal.DownloadRecordsVO;
 import com.pactera.znzmo.web.BaseController;
 import com.pactera.znzmo.web.JsonResp;
 
@@ -41,6 +46,9 @@ public class PersonalController extends BaseController{
 	
 	@Autowired
 	private TbCollectionService tbCollectionService;
+	
+	@Autowired
+	private TbDownloadRecordsService tbDownloadRecordsService;
 	
 	public static final Logger logger = LoggerFactory.getLogger(PersonalController.class);
 
@@ -88,6 +96,31 @@ public class PersonalController extends BaseController{
 				queryWrapper.eq(TbCollection.USER_ID, userId);
 				List<TbCollection> tbCollectionList = tbCollectionService.list(queryWrapper);
 				return tbCollectionList;
+			} catch (Exception e) {
+				logger.error(e.getMessage(),e);
+			}
+			return null;
+		};
+		return handleRequest(businessHandler);
+    }
+	
+	/**
+	 * @Title: getDownloadRecords 
+	 * @Description: 我的下载
+	 * @param downloadRecordsQueryParam
+	 * @return JsonResp
+	 * @author liyongxu
+	 * @date 2020年8月26日 上午10:59:05 
+	*/
+	@ApiOperation(value = "我的下载", httpMethod = "POST", notes = "我的下载")
+    @RequestMapping(value = "/getDownloadRecords", method = {RequestMethod.POST})
+    public JsonResp getDownloadRecords(
+    		@ApiParam(name="examineQueryParam", value="我的下载列表筛选参数", required=false)@RequestBody DownloadRecordsQueryParam downloadRecordsQueryParam) {
+		Supplier<IPage<DownloadRecordsVO>> businessHandler = () ->{
+			try {
+				Page<TbDownloadRecords> page = new Page<TbDownloadRecords>(downloadRecordsQueryParam.getPageNo(), downloadRecordsQueryParam.getPageSize());
+				IPage<DownloadRecordsVO> iPage = tbDownloadRecordsService.selectDownloadRecordsPages(page, downloadRecordsQueryParam);
+				return iPage;
 			} catch (Exception e) {
 				logger.error(e.getMessage(),e);
 			}

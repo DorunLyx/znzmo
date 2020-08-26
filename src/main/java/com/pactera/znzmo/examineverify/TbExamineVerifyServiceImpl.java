@@ -10,7 +10,6 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.pactera.znzmo.banner.TbBanner;
 import com.pactera.znzmo.database.TbDatabase;
 import com.pactera.znzmo.database.dao.TbDatabaseMapper;
 import com.pactera.znzmo.drawing.TbDrawingScheme;
@@ -76,7 +75,7 @@ public class TbExamineVerifyServiceImpl extends ServiceImpl<TbExamineVerifyMappe
 		if(StringUtils.isNotEmpty(examineQueryParam.getEndTime())) {
 			queryWrapper.le(TbExamineVerify.UPDATE_TIME, examineQueryParam.getEndTime() + " 23:59:59");
 		}
-		queryWrapper.orderByDesc(TbBanner.UPDATE_TIME);
+		queryWrapper.orderByDesc(TbExamineVerify.UPDATE_TIME);
 		IPage<TbExamineVerify> selectPage = baseMapper.selectPage(page,queryWrapper);
 		return this.selectReInfo(selectPage, examineQueryParam);
 	}
