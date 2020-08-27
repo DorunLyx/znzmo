@@ -83,7 +83,7 @@ public class TbDrawingSchemeServiceImpl extends ServiceImpl<TbDrawingSchemeMappe
 		tbDrawing.setText(drawingAddParam.getText());
 		tbDrawing.setRemarks(drawingAddParam.getRemarks());
 		tbDrawing.setIsValid(IsValidEnum.YES.getKey());
-		tbDrawing.setStatus(ApproveStatusEnum.WAITAPPROVAL.getKey());
+		tbDrawing.setStatus(ApproveStatusEnum.WAIT.getKey());
 //		tbDrawing.setCreateId(user.getUserId());
 //		tbDrawing.setCreateName(user.getUserName());
 		tbDrawing.setCreateTime(LocalDateTime.now());
@@ -121,7 +121,7 @@ public class TbDrawingSchemeServiceImpl extends ServiceImpl<TbDrawingSchemeMappe
         tbExamineVerify.setUserName("admin");
         tbExamineVerify.setReId(tbDrawing.getId());
         tbExamineVerify.setReType(ReTypeEnum.DRAWING.getKey());
-        tbExamineVerify.setStatus(ApproveStatusEnum.WAITAPPROVAL.getKey());
+        tbExamineVerify.setStatus(ApproveStatusEnum.WAIT.getKey());
         tbExamineVerify.setIsValid(IsValidEnum.YES.getKey());
 //		tbExamineVerify.setCreateId(user.getUserId());
 //		tbExamineVerify.setCreateName(user.getUserName());
@@ -151,7 +151,7 @@ public class TbDrawingSchemeServiceImpl extends ServiceImpl<TbDrawingSchemeMappe
 		tbDrawing.setSynopsis(drawingUpdateParam.getSynopsis());
 		tbDrawing.setText(drawingUpdateParam.getText());
 		tbDrawing.setRemarks(drawingUpdateParam.getRemarks());
-		tbDrawing.setStatus(ApproveStatusEnum.WAITAPPROVAL.getKey());
+		tbDrawing.setStatus(ApproveStatusEnum.WAIT.getKey());
 //		tbDrawing.setUpdateId(user.getUserId());
 //		tbDrawing.setUpdateName(user.getUserName());
 		tbDrawing.setUpdateTime(LocalDateTime.now());

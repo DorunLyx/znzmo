@@ -76,7 +76,7 @@ public class TbHdMappingServiceImpl extends ServiceImpl<TbHdMappingMapper, TbHdM
 		tbHdMapping.setPrice(hdMappingAddParam.getPrice());
 		tbHdMapping.setRemarks(hdMappingAddParam.getRemarks());
 		tbHdMapping.setIsValid(IsValidEnum.YES.getKey());
-		tbHdMapping.setStatus(ApproveStatusEnum.WAITAPPROVAL.getKey());
+		tbHdMapping.setStatus(ApproveStatusEnum.WAIT.getKey());
 //		tbHdMapping.setCreateId(user.getUserId());
 //		tbHdMapping.setCreateName(user.getUserName());
 		tbHdMapping.setCreateTime(LocalDateTime.now());
@@ -114,7 +114,7 @@ public class TbHdMappingServiceImpl extends ServiceImpl<TbHdMappingMapper, TbHdM
         tbExamineVerify.setUserName("admin");
         tbExamineVerify.setReId(tbHdMapping.getId());
         tbExamineVerify.setReType(ReTypeEnum.HD.getKey());
-        tbExamineVerify.setStatus(ApproveStatusEnum.WAITAPPROVAL.getKey());
+        tbExamineVerify.setStatus(ApproveStatusEnum.WAIT.getKey());
         tbExamineVerify.setIsValid(IsValidEnum.YES.getKey());
 //		tbExamineVerify.setCreateId(user.getUserId());
 //		tbExamineVerify.setCreateName(user.getUserName());
@@ -138,7 +138,7 @@ public class TbHdMappingServiceImpl extends ServiceImpl<TbHdMappingMapper, TbHdM
 		tbHdMapping.setType(hDMappingUpdateParam.getType());
 		tbHdMapping.setPrice(hDMappingUpdateParam.getPrice());
 		tbHdMapping.setRemarks(hDMappingUpdateParam.getRemarks());
-		tbHdMapping.setStatus(ApproveStatusEnum.WAITAPPROVAL.getKey());
+		tbHdMapping.setStatus(ApproveStatusEnum.WAIT.getKey());
 //		tbHdMapping.setUpdateId(user.getUserId());
 //		tbHdMapping.setUpdateName(user.getUserName());
 		tbHdMapping.setUpdateTime(LocalDateTime.now());

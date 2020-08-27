@@ -78,7 +78,7 @@ public class TbThreedModelServiceImpl extends ServiceImpl<TbThreedModelMapper, T
 		tbThreedModel.setLightingEffects(modelAddParam.getLightingEffects());
 		tbThreedModel.setRemarks(modelAddParam.getRemarks());
 		tbThreedModel.setIsValid(IsValidEnum.YES.getKey());
-		tbThreedModel.setStatus(ApproveStatusEnum.WAITAPPROVAL.getKey());
+		tbThreedModel.setStatus(ApproveStatusEnum.WAIT.getKey());
 //		tbThreedModel.setCreateId(user.getUserId());
 //		tbThreedModel.setCreateName(user.getUserName());
 		tbThreedModel.setCreateTime(LocalDateTime.now());
@@ -116,7 +116,7 @@ public class TbThreedModelServiceImpl extends ServiceImpl<TbThreedModelMapper, T
         tbExamineVerify.setUserName("admin");
         tbExamineVerify.setReId(tbThreedModel.getId());
         tbExamineVerify.setReType(ReTypeEnum.MODEL.getKey());
-        tbExamineVerify.setStatus(ApproveStatusEnum.WAITAPPROVAL.getKey());
+        tbExamineVerify.setStatus(ApproveStatusEnum.WAIT.getKey());
         tbExamineVerify.setIsValid(IsValidEnum.YES.getKey());
 //		tbExamineVerify.setCreateId(user.getUserId());
 //		tbExamineVerify.setCreateName(user.getUserName());
@@ -142,7 +142,7 @@ public class TbThreedModelServiceImpl extends ServiceImpl<TbThreedModelMapper, T
 		tbThreedModel.setTextureMapping(modelUpdateParam.getTextureMapping());
 		tbThreedModel.setLightingEffects(modelUpdateParam.getLightingEffects());
 		tbThreedModel.setRemarks(modelUpdateParam.getRemarks());
-		tbThreedModel.setStatus(ApproveStatusEnum.WAITAPPROVAL.getKey());
+		tbThreedModel.setStatus(ApproveStatusEnum.WAIT.getKey());
 //		tbThreedModel.setUpdateId(user.getUserId());
 //		tbThreedModel.setUpdateName(user.getUserName());
 		tbThreedModel.setUpdateTime(LocalDateTime.now());

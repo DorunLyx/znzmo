@@ -76,7 +76,7 @@ public class TbDatabaseServiceImpl extends ServiceImpl<TbDatabaseMapper, TbDatab
 		tbDatabase.setPrice(databaseAddParam.getPrice());
 		tbDatabase.setRemarks(databaseAddParam.getRemarks());
 		tbDatabase.setIsValid(IsValidEnum.YES.getKey());
-		tbDatabase.setStatus(ApproveStatusEnum.WAITAPPROVAL.getKey());
+		tbDatabase.setStatus(ApproveStatusEnum.WAIT.getKey());
 //		tbDatabase.setCreateId(user.getUserId());
 //		tbDatabase.setCreateName(user.getUserName());
 		tbDatabase.setCreateTime(LocalDateTime.now());
@@ -114,7 +114,7 @@ public class TbDatabaseServiceImpl extends ServiceImpl<TbDatabaseMapper, TbDatab
         tbExamineVerify.setUserName("admin");
         tbExamineVerify.setReId(tbDatabase.getId());
         tbExamineVerify.setReType(ReTypeEnum.DATABASE.getKey());
-        tbExamineVerify.setStatus(ApproveStatusEnum.WAITAPPROVAL.getKey());
+        tbExamineVerify.setStatus(ApproveStatusEnum.WAIT.getKey());
         tbExamineVerify.setIsValid(IsValidEnum.YES.getKey());
 //		tbExamineVerify.setCreateId(user.getUserId());
 //		tbExamineVerify.setCreateName(user.getUserName());
@@ -138,7 +138,7 @@ public class TbDatabaseServiceImpl extends ServiceImpl<TbDatabaseMapper, TbDatab
 		tbDatabase.setType(databaseUpdateParam.getType());
 		tbDatabase.setPrice(databaseUpdateParam.getPrice());
 		tbDatabase.setRemarks(databaseUpdateParam.getRemarks());
-		tbDatabase.setStatus(ApproveStatusEnum.WAITAPPROVAL.getKey());
+		tbDatabase.setStatus(ApproveStatusEnum.WAIT.getKey());
 //		tbDatabase.setUpdateId(user.getUserId());
 //		tbDatabase.setUpdateName(user.getUserName());
 		tbDatabase.setUpdateTime(LocalDateTime.now());

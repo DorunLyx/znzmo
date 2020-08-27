@@ -52,8 +52,37 @@ public class PersonalController extends BaseController{
 	@Autowired
 	private TbDownloadRecordsService tbDownloadRecordsService;
 	
+	@Autowired
+	private TbSignInService tbSignInService;
+	
 	public static final Logger logger = LoggerFactory.getLogger(PersonalController.class);
 
+	/**
+	 * @Title: getSignInInfo 
+	 * @Description: 签到查询
+	 * @param userId
+	 * @return JsonResp
+	 * @author liyongxu
+	 * @date 2020年8月27日 上午10:30:19 
+	*/
+	@ApiOperation(value = "签到查询", httpMethod = "POST", notes = "签到查询")
+    @RequestMapping(value = "/getSignInInfo", method = {RequestMethod.POST})
+    public JsonResp getSignInInfo(
+    		@ApiParam(name="userId", value="用户id", required=false)@RequestParam Long userId) {
+		Supplier<List<TbSignIn>> businessHandler = () ->{
+			try {
+				QueryWrapper<TbSignIn> queryWrapper = new QueryWrapper<>();
+				queryWrapper.eq(TbSignIn.SIGN_USER_ID, userId);
+				List<TbSignIn> tbSignInList = tbSignInService.list(queryWrapper);
+				return tbSignInList;
+			} catch (Exception e) {
+				logger.error(e.getMessage(),e);
+			}
+			return null;
+		};
+		return handleRequest(businessHandler);
+    }
+	
 	/**
 	 * @Title: getUserAssets 
 	 * @Description: 我的资产查询

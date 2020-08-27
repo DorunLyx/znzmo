@@ -79,7 +79,7 @@ public class TbSuModelServiceImpl extends ServiceImpl<TbSuModelMapper, TbSuModel
 		tbSuModel.setTextureMapping(suModelAddParam.getTextureMapping());
 		tbSuModel.setRemarks(suModelAddParam.getRemarks());
 		tbSuModel.setIsValid(IsValidEnum.YES.getKey());
-		tbSuModel.setStatus(ApproveStatusEnum.WAITAPPROVAL.getKey());
+		tbSuModel.setStatus(ApproveStatusEnum.WAIT.getKey());
 //		tbSuModel.setCreateId(user.getUserId());
 //		tbSuModel.setCreateName(user.getUserName());
 		tbSuModel.setCreateTime(LocalDateTime.now());
@@ -117,7 +117,7 @@ public class TbSuModelServiceImpl extends ServiceImpl<TbSuModelMapper, TbSuModel
         tbExamineVerify.setUserName("admin");
         tbExamineVerify.setReId(tbSuModel.getId());
         tbExamineVerify.setReType(ReTypeEnum.SUMODEL.getKey());
-        tbExamineVerify.setStatus(ApproveStatusEnum.WAITAPPROVAL.getKey());
+        tbExamineVerify.setStatus(ApproveStatusEnum.WAIT.getKey());
         tbExamineVerify.setIsValid(IsValidEnum.YES.getKey());
 //		tbExamineVerify.setCreateId(user.getUserId());
 //		tbExamineVerify.setCreateName(user.getUserName());
@@ -144,7 +144,7 @@ public class TbSuModelServiceImpl extends ServiceImpl<TbSuModelMapper, TbSuModel
 		tbSuModel.setPrice(suModelUpdateParam.getPrice());
 		tbSuModel.setTextureMapping(suModelUpdateParam.getTextureMapping());
 		tbSuModel.setRemarks(suModelUpdateParam.getRemarks());
-		tbSuModel.setStatus(ApproveStatusEnum.WAITAPPROVAL.getKey());
+		tbSuModel.setStatus(ApproveStatusEnum.WAIT.getKey());
 //		tbSuModel.setUpdateId(user.getUserId());
 //		tbSuModel.setUpdateName(user.getUserName());
 		tbSuModel.setUpdateTime(LocalDateTime.now());

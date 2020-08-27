@@ -4,9 +4,11 @@ package com.pactera.znzmo.enums;
  * 状态枚举
  */
 public enum ApproveStatusEnum {
-    WAITAPPROVAL(0,"待审核"),
-    REJECTED(1,"已驳回"),
-    APPROVAL_PASS(2,"审核通过");
+    WAIT(0,"待审核"),
+    NOT_PASS(1,"未通过"),
+    PASS(2,"已通过"),
+    SOLD_OUT(3,"已下架");
+	
     private Integer key;
 
     private String value;
