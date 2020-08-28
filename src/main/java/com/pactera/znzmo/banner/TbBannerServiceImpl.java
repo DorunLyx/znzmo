@@ -14,7 +14,10 @@ import com.pactera.znzmo.common.TbAttachment;
 import com.pactera.znzmo.common.dao.TbAttachmentMapper;
 import com.pactera.znzmo.enums.IsValidEnum;
 import com.pactera.znzmo.enums.StatusEnum;
+import com.pactera.znzmo.sysuser.SysUser;
+import com.pactera.znzmo.sysuser.SysUserService;
 import com.pactera.znzmo.util.DateUtils;
+import com.pactera.znzmo.util.SecurityUtils;
 import com.pactera.znzmo.util.StringUtils;
 import com.pactera.znzmo.vo.banner.BannerAddParam;
 import com.pactera.znzmo.vo.banner.BannerQueryParam;
@@ -34,6 +37,9 @@ public class TbBannerServiceImpl extends ServiceImpl<TbBannerMapper, TbBanner> i
 
 	@Autowired
 	private TbAttachmentMapper tbAttachmentMapper;
+	
+	@Autowired
+	private SysUserService sysUserService;
 	
 	@Override
 	public IPage<TbBanner> selectBannerPages(Page<TbBanner> page, BannerQueryParam bannerQueryParam) {
@@ -59,11 +65,12 @@ public class TbBannerServiceImpl extends ServiceImpl<TbBannerMapper, TbBanner> i
 		tbBanner.setEndTime(DateUtils.parseDate(bannerAddParam.getEndTime() + " 23:59:59", DateUtils.FORMAT_ONE));
 		tbBanner.setIsValid(IsValidEnum.YES.getKey());
 		tbBanner.setStatus(StatusEnum.START_USE.getKey());
-//		tbBanner.setCreateId(user.getUserId());
-//		tbBanner.setCreateName(user.getUserName());
+		SysUser user = sysUserService.findByUsername(SecurityUtils.getUsername());
+		tbBanner.setCreateId(user.getId());
+		tbBanner.setCreateName(user.getName());
 		tbBanner.setCreateTime(LocalDateTime.now());
-//		tbBanner.setUpdateId(user.getUserId());
-//		tbBanner.setUpdateName(user.getUserName());
+		tbBanner.setUpdateId(user.getId());
+		tbBanner.setUpdateName(user.getName());
 		tbBanner.setUpdateTime(LocalDateTime.now());
 		baseMapper.insert(tbBanner);
 		
@@ -77,8 +84,8 @@ public class TbBannerServiceImpl extends ServiceImpl<TbBannerMapper, TbBanner> i
             tbAttachment.setAliasName(keyAndUrl.getRealName());
             tbAttachment.setReType(keyAndUrl.getType());
             tbAttachment.setIsValid(IsValidEnum.YES.getKey());
-//            tbAttachment.setCreateId(user.getUserId());
-//            tbAttachment.setCreateName(user.getUserName());
+            tbAttachment.setCreateId(user.getId());
+            tbAttachment.setCreateName(user.getName());
             tbAttachment.setCreateTime(LocalDateTime.now());
             tbAttachment.setUpdateTime(LocalDateTime.now());
             tbAttachmentMapper.insert(tbAttachment);
@@ -94,8 +101,9 @@ public class TbBannerServiceImpl extends ServiceImpl<TbBannerMapper, TbBanner> i
 		tbBanner.setStartTime(DateUtils.parseDate(bannerUpdateParam.getStartTime() + " 00:00:00", DateUtils.FORMAT_ONE));
 		tbBanner.setEndTime(DateUtils.parseDate(bannerUpdateParam.getEndTime() + " 23:59:59", DateUtils.FORMAT_ONE));
 		tbBanner.setStatus(StatusEnum.START_USE.getKey());
-//		tbBanner.setUpdateId(user.getUserId());
-//		tbBanner.setUpdateName(user.getUserName());
+		SysUser user = sysUserService.findByUsername(SecurityUtils.getUsername());
+		tbBanner.setUpdateId(user.getId());
+		tbBanner.setUpdateName(user.getName());
 		tbBanner.setUpdateTime(LocalDateTime.now());
 		baseMapper.insert(tbBanner);
 		
@@ -113,8 +121,8 @@ public class TbBannerServiceImpl extends ServiceImpl<TbBannerMapper, TbBanner> i
             tbAttachment.setAliasName(keyAndUrl.getRealName());
             tbAttachment.setReType(keyAndUrl.getType());
             tbAttachment.setIsValid(IsValidEnum.YES.getKey());
-//            tbAttachment.setCreateId(user.getUserId());
-//            tbAttachment.setCreateName(user.getUserName());
+            tbAttachment.setCreateId(user.getId());
+            tbAttachment.setCreateName(user.getName());
             tbAttachment.setCreateTime(LocalDateTime.now());
             tbAttachment.setUpdateTime(LocalDateTime.now());
             tbAttachmentMapper.insert(tbAttachment);

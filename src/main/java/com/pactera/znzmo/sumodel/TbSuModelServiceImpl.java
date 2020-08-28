@@ -17,7 +17,10 @@ import com.pactera.znzmo.enums.ReTypeEnum;
 import com.pactera.znzmo.examineverify.TbExamineVerify;
 import com.pactera.znzmo.examineverify.dao.TbExamineVerifyMapper;
 import com.pactera.znzmo.sumodel.dao.TbSuModelMapper;
+import com.pactera.znzmo.sysuser.SysUser;
+import com.pactera.znzmo.sysuser.SysUserService;
 import com.pactera.znzmo.util.NumGenerationUtil;
+import com.pactera.znzmo.util.SecurityUtils;
 import com.pactera.znzmo.util.StringUtils;
 import com.pactera.znzmo.vo.common.UploadInfo;
 import com.pactera.znzmo.vo.model.ModelQueryParam;
@@ -40,6 +43,9 @@ public class TbSuModelServiceImpl extends ServiceImpl<TbSuModelMapper, TbSuModel
 	
 	@Autowired
 	private TbExamineVerifyMapper tbExamineVerifyMapper;
+	
+	@Autowired
+	private SysUserService sysUserService;
 	
 	@Override
 	public IPage<TbSuModel> selectSuModelPages(Page<TbSuModel> page, ModelQueryParam modelQueryParam) {
@@ -80,11 +86,12 @@ public class TbSuModelServiceImpl extends ServiceImpl<TbSuModelMapper, TbSuModel
 		tbSuModel.setRemarks(suModelAddParam.getRemarks());
 		tbSuModel.setIsValid(IsValidEnum.YES.getKey());
 		tbSuModel.setStatus(ApproveStatusEnum.WAIT.getKey());
-//		tbSuModel.setCreateId(user.getUserId());
-//		tbSuModel.setCreateName(user.getUserName());
+		SysUser user = sysUserService.findByUsername(SecurityUtils.getUsername());
+		tbSuModel.setCreateId(user.getId());
+		tbSuModel.setCreateName(user.getName());
 		tbSuModel.setCreateTime(LocalDateTime.now());
-//		tbSuModel.setUpdateId(user.getUserId());
-//		tbSuModel.setUpdateName(user.getUserName());
+		tbSuModel.setUpdateId(user.getId());
+		tbSuModel.setUpdateName(user.getName());
 		tbSuModel.setUpdateTime(LocalDateTime.now());
 		baseMapper.insert(tbSuModel);
 		
@@ -101,8 +108,8 @@ public class TbSuModelServiceImpl extends ServiceImpl<TbSuModelMapper, TbSuModel
             tbAttachment.setAttachmentSize(uploadInfo.getSizes());
             tbAttachment.setPictureSize(uploadInfo.getPictureSize());
             tbAttachment.setIsValid(IsValidEnum.YES.getKey());
-//	            tbAttachment.setCreateId(user.getUserId());
-//	            tbAttachment.setCreateName(user.getUserName());
+            tbAttachment.setCreateId(user.getId());
+            tbAttachment.setCreateName(user.getName());
             tbAttachment.setCreateTime(LocalDateTime.now());
             tbAttachment.setUpdateTime(LocalDateTime.now());
             tbAttachmentMapper.insert(tbAttachment);
@@ -113,17 +120,17 @@ public class TbSuModelServiceImpl extends ServiceImpl<TbSuModelMapper, TbSuModel
 		}
         
         TbExamineVerify tbExamineVerify = new TbExamineVerify();
-        tbExamineVerify.setUserId(1L);
-        tbExamineVerify.setUserName("admin");
+        tbExamineVerify.setUserId(user.getId());
+        tbExamineVerify.setUserName(user.getName());
         tbExamineVerify.setReId(tbSuModel.getId());
         tbExamineVerify.setReType(ReTypeEnum.SUMODEL.getKey());
         tbExamineVerify.setStatus(ApproveStatusEnum.WAIT.getKey());
         tbExamineVerify.setIsValid(IsValidEnum.YES.getKey());
-//		tbExamineVerify.setCreateId(user.getUserId());
-//		tbExamineVerify.setCreateName(user.getUserName());
+		tbExamineVerify.setCreateId(user.getId());
+		tbExamineVerify.setCreateName(user.getName());
         tbExamineVerify.setCreateTime(LocalDateTime.now());
-//		tbExamineVerify.setUpdateId(user.getUserId());
-//		tbExamineVerify.setUpdateName(user.getUserName());
+		tbExamineVerify.setUpdateId(user.getId());
+		tbExamineVerify.setUpdateName(user.getName());
         tbExamineVerify.setUpdateTime(LocalDateTime.now());
         tbExamineVerifyMapper.insert(tbExamineVerify);
 	}
@@ -145,8 +152,9 @@ public class TbSuModelServiceImpl extends ServiceImpl<TbSuModelMapper, TbSuModel
 		tbSuModel.setTextureMapping(suModelUpdateParam.getTextureMapping());
 		tbSuModel.setRemarks(suModelUpdateParam.getRemarks());
 		tbSuModel.setStatus(ApproveStatusEnum.WAIT.getKey());
-//		tbSuModel.setUpdateId(user.getUserId());
-//		tbSuModel.setUpdateName(user.getUserName());
+		SysUser user = sysUserService.findByUsername(SecurityUtils.getUsername());
+		tbSuModel.setUpdateId(user.getId());
+		tbSuModel.setUpdateName(user.getName());
 		tbSuModel.setUpdateTime(LocalDateTime.now());
 		baseMapper.updateById(tbSuModel);
 		
@@ -167,8 +175,8 @@ public class TbSuModelServiceImpl extends ServiceImpl<TbSuModelMapper, TbSuModel
             tbAttachment.setAttachmentSize(uploadInfo.getSizes());
             tbAttachment.setPictureSize(uploadInfo.getPictureSize());
             tbAttachment.setIsValid(IsValidEnum.YES.getKey());
-//	            tbAttachment.setCreateId(user.getUserId());
-//	            tbAttachment.setCreateName(user.getUserName());
+            tbAttachment.setCreateId(user.getId());
+            tbAttachment.setCreateName(user.getName());
             tbAttachment.setCreateTime(LocalDateTime.now());
             tbAttachment.setUpdateTime(LocalDateTime.now());
             tbAttachmentMapper.insert(tbAttachment);

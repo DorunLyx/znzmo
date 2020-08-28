@@ -17,8 +17,11 @@ import com.pactera.znzmo.enums.IsValidEnum;
 import com.pactera.znzmo.enums.ReTypeEnum;
 import com.pactera.znzmo.examineverify.TbExamineVerify;
 import com.pactera.znzmo.examineverify.dao.TbExamineVerifyMapper;
+import com.pactera.znzmo.sysuser.SysUser;
+import com.pactera.znzmo.sysuser.SysUserService;
 import com.pactera.znzmo.util.DateUtils;
 import com.pactera.znzmo.util.NumGenerationUtil;
+import com.pactera.znzmo.util.SecurityUtils;
 import com.pactera.znzmo.util.StringUtils;
 import com.pactera.znzmo.vo.common.UploadInfo;
 import com.pactera.znzmo.vo.drawing.DrawingAddParam;
@@ -41,6 +44,9 @@ public class TbDrawingSchemeServiceImpl extends ServiceImpl<TbDrawingSchemeMappe
 	
 	@Autowired
 	private TbExamineVerifyMapper tbExamineVerifyMapper;
+	
+	@Autowired
+	private SysUserService sysUserService;
 	
 	@Override
 	public IPage<TbDrawingScheme> selectDrawingPages(Page<TbDrawingScheme> page, ModelQueryParam modelQueryParam) {
@@ -84,11 +90,12 @@ public class TbDrawingSchemeServiceImpl extends ServiceImpl<TbDrawingSchemeMappe
 		tbDrawing.setRemarks(drawingAddParam.getRemarks());
 		tbDrawing.setIsValid(IsValidEnum.YES.getKey());
 		tbDrawing.setStatus(ApproveStatusEnum.WAIT.getKey());
-//		tbDrawing.setCreateId(user.getUserId());
-//		tbDrawing.setCreateName(user.getUserName());
+		SysUser user = sysUserService.findByUsername(SecurityUtils.getUsername());
+		tbDrawing.setCreateId(user.getId());
+		tbDrawing.setCreateName(user.getName());
 		tbDrawing.setCreateTime(LocalDateTime.now());
-//		tbDrawing.setUpdateId(user.getUserId());
-//		tbDrawing.setUpdateName(user.getUserName());
+		tbDrawing.setUpdateId(user.getId());
+		tbDrawing.setUpdateName(user.getName());
 		tbDrawing.setUpdateTime(LocalDateTime.now());
 		baseMapper.insert(tbDrawing);
 		
@@ -105,8 +112,8 @@ public class TbDrawingSchemeServiceImpl extends ServiceImpl<TbDrawingSchemeMappe
             tbAttachment.setAttachmentSize(uploadInfo.getSizes());
             tbAttachment.setPictureSize(uploadInfo.getPictureSize());
             tbAttachment.setIsValid(IsValidEnum.YES.getKey());
-//	            tbAttachment.setCreateId(user.getUserId());
-//	            tbAttachment.setCreateName(user.getUserName());
+            tbAttachment.setCreateId(user.getId());
+            tbAttachment.setCreateName(user.getName());
             tbAttachment.setCreateTime(LocalDateTime.now());
             tbAttachment.setUpdateTime(LocalDateTime.now());
             tbAttachmentMapper.insert(tbAttachment);
@@ -117,17 +124,17 @@ public class TbDrawingSchemeServiceImpl extends ServiceImpl<TbDrawingSchemeMappe
 		}
         
         TbExamineVerify tbExamineVerify = new TbExamineVerify();
-        tbExamineVerify.setUserId(1L);
-        tbExamineVerify.setUserName("admin");
+        tbExamineVerify.setUserId(user.getId());
+        tbExamineVerify.setUserName(user.getName());
         tbExamineVerify.setReId(tbDrawing.getId());
         tbExamineVerify.setReType(ReTypeEnum.DRAWING.getKey());
         tbExamineVerify.setStatus(ApproveStatusEnum.WAIT.getKey());
         tbExamineVerify.setIsValid(IsValidEnum.YES.getKey());
-//		tbExamineVerify.setCreateId(user.getUserId());
-//		tbExamineVerify.setCreateName(user.getUserName());
+		tbExamineVerify.setCreateId(user.getId());
+		tbExamineVerify.setCreateName(user.getName());
         tbExamineVerify.setCreateTime(LocalDateTime.now());
-//		tbExamineVerify.setUpdateId(user.getUserId());
-//		tbExamineVerify.setUpdateName(user.getUserName());
+		tbExamineVerify.setUpdateId(user.getId());
+		tbExamineVerify.setUpdateName(user.getName());
         tbExamineVerify.setUpdateTime(LocalDateTime.now());
         tbExamineVerifyMapper.insert(tbExamineVerify);
 	}
@@ -152,8 +159,9 @@ public class TbDrawingSchemeServiceImpl extends ServiceImpl<TbDrawingSchemeMappe
 		tbDrawing.setText(drawingUpdateParam.getText());
 		tbDrawing.setRemarks(drawingUpdateParam.getRemarks());
 		tbDrawing.setStatus(ApproveStatusEnum.WAIT.getKey());
-//		tbDrawing.setUpdateId(user.getUserId());
-//		tbDrawing.setUpdateName(user.getUserName());
+		SysUser user = sysUserService.findByUsername(SecurityUtils.getUsername());
+		tbDrawing.setUpdateId(user.getId());
+		tbDrawing.setUpdateName(user.getName());
 		tbDrawing.setUpdateTime(LocalDateTime.now());
 		baseMapper.updateById(tbDrawing);
 		
@@ -174,8 +182,8 @@ public class TbDrawingSchemeServiceImpl extends ServiceImpl<TbDrawingSchemeMappe
             tbAttachment.setAttachmentSize(uploadInfo.getSizes());
             tbAttachment.setPictureSize(uploadInfo.getPictureSize());
             tbAttachment.setIsValid(IsValidEnum.YES.getKey());
-//	            tbAttachment.setCreateId(user.getUserId());
-//	            tbAttachment.setCreateName(user.getUserName());
+            tbAttachment.setCreateId(user.getId());
+            tbAttachment.setCreateName(user.getName());
             tbAttachment.setCreateTime(LocalDateTime.now());
             tbAttachment.setUpdateTime(LocalDateTime.now());
             tbAttachmentMapper.insert(tbAttachment);

@@ -26,6 +26,7 @@ import com.pactera.znzmo.model.dao.TbThreedModelMapper;
 import com.pactera.znzmo.personal.dao.TbDownloadRecordsMapper;
 import com.pactera.znzmo.sumodel.TbSuModel;
 import com.pactera.znzmo.sumodel.dao.TbSuModelMapper;
+import com.pactera.znzmo.sysuser.SysUser;
 import com.pactera.znzmo.util.DateUtils;
 import com.pactera.znzmo.util.StringUtils;
 import com.pactera.znzmo.vo.personal.DownloadRecordsAddParam;
@@ -203,10 +204,10 @@ public class TbDownloadRecordsServiceImpl extends ServiceImpl<TbDownloadRecordsM
 	}
 
 	@Override
-	public void addDownloadRecords(DownloadRecordsAddParam downloadRecordsAddParam) {
+	public void addDownloadRecords(DownloadRecordsAddParam downloadRecordsAddParam, SysUser user) {
 		QueryWrapper<TbDownloadRecords> queryWrapper = new QueryWrapper<>();
 		queryWrapper.eq(TbDownloadRecords.IS_VALID, IsValidEnum.YES.getKey())
-			.eq(TbDownloadRecords.USER_ID, downloadRecordsAddParam.getUserId())
+			.eq(TbDownloadRecords.USER_ID, user.getId())
 			.eq(TbDownloadRecords.RE_ID, downloadRecordsAddParam.getReId());
 		TbDownloadRecords tbDownloadRecords = baseMapper.selectOne(queryWrapper);
 		if(tbDownloadRecords != null) {
@@ -215,17 +216,18 @@ public class TbDownloadRecordsServiceImpl extends ServiceImpl<TbDownloadRecordsM
 	        baseMapper.updateById(tbDownloadRecords);
 		}else {
 			TbDownloadRecords tbDownloadRecordsNew = new TbDownloadRecords();
-			tbDownloadRecordsNew.setUserId(1L);
-			tbDownloadRecordsNew.setUserName("admin");
+			tbDownloadRecordsNew.setUserId(user.getId());
+			tbDownloadRecordsNew.setUserName(user.getName());
 			tbDownloadRecordsNew.setReId(Long.valueOf(downloadRecordsAddParam.getReId()));
 			tbDownloadRecordsNew.setReType(downloadRecordsAddParam.getReType());
 			tbDownloadRecordsNew.setDownloadNum(1);
 			tbDownloadRecordsNew.setIsValid(IsValidEnum.YES.getKey());
-//			tbDownloadRecordsNew.setCreateId(user.getUserId());
-//			tbDownloadRecordsNew.setCreateName(user.getUserName());
+			
+			tbDownloadRecordsNew.setCreateId(user.getId());
+			tbDownloadRecordsNew.setCreateName(user.getName());
 			tbDownloadRecordsNew.setCreateTime(LocalDateTime.now());
-//			tbDownloadRecordsNew.setUpdateId(user.getUserId());
-//			tbDownloadRecordsNew.setUpdateName(user.getUserName());
+			tbDownloadRecordsNew.setUpdateId(user.getId());
+			tbDownloadRecordsNew.setUpdateName(user.getName());
 			tbDownloadRecordsNew.setUpdateTime(LocalDateTime.now());
 	        baseMapper.insert(tbDownloadRecordsNew);
 		}

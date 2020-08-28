@@ -17,7 +17,10 @@ import com.pactera.znzmo.enums.IsValidEnum;
 import com.pactera.znzmo.enums.ReTypeEnum;
 import com.pactera.znzmo.examineverify.TbExamineVerify;
 import com.pactera.znzmo.examineverify.dao.TbExamineVerifyMapper;
+import com.pactera.znzmo.sysuser.SysUser;
+import com.pactera.znzmo.sysuser.SysUserService;
 import com.pactera.znzmo.util.NumGenerationUtil;
+import com.pactera.znzmo.util.SecurityUtils;
 import com.pactera.znzmo.util.StringUtils;
 import com.pactera.znzmo.vo.common.UploadInfo;
 import com.pactera.znzmo.vo.database.DatabaseAddParam;
@@ -40,6 +43,9 @@ public class TbDatabaseServiceImpl extends ServiceImpl<TbDatabaseMapper, TbDatab
 	
 	@Autowired
 	private TbExamineVerifyMapper tbExamineVerifyMapper;
+	
+	@Autowired
+	private SysUserService sysUserService;
 	
 	@Override
 	public IPage<TbDatabase> selectDatabasePages(Page<TbDatabase> page, ModelQueryParam modelQueryParam) {
@@ -77,11 +83,12 @@ public class TbDatabaseServiceImpl extends ServiceImpl<TbDatabaseMapper, TbDatab
 		tbDatabase.setRemarks(databaseAddParam.getRemarks());
 		tbDatabase.setIsValid(IsValidEnum.YES.getKey());
 		tbDatabase.setStatus(ApproveStatusEnum.WAIT.getKey());
-//		tbDatabase.setCreateId(user.getUserId());
-//		tbDatabase.setCreateName(user.getUserName());
+		SysUser user = sysUserService.findByUsername(SecurityUtils.getUsername());
+		tbDatabase.setCreateId(user.getId());
+		tbDatabase.setCreateName(user.getName());
 		tbDatabase.setCreateTime(LocalDateTime.now());
-//		tbDatabase.setUpdateId(user.getUserId());
-//		tbDatabase.setUpdateName(user.getUserName());
+		tbDatabase.setUpdateId(user.getId());
+		tbDatabase.setUpdateName(user.getName());
 		tbDatabase.setUpdateTime(LocalDateTime.now());
 		baseMapper.insert(tbDatabase);
 		
@@ -98,8 +105,8 @@ public class TbDatabaseServiceImpl extends ServiceImpl<TbDatabaseMapper, TbDatab
             tbAttachment.setAttachmentSize(uploadInfo.getSizes());
             tbAttachment.setPictureSize(uploadInfo.getPictureSize());
             tbAttachment.setIsValid(IsValidEnum.YES.getKey());
-//	            tbAttachment.setCreateId(user.getUserId());
-//	            tbAttachment.setCreateName(user.getUserName());
+            tbAttachment.setCreateId(user.getId());
+            tbAttachment.setCreateName(user.getName());
             tbAttachment.setCreateTime(LocalDateTime.now());
             tbAttachment.setUpdateTime(LocalDateTime.now());
             tbAttachmentMapper.insert(tbAttachment);
@@ -110,17 +117,17 @@ public class TbDatabaseServiceImpl extends ServiceImpl<TbDatabaseMapper, TbDatab
 		}
         
         TbExamineVerify tbExamineVerify = new TbExamineVerify();
-        tbExamineVerify.setUserId(1L);
-        tbExamineVerify.setUserName("admin");
+        tbExamineVerify.setUserId(user.getId());
+        tbExamineVerify.setUserName(user.getName());
         tbExamineVerify.setReId(tbDatabase.getId());
         tbExamineVerify.setReType(ReTypeEnum.DATABASE.getKey());
         tbExamineVerify.setStatus(ApproveStatusEnum.WAIT.getKey());
         tbExamineVerify.setIsValid(IsValidEnum.YES.getKey());
-//		tbExamineVerify.setCreateId(user.getUserId());
-//		tbExamineVerify.setCreateName(user.getUserName());
+		tbExamineVerify.setCreateId(user.getId());
+		tbExamineVerify.setCreateName(user.getName());
         tbExamineVerify.setCreateTime(LocalDateTime.now());
-//		tbExamineVerify.setUpdateId(user.getUserId());
-//		tbExamineVerify.setUpdateName(user.getUserName());
+		tbExamineVerify.setUpdateId(user.getId());
+		tbExamineVerify.setUpdateName(user.getName());
         tbExamineVerify.setUpdateTime(LocalDateTime.now());
         tbExamineVerifyMapper.insert(tbExamineVerify);
 	}
@@ -139,8 +146,9 @@ public class TbDatabaseServiceImpl extends ServiceImpl<TbDatabaseMapper, TbDatab
 		tbDatabase.setPrice(databaseUpdateParam.getPrice());
 		tbDatabase.setRemarks(databaseUpdateParam.getRemarks());
 		tbDatabase.setStatus(ApproveStatusEnum.WAIT.getKey());
-//		tbDatabase.setUpdateId(user.getUserId());
-//		tbDatabase.setUpdateName(user.getUserName());
+		SysUser user = sysUserService.findByUsername(SecurityUtils.getUsername());
+		tbDatabase.setUpdateId(user.getId());
+		tbDatabase.setUpdateName(user.getName());
 		tbDatabase.setUpdateTime(LocalDateTime.now());
 		baseMapper.updateById(tbDatabase);
 		
@@ -161,8 +169,8 @@ public class TbDatabaseServiceImpl extends ServiceImpl<TbDatabaseMapper, TbDatab
             tbAttachment.setAttachmentSize(uploadInfo.getSizes());
             tbAttachment.setPictureSize(uploadInfo.getPictureSize());
             tbAttachment.setIsValid(IsValidEnum.YES.getKey());
-//	            tbAttachment.setCreateId(user.getUserId());
-//	            tbAttachment.setCreateName(user.getUserName());
+            tbAttachment.setCreateId(user.getId());
+            tbAttachment.setCreateName(user.getName());
             tbAttachment.setCreateTime(LocalDateTime.now());
             tbAttachment.setUpdateTime(LocalDateTime.now());
             tbAttachmentMapper.insert(tbAttachment);

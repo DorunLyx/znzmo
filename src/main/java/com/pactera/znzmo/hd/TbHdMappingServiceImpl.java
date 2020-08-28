@@ -17,7 +17,10 @@ import com.pactera.znzmo.enums.ReTypeEnum;
 import com.pactera.znzmo.examineverify.TbExamineVerify;
 import com.pactera.znzmo.examineverify.dao.TbExamineVerifyMapper;
 import com.pactera.znzmo.hd.dao.TbHdMappingMapper;
+import com.pactera.znzmo.sysuser.SysUser;
+import com.pactera.znzmo.sysuser.SysUserService;
 import com.pactera.znzmo.util.NumGenerationUtil;
+import com.pactera.znzmo.util.SecurityUtils;
 import com.pactera.znzmo.util.StringUtils;
 import com.pactera.znzmo.vo.common.UploadInfo;
 import com.pactera.znzmo.vo.hd.HDMappingAddParam;
@@ -40,6 +43,9 @@ public class TbHdMappingServiceImpl extends ServiceImpl<TbHdMappingMapper, TbHdM
 	
 	@Autowired
 	private TbExamineVerifyMapper tbExamineVerifyMapper;
+	
+	@Autowired
+	private SysUserService sysUserService;
 	
 	@Override
 	public IPage<TbHdMapping> selectHdMappingPages(Page<TbHdMapping> page, ModelQueryParam modelQueryParam) {
@@ -77,11 +83,12 @@ public class TbHdMappingServiceImpl extends ServiceImpl<TbHdMappingMapper, TbHdM
 		tbHdMapping.setRemarks(hdMappingAddParam.getRemarks());
 		tbHdMapping.setIsValid(IsValidEnum.YES.getKey());
 		tbHdMapping.setStatus(ApproveStatusEnum.WAIT.getKey());
-//		tbHdMapping.setCreateId(user.getUserId());
-//		tbHdMapping.setCreateName(user.getUserName());
+		SysUser user = sysUserService.findByUsername(SecurityUtils.getUsername());
+		tbHdMapping.setCreateId(user.getId());
+		tbHdMapping.setCreateName(user.getName());
 		tbHdMapping.setCreateTime(LocalDateTime.now());
-//		tbHdMapping.setUpdateId(user.getUserId());
-//		tbHdMapping.setUpdateName(user.getUserName());
+		tbHdMapping.setUpdateId(user.getId());
+		tbHdMapping.setUpdateName(user.getName());
 		tbHdMapping.setUpdateTime(LocalDateTime.now());
 		baseMapper.insert(tbHdMapping);
 		
@@ -98,8 +105,8 @@ public class TbHdMappingServiceImpl extends ServiceImpl<TbHdMappingMapper, TbHdM
             tbAttachment.setAttachmentSize(uploadInfo.getSizes());
             tbAttachment.setPictureSize(uploadInfo.getPictureSize());
             tbAttachment.setIsValid(IsValidEnum.YES.getKey());
-//	            tbAttachment.setCreateId(user.getUserId());
-//	            tbAttachment.setCreateName(user.getUserName());
+            tbAttachment.setCreateId(user.getId());
+            tbAttachment.setCreateName(user.getName());
             tbAttachment.setCreateTime(LocalDateTime.now());
             tbAttachment.setUpdateTime(LocalDateTime.now());
             tbAttachmentMapper.insert(tbAttachment);
@@ -110,17 +117,17 @@ public class TbHdMappingServiceImpl extends ServiceImpl<TbHdMappingMapper, TbHdM
 		}
         
         TbExamineVerify tbExamineVerify = new TbExamineVerify();
-        tbExamineVerify.setUserId(1L);
-        tbExamineVerify.setUserName("admin");
+        tbExamineVerify.setUserId(user.getId());
+        tbExamineVerify.setUserName(user.getName());
         tbExamineVerify.setReId(tbHdMapping.getId());
         tbExamineVerify.setReType(ReTypeEnum.HD.getKey());
         tbExamineVerify.setStatus(ApproveStatusEnum.WAIT.getKey());
         tbExamineVerify.setIsValid(IsValidEnum.YES.getKey());
-//		tbExamineVerify.setCreateId(user.getUserId());
-//		tbExamineVerify.setCreateName(user.getUserName());
+		tbExamineVerify.setCreateId(user.getId());
+		tbExamineVerify.setCreateName(user.getName());
         tbExamineVerify.setCreateTime(LocalDateTime.now());
-//		tbExamineVerify.setUpdateId(user.getUserId());
-//		tbExamineVerify.setUpdateName(user.getUserName());
+		tbExamineVerify.setUpdateId(user.getId());
+		tbExamineVerify.setUpdateName(user.getName());
         tbExamineVerify.setUpdateTime(LocalDateTime.now());
         tbExamineVerifyMapper.insert(tbExamineVerify);
 	}
@@ -139,8 +146,9 @@ public class TbHdMappingServiceImpl extends ServiceImpl<TbHdMappingMapper, TbHdM
 		tbHdMapping.setPrice(hDMappingUpdateParam.getPrice());
 		tbHdMapping.setRemarks(hDMappingUpdateParam.getRemarks());
 		tbHdMapping.setStatus(ApproveStatusEnum.WAIT.getKey());
-//		tbHdMapping.setUpdateId(user.getUserId());
-//		tbHdMapping.setUpdateName(user.getUserName());
+		SysUser user = sysUserService.findByUsername(SecurityUtils.getUsername());
+		tbHdMapping.setUpdateId(user.getId());
+		tbHdMapping.setUpdateName(user.getName());
 		tbHdMapping.setUpdateTime(LocalDateTime.now());
 		baseMapper.updateById(tbHdMapping);
 		
@@ -161,8 +169,8 @@ public class TbHdMappingServiceImpl extends ServiceImpl<TbHdMappingMapper, TbHdM
             tbAttachment.setAttachmentSize(uploadInfo.getSizes());
             tbAttachment.setPictureSize(uploadInfo.getPictureSize());
             tbAttachment.setIsValid(IsValidEnum.YES.getKey());
-//	            tbAttachment.setCreateId(user.getUserId());
-//	            tbAttachment.setCreateName(user.getUserName());
+            tbAttachment.setCreateId(user.getId());
+            tbAttachment.setCreateName(user.getName());
             tbAttachment.setCreateTime(LocalDateTime.now());
             tbAttachment.setUpdateTime(LocalDateTime.now());
             tbAttachmentMapper.insert(tbAttachment);

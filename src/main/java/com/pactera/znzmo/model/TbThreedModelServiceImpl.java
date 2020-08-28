@@ -17,7 +17,10 @@ import com.pactera.znzmo.enums.ReTypeEnum;
 import com.pactera.znzmo.examineverify.TbExamineVerify;
 import com.pactera.znzmo.examineverify.dao.TbExamineVerifyMapper;
 import com.pactera.znzmo.model.dao.TbThreedModelMapper;
+import com.pactera.znzmo.sysuser.SysUser;
+import com.pactera.znzmo.sysuser.SysUserService;
 import com.pactera.znzmo.util.NumGenerationUtil;
+import com.pactera.znzmo.util.SecurityUtils;
 import com.pactera.znzmo.util.StringUtils;
 import com.pactera.znzmo.vo.common.UploadInfo;
 import com.pactera.znzmo.vo.model.ModelAddParam;
@@ -40,6 +43,9 @@ public class TbThreedModelServiceImpl extends ServiceImpl<TbThreedModelMapper, T
 	
 	@Autowired
 	private TbExamineVerifyMapper tbExamineVerifyMapper;
+	
+	@Autowired
+	private SysUserService sysUserService;
 	
 	@Override
 	public IPage<TbThreedModel> select3DModelPages(Page<TbThreedModel> page, ModelQueryParam modelQueryParam) {
@@ -79,11 +85,12 @@ public class TbThreedModelServiceImpl extends ServiceImpl<TbThreedModelMapper, T
 		tbThreedModel.setRemarks(modelAddParam.getRemarks());
 		tbThreedModel.setIsValid(IsValidEnum.YES.getKey());
 		tbThreedModel.setStatus(ApproveStatusEnum.WAIT.getKey());
-//		tbThreedModel.setCreateId(user.getUserId());
-//		tbThreedModel.setCreateName(user.getUserName());
+		SysUser user = sysUserService.findByUsername(SecurityUtils.getUsername());
+		tbThreedModel.setCreateId(user.getId());
+		tbThreedModel.setCreateName(user.getName());
 		tbThreedModel.setCreateTime(LocalDateTime.now());
-//		tbThreedModel.setUpdateId(user.getUserId());
-//		tbThreedModel.setUpdateName(user.getUserName());
+		tbThreedModel.setUpdateId(user.getId());
+		tbThreedModel.setUpdateName(user.getName());
 		tbThreedModel.setUpdateTime(LocalDateTime.now());
 		baseMapper.insert(tbThreedModel);
 		
@@ -100,8 +107,8 @@ public class TbThreedModelServiceImpl extends ServiceImpl<TbThreedModelMapper, T
             tbAttachment.setAttachmentSize(uploadInfo.getSizes());
             tbAttachment.setPictureSize(uploadInfo.getPictureSize());
             tbAttachment.setIsValid(IsValidEnum.YES.getKey());
-//            tbAttachment.setCreateId(user.getUserId());
-//            tbAttachment.setCreateName(user.getUserName());
+            tbAttachment.setCreateId(user.getId());
+            tbAttachment.setCreateName(user.getName());
             tbAttachment.setCreateTime(LocalDateTime.now());
             tbAttachment.setUpdateTime(LocalDateTime.now());
             tbAttachmentMapper.insert(tbAttachment);
@@ -112,17 +119,17 @@ public class TbThreedModelServiceImpl extends ServiceImpl<TbThreedModelMapper, T
         }
         
         TbExamineVerify tbExamineVerify = new TbExamineVerify();
-        tbExamineVerify.setUserId(1L);
-        tbExamineVerify.setUserName("admin");
+        tbExamineVerify.setUserId(user.getId());
+        tbExamineVerify.setUserName(user.getName());
         tbExamineVerify.setReId(tbThreedModel.getId());
         tbExamineVerify.setReType(ReTypeEnum.MODEL.getKey());
         tbExamineVerify.setStatus(ApproveStatusEnum.WAIT.getKey());
         tbExamineVerify.setIsValid(IsValidEnum.YES.getKey());
-//		tbExamineVerify.setCreateId(user.getUserId());
-//		tbExamineVerify.setCreateName(user.getUserName());
+		tbExamineVerify.setCreateId(user.getId());
+		tbExamineVerify.setCreateName(user.getName());
         tbExamineVerify.setCreateTime(LocalDateTime.now());
-//		tbExamineVerify.setUpdateId(user.getUserId());
-//		tbExamineVerify.setUpdateName(user.getUserName());
+		tbExamineVerify.setUpdateId(user.getId());
+		tbExamineVerify.setUpdateName(user.getName());
         tbExamineVerify.setUpdateTime(LocalDateTime.now());
         tbExamineVerifyMapper.insert(tbExamineVerify);
 	}
@@ -143,8 +150,9 @@ public class TbThreedModelServiceImpl extends ServiceImpl<TbThreedModelMapper, T
 		tbThreedModel.setLightingEffects(modelUpdateParam.getLightingEffects());
 		tbThreedModel.setRemarks(modelUpdateParam.getRemarks());
 		tbThreedModel.setStatus(ApproveStatusEnum.WAIT.getKey());
-//		tbThreedModel.setUpdateId(user.getUserId());
-//		tbThreedModel.setUpdateName(user.getUserName());
+		SysUser user = sysUserService.findByUsername(SecurityUtils.getUsername());
+		tbThreedModel.setUpdateId(user.getId());
+		tbThreedModel.setUpdateName(user.getName());
 		tbThreedModel.setUpdateTime(LocalDateTime.now());
 		baseMapper.updateById(tbThreedModel);
 		
@@ -165,8 +173,8 @@ public class TbThreedModelServiceImpl extends ServiceImpl<TbThreedModelMapper, T
             tbAttachment.setAttachmentSize(uploadInfo.getSizes());
             tbAttachment.setPictureSize(uploadInfo.getPictureSize());
             tbAttachment.setIsValid(IsValidEnum.YES.getKey());
-//	            tbAttachment.setCreateId(user.getUserId());
-//	            tbAttachment.setCreateName(user.getUserName());
+            tbAttachment.setCreateId(user.getId());
+            tbAttachment.setCreateName(user.getName());
             tbAttachment.setCreateTime(LocalDateTime.now());
             tbAttachment.setUpdateTime(LocalDateTime.now());
             tbAttachmentMapper.insert(tbAttachment);

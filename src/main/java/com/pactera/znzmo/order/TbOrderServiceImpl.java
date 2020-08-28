@@ -21,8 +21,11 @@ import com.pactera.znzmo.model.dao.TbThreedModelMapper;
 import com.pactera.znzmo.order.dao.TbOrderMapper;
 import com.pactera.znzmo.sumodel.TbSuModel;
 import com.pactera.znzmo.sumodel.dao.TbSuModelMapper;
+import com.pactera.znzmo.sysuser.SysUser;
+import com.pactera.znzmo.sysuser.SysUserService;
 import com.pactera.znzmo.util.DateUtils;
 import com.pactera.znzmo.util.NumGenerationUtil;
+import com.pactera.znzmo.util.SecurityUtils;
 import com.pactera.znzmo.util.StringUtils;
 import com.pactera.znzmo.vo.order.OrderAddParam;
 import com.pactera.znzmo.vo.order.OrderDetailsParam;
@@ -45,7 +48,7 @@ public class TbOrderServiceImpl extends ServiceImpl<TbOrderMapper, TbOrder> impl
 	
 	@Autowired
 	private TbSuModelMapper tbSuModelMapper;
-	
+
 	@Autowired
 	private TbDrawingSchemeMapper tbDrawingSchemeMapper;
 	
@@ -54,6 +57,9 @@ public class TbOrderServiceImpl extends ServiceImpl<TbOrderMapper, TbOrder> impl
 	
 	@Autowired
 	private TbDatabaseMapper tbDatabaseMapper;
+	
+	@Autowired
+	private SysUserService sysUserService;
 	
 	@Override
 	public IPage<TbOrder> selectOrderPages(Page<TbOrder> page, OrderQueryParam orderQueryParam) {
@@ -105,11 +111,12 @@ public class TbOrderServiceImpl extends ServiceImpl<TbOrderMapper, TbOrder> impl
 		tbOrder.setUserName(orderAddParam.getUserName());
 		tbOrder.setOrderTime(orderAddParam.getOrderTime());
 		tbOrder.setIsValid(IsValidEnum.YES.getKey());
-//		tbOrder.setCreateId(user.getUserId());
-//		tbOrder.setCreateName(user.getUserName());
+		SysUser user = sysUserService.findByUsername(SecurityUtils.getUsername());
+		tbOrder.setCreateId(user.getId());
+		tbOrder.setCreateName(user.getName());
 		tbOrder.setCreateTime(LocalDateTime.now());
-//		tbOrder.setUpdateId(user.getUserId());
-//		tbOrder.setUpdateName(user.getUserName());
+		tbOrder.setUpdateId(user.getId());
+		tbOrder.setUpdateName(user.getName());
 		tbOrder.setUpdateTime(LocalDateTime.now());
 		baseMapper.insert(tbOrder);
 	}

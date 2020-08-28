@@ -14,9 +14,6 @@ import lombok.Data;
 @Data
 @ApiModel(value="下载记录新增参数",description="下载记录新增参数")
 public class DownloadRecordsAddParam {
-
-	@ApiModelProperty(value="用户id", name="userId")
-	private String userId;
 	
 	@ApiModelProperty(value="业务类型", name="reType")
 	private Integer reType;

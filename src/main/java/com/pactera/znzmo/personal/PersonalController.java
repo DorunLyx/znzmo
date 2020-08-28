@@ -19,8 +19,11 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.pactera.znzmo.enums.JsonResultEnum;
+import com.pactera.znzmo.sysuser.SysUser;
+import com.pactera.znzmo.sysuser.SysUserService;
 import com.pactera.znzmo.sysuser.TbUserAssets;
 import com.pactera.znzmo.sysuser.TbUserAssetsService;
+import com.pactera.znzmo.util.SecurityUtils;
 import com.pactera.znzmo.vo.personal.DownloadRecordsAddParam;
 import com.pactera.znzmo.vo.personal.DownloadRecordsQueryParam;
 import com.pactera.znzmo.vo.personal.DownloadRecordsVO;
@@ -54,6 +57,9 @@ public class PersonalController extends BaseController{
 	
 	@Autowired
 	private TbSignInService tbSignInService;
+	
+	@Autowired
+	private SysUserService sysUserService;
 	
 	public static final Logger logger = LoggerFactory.getLogger(PersonalController.class);
 
@@ -174,7 +180,8 @@ public class PersonalController extends BaseController{
 			@ApiParam(name="downloadRecordsAddParam", value="3d模型新增参数", required=false)@RequestBody DownloadRecordsAddParam downloadRecordsAddParam) {
 		Supplier<String> businessHandler = () ->{
 			try {
-				tbDownloadRecordsService.addDownloadRecords(downloadRecordsAddParam);
+				SysUser user = sysUserService.findByUsername(SecurityUtils.getUsername());
+				tbDownloadRecordsService.addDownloadRecords(downloadRecordsAddParam, user);
 				return JsonResultEnum.ok.getValue();
 			} catch (Exception e) {
 				throwException(e);

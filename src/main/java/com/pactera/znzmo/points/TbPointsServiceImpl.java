@@ -13,6 +13,9 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.pactera.znzmo.enums.IsValidEnum;
 import com.pactera.znzmo.points.dao.TbPointsDetailsMapper;
 import com.pactera.znzmo.points.dao.TbPointsMapper;
+import com.pactera.znzmo.sysuser.SysUser;
+import com.pactera.znzmo.sysuser.SysUserService;
+import com.pactera.znzmo.util.SecurityUtils;
 import com.pactera.znzmo.util.StringUtils;
 import com.pactera.znzmo.vo.points.PointsAddParam;
 import com.pactera.znzmo.vo.points.PointsQueryParam;
@@ -30,6 +33,9 @@ public class TbPointsServiceImpl extends ServiceImpl<TbPointsMapper, TbPoints> i
 
 	@Autowired
 	private TbPointsDetailsMapper tbPointsDetailsMapper;
+	
+	@Autowired
+	private SysUserService sysUserService;
 	
 	@Override
 	public IPage<TbPoints> selectPointsManagePages(Page<TbPoints> page,
@@ -50,7 +56,7 @@ public class TbPointsServiceImpl extends ServiceImpl<TbPointsMapper, TbPoints> i
 	}
 
 	@Override
-	public void addPoints(PointsAddParam pointsAddParam) {
+	public void addPoints(PointsAddParam pointsAddParam ) {
 		QueryWrapper<TbPoints> queryWrapper = new QueryWrapper<>();
 		queryWrapper.eq(TbPoints.IS_VALID, IsValidEnum.YES.getKey())
 			.eq(TbPoints.USER_ID,pointsAddParam.getUserId());
@@ -69,11 +75,12 @@ public class TbPointsServiceImpl extends ServiceImpl<TbPointsMapper, TbPoints> i
 			tbPointsNew.setCurrentPoints(pointsAddParam.getPointsNum());
 			tbPointsNew.setConsumePoints(BigDecimal.ZERO);
 			tbPointsNew.setIsValid(IsValidEnum.YES.getKey());
-//			tbPointsNew.setCreateId(user.getUserId());
-//			tbPointsNew.setCreateName(user.getUserName());
+			SysUser user = sysUserService.findByUsername(SecurityUtils.getUsername());
+			tbPointsNew.setCreateId(user.getId());
+			tbPointsNew.setCreateName(user.getName());
 			tbPointsNew.setCreateTime(LocalDateTime.now());
-//			tbPointsNew.setUpdateId(user.getUserId());
-//			tbPointsNew.setUpdateName(user.getUserName());
+			tbPointsNew.setUpdateId(user.getId());
+			tbPointsNew.setUpdateName(user.getName());
 			tbPointsNew.setUpdateTime(LocalDateTime.now());
 			baseMapper.insert(tbPointsNew);
 			addPointsDetails(tbPointsNew, pointsAddParam);
@@ -95,11 +102,12 @@ public class TbPointsServiceImpl extends ServiceImpl<TbPointsMapper, TbPoints> i
 		tbPointsDetails.setConsumePoints(tbPoints.getConsumePoints());
 		tbPointsDetails.setConsumePoints(BigDecimal.ZERO);
 		tbPointsDetails.setIsValid(IsValidEnum.YES.getKey());
-//		tbPointsDetails.setCreateId(user.getUserId());
-//		tbPointsDetails.setCreateName(user.getUserName());
+		SysUser user = sysUserService.findByUsername(SecurityUtils.getUsername());
+		tbPointsDetails.setCreateId(user.getId());
+		tbPointsDetails.setCreateName(user.getName());
 		tbPointsDetails.setCreateTime(LocalDateTime.now());
-//		tbPointsDetails.setUpdateId(user.getUserId());
-//		tbPointsDetails.setUpdateName(user.getUserName());
+		tbPointsDetails.setUpdateId(user.getId());
+		tbPointsDetails.setUpdateName(user.getName());
 		tbPointsDetails.setUpdateTime(LocalDateTime.now());
 		tbPointsDetailsMapper.insert(tbPointsDetails);
 	}
