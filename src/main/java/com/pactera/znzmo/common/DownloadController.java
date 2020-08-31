@@ -1,6 +1,7 @@
 package com.pactera.znzmo.common;
 
 import java.io.File;
+import java.net.URLDecoder;
 import java.util.function.Supplier;
 
 import javax.servlet.http.HttpServletRequest;
@@ -86,7 +87,7 @@ public class DownloadController extends BaseController{
     public JsonResp checkDowloadFile(HttpServletRequest request, HttpServletResponse response, String filePath) throws Exception {
     	Supplier<String> businessHandler = () ->{
     		try {
-//    			filePath = URLDecoder.decode(filePath,"UTF-8");
+    			URLDecoder.decode(filePath,"UTF-8");
         		if (filePath == null || filePath.isEmpty()) {
         			return ("文件不存在!");
         		}

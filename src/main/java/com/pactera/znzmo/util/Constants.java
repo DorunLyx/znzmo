@@ -1,6 +1,12 @@
 
 package com.pactera.znzmo.util;
 
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.Properties;
+
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.stereotype.Component;
 
 /**
@@ -13,6 +19,8 @@ import org.springframework.stereotype.Component;
 @Component
 public class Constants {
 
+	private static final Logger LOGGER = LogManager.getLogger(Constants.class);
+	
 	/**
 	* @Fields SUB_LIST_SIZE : LIST截取长度
 	*/
@@ -169,28 +177,28 @@ public class Constants {
     /**
      * 上传默认目录
      */
-    public static final String UPLOAD_ROOT_ASSET = "assets";
+    public static String UPLOAD_ROOT_ASSET = "assets";
  
     /**
      * 文件上传模式(server/nas)
      */
-    public static final String UPLOAD_MODE = "server";
+    public static String UPLOAD_MODE = "server";
 
     /**
      * 文件上传NAS盘目录
      */
-    public static final String UPLOAD_NAS_DIR = "/opt/upload";
+    public static String UPLOAD_NAS_DIR = "/opt/upload";
 
     /**
      *  配置文件中上传赋值
      */
-    public static final String ACCESS_PATH = "";
-    public static final String UPLOAD_FOLDER = "";
+    public static String ACCESS_PATH = "";
+    public static String UPLOAD_FOLDER = "";
 
     /**
      * 文件NAS访问根目录
      */
-    public static final String UPLOAD_NAS_ACCESS = "/nas";
+    public static String UPLOAD_NAS_ACCESS = "/nas";
 
     /**
      * EXCEL_TEMPLATE_COLUMN_COUNT : excel模板列数量
@@ -226,5 +234,30 @@ public class Constants {
      * @Fields EXCEL_TEMPLATE_TITLE_ROW : 模板默认行
      */
      public static final Integer EXCEL_TEMPLATE_TITLE_ROW = 2;
+
+     /**
+      * 方法描述：读取常量配置
+      * 创建人：admin
+      */
+     synchronized static public void loadConfig() {
+     	LOGGER.info("读取配置文件中的常量 Begin...");
+         InputStream is = Constants.class.getResourceAsStream("/config.properties");
+         Properties properties = new Properties();
+         try {
+         	properties.load(new InputStreamReader(is, "UTF-8"));
+         	if (properties.getProperty("upload.mode") != null) {
+         		UPLOAD_MODE = properties.getProperty("upload.mode");
+             }
+         	if (properties.getProperty("upload.nas.dir") != null) {
+         		UPLOAD_NAS_DIR = properties.getProperty("upload.nas.dir");
+             }
+         	if (properties.getProperty("upload.nas.access") != null) {
+         		UPLOAD_NAS_ACCESS = properties.getProperty("upload.nas.access");
+             }
+ 		} catch (Exception e) {
+ 			LOGGER.error("读取常量配置文件异常:",e);
+ 		}
+         LOGGER.info("读取配置文件中的常量 End...");
+     }
 
 }

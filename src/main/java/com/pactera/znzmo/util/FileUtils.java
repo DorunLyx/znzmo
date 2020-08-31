@@ -15,6 +15,8 @@ import java.net.URLEncoder;
 import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -92,9 +94,8 @@ public class FileUtils {
               
               //创建相对路径
               String serverRealPath =  FileUtils.getRealPath(request);
-//              SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-//              String dirRelativePath = uploadSubPath + "/"  + sdf.format(new Date());
-              String dirRelativePath = uploadSubPath;
+              SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+              String dirRelativePath = uploadSubPath + "/"  + sdf.format(new Date());
               String dirRealPath = serverRealPath + dirRelativePath;
              
               //创建文件夹
