@@ -8,7 +8,8 @@ public enum ReTypeEnum {
 	SUMODEL(1,"suModel"),
 	DRAWING(2,"drawing"),
     HD(3,"hd"),
-	DATABASE(4,"dataBase");
+	DATABASE(4,"dataBase"),
+	BANNER(5,"banner");
 
 
     private Integer key;

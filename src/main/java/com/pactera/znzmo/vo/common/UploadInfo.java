@@ -14,9 +14,12 @@ import lombok.Data;
 @Data
 @ApiModel(value="上传信息",description="上传信息")
 public class UploadInfo {
+	
+	@ApiModelProperty(value="上传类型(模型版本/附件)", name="uploadVersion")
+	private String uploadVersion;
 
-	@ApiModelProperty(value="类型(0-上传模型/附件，1-主图/封面，2-上传角度)", name="type")
-	private Integer type;
+	@ApiModelProperty(value="图片类型(1-主图/封面，2-上传角度)", name="imgType")
+	private Integer imgType;
 	
     @ApiModelProperty(value="原名称", name="realName")
     private String realName;

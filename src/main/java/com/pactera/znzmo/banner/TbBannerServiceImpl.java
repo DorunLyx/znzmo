@@ -13,6 +13,7 @@ import com.pactera.znzmo.banner.dao.TbBannerMapper;
 import com.pactera.znzmo.common.TbAttachment;
 import com.pactera.znzmo.common.dao.TbAttachmentMapper;
 import com.pactera.znzmo.enums.IsValidEnum;
+import com.pactera.znzmo.enums.ReTypeEnum;
 import com.pactera.znzmo.enums.StatusEnum;
 import com.pactera.znzmo.sysuser.SysUser;
 import com.pactera.znzmo.sysuser.SysUserService;
@@ -75,14 +76,16 @@ public class TbBannerServiceImpl extends ServiceImpl<TbBannerMapper, TbBanner> i
 		baseMapper.insert(tbBanner);
 		
 		//新增上传文件
-        for (UploadInfo keyAndUrl : bannerAddParam.getUploadImg()) {
+        for (UploadInfo uploadInfo : bannerAddParam.getUploadImg()) {
             TbAttachment tbAttachment = new TbAttachment();
             tbAttachment.setRelationId(tbBanner.getId());
-            tbAttachment.setAttachmentName(keyAndUrl.getFileName());
-            tbAttachment.setAttachmentPath(keyAndUrl.getFile());
-            tbAttachment.setPhysicalPath(keyAndUrl.getFile());
-            tbAttachment.setAliasName(keyAndUrl.getRealName());
-            tbAttachment.setReType(keyAndUrl.getType());
+            tbAttachment.setAttachmentName(uploadInfo.getFileName());
+            tbAttachment.setAttachmentPath(uploadInfo.getFile());
+            tbAttachment.setPhysicalPath(uploadInfo.getFile());
+            tbAttachment.setAliasName(uploadInfo.getRealName());
+            tbAttachment.setReType(ReTypeEnum.BANNER.getKey());
+            tbAttachment.setUploadVersion(uploadInfo.getUploadVersion());
+            tbAttachment.setImgType(uploadInfo.getImgType());
             tbAttachment.setIsValid(IsValidEnum.YES.getKey());
             tbAttachment.setCreateId(user.getId());
             tbAttachment.setCreateName(user.getName());
@@ -112,14 +115,16 @@ public class TbBannerServiceImpl extends ServiceImpl<TbBannerMapper, TbBanner> i
 		tbAttachmentMapper.delete(queryWrapper);
 		
 		//新增上传文件
-        for (UploadInfo keyAndUrl : bannerUpdateParam.getUploadImg()) {
+        for (UploadInfo uploadInfo : bannerUpdateParam.getUploadImg()) {
             TbAttachment tbAttachment = new TbAttachment();
             tbAttachment.setRelationId(tbBanner.getId());
-            tbAttachment.setAttachmentName(keyAndUrl.getFileName());
-            tbAttachment.setAttachmentPath(keyAndUrl.getFile());
-            tbAttachment.setPhysicalPath(keyAndUrl.getFile());
-            tbAttachment.setAliasName(keyAndUrl.getRealName());
-            tbAttachment.setReType(keyAndUrl.getType());
+            tbAttachment.setAttachmentName(uploadInfo.getFileName());
+            tbAttachment.setAttachmentPath(uploadInfo.getFile());
+            tbAttachment.setPhysicalPath(uploadInfo.getFile());
+            tbAttachment.setAliasName(uploadInfo.getRealName());
+            tbAttachment.setReType(ReTypeEnum.BANNER.getKey());
+            tbAttachment.setUploadVersion(uploadInfo.getUploadVersion());
+            tbAttachment.setImgType(uploadInfo.getImgType());
             tbAttachment.setIsValid(IsValidEnum.YES.getKey());
             tbAttachment.setCreateId(user.getId());
             tbAttachment.setCreateName(user.getName());

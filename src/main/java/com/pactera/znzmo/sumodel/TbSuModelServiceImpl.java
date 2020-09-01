@@ -103,7 +103,9 @@ public class TbSuModelServiceImpl extends ServiceImpl<TbSuModelMapper, TbSuModel
             tbAttachment.setAttachmentPath(uploadInfo.getFile());
             tbAttachment.setPhysicalPath(uploadInfo.getFile());
             tbAttachment.setAliasName(uploadInfo.getRealName());
-            tbAttachment.setReType(uploadInfo.getType());
+            tbAttachment.setReType(ReTypeEnum.SUMODEL.getKey());
+            tbAttachment.setUploadVersion(uploadInfo.getUploadVersion());
+            tbAttachment.setImgType(uploadInfo.getImgType());
             tbAttachment.setSuffix(uploadInfo.getFileSuffix());
             tbAttachment.setAttachmentSize(uploadInfo.getSizes());
             tbAttachment.setPictureSize(uploadInfo.getPictureSize());
@@ -113,7 +115,7 @@ public class TbSuModelServiceImpl extends ServiceImpl<TbSuModelMapper, TbSuModel
             tbAttachment.setCreateTime(LocalDateTime.now());
             tbAttachment.setUpdateTime(LocalDateTime.now());
             tbAttachmentMapper.insert(tbAttachment);
-            if(uploadInfo.getType() == 1) {
+            if(uploadInfo.getImgType() == 1) {
             	tbSuModel.setMainGraph(tbAttachment.getId().toString());
             	baseMapper.updateById(tbSuModel);
             }
@@ -170,7 +172,9 @@ public class TbSuModelServiceImpl extends ServiceImpl<TbSuModelMapper, TbSuModel
             tbAttachment.setAttachmentPath(uploadInfo.getFile());
             tbAttachment.setPhysicalPath(uploadInfo.getFile());
             tbAttachment.setAliasName(uploadInfo.getRealName());
-            tbAttachment.setReType(uploadInfo.getType());
+            tbAttachment.setReType(ReTypeEnum.SUMODEL.getKey());
+            tbAttachment.setUploadVersion(uploadInfo.getUploadVersion());
+            tbAttachment.setImgType(uploadInfo.getImgType());
             tbAttachment.setSuffix(uploadInfo.getFileSuffix());
             tbAttachment.setAttachmentSize(uploadInfo.getSizes());
             tbAttachment.setPictureSize(uploadInfo.getPictureSize());
@@ -180,7 +184,7 @@ public class TbSuModelServiceImpl extends ServiceImpl<TbSuModelMapper, TbSuModel
             tbAttachment.setCreateTime(LocalDateTime.now());
             tbAttachment.setUpdateTime(LocalDateTime.now());
             tbAttachmentMapper.insert(tbAttachment);
-            if(uploadInfo.getType() == 1) {
+            if(uploadInfo.getImgType() == 1) {
             	tbSuModel.setMainGraph(tbAttachment.getId().toString());
             	baseMapper.updateById(tbSuModel);
             }

@@ -257,7 +257,10 @@ public class BannerController extends BaseController{
 			HomePageSimplifyData homePageSimplifyData = new HomePageSimplifyData();
 			homePageSimplifyData.setReId(tbThreedModel.getId().toString());
 			homePageSimplifyData.setReType(ReTypeEnum.MODEL.getKey());
-			homePageSimplifyData.setMainGraph(tbThreedModel.getMainGraph());
+			TbAttachment tbAttachment = tbAttachmentService.getById(tbThreedModel.getMainGraph());
+	        if(tbAttachment != null) {
+	        	homePageSimplifyData.setMainGraph(tbAttachment.getAttachmentPath());
+	        }
 			homePageSimplifyData.setTitle(tbThreedModel.getTitle());
 			homePageSimplifyData.setPrice(tbThreedModel.getPrice());
 			homePageSimplifyData.setType(tbThreedModel.getType());
@@ -286,7 +289,10 @@ public class BannerController extends BaseController{
 			HomePageSimplifyData homePageSimplifyData = new HomePageSimplifyData();
 			homePageSimplifyData.setReId(tbSuModel.getId().toString());
 			homePageSimplifyData.setReType(ReTypeEnum.SUMODEL.getKey());
-			homePageSimplifyData.setMainGraph(tbSuModel.getMainGraph());
+			TbAttachment tbAttachment = tbAttachmentService.getById(tbSuModel.getMainGraph());
+	        if(tbAttachment != null) {
+	        	homePageSimplifyData.setMainGraph(tbAttachment.getAttachmentPath());
+	        }
 			homePageSimplifyData.setTitle(tbSuModel.getTitle());
 			homePageSimplifyData.setPrice(tbSuModel.getPrice());
 			homePageSimplifyData.setType(tbSuModel.getType());
@@ -315,7 +321,10 @@ public class BannerController extends BaseController{
 			HomePageSimplifyData homePageSimplifyData = new HomePageSimplifyData();
 			homePageSimplifyData.setReId(tbDrawingScheme.getId().toString());
 			homePageSimplifyData.setReType(ReTypeEnum.SUMODEL.getKey());
-			homePageSimplifyData.setMainGraph(tbDrawingScheme.getMainGraph());
+			TbAttachment tbAttachment = tbAttachmentService.getById(tbDrawingScheme.getMainGraph());
+	        if(tbAttachment != null) {
+	        	homePageSimplifyData.setMainGraph(tbAttachment.getAttachmentPath());
+	        }
 			homePageSimplifyData.setTitle(tbDrawingScheme.getTitle());
 			homePageSimplifyData.setPrice(tbDrawingScheme.getPrice());
 			homePageSimplifyData.setType(tbDrawingScheme.getType());
@@ -344,7 +353,10 @@ public class BannerController extends BaseController{
 			HomePageSimplifyData homePageSimplifyData = new HomePageSimplifyData();
 			homePageSimplifyData.setReId(tbHdMapping.getId().toString());
 			homePageSimplifyData.setReType(ReTypeEnum.HD.getKey());
-			homePageSimplifyData.setMainGraph(tbHdMapping.getMainGraph());
+			TbAttachment tbAttachment = tbAttachmentService.getById(tbHdMapping.getMainGraph());
+	        if(tbAttachment != null) {
+	        	homePageSimplifyData.setMainGraph(tbAttachment.getAttachmentPath());
+	        }
 			homePageSimplifyData.setTitle(tbHdMapping.getTitle());
 			homePageHDDataList.add(homePageSimplifyData);
 		}

@@ -80,7 +80,10 @@ public class ThreeDModelController extends BaseController{
 					HomePageSimplifyData homePageSimplifyData = new HomePageSimplifyData();
 					homePageSimplifyData.setReId(tbThreedModel.getId().toString());
 					homePageSimplifyData.setReType(ReTypeEnum.MODEL.getKey());
-					homePageSimplifyData.setMainGraph(tbThreedModel.getMainGraph());
+					TbAttachment tbAttachment = tbAttachmentService.getById(tbThreedModel.getMainGraph());
+			        if(tbAttachment != null) {
+			        	homePageSimplifyData.setMainGraph(tbAttachment.getAttachmentPath());
+			        }
 					homePageSimplifyData.setTitle(tbThreedModel.getTitle());
 					homePageSimplifyData.setPrice(tbThreedModel.getPrice());
 					homePageSimplifyData.setType(tbThreedModel.getType());
@@ -129,7 +132,8 @@ public class ThreeDModelController extends BaseController{
 			        if(DataUtils.isNotEmpty(attachmentList)) {
 			        	for (TbAttachment tbAttachment : attachmentList) {
 							UploadInfo uploadInfo = new UploadInfo();
-							uploadInfo.setType(tbAttachment.getReType());
+							uploadInfo.setUploadVersion(tbAttachment.getUploadVersion());
+							uploadInfo.setImgType(tbAttachment.getImgType());
 							uploadInfo.setFileName(tbAttachment.getAttachmentName());
 							uploadInfo.setFile(tbAttachment.getAttachmentPath());
 							uploadInfo.setRealName(tbAttachment.getAliasName());
@@ -183,7 +187,10 @@ public class ThreeDModelController extends BaseController{
 				for (TbThreedModel tbThreedModel : iPage.getRecords()) {
 					ModelListVO modelListVO = new ModelListVO();
 					modelListVO.setModelId(tbThreedModel.getId().toString());
-					modelListVO.setMainGraph(tbThreedModel.getMainGraph());
+					TbAttachment tbAttachment = tbAttachmentService.getById(tbThreedModel.getMainGraph());
+			        if(tbAttachment != null) {
+			        	modelListVO.setMainGraph(tbAttachment.getAttachmentPath());
+			        }
 					modelListVO.setCode(tbThreedModel.getCode());
 					modelListVO.setPrimaryClassName(tbThreedModel.getPrimaryClassName());
 					modelListVO.setSecondaryClassName(tbThreedModel.getSecondaryClassName());
@@ -267,7 +274,8 @@ public class ThreeDModelController extends BaseController{
 			        if(DataUtils.isNotEmpty(attachmentList)) {
 			        	for (TbAttachment tbAttachment : attachmentList) {
 							UploadInfo uploadInfo = new UploadInfo();
-							uploadInfo.setType(tbAttachment.getReType());
+							uploadInfo.setUploadVersion(tbAttachment.getUploadVersion());
+							uploadInfo.setImgType(tbAttachment.getImgType());
 							uploadInfo.setFileName(tbAttachment.getAttachmentName());
 							uploadInfo.setFile(tbAttachment.getAttachmentPath());
 							uploadInfo.setRealName(tbAttachment.getAliasName());

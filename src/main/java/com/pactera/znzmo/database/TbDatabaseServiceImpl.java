@@ -100,7 +100,9 @@ public class TbDatabaseServiceImpl extends ServiceImpl<TbDatabaseMapper, TbDatab
             tbAttachment.setAttachmentPath(uploadInfo.getFile());
             tbAttachment.setPhysicalPath(uploadInfo.getFile());
             tbAttachment.setAliasName(uploadInfo.getRealName());
-            tbAttachment.setReType(uploadInfo.getType());
+            tbAttachment.setReType(ReTypeEnum.DATABASE.getKey());
+            tbAttachment.setUploadVersion(uploadInfo.getUploadVersion());
+            tbAttachment.setImgType(uploadInfo.getImgType());
             tbAttachment.setSuffix(uploadInfo.getFileSuffix());
             tbAttachment.setAttachmentSize(uploadInfo.getSizes());
             tbAttachment.setPictureSize(uploadInfo.getPictureSize());
@@ -110,7 +112,7 @@ public class TbDatabaseServiceImpl extends ServiceImpl<TbDatabaseMapper, TbDatab
             tbAttachment.setCreateTime(LocalDateTime.now());
             tbAttachment.setUpdateTime(LocalDateTime.now());
             tbAttachmentMapper.insert(tbAttachment);
-            if(uploadInfo.getType() == 1) {
+            if(uploadInfo.getImgType() == 1) {
             	tbDatabase.setMainGraph(tbAttachment.getId().toString());
             	baseMapper.updateById(tbDatabase);
             }
@@ -164,7 +166,9 @@ public class TbDatabaseServiceImpl extends ServiceImpl<TbDatabaseMapper, TbDatab
             tbAttachment.setAttachmentPath(uploadInfo.getFile());
             tbAttachment.setPhysicalPath(uploadInfo.getFile());
             tbAttachment.setAliasName(uploadInfo.getRealName());
-            tbAttachment.setReType(uploadInfo.getType());
+            tbAttachment.setReType(ReTypeEnum.DATABASE.getKey());
+            tbAttachment.setUploadVersion(uploadInfo.getUploadVersion());
+            tbAttachment.setImgType(uploadInfo.getImgType());
             tbAttachment.setSuffix(uploadInfo.getFileSuffix());
             tbAttachment.setAttachmentSize(uploadInfo.getSizes());
             tbAttachment.setPictureSize(uploadInfo.getPictureSize());
@@ -174,7 +178,7 @@ public class TbDatabaseServiceImpl extends ServiceImpl<TbDatabaseMapper, TbDatab
             tbAttachment.setCreateTime(LocalDateTime.now());
             tbAttachment.setUpdateTime(LocalDateTime.now());
             tbAttachmentMapper.insert(tbAttachment);
-            if(uploadInfo.getType() == 1) {
+            if(uploadInfo.getImgType() == 1) {
             	tbDatabase.setMainGraph(tbAttachment.getId().toString());
             	baseMapper.updateById(tbDatabase);
             }

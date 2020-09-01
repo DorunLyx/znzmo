@@ -102,7 +102,9 @@ public class TbThreedModelServiceImpl extends ServiceImpl<TbThreedModelMapper, T
             tbAttachment.setAttachmentPath(uploadInfo.getFile());
             tbAttachment.setPhysicalPath(uploadInfo.getFile());
             tbAttachment.setAliasName(uploadInfo.getRealName());
-            tbAttachment.setReType(uploadInfo.getType());
+            tbAttachment.setReType(ReTypeEnum.MODEL.getKey());
+            tbAttachment.setUploadVersion(uploadInfo.getUploadVersion());
+            tbAttachment.setImgType(uploadInfo.getImgType());
             tbAttachment.setSuffix(uploadInfo.getFileSuffix());
             tbAttachment.setAttachmentSize(uploadInfo.getSizes());
             tbAttachment.setPictureSize(uploadInfo.getPictureSize());
@@ -112,7 +114,7 @@ public class TbThreedModelServiceImpl extends ServiceImpl<TbThreedModelMapper, T
             tbAttachment.setCreateTime(LocalDateTime.now());
             tbAttachment.setUpdateTime(LocalDateTime.now());
             tbAttachmentMapper.insert(tbAttachment);
-            if(uploadInfo.getType() == 1) {
+            if(uploadInfo.getImgType() == 1) {
             	tbThreedModel.setMainGraph(tbAttachment.getId().toString());
             	baseMapper.updateById(tbThreedModel);
             }
@@ -168,7 +170,9 @@ public class TbThreedModelServiceImpl extends ServiceImpl<TbThreedModelMapper, T
             tbAttachment.setAttachmentPath(uploadInfo.getFile());
             tbAttachment.setPhysicalPath(uploadInfo.getFile());
             tbAttachment.setAliasName(uploadInfo.getRealName());
-            tbAttachment.setReType(uploadInfo.getType());
+            tbAttachment.setReType(ReTypeEnum.MODEL.getKey());
+            tbAttachment.setUploadVersion(uploadInfo.getUploadVersion());
+            tbAttachment.setImgType(uploadInfo.getImgType());
             tbAttachment.setSuffix(uploadInfo.getFileSuffix());
             tbAttachment.setAttachmentSize(uploadInfo.getSizes());
             tbAttachment.setPictureSize(uploadInfo.getPictureSize());
@@ -178,7 +182,7 @@ public class TbThreedModelServiceImpl extends ServiceImpl<TbThreedModelMapper, T
             tbAttachment.setCreateTime(LocalDateTime.now());
             tbAttachment.setUpdateTime(LocalDateTime.now());
             tbAttachmentMapper.insert(tbAttachment);
-            if(uploadInfo.getType() == 1) {
+            if(uploadInfo.getImgType() == 1) {
             	tbThreedModel.setMainGraph(tbAttachment.getId().toString());
             	baseMapper.updateById(tbThreedModel);
             }

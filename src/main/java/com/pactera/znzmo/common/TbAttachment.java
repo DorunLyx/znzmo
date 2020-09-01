@@ -1,11 +1,9 @@
 package com.pactera.znzmo.common;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
-
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableId;
-
+import java.time.LocalDateTime;
+import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -16,7 +14,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author liyongxu
- * @since 2020-08-03
+ * @since 2020-09-01
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -35,11 +33,21 @@ public class TbAttachment implements Serializable {
      * 关联外键id
      */
     private Long relationId;
-    
+
     /**
      * 关联业务类型
      */
     private Integer reType;
+
+    /**
+     * 上传版本
+     */
+    private String uploadVersion;
+
+    /**
+     * 图片类型
+     */
+    private Integer imgType;
 
     /**
      * 附件名称
@@ -75,7 +83,7 @@ public class TbAttachment implements Serializable {
      * 附件描述
      */
     private String attachmentDesc;
-    
+
     /**
      * 图片尺寸
      */
@@ -130,8 +138,12 @@ public class TbAttachment implements Serializable {
     public static final String ID = "id";
 
     public static final String RELATION_ID = "relation_id";
-    
+
     public static final String RE_TYPE = "re_type";
+
+    public static final String UPLOAD_VERSION = "upload_version";
+
+    public static final String IMG_TYPE = "img_type";
 
     public static final String ATTACHMENT_NAME = "attachment_name";
 
@@ -146,7 +158,7 @@ public class TbAttachment implements Serializable {
     public static final String ATTACHMENT_SIZE = "attachment_size";
 
     public static final String ATTACHMENT_DESC = "attachment_desc";
-    
+
     public static final String PICTURE_SIZE = "picture_size";
 
     public static final String IS_VALID = "is_valid";

@@ -107,7 +107,9 @@ public class TbDrawingSchemeServiceImpl extends ServiceImpl<TbDrawingSchemeMappe
             tbAttachment.setAttachmentPath(uploadInfo.getFile());
             tbAttachment.setPhysicalPath(uploadInfo.getFile());
             tbAttachment.setAliasName(uploadInfo.getRealName());
-            tbAttachment.setReType(uploadInfo.getType());
+            tbAttachment.setReType(ReTypeEnum.DRAWING.getKey());
+            tbAttachment.setUploadVersion(uploadInfo.getUploadVersion());
+            tbAttachment.setImgType(uploadInfo.getImgType());
             tbAttachment.setSuffix(uploadInfo.getFileSuffix());
             tbAttachment.setAttachmentSize(uploadInfo.getSizes());
             tbAttachment.setPictureSize(uploadInfo.getPictureSize());
@@ -117,7 +119,7 @@ public class TbDrawingSchemeServiceImpl extends ServiceImpl<TbDrawingSchemeMappe
             tbAttachment.setCreateTime(LocalDateTime.now());
             tbAttachment.setUpdateTime(LocalDateTime.now());
             tbAttachmentMapper.insert(tbAttachment);
-            if(uploadInfo.getType() == 1) {
+            if(uploadInfo.getImgType() == 1) {
             	tbDrawing.setMainGraph(tbAttachment.getId().toString());
             	baseMapper.updateById(tbDrawing);
             }
@@ -177,7 +179,9 @@ public class TbDrawingSchemeServiceImpl extends ServiceImpl<TbDrawingSchemeMappe
             tbAttachment.setAttachmentPath(uploadInfo.getFile());
             tbAttachment.setPhysicalPath(uploadInfo.getFile());
             tbAttachment.setAliasName(uploadInfo.getRealName());
-            tbAttachment.setReType(uploadInfo.getType());
+            tbAttachment.setReType(ReTypeEnum.DRAWING.getKey());
+            tbAttachment.setUploadVersion(uploadInfo.getUploadVersion());
+            tbAttachment.setImgType(uploadInfo.getImgType());
             tbAttachment.setSuffix(uploadInfo.getFileSuffix());
             tbAttachment.setAttachmentSize(uploadInfo.getSizes());
             tbAttachment.setPictureSize(uploadInfo.getPictureSize());
@@ -187,7 +191,7 @@ public class TbDrawingSchemeServiceImpl extends ServiceImpl<TbDrawingSchemeMappe
             tbAttachment.setCreateTime(LocalDateTime.now());
             tbAttachment.setUpdateTime(LocalDateTime.now());
             tbAttachmentMapper.insert(tbAttachment);
-            if(uploadInfo.getType() == 1) {
+            if(uploadInfo.getImgType() == 1) {
             	tbDrawing.setMainGraph(tbAttachment.getId().toString());
             	baseMapper.updateById(tbDrawing);
             }

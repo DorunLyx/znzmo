@@ -100,7 +100,9 @@ public class TbHdMappingServiceImpl extends ServiceImpl<TbHdMappingMapper, TbHdM
             tbAttachment.setAttachmentPath(uploadInfo.getFile());
             tbAttachment.setPhysicalPath(uploadInfo.getFile());
             tbAttachment.setAliasName(uploadInfo.getRealName());
-            tbAttachment.setReType(uploadInfo.getType());
+            tbAttachment.setReType(ReTypeEnum.HD.getKey());
+            tbAttachment.setUploadVersion(uploadInfo.getUploadVersion());
+            tbAttachment.setImgType(uploadInfo.getImgType());
             tbAttachment.setSuffix(uploadInfo.getFileSuffix());
             tbAttachment.setAttachmentSize(uploadInfo.getSizes());
             tbAttachment.setPictureSize(uploadInfo.getPictureSize());
@@ -110,7 +112,7 @@ public class TbHdMappingServiceImpl extends ServiceImpl<TbHdMappingMapper, TbHdM
             tbAttachment.setCreateTime(LocalDateTime.now());
             tbAttachment.setUpdateTime(LocalDateTime.now());
             tbAttachmentMapper.insert(tbAttachment);
-            if(uploadInfo.getType() == 1) {
+            if(uploadInfo.getImgType() == 1) {
             	tbHdMapping.setMainGraph(tbAttachment.getId().toString());
             	baseMapper.updateById(tbHdMapping);
             }
@@ -164,7 +166,9 @@ public class TbHdMappingServiceImpl extends ServiceImpl<TbHdMappingMapper, TbHdM
             tbAttachment.setAttachmentPath(uploadInfo.getFile());
             tbAttachment.setPhysicalPath(uploadInfo.getFile());
             tbAttachment.setAliasName(uploadInfo.getRealName());
-            tbAttachment.setReType(uploadInfo.getType());
+            tbAttachment.setReType(ReTypeEnum.HD.getKey());
+            tbAttachment.setUploadVersion(uploadInfo.getUploadVersion());
+            tbAttachment.setImgType(uploadInfo.getImgType());
             tbAttachment.setSuffix(uploadInfo.getFileSuffix());
             tbAttachment.setAttachmentSize(uploadInfo.getSizes());
             tbAttachment.setPictureSize(uploadInfo.getPictureSize());
@@ -174,7 +178,7 @@ public class TbHdMappingServiceImpl extends ServiceImpl<TbHdMappingMapper, TbHdM
             tbAttachment.setCreateTime(LocalDateTime.now());
             tbAttachment.setUpdateTime(LocalDateTime.now());
             tbAttachmentMapper.insert(tbAttachment);
-            if(uploadInfo.getType() == 1) {
+            if(uploadInfo.getImgType() == 1) {
             	tbHdMapping.setMainGraph(tbAttachment.getId().toString());
             	baseMapper.updateById(tbHdMapping);
             }

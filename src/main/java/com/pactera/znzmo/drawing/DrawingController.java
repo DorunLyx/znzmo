@@ -129,7 +129,8 @@ public class DrawingController extends BaseController{
 					if(DataUtils.isNotEmpty(attachmentList)) {
 						for (TbAttachment tbAttachment : attachmentList) {
 							UploadInfo uploadInfo = new UploadInfo();
-							uploadInfo.setType(tbAttachment.getReType());
+							uploadInfo.setUploadVersion(tbAttachment.getUploadVersion());
+							uploadInfo.setImgType(tbAttachment.getImgType());
 							uploadInfo.setFileName(tbAttachment.getAttachmentName());
 							uploadInfo.setFile(tbAttachment.getAttachmentPath());
 							uploadInfo.setRealName(tbAttachment.getAliasName());
@@ -277,7 +278,8 @@ public class DrawingController extends BaseController{
 					if(DataUtils.isNotEmpty(attachmentList)) {
 						for (TbAttachment tbAttachment : attachmentList) {
 							UploadInfo uploadInfo = new UploadInfo();
-							uploadInfo.setType(tbAttachment.getReType());
+							uploadInfo.setUploadVersion(tbAttachment.getUploadVersion());
+							uploadInfo.setImgType(tbAttachment.getImgType());
 							uploadInfo.setFileName(tbAttachment.getAttachmentName());
 							uploadInfo.setFile(tbAttachment.getAttachmentPath());
 							uploadInfo.setRealName(tbAttachment.getAliasName());
