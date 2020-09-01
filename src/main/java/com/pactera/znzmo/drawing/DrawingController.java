@@ -80,7 +80,10 @@ public class DrawingController extends BaseController{
 					HomePageSimplifyData homePageSimplifyData = new HomePageSimplifyData();
 					homePageSimplifyData.setReId(tbDrawing.getId().toString());
 					homePageSimplifyData.setReType(ReTypeEnum.MODEL.getKey());
-					homePageSimplifyData.setMainGraph(tbDrawing.getMainGraph());
+					TbAttachment tbAttachment = tbAttachmentService.getById(tbDrawing.getMainGraph());
+			        if(tbAttachment != null) {
+			        	homePageSimplifyData.setMainGraph(tbAttachment.getAttachmentPath());
+			        }
 					homePageSimplifyData.setTitle(tbDrawing.getTitle());
 					homePageSimplifyData.setPrice(tbDrawing.getPrice());
 					homePageSimplifyData.setType(tbDrawing.getType());
@@ -183,7 +186,10 @@ public class DrawingController extends BaseController{
 				for (TbDrawingScheme tbDrawing : iPage.getRecords()) {
 					ModelListVO modelListVO = new ModelListVO();
 					modelListVO.setModelId(tbDrawing.getId().toString());
-					modelListVO.setMainGraph(tbDrawing.getMainGraph());
+					TbAttachment tbAttachment = tbAttachmentService.getById(tbDrawing.getMainGraph());
+			        if(tbAttachment != null) {
+			        	modelListVO.setMainGraph(tbAttachment.getAttachmentPath());
+			        }
 					modelListVO.setCode(tbDrawing.getCode());
 					modelListVO.setPrimaryClassName(tbDrawing.getPrimaryClassName());
 					modelListVO.setSecondaryClassName(tbDrawing.getSecondaryClassName());

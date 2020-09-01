@@ -28,6 +28,7 @@ import com.pactera.znzmo.vo.database.DatabaseDetailsVO;
 import com.pactera.znzmo.vo.database.DatabaseInfoVO;
 import com.pactera.znzmo.vo.database.DatabaseUpdateParam;
 import com.pactera.znzmo.vo.homepage.HomePageSimplifyData;
+import com.pactera.znzmo.vo.model.ModelListVO;
 import com.pactera.znzmo.vo.model.ModelQueryDetailsParam;
 import com.pactera.znzmo.vo.model.ModelQueryParam;
 import com.pactera.znzmo.web.BaseController;
@@ -58,7 +59,7 @@ public class DatabaseController extends BaseController{
 	public static final Logger logger = LoggerFactory.getLogger(DatabaseController.class);
 
 	/**
-	 * @Title: getDatabaseList 
+	 * @Title: getDatabasePage 
 	 * @Description: 资料库管理列表查询
 	 * @param modelQueryParam
 	 * @return JsonResp
@@ -66,8 +67,8 @@ public class DatabaseController extends BaseController{
 	 * @date 2020年8月13日 上午11:48:28 
 	*/
 	@ApiOperation(value = "资料库管理列表查询", httpMethod = "POST", notes = "资料库管理列表查询")
-    @RequestMapping(value = "/getDatabaseList", method = {RequestMethod.POST})
-    public JsonResp getDatabaseList(
+    @RequestMapping(value = "/getDatabasePage", method = {RequestMethod.POST})
+    public JsonResp getDatabasePage(
     		@ApiParam(name="modelQueryParam", value="资料库列表筛选参数", required=false)@RequestBody ModelQueryParam modelQueryParam) {
 		Supplier<IPage<HomePageSimplifyData>> businessHandler = () ->{
 			try {
@@ -79,7 +80,10 @@ public class DatabaseController extends BaseController{
 					HomePageSimplifyData homePageSimplifyData = new HomePageSimplifyData();
 					homePageSimplifyData.setReId(tbDatabase.getId().toString());
 					homePageSimplifyData.setReType(ReTypeEnum.MODEL.getKey());
-					homePageSimplifyData.setMainGraph(tbDatabase.getMainGraph());
+					TbAttachment tbAttachment = tbAttachmentService.getById(tbDatabase.getMainGraph());
+			        if(tbAttachment != null) {
+			        	homePageSimplifyData.setMainGraph(tbAttachment.getAttachmentPath());
+			        }
 					homePageSimplifyData.setTitle(tbDatabase.getTitle());
 					homePageSimplifyData.setPrice(tbDatabase.getPrice());
 					homePageSimplifyData.setType(tbDatabase.getType());
@@ -153,6 +157,57 @@ public class DatabaseController extends BaseController{
 					databaseDetailsVO.setPrice(tbDatabase.getPrice());
 					return databaseDetailsVO;
 				}
+			} catch (Exception e) {
+				throwException(e);
+			}
+			return null;
+		};
+		return handleRequest(businessHandler);
+    }
+	
+	/**
+	 * @Title: getDatabaseList 
+	 * @Description: 资料库列表查询
+	 * @param modelQueryParam
+	 * @return JsonResp
+	 * @author liyongxu
+	 * @date 2020年9月1日 上午11:15:12 
+	*/
+	@ApiOperation(value = "资料库列表查询", httpMethod = "POST", notes = "资料库列表查询")
+    @RequestMapping(value = "/getDatabaseList", method = {RequestMethod.POST})
+    public JsonResp getDatabaseList(
+    		@ApiParam(name="modelQueryParam", value="图纸列表筛选参数", required=false)@RequestBody ModelQueryParam modelQueryParam) {
+		Supplier<IPage<ModelListVO>> businessHandler = () ->{
+			try {
+				List<ModelListVO> modelList = new ArrayList<ModelListVO>();
+				Page<TbDatabase> page = new Page<TbDatabase>(modelQueryParam.getPageNo(), modelQueryParam.getPageSize());
+				IPage<ModelListVO> modeListPage =  new Page<ModelListVO>(modelQueryParam.getPageNo(), modelQueryParam.getPageSize());
+				IPage<TbDatabase> iPage = tbDatabaseService.selectDatabasePages(page, modelQueryParam);
+				for (TbDatabase tbDatabase : iPage.getRecords()) {
+					ModelListVO modelListVO = new ModelListVO();
+					modelListVO.setModelId(tbDatabase.getId().toString());
+					TbAttachment tbAttachment = tbAttachmentService.getById(tbDatabase.getMainGraph());
+			        if(tbAttachment != null) {
+			        	modelListVO.setMainGraph(tbAttachment.getAttachmentPath());
+			        }
+					modelListVO.setCode(tbDatabase.getCode());
+					modelListVO.setPrimaryClassName(tbDatabase.getPrimaryClassName());
+					modelListVO.setSecondaryClassName(tbDatabase.getSecondaryClassName());
+					modelListVO.setStyleName(tbDatabase.getStyleName());
+					modelListVO.setTitle(tbDatabase.getTitle());
+					modelListVO.setType(tbDatabase.getType());
+					modelListVO.setPrice(tbDatabase.getPrice());
+					modelListVO.setStatus(tbDatabase.getStatus());
+					modelListVO.setVisitsNum(tbDatabase.getVisitsNum());
+					modelListVO.setDownloadNum(tbDatabase.getDownloadNum());
+					modelList.add(modelListVO);
+	    		}
+				modeListPage.setRecords(modelList);
+				modeListPage.setCurrent(iPage.getCurrent());
+				modeListPage.setPages(iPage.getPages());
+				modeListPage.setSize(iPage.getSize());
+				modeListPage.setTotal(iPage.getTotal());			
+				return modeListPage;
 			} catch (Exception e) {
 				throwException(e);
 			}

@@ -80,7 +80,10 @@ public class HDController extends BaseController{
 					HomePageSimplifyData homePageSimplifyData = new HomePageSimplifyData();
 					homePageSimplifyData.setReId(tbHdMapping.getId().toString());
 					homePageSimplifyData.setReType(ReTypeEnum.MODEL.getKey());
-					homePageSimplifyData.setMainGraph(tbHdMapping.getMainGraph());
+					TbAttachment tbAttachment = tbAttachmentService.getById(tbHdMapping.getMainGraph());
+			        if(tbAttachment != null) {
+			        	homePageSimplifyData.setMainGraph(tbAttachment.getAttachmentPath());
+			        }
 					homePageSimplifyData.setTitle(tbHdMapping.getTitle());
 					homePageSimplifyData.setPrice(tbHdMapping.getPrice());
 					homePageSimplifyData.setType(tbHdMapping.getType());
@@ -181,7 +184,10 @@ public class HDController extends BaseController{
 				for (TbHdMapping tbHdMapping : iPage.getRecords()) {
 					ModelListVO modelListVO = new ModelListVO();
 					modelListVO.setModelId(tbHdMapping.getId().toString());
-					modelListVO.setMainGraph(tbHdMapping.getMainGraph());
+					TbAttachment tbAttachment = tbAttachmentService.getById(tbHdMapping.getMainGraph());
+			        if(tbAttachment != null) {
+			        	modelListVO.setMainGraph(tbAttachment.getAttachmentPath());
+			        }
 					modelListVO.setCode(tbHdMapping.getCode());
 					modelListVO.setPrimaryClassName(tbHdMapping.getPrimaryClassName());
 					modelListVO.setSecondaryClassName(tbHdMapping.getSecondaryClassName());

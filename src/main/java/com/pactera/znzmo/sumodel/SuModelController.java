@@ -80,7 +80,10 @@ public class SuModelController extends BaseController{
 					HomePageSimplifyData homePageSimplifyData = new HomePageSimplifyData();
 					homePageSimplifyData.setReId(tbSuModel.getId().toString());
 					homePageSimplifyData.setReType(ReTypeEnum.MODEL.getKey());
-					homePageSimplifyData.setMainGraph(tbSuModel.getMainGraph());
+					TbAttachment tbAttachment = tbAttachmentService.getById(tbSuModel.getMainGraph());
+			        if(tbAttachment != null) {
+			        	homePageSimplifyData.setMainGraph(tbAttachment.getAttachmentPath());
+			        }
 					homePageSimplifyData.setTitle(tbSuModel.getTitle());
 					homePageSimplifyData.setPrice(tbSuModel.getPrice());
 					homePageSimplifyData.setType(tbSuModel.getType());
@@ -183,7 +186,10 @@ public class SuModelController extends BaseController{
 				for (TbSuModel tbSuModel : iPage.getRecords()) {
 					ModelListVO modelListVO = new ModelListVO();
 					modelListVO.setModelId(tbSuModel.getId().toString());
-					modelListVO.setMainGraph(tbSuModel.getMainGraph());
+					TbAttachment tbAttachment = tbAttachmentService.getById(tbSuModel.getMainGraph());
+			        if(tbAttachment != null) {
+			        	modelListVO.setMainGraph(tbAttachment.getAttachmentPath());
+			        }
 					modelListVO.setCode(tbSuModel.getCode());
 					modelListVO.setPrimaryClassName(tbSuModel.getPrimaryClassName());
 					modelListVO.setSecondaryClassName(tbSuModel.getSecondaryClassName());
