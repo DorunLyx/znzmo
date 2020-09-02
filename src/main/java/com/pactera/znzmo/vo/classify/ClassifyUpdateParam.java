@@ -32,7 +32,4 @@ public class ClassifyUpdateParam {
 	
 	@ApiModelProperty(value="排序", name="sort")
 	private Integer sort;
-	
-	@ApiModelProperty(value="分类类型", name="type")
-	private Integer type;
 }

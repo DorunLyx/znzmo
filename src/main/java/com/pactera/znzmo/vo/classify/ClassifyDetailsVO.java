@@ -16,7 +16,7 @@ import lombok.Data;
 public class ClassifyDetailsVO {
 
 	@ApiModelProperty(value="分类Id", name="classifyId")
-	private String classifyId;
+	private Long classifyId;
 
 	@ApiModelProperty(value="分类名称", name="classifyName")
 	private String classifyName;

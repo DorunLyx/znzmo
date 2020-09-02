@@ -66,6 +66,16 @@ public interface TbClassService extends IService<TbClass> {
 	 * @param page 
 	 * @date 2020年8月19日 下午4:38:51 
 	*/
-	IPage<TbClass> selectClassifyList(Page<TbClass> page, ClassifyQueryParam classifyQueryParam);
+	IPage<TbClass> selectClassifyPage(Page<TbClass> page, ClassifyQueryParam classifyQueryParam);
+
+	/**
+	 * @Title: selectClassifyList 
+	 * @Description: TODO(这里用一句话描述这个方法的作用)
+	 * @param classifyQueryParam
+	 * @return List<TbClass>
+	 * @author liyongxu
+	 * @date 2020年9月2日 下午4:55:03 
+	*/
+	List<TbClass> selectClassifyList(ClassifyQueryParam classifyQueryParam);
 
 }

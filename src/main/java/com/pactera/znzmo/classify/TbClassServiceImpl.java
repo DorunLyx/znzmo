@@ -35,10 +35,10 @@ public class TbClassServiceImpl extends ServiceImpl<TbClassMapper, TbClass> impl
 		TbClass tbClassPInfo = baseMapper.selectById(classifyAddParam.getPId());
 		if(tbClassPInfo != null) {
 			tbClass.setPName(tbClassPInfo.getName());
+			tbClass.setType(tbClassPInfo.getType());
 		}
 		tbClass.setLevel(classifyAddParam.getLevel());
 		tbClass.setSort(classifyAddParam.getSort());
-		tbClass.setType(classifyAddParam.getType());
 		tbClass.setCreateTime(LocalDateTime.now());
 		tbClass.setUpdateTime(LocalDateTime.now());
 		baseMapper.insert(tbClass);
@@ -52,10 +52,10 @@ public class TbClassServiceImpl extends ServiceImpl<TbClassMapper, TbClass> impl
 		TbClass tbClassPInfo = baseMapper.selectById(classifyUpdateParam.getPId());
 		if(tbClassPInfo != null) {
 			tbClass.setPName(tbClassPInfo.getName());
+			tbClass.setType(tbClassPInfo.getType());
 		}
 		tbClass.setLevel(classifyUpdateParam.getLevel());
 		tbClass.setSort(classifyUpdateParam.getSort());
-		tbClass.setType(classifyUpdateParam.getType());
 		tbClass.setUpdateTime(LocalDateTime.now());
 		baseMapper.updateById(tbClass);
 	}
@@ -73,7 +73,7 @@ public class TbClassServiceImpl extends ServiceImpl<TbClassMapper, TbClass> impl
 	}
 
 	@Override
-	public IPage<TbClass> selectClassifyList(Page<TbClass> page, ClassifyQueryParam classifyQueryParam) {
+	public IPage<TbClass> selectClassifyPage(Page<TbClass> page, ClassifyQueryParam classifyQueryParam) {
 		QueryWrapper<TbClass> queryWrapper = new QueryWrapper<TbClass>();
 		if(StringUtils.isNotEmpty(classifyQueryParam.getKeyWord())) {
 			queryWrapper.like(TbClass.NAME, classifyQueryParam.getKeyWord());
@@ -86,6 +86,22 @@ public class TbClassServiceImpl extends ServiceImpl<TbClassMapper, TbClass> impl
 		}
 		queryWrapper.orderByDesc(TbClass.UPDATE_TIME);
 		return baseMapper.selectPage(page,queryWrapper);
+	}
+
+	@Override
+	public List<TbClass> selectClassifyList(ClassifyQueryParam classifyQueryParam) {
+		QueryWrapper<TbClass> queryWrapper = new QueryWrapper<TbClass>();
+		if(StringUtils.isNotEmpty(classifyQueryParam.getPId())) {
+			queryWrapper.like(TbClass.P_ID, classifyQueryParam.getPId());
+		}
+		if(StringUtils.isNotEmpty(classifyQueryParam.getType())) {
+			queryWrapper.eq(TbClass.TYPE, classifyQueryParam.getType());
+		}
+		if(StringUtils.isNotEmpty(classifyQueryParam.getLevel())) {
+			queryWrapper.eq(TbClass.LEVEL, classifyQueryParam.getLevel());
+		}
+		queryWrapper.orderByDesc(TbClass.UPDATE_TIME);
+		return baseMapper.selectList(queryWrapper);
 	}
 
 }

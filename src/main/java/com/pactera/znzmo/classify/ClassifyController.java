@@ -112,6 +112,41 @@ public class ClassifyController extends BaseController{
 	
 	/**
 	 * @Title: getClassifyList 
+	 * @Description: 分类数据查询
+	 * @param classifyQueryParam
+	 * @return JsonResp
+	 * @author liyongxu
+	 * @date 2020年9月2日 下午4:49:46 
+	*/
+	@ApiOperation(value = "分类数据查询", httpMethod = "POST", notes = "分类数据查询")
+	@RequestMapping(value = "/getClassifyList", method = {RequestMethod.POST})
+	public JsonResp getClassifyList(
+			@ApiParam(name="ClassifyQueryParam", value="分类列表筛选参数", required=false)@RequestBody ClassifyQueryParam classifyQueryParam) {
+		Supplier<List<ClassifyDetailsVO>> businessHandler = () -> {
+			try {
+				List<ClassifyDetailsVO> classifyDetailsVOList = new ArrayList<ClassifyDetailsVO>();
+		        List<TbClass> classifyList =tbClassService.selectClassifyList(classifyQueryParam);
+				for (TbClass tbClass : classifyList) {
+					ClassifyDetailsVO classifyDetailsVO = new ClassifyDetailsVO();
+					classifyDetailsVO.setClassifyId(tbClass.getId());
+					classifyDetailsVO.setClassifyName(tbClass.getName());
+					classifyDetailsVO.setPId(tbClass.getPId().toString());
+					classifyDetailsVO.setPName(tbClass.getPName());
+					classifyDetailsVO.setLevel(tbClass.getLevel());
+					classifyDetailsVO.setSort(tbClass.getSort());
+					classifyDetailsVOList.add(classifyDetailsVO);
+				}
+		        return classifyDetailsVOList;
+			} catch (Exception e) {
+				throwException(e);
+			}
+			return null;
+		};
+		return handleRequest(businessHandler);
+    }
+	
+	/**
+	 * @Title: getClassifyPage
 	 * @Description: 分类列表查询
 	 * @param classifyQueryParam
 	 * @return JsonResp
@@ -119,17 +154,18 @@ public class ClassifyController extends BaseController{
 	 * @date 2020年8月19日 下午4:37:19 
 	*/
 	@ApiOperation(value = "分类列表查询", httpMethod = "POST", notes = "分类列表查询")
-	@RequestMapping(value = "/getClassifyList", method = {RequestMethod.POST})
-	public JsonResp getClassifyList(
+	@RequestMapping(value = "/getClassifyPage", method = {RequestMethod.POST})
+	public JsonResp getClassifyPage(
 			@ApiParam(name="ClassifyQueryParam", value="分类列表筛选参数", required=false)@RequestBody ClassifyQueryParam classifyQueryParam) {
 		Supplier<IPage<ClassifyDetailsVO>> businessHandler = () -> {
 			try {
 				List<ClassifyDetailsVO> classifyDetailsVOList = new ArrayList<ClassifyDetailsVO>();
 				Page<TbClass> page = new Page<TbClass>(classifyQueryParam.getPageNo(), classifyQueryParam.getPageSize());
 		        IPage<ClassifyDetailsVO> classifyDetailsPage =  new Page<ClassifyDetailsVO>(classifyQueryParam.getPageNo(), classifyQueryParam.getPageSize());
-		        IPage<TbClass> iPage = tbClassService.selectClassifyList(page, classifyQueryParam);
+		        IPage<TbClass> iPage = tbClassService.selectClassifyPage(page, classifyQueryParam);
 				for (TbClass tbClass : iPage.getRecords()) {
 					ClassifyDetailsVO classifyDetailsVO = new ClassifyDetailsVO();
+					classifyDetailsVO.setClassifyId(tbClass.getId());
 					classifyDetailsVO.setClassifyName(tbClass.getName());
 					classifyDetailsVO.setPId(tbClass.getPId().toString());
 					classifyDetailsVO.setPName(tbClass.getPName());
