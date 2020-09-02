@@ -38,6 +38,7 @@ public class TbClassServiceImpl extends ServiceImpl<TbClassMapper, TbClass> impl
 		}
 		tbClass.setLevel(classifyAddParam.getLevel());
 		tbClass.setSort(classifyAddParam.getSort());
+		tbClass.setType(classifyAddParam.getType());
 		tbClass.setCreateTime(LocalDateTime.now());
 		tbClass.setUpdateTime(LocalDateTime.now());
 		baseMapper.insert(tbClass);
@@ -54,6 +55,7 @@ public class TbClassServiceImpl extends ServiceImpl<TbClassMapper, TbClass> impl
 		}
 		tbClass.setLevel(classifyUpdateParam.getLevel());
 		tbClass.setSort(classifyUpdateParam.getSort());
+		tbClass.setType(classifyUpdateParam.getType());
 		tbClass.setUpdateTime(LocalDateTime.now());
 		baseMapper.updateById(tbClass);
 	}
@@ -75,6 +77,12 @@ public class TbClassServiceImpl extends ServiceImpl<TbClassMapper, TbClass> impl
 		QueryWrapper<TbClass> queryWrapper = new QueryWrapper<TbClass>();
 		if(StringUtils.isNotEmpty(classifyQueryParam.getKeyWord())) {
 			queryWrapper.like(TbClass.NAME, classifyQueryParam.getKeyWord());
+		}
+		if(StringUtils.isNotEmpty(classifyQueryParam.getType())) {
+			queryWrapper.eq(TbClass.TYPE, classifyQueryParam.getType());
+		}
+		if(StringUtils.isNotEmpty(classifyQueryParam.getLevel())) {
+			queryWrapper.eq(TbClass.LEVEL, classifyQueryParam.getLevel());
 		}
 		queryWrapper.orderByDesc(TbClass.UPDATE_TIME);
 		return baseMapper.selectPage(page,queryWrapper);

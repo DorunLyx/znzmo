@@ -70,6 +70,7 @@ public class ClassifyController extends BaseController{
 						map.put("pname", tbClass.getPName());
 						map.put("leve", tbClass.getLevel());
 						map.put("sort", tbClass.getSort());
+						map.put("type", tbClass.getType());
 						map.put("children", getChildren(tbClass.getId()));
 						list.add(map);
 					}
@@ -102,6 +103,7 @@ public class ClassifyController extends BaseController{
         	map.put("pid", tbClass.getPId());
         	map.put("pname", tbClass.getPName());
         	map.put("sort", tbClass.getSort());
+        	map.put("type", tbClass.getType());
             map.put("children", getChildren(tbClass.getId()));
             list.add(map);
         }

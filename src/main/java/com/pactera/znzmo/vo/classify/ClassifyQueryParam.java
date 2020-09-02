@@ -23,4 +23,11 @@ public class ClassifyQueryParam {
 	
 	@ApiModelProperty(value="关键词", name="keyWord")
     private String keyWord;
+	
+	@ApiModelProperty(value="分类类型", name="type")
+	private String type;
+	
+	@ApiModelProperty(value="级别", name="level")
+	private String level;
+	
 }

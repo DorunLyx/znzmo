@@ -55,6 +55,11 @@ public class TbClass implements Serializable {
      * 排序
      */
     private Integer sort;
+    
+    /**
+     * 分类类型
+     */
+    private Integer type;
 
     /**
      * 创建时间
@@ -78,6 +83,8 @@ public class TbClass implements Serializable {
     public static final String LEVEL = "level";
 
     public static final String SORT = "sort";
+    
+    public static final String TYPE = "type";
 
     public static final String CREATE_TIME = "create_time";
 
