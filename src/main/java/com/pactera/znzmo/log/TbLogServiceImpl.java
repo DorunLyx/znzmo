@@ -1,6 +1,5 @@
 package com.pactera.znzmo.log;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
@@ -21,8 +20,6 @@ import com.pactera.znzmo.vo.LogQueryParam;
  */
 @Service
 public class TbLogServiceImpl extends ServiceImpl<TbLogMapper, TbLog> implements TbLogService {
-	@Autowired
-	private TbLogMapper tbLogMapper;
 
 	@Override
 	public IPage<TbLog> selectTbLogPages(Page<TbLog> page, LogQueryParam logQueryParam) {
