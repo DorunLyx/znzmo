@@ -134,9 +134,13 @@ public class MsgController extends BaseController {
 		Supplier<String> businessHandler = () -> {
 			try {
 				TbSysMsg tbSysMsg = msgService.getById(msgQueryDetailsParam.getMsgId());
-				tbSysMsg.setStatus(msgQueryDetailsParam.getStatus());
-				msgService.updateById(tbSysMsg);
-				return JsonResultEnum.ok.getValue();
+				if(tbSysMsg != null) {
+					tbSysMsg.setStatus(msgQueryDetailsParam.getStatus());
+					msgService.updateById(tbSysMsg);
+					return JsonResultEnum.ok.getValue();
+				}else {
+					return JsonResultEnum.empty.getValue();
+				}
 			} catch (Exception e) {
 				throwException(e);
 				logger.error(e.getMessage(), e);
