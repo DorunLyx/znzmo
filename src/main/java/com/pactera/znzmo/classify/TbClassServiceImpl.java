@@ -11,6 +11,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.pactera.znzmo.classify.dao.TbClassMapper;
 import com.pactera.znzmo.util.StringUtils;
+import com.pactera.znzmo.vo.classify.ClassListQueryParam;
 import com.pactera.znzmo.vo.classify.ClassifyAddParam;
 import com.pactera.znzmo.vo.classify.ClassifyQueryDetailsParam;
 import com.pactera.znzmo.vo.classify.ClassifyQueryParam;
@@ -89,16 +90,19 @@ public class TbClassServiceImpl extends ServiceImpl<TbClassMapper, TbClass> impl
 	}
 
 	@Override
-	public List<TbClass> selectClassifyList(ClassifyQueryParam classifyQueryParam) {
+	public List<TbClass> selectClassifyList(ClassListQueryParam classListQueryParam) {
 		QueryWrapper<TbClass> queryWrapper = new QueryWrapper<TbClass>();
-		if(StringUtils.isNotEmpty(classifyQueryParam.getPId())) {
-			queryWrapper.like(TbClass.P_ID, classifyQueryParam.getPId());
+		if(StringUtils.isNotEmpty(classListQueryParam.getId())) {
+			queryWrapper.like(TbClass.ID, classListQueryParam.getId());
 		}
-		if(StringUtils.isNotEmpty(classifyQueryParam.getType())) {
-			queryWrapper.eq(TbClass.TYPE, classifyQueryParam.getType());
+		if(StringUtils.isNotEmpty(classListQueryParam.getPId())) {
+			queryWrapper.like(TbClass.P_ID, classListQueryParam.getPId());
 		}
-		if(StringUtils.isNotEmpty(classifyQueryParam.getLevel())) {
-			queryWrapper.eq(TbClass.LEVEL, classifyQueryParam.getLevel());
+		if(StringUtils.isNotEmpty(classListQueryParam.getType())) {
+			queryWrapper.eq(TbClass.TYPE, classListQueryParam.getType());
+		}
+		if(StringUtils.isNotEmpty(classListQueryParam.getLevel())) {
+			queryWrapper.eq(TbClass.LEVEL, classListQueryParam.getLevel());
 		}
 		queryWrapper.orderByDesc(TbClass.UPDATE_TIME);
 		return baseMapper.selectList(queryWrapper);

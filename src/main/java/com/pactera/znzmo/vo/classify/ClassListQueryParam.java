@@ -5,24 +5,18 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 
 /**
- * @ClassName：ClassifyQueryParam
+ * @ClassName：ClassListQueryParam
  * @Description：TODO(这里用一句话描述这个类的作用) 
  * @author liyongxu 
  * @date 2020年8月19日 下午4:34:39 
  * @version 1.0.0 
  */
 @Data
-@ApiModel(value="分类列表查询参数",description="分类列表查询参数")
-public class ClassifyQueryParam {
-
-	@ApiModelProperty(value="当前页码", name="pageNo")
-	private Integer pageNo;
+@ApiModel(value="分类查询参数",description="分类查询参数")
+public class ClassListQueryParam {
 	
-	@ApiModelProperty(value="页面数量", name="pageSize")
-	private Integer pageSize;
-	
-	@ApiModelProperty(value="关键词", name="keyWord")
-    private String keyWord;
+	@ApiModelProperty(value="id", name="id")
+	private String id;
 	
 	@ApiModelProperty(value="父级id", name="pId")
 	private String pId;

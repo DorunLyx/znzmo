@@ -18,11 +18,13 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.pactera.znzmo.enums.JsonResultEnum;
 import com.pactera.znzmo.util.DataUtils;
+import com.pactera.znzmo.vo.classify.ClassListQueryParam;
 import com.pactera.znzmo.vo.classify.ClassifyAddParam;
 import com.pactera.znzmo.vo.classify.ClassifyDetailsVO;
 import com.pactera.znzmo.vo.classify.ClassifyQueryDetailsParam;
 import com.pactera.znzmo.vo.classify.ClassifyQueryParam;
 import com.pactera.znzmo.vo.classify.ClassifyUpdateParam;
+import com.pactera.znzmo.vo.classify.TabClassifyQueryParam;
 import com.pactera.znzmo.web.BaseController;
 import com.pactera.znzmo.web.JsonResp;
 
@@ -44,6 +46,9 @@ public class ClassifyController extends BaseController{
 	
 	@Autowired
 	private TbClassService tbClassService;
+	
+	@Autowired
+	private TbTabClassService tbTabClassService;
 	
 	public static final Logger logger = LoggerFactory.getLogger(ClassifyController.class);
 
@@ -113,7 +118,7 @@ public class ClassifyController extends BaseController{
 	/**
 	 * @Title: getClassifyList 
 	 * @Description: 分类数据查询
-	 * @param classifyQueryParam
+	 * @param classListQueryParam
 	 * @return JsonResp
 	 * @author liyongxu
 	 * @date 2020年9月2日 下午4:49:46 
@@ -121,11 +126,11 @@ public class ClassifyController extends BaseController{
 	@ApiOperation(value = "分类数据查询", httpMethod = "POST", notes = "分类数据查询")
 	@RequestMapping(value = "/getClassifyList", method = {RequestMethod.POST})
 	public JsonResp getClassifyList(
-			@ApiParam(name="ClassifyQueryParam", value="分类列表筛选参数", required=false)@RequestBody ClassifyQueryParam classifyQueryParam) {
+			@ApiParam(name="classListQueryParam", value="分类查询参数", required=false)@RequestBody ClassListQueryParam classListQueryParam) {
 		Supplier<List<ClassifyDetailsVO>> businessHandler = () -> {
 			try {
 				List<ClassifyDetailsVO> classifyDetailsVOList = new ArrayList<ClassifyDetailsVO>();
-		        List<TbClass> classifyList =tbClassService.selectClassifyList(classifyQueryParam);
+		        List<TbClass> classifyList =tbClassService.selectClassifyList(classListQueryParam);
 				for (TbClass tbClass : classifyList) {
 					ClassifyDetailsVO classifyDetailsVO = new ClassifyDetailsVO();
 					classifyDetailsVO.setClassifyId(tbClass.getId());
@@ -156,7 +161,7 @@ public class ClassifyController extends BaseController{
 	@ApiOperation(value = "分类列表查询", httpMethod = "POST", notes = "分类列表查询")
 	@RequestMapping(value = "/getClassifyPage", method = {RequestMethod.POST})
 	public JsonResp getClassifyPage(
-			@ApiParam(name="ClassifyQueryParam", value="分类列表筛选参数", required=false)@RequestBody ClassifyQueryParam classifyQueryParam) {
+			@ApiParam(name="classifyQueryParam", value="分类列表筛选参数", required=false)@RequestBody ClassifyQueryParam classifyQueryParam) {
 		Supplier<IPage<ClassifyDetailsVO>> businessHandler = () -> {
 			try {
 				List<ClassifyDetailsVO> classifyDetailsVOList = new ArrayList<ClassifyDetailsVO>();
@@ -291,4 +296,27 @@ public class ClassifyController extends BaseController{
 		return handleRequest(businessHandler);
 	}
 	
+	/**
+	 * @Title: getTabClassifyList 
+	 * @Description: 标签分类数据查询
+	 * @param tabClassifyQueryParam
+	 * @return JsonResp
+	 * @author liyongxu
+	 * @date 2020年9月3日 上午10:53:48 
+	*/
+	@ApiOperation(value = "标签分类数据查询", httpMethod = "POST", notes = "标签分类数据查询")
+	@RequestMapping(value = "/getTabClassifyList", method = {RequestMethod.POST})
+	public JsonResp getTabClassifyList(
+			@ApiParam(name="tabClassifyQueryParam", value="分类列表筛选参数", required=false)@RequestBody TabClassifyQueryParam tabClassifyQueryParam) {
+		Supplier<List<TbTabClass>> businessHandler = () -> {
+			try {
+		        List<TbTabClass> tabClassifyList = tbTabClassService.selectTabClassifyList(tabClassifyQueryParam);
+		        return tabClassifyList;
+			} catch (Exception e) {
+				throwException(e);
+			}
+			return null;
+		};
+		return handleRequest(businessHandler);
+    }
 }

@@ -5,6 +5,7 @@ import java.util.List;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.pactera.znzmo.vo.classify.ClassListQueryParam;
 import com.pactera.znzmo.vo.classify.ClassifyAddParam;
 import com.pactera.znzmo.vo.classify.ClassifyQueryDetailsParam;
 import com.pactera.znzmo.vo.classify.ClassifyQueryParam;
@@ -76,6 +77,6 @@ public interface TbClassService extends IService<TbClass> {
 	 * @author liyongxu
 	 * @date 2020年9月2日 下午4:55:03 
 	*/
-	List<TbClass> selectClassifyList(ClassifyQueryParam classifyQueryParam);
+	List<TbClass> selectClassifyList(ClassListQueryParam classListQueryParam);
 
 }
