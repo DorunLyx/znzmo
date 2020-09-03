@@ -34,8 +34,10 @@ import io.swagger.annotations.ApiParam;
 @RestController
 @RequestMapping(value = "/log")
 public class LogController extends BaseController {
+	
 	@Autowired
 	TbLogService tbLogService;
+	
 	public static final Logger logger = LoggerFactory.getLogger(LogController.class);
 	
 	@ApiOperation(value = "日志管理查询", httpMethod = "POST", notes = "日志查询")

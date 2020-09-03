@@ -1,11 +1,9 @@
 package com.pactera.znzmo.sysuser;
 
-import java.io.Serializable;
-import java.time.LocalDateTime;
-
 import com.baomidou.mybatisplus.annotation.IdType;
+import java.time.LocalDateTime;
 import com.baomidou.mybatisplus.annotation.TableId;
-
+import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
@@ -16,7 +14,7 @@ import lombok.experimental.Accessors;
  * </p>
  *
  * @author liyongxu
- * @since 2020-08-03
+ * @since 2020-09-03
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
@@ -52,29 +50,49 @@ public class TbRole implements Serializable {
     private Integer seq;
 
     /**
-     * 创建者
+     * 是否有效(0.无效,1.有效)
      */
-    private Long creatId;
+    private Integer isValid;
+
+    /**
+     * 创建人id
+     */
+    private Long createId;
+
+    /**
+     * 创建账号
+     */
+    private String createAccount;
+
+    /**
+     * 创建人名称
+     */
+    private String createName;
 
     /**
      * 创建时间
      */
-    private LocalDateTime creatDate;
+    private LocalDateTime createTime;
 
     /**
-     * 修改者
+     * 更新人id
      */
     private Long updateId;
 
     /**
-     * 修改时间
+     * 更新人账号
      */
-    private LocalDateTime updateDate;
+    private String updateAccount;
 
     /**
-     * 是否有效(0--有效；1--无效)
+     * 更新人名称
      */
-    private Integer isValid;
+    private String updateName;
+
+    /**
+     * 更新时间
+     */
+    private LocalDateTime updateTime;
 
 
     public static final String ID = "id";
@@ -87,14 +105,22 @@ public class TbRole implements Serializable {
 
     public static final String SEQ = "seq";
 
-    public static final String CREAT_ID = "creat_id";
+    public static final String IS_VALID = "is_valid";
 
-    public static final String CREAT_DATE = "creat_date";
+    public static final String CREATE_ID = "create_id";
+
+    public static final String CREATE_ACCOUNT = "create_account";
+
+    public static final String CREATE_NAME = "create_name";
+
+    public static final String CREATE_TIME = "create_time";
 
     public static final String UPDATE_ID = "update_id";
 
-    public static final String UPDATE_DATE = "update_date";
+    public static final String UPDATE_ACCOUNT = "update_account";
 
-    public static final String IS_VALID = "is_valid";
+    public static final String UPDATE_NAME = "update_name";
+
+    public static final String UPDATE_TIME = "update_time";
 
 }
