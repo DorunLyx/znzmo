@@ -54,6 +54,7 @@ public class TbRoleServiceImpl extends ServiceImpl<TbRoleMapper, TbRole> impleme
 		TbRole tbRole = new TbRole();
 		tbRole.setName(roleAddParam.getName());
 		tbRole.setDescription(roleAddParam.getDescription());
+		tbRole.setIsValid(IsValidEnum.NO.getKey());
 		SysUser user = sysUserService.findByUsername(SecurityUtils.getUsername());
 		tbRole.setCreateId(user.getId());
 		tbRole.setCreateName(user.getName());
@@ -83,7 +84,7 @@ public class TbRoleServiceImpl extends ServiceImpl<TbRoleMapper, TbRole> impleme
 		roleAuthQueryWrapper.eq(TbRoleAuth.ROLE_ID, roleId);
 		tbRoleAuthMapper.delete(roleAuthQueryWrapper);
 		QueryWrapper<TbRoleUser> roleUserQueryWrapper = new QueryWrapper<TbRoleUser>();
-		roleUserQueryWrapper.eq(TbRoleAuth.ROLE_ID, roleId);
+		roleUserQueryWrapper.eq(TbRoleUser.ROLE_ID, roleId);
 		tbRoleUserMapper.delete(roleUserQueryWrapper);
 	}
 

@@ -17,13 +17,18 @@
         <result column="qq_id" property="qqId" />
         <result column="wechat_id" property="wechatId" />
         <result column="alipay_id" property="alipayId" />
-        <result column="creat_id" property="creatId" />
-        <result column="creat_date" property="creatDate" />
-        <result column="update_id" property="updateId" />
-        <result column="update_date" property="updateDate" />
+        <result column="type" property="type" />
         <result column="last_login_time" property="lastLoginTime" />
         <result column="last_login_ip" property="lastLoginIp" />
         <result column="is_valid" property="isValid" />
+        <result column="create_id" property="createId" />
+        <result column="create_account" property="createAccount" />
+        <result column="create_name" property="createName" />
+        <result column="create_time" property="createTime" />
+        <result column="update_id" property="updateId" />
+        <result column="update_account" property="updateAccount" />
+        <result column="update_name" property="updateName" />
+        <result column="update_time" property="updateTime" />
     </resultMap>
 
 </mapper>

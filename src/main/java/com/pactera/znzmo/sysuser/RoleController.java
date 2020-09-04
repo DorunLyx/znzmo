@@ -50,6 +50,7 @@ public class RoleController extends BaseController {
 	
 	@Autowired
 	private TbRoleAuthService tbRoleAuthService;
+	
 	/**
 	 * @Title: getRoleList 
 	 * @Description: 角色列表查询
@@ -61,7 +62,7 @@ public class RoleController extends BaseController {
 	@ApiOperation(value = "角色列表查询", httpMethod = "POST", notes = "角色列表查询")
     @RequestMapping(value = "/getRoleList", method = {RequestMethod.POST})
     public JsonResp getRoleList(
-    		@ApiParam(name="roleQueryParam", value="3d模型列表筛选参数", required=false)@RequestBody RoleQueryParam roleQueryParam) {
+    		@ApiParam(name="roleQueryParam", value="角色列表筛选参数", required=false)@RequestBody RoleQueryParam roleQueryParam) {
 		Supplier<IPage<TbRole>> businessHandler = () -> {
 			try {
 				Page<TbRole> page = new Page<TbRole>(roleQueryParam.getPageNo(), roleQueryParam.getPageSize());
@@ -133,7 +134,7 @@ public class RoleController extends BaseController {
 	@ApiOperation(value = "角色编辑", httpMethod = "POST", notes = "角色编辑")
 	@RequestMapping(value = "/updteRole", method = {RequestMethod.POST})
 	public JsonResp updteRole(
-			@ApiParam(name="RoleUpdateParam", value="角色编辑参数", required=false)@RequestBody RoleUpdateParam roleUpdateParam) {
+			@ApiParam(name="roleUpdateParam", value="角色编辑参数", required=false)@RequestBody RoleUpdateParam roleUpdateParam) {
 		Supplier<String> businessHandler = () ->{
 			try {
 				tbRoleService.updteRole(roleUpdateParam);
