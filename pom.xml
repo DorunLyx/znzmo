@@ -21,7 +21,7 @@
 		<!-- cheat sheet -->
         <fastjson.version>1.2.58</fastjson.version>
         <streamex.version>0.6.8</streamex.version>
-        <guava.version>27.1-jre</guava.version>
+        <guava.version>29.0-jre</guava.version>
         
         <!-- http utils -->
         <okhttp.version>3.14.2</okhttp.version>
